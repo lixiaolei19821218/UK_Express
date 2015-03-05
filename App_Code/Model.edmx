@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="UK_ExpressModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="PackageDetails">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Quantity" Type="int" Nullable="false" />
+          <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PackageID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Packages">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Length" Type="decimal" Precision="18" Scale="1" Nullable="false" />
+          <Property Name="Width" Type="decimal" Precision="18" Scale="1" Nullable="false" />
+          <Property Name="Height" Type="decimal" Precision="18" Scale="1" Nullable="false" />
+          <Property Name="Weight" Type="decimal" Precision="18" Scale="1" Nullable="false" />
+          <Property Name="WaybillNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RecipientID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Recipients">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="City" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PictureLink" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Discribe" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DiscribePictureLink" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PickUpService" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_PackageID">
+          <End Role="Packages" Type="Self.Packages" Multiplicity="1" />
+          <End Role="PackageDetails" Type="Self.PackageDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Packages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageDetails">
+              <PropertyRef Name="PackageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecipientID">
+          <End Role="Recipients" Type="Self.Recipients" Multiplicity="1" />
+          <End Role="Packages" Type="Self.Packages" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipients">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Packages">
+              <PropertyRef Name="RecipientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PackageID">
+          <End Role="Packages" Type="Self.Packages" Multiplicity="1" />
+          <End Role="PackageDetails" Type="Self.PackageDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Packages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageDetails">
+              <PropertyRef Name="PackageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UK_ExpressModelStoreContainer">
+          <EntitySet Name="PackageDetails" EntityType="Self.PackageDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Packages" EntityType="Self.Packages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recipients" EntityType="Self.Recipients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Service" EntityType="Self.Service" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PackageID" Association="Self.FK_PackageID">
+            <End Role="Packages" EntitySet="Packages" />
+            <End Role="PackageDetails" EntitySet="PackageDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecipientID" Association="Self.FK_RecipientID">
+            <End Role="Recipients" EntitySet="Recipients" />
+            <End Role="Packages" EntitySet="Packages" />
+          </AssociationSet>
+          <AssociationSet Name="PackageID" Association="Self.PackageID">
+            <End Role="Packages" EntitySet="Packages" />
+            <End Role="PackageDetails" EntitySet="PackageDetails" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="UK_ExpressModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="PackageDetail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Quantity" Type="Int32" Nullable="false" />
+          <Property Name="UnitPrice" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PackageID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Package" Relationship="UK_ExpressModel.PackageID" FromRole="PackageDetail" ToRole="Package" />
+        </EntityType>
+        <EntityContainer Name="UK_ExpressEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="PackageDetails" EntityType="Self.PackageDetail" />
+          <EntitySet Name="Packages" EntityType="UK_ExpressModel.Package" />
+          <AssociationSet Name="PackageID" Association="UK_ExpressModel.PackageID">
+            <End Role="Package" EntitySet="Packages" />
+            <End Role="PackageDetail" EntitySet="PackageDetails" />
+          </AssociationSet>
+          <EntitySet Name="Recipients" EntityType="UK_ExpressModel.Recipient" />
+          <AssociationSet Name="FK_RecipientID" Association="UK_ExpressModel.FK_RecipientID">
+            <End Role="Recipient" EntitySet="Recipients" />
+            <End Role="Package" EntitySet="Packages" />
+          </AssociationSet>
+          <EntitySet Name="Services" EntityType="UK_ExpressModel.Service" />
+        </EntityContainer>
+        <EntityType Name="Package">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Length" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
+          <Property Name="Width" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
+          <Property Name="Height" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
+          <Property Name="Weight" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
+          <Property Name="WaybillNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PackageDetails" Relationship="UK_ExpressModel.PackageID" FromRole="Package" ToRole="PackageDetail" />
+          <Property Name="RecipientID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Recipient" Relationship="UK_ExpressModel.FK_RecipientID" FromRole="Package" ToRole="Recipient" />
+        </EntityType>
+        <Association Name="PackageID">
+          <End Type="UK_ExpressModel.Package" Role="Package" Multiplicity="1" />
+          <End Type="UK_ExpressModel.PackageDetail" Role="PackageDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="PackageDetail">
+              <PropertyRef Name="PackageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Recipient">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Packages" Relationship="UK_ExpressModel.FK_RecipientID" FromRole="Recipient" ToRole="Package" />
+        </EntityType>
+        <Association Name="FK_RecipientID">
+          <End Type="UK_ExpressModel.Recipient" Role="Recipient" Multiplicity="1" />
+          <End Type="UK_ExpressModel.Package" Role="Package" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipient">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Package">
+              <PropertyRef Name="RecipientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Service">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PictureLink" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Discribe" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DiscribePictureLink" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PickUpService" Type="Boolean" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="UK_ExpressModelStoreContainer" CdmEntityContainer="UK_ExpressEntities">
+          <EntitySetMapping Name="PackageDetails">
+            <EntityTypeMapping TypeName="UK_ExpressModel.PackageDetail">
+              <MappingFragment StoreEntitySet="PackageDetails">
+                <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Packages">
+            <EntityTypeMapping TypeName="UK_ExpressModel.Package">
+              <MappingFragment StoreEntitySet="Packages">
+                <ScalarProperty Name="RecipientID" ColumnName="RecipientID" />
+                <ScalarProperty Name="WaybillNumber" ColumnName="WaybillNumber" />
+                <ScalarProperty Name="Weight" ColumnName="Weight" />
+                <ScalarProperty Name="Height" ColumnName="Height" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recipients">
+            <EntityTypeMapping TypeName="UK_ExpressModel.Recipient">
+              <MappingFragment StoreEntitySet="Recipients">
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Services">
+            <EntityTypeMapping TypeName="UK_ExpressModel.Service">
+              <MappingFragment StoreEntitySet="Service">
+                <ScalarProperty Name="PickUpService" ColumnName="PickUpService" />
+                <ScalarProperty Name="DiscribePictureLink" ColumnName="DiscribePictureLink" />
+                <ScalarProperty Name="Discribe" ColumnName="Discribe" />
+                <ScalarProperty Name="PictureLink" ColumnName="PictureLink" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

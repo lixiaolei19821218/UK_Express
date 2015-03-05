@@ -49,7 +49,7 @@
                         </div>
 
                         <div class="rds2" style="background-color: #F2F8FC; text-align: center; border-left: 1px solid #0075C2; border-right: 1px solid #0075C2; border-bottom: 1px solid #0075C2; padding: 20px 15px 0">
-                            <form action="" method="post" style="margin: 0">
+                            <form method="post" style="margin: 0" runat="server">
                                 <input type='hidden' name='csrfmiddlewaretoken' value='8aqZpoXHNqSZ280pPAWg7NUC4SD31C5B' />
 
                                 <div class="row">
@@ -119,7 +119,7 @@
                                             <span style="font-weight: bold">温馨提示</span>：点击右侧"+"号添加多箱，<span style="font-weight: bold">有优惠</span>（取件费会随箱数减免）
                                         </a>
                                     </div>
-                                    <input type="submit" class="bg2 clrw1" style="width: 83px; height: 23px; background-position: -100px -63px; border: none; background-color: #F2F8FC; font-size: 12px" value="立即下单" />
+                                    <asp:Button ID="btnSubmit" runat="server" CssClass="bg2 clrw1" style="width: 83px; height: 23px; background-position: -100px -63px; border: none; background-color: #F2F8FC; font-size: 12px" Text="立即下单" OnClick="btnSubmit_Click" />                                    
                                 </div>
                             </form>
                         </div>
