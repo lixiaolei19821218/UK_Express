@@ -26,5 +26,7 @@ public partial class UK_ExpressEntities : DbContext
     public virtual DbSet<PackageDetail> PackageDetails { get; set; }
     public virtual DbSet<Package> Packages { get; set; }
     public virtual DbSet<Recipient> Recipients { get; set; }
+    public virtual DbSet<PriceItem> PriceItems { get; set; }
     public virtual DbSet<Service> Services { get; set; }
+    public virtual DbSet<PriceList> PriceLists { get; set; }
 }

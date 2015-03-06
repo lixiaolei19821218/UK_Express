@@ -15,4 +15,12 @@ public class Repository
 		// TODO: 在此处添加构造函数逻辑
 		//
 	}
+
+    public IEnumerable<Service> Services
+    {
+        get
+        {
+            return context.Services;
+        }
+    }
 }

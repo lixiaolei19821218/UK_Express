@@ -40,6 +40,31 @@ public partial class PackageDetail
     public virtual Package Package { get; set; }
 }
 
+public partial class PriceItem
+{
+    public int Id { get; set; }
+    public decimal Weight { get; set; }
+    public decimal Price { get; set; }
+    public int PriceListID { get; set; }
+
+    public virtual PriceList PriceList { get; set; }
+}
+
+public partial class PriceList
+{
+    public PriceList()
+    {
+        this.PriceItems = new HashSet<PriceItem>();
+        this.Services = new HashSet<Service>();
+    }
+
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public virtual ICollection<PriceItem> PriceItems { get; set; }
+    public virtual ICollection<Service> Services { get; set; }
+}
+
 public partial class Recipient
 {
     public Recipient()
@@ -65,4 +90,7 @@ public partial class Service
     public string Discribe { get; set; }
     public string DiscribePictureLink { get; set; }
     public bool PickUpService { get; set; }
+    public Nullable<int> PriceListID { get; set; }
+
+    public virtual PriceList PriceList { get; set; }
 }

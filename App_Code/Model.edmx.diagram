@@ -11,7 +11,11 @@
         <AssociationConnector Association="UK_ExpressModel.PackageID" />
         <EntityTypeShape EntityType="UK_ExpressModel.Recipient" Width="1.5" PointX="0.75" PointY="8.125" />
         <AssociationConnector Association="UK_ExpressModel.FK_RecipientID" />
-        <EntityTypeShape EntityType="UK_ExpressModel.Service" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="UK_ExpressModel.PriceItem" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="UK_ExpressModel.Service" Width="1.5" PointX="5.375" PointY="0.75" />
+        <EntityTypeShape EntityType="UK_ExpressModel.PriceList" Width="1.5" PointX="0.75" PointY="2.375" />
+        <AssociationConnector Association="UK_ExpressModel.FK_PriceListID_PriceItems" />
+        <AssociationConnector Association="UK_ExpressModel.FK_PriceListID_Services" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
