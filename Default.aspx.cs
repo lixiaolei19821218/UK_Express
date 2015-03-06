@@ -52,9 +52,10 @@ public partial class Default2 : System.Web.UI.Page
                 r.Packages.Add(package);
             }
 
+            Session.Add("Recipients", reciptientList);
             reciptientList.Add(r);
         }
 
-        Response.Redirect("/products");
+        Response.Redirect("/products/Default%20-%20副本%20.aspx");
     }
 }

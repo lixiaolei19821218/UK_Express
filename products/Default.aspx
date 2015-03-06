@@ -33,7 +33,7 @@
                     </tr>
 
                     <tbody>
-                        <asp:Repeater ItemType="Service" EnableViewState="false"
+                        <asp:Repeater ItemType="ServiceView" EnableViewState="false"
                             SelectMethod="GetServices" runat="server">
                             <ItemTemplate>
                                 <tr>

@@ -14,8 +14,15 @@ public partial class product_Default : System.Web.UI.Page
 
     }
 
-    public IEnumerable<Service> GetServices()
+    public IEnumerable<ServiceView> GetServices()
     {
-        return repo.Services;
+        List<ServiceView> svs = new List<ServiceView>();
+
+        foreach (Service s in repo.Services)
+        {            
+            svs.Add(new ServiceView(s));
+        }
+
+        return svs;
     }
 }
