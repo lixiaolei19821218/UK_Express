@@ -56,6 +56,6 @@ public partial class Default2 : System.Web.UI.Page
             reciptientList.Add(r);
         }
 
-        Response.Redirect("/products/Default%20-%20副本%20.aspx");
+        Response.Redirect("/products/");
     }
 }

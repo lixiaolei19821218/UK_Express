@@ -47,14 +47,14 @@ public class ServiceView
 
         switch (Id)
         {
-            case 0://Bpost免费取件
-            case 1://TPG免费取件
-            case 2://Parcelforce Economy
-            case 3://Parcelforce Prioity
+            case 1://Bpost免费取件
+            case 11://TPG免费取件
+            case 15://Parcelforce Economy
+            case 17://Parcelforce Prioity
                 price = 0m;
                 break;
-            case 4://Bpost UKMail取件
-            case 5://TPG UKMail取件
+            case 6://Bpost UKMail取件
+            case 12://TPG UKMail取件
                 //ukmail取件费用，单箱5镑，2-3箱7镑，4箱以上每箱2镑的
                 int packageCount = recipients.Sum(r => r.Packages.Count);
                 if (packageCount == 1)
@@ -95,7 +95,7 @@ public class ServiceView
         decimal priceByWeight = PriceList.PriceItems.OrderBy(i => i.Weight).First(i => i.Weight >= package.Weight).Price;
         decimal priceBySize = package.Length * package.Width * package.Height / 5000m;
 
-        decimal price = priceByWeight > priceBySize ? priceBySize : priceBySize; 
+        decimal price = priceByWeight > priceBySize ? priceByWeight : priceBySize; 
 
         return price;
     }

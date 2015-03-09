@@ -2,13 +2,78 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <title>包裹信息 | 速递中国-可靠,快捷,实惠</title>
+
+    <link rel="stylesheet" href="/static/jquery-ui-1.11/jquery-ui.min.css">
+    <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css">
+
+    <!--[if IE 7]>
+      <link rel="stylesheet" href="/static/font-awesome/font-awesome-ie7.min.css">
+    <![endif]-->
+
+    <link href="/static/css/datetimepicker.css" type="text/css" media="all" rel="stylesheet" />
+    <script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js"></script>
+
+    <style type="text/css">
+        label {
+            margin-bottom: 5px;
+        }
+
+        .add-on {
+            padding-left: 5px;
+        }
+
+        #id_pickup_time_0 {
+            width: 75px;
+            font-size: 12px;
+        }
+
+        .red-border {
+            border: 1px solid #f00;
+        }
+    </style>
+
+
+
+
+    <script type="text/javascript">
+        $(function () {
+            var Sys = {};
+            var ua = navigator.userAgent.toLowerCase();
+            var s;
+            (s = ua.match(/msie ([\d.]+)/)) ? Sys.ie = s[1] :
+            (s = ua.match(/firefox\/([\d.]+)/)) ? Sys.firefox = s[1] :
+            (s = ua.match(/chrome\/([\d.]+)/)) ? Sys.chrome = s[1] :
+            (s = ua.match(/opera.([\d.]+)/)) ? Sys.opera = s[1] :
+            (s = ua.match(/version\/([\d.]+).*safari/)) ? Sys.safari = s[1] : 0;
+            if (Sys.ie && parseFloat(Sys.ie) < 9)
+                $('.check-br-ver').html('<div style="color:#f00;text-align:center">你的浏览器版本太低，请使用IE9.0以上版本，Google Chrome或者Firefox浏览器。</div>');
+        });
+    </script>
 </asp:Content>
 
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="main" style="background-color: #F1F1F1">
 
-        <div class="container" style="background: none; padding-top: 0">
+    <style type="text/css">
+        label {
+            margin-bottom: 5px;
+        }
 
+        .add-on {
+            padding-left: 5px;
+        }
+
+        #id_pickup_time_0 {
+            width: 75px;
+            font-size: 12px;
+        }
+
+        .red-border {
+            border: 1px solid #f00;
+        }
+    </style>
+
+  
 
 
 
@@ -144,7 +209,8 @@
                                     </div>
 
                                     <div style="float: left; margin: 5px">
-                                        <button type="button" onclick="cp_obj_1.doLookup()">查找地址</button></div>
+                                        <button type="button" onclick="cp_obj_1.doLookup()">查找地址</button>
+                                    </div>
 
                                     <div id="crafty_postcode_result_display_1" style="float: left; margin: 5px"></div>
 
@@ -171,34 +237,33 @@
 
                                         <div style="float: left; margin: 5px" class="control-group ">
                                             <label for="id_pickup_time_0">日期</label>
-                                            <div id="ffb61d5772b1416aba4e5e42e8655a82" class="input-append date form_datetime">
-                                                <input class="input-medium" foo_bar="prevent_readonly" id="id_pickup_time_0" name="pickup_time_0" type="text" /><span class="add-on"><i class="icon-th"></i></span></div>
-                                            <script type="text/javascript">$("#ffb61d5772b1416aba4e5e42e8655a82").datetimepicker({
-    format: 'yyyy-mm-dd',
-    startDate: '2015-03-09',
-    endDate: '2015-03-11',
-    weekStart: 0,
-    daysOfWeekDisabled: [0, 6],
-    autoclose: true,
-    startView: 2,
-    minView: 2,
-    maxView: 3,
-    todayBtn: false,
-    todayHighlight: false,
-    minuteStep: 5,
-    pickerPosition: 'bottom-right',
-    showMeridian: false,
-    clearBtn: false,
-    language: 'en',
-    initialDate: '2015-03-09',
-    daysDisabled: ['2014-04-18', '2014-04-21', '2014-05-05', '2014-05-26', '2014-08-25', '2014-12-24', '2014-12-25', '2014-12-26', '2015-01-01', '2015-04-03', '2015-04-06', '2015-05-04', '2015-05-25', '2015-08-31', '2015-12-25', '2015-12-28']
-});</script>
-
-
-
-
+                                            <div id="f" class="input-append date form_datetime">
+                                                <input class="input-medium" foo_bar="prevent_readonly" id="id_pickup_time_0" name="pickup_time_0" type="text" />
+                                                <span id="sp" class="add-on"><i class="icon-th"></i></span>
+                                            </div>
+                                            <script type="text/javascript">
+                                                $("#f").datetimepicker({
+                                                    format: 'yyyy-mm-dd',
+                                                    startDate: '2015-03-10',
+                                                    endDate: '2015-03-12',
+                                                    weekStart: 0,
+                                                    daysOfWeekDisabled: [0, 6],
+                                                    autoclose: true,
+                                                    startView: 2,
+                                                    minView: 2,
+                                                    maxView: 3,
+                                                    todayBtn: false,
+                                                    todayHighlight: false,
+                                                    minuteStep: 5,
+                                                    pickerPosition: 'bottom-right',
+                                                    showMeridian: false,
+                                                    clearBtn: false,
+                                                    language: 'en',
+                                                    initialDate: '2015-03-10',
+                                                    daysDisabled: ['2014-04-18', '2014-04-21', '2014-05-05', '2014-05-26', '2014-08-25', '2014-12-24', '2014-12-25', '2014-12-26', '2015-01-01', '2015-04-03', '2015-04-06', '2015-05-04', '2015-05-25', '2015-08-31', '2015-12-25', '2015-12-28']
+                                                });
+                                            </script>
                                         </div>
-
                                         <div style="float: left; margin: 5px; font-weight: bold; margin-left: 10px; margin-right: 10px">
                                             时间
 
@@ -411,22 +476,26 @@
                                                 <div class="ib pd7">
                                                     重量(kg)
                                     <div>
-                                        <input class="input-small" id="id_parcel-0-weight" name="parcel-0-weight" style="width: 55px" type="text" value="15.0" /></div>
+                                        <input class="input-small" id="id_parcel-0-weight" name="parcel-0-weight" style="width: 55px" type="text" value="15.0" />
+                                                    </div>
                                                 </div>
                                                 <div class="ib pd7">
                                                     长度(cm)
                                     <div>
-                                        <input class="input-small" id="id_parcel-0-length" name="parcel-0-length" style="width: 55px" type="text" value="12" /></div>
+                                        <input class="input-small" id="id_parcel-0-length" name="parcel-0-length" style="width: 55px" type="text" value="12" />
+                                                    </div>
                                                 </div>
                                                 <div class="ib pd7">
                                                     宽度(cm)
                                     <div>
-                                        <input class="input-small" id="id_parcel-0-width" name="parcel-0-width" style="width: 55px" type="text" value="1" /></div>
+                                        <input class="input-small" id="id_parcel-0-width" name="parcel-0-width" style="width: 55px" type="text" value="1" />
+                                                    </div>
                                                 </div>
                                                 <div class="ib pd7">
                                                     高度(cm)
                                     <div>
-                                        <input class="input-small" id="id_parcel-0-height" name="parcel-0-height" style="width: 55px" type="text" value="1" /></div>
+                                        <input class="input-small" id="id_parcel-0-height" name="parcel-0-height" style="width: 55px" type="text" value="1" />
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="ib" style="margin-left: 20px">
@@ -534,22 +603,26 @@
                                                 <div class="ib pd7">
                                                     重量(kg)
                                     <div>
-                                        <input class="input-small" id="id_parcel-1-weight" name="parcel-1-weight" style="width: 55px" type="text" value="1.0" /></div>
+                                        <input class="input-small" id="id_parcel-1-weight" name="parcel-1-weight" style="width: 55px" type="text" value="1.0" />
+                                                    </div>
                                                 </div>
                                                 <div class="ib pd7">
                                                     长度(cm)
                                     <div>
-                                        <input class="input-small" id="id_parcel-1-length" name="parcel-1-length" style="width: 55px" type="text" value="1" /></div>
+                                        <input class="input-small" id="id_parcel-1-length" name="parcel-1-length" style="width: 55px" type="text" value="1" />
+                                                    </div>
                                                 </div>
                                                 <div class="ib pd7">
                                                     宽度(cm)
                                     <div>
-                                        <input class="input-small" id="id_parcel-1-width" name="parcel-1-width" style="width: 55px" type="text" value="1" /></div>
+                                        <input class="input-small" id="id_parcel-1-width" name="parcel-1-width" style="width: 55px" type="text" value="1" />
+                                                    </div>
                                                 </div>
                                                 <div class="ib pd7">
                                                     高度(cm)
                                     <div>
-                                        <input class="input-small" id="id_parcel-1-height" name="parcel-1-height" style="width: 55px" type="text" value="1" /></div>
+                                        <input class="input-small" id="id_parcel-1-height" name="parcel-1-height" style="width: 55px" type="text" value="1" />
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="ib" style="margin-left: 20px">
@@ -833,22 +906,26 @@
                                                 <div class="ib pd7">
                                                     重量(kg)
                                     <div>
-                                        <input class="input-small" id="id_parcel-2-weight" name="parcel-2-weight" style="width: 55px" type="text" value="1.0" /></div>
+                                        <input class="input-small" id="id_parcel-2-weight" name="parcel-2-weight" style="width: 55px" type="text" value="1.0" />
+                                                    </div>
                                                 </div>
                                                 <div class="ib pd7">
                                                     长度(cm)
                                     <div>
-                                        <input class="input-small" id="id_parcel-2-length" name="parcel-2-length" style="width: 55px" type="text" value="1" /></div>
+                                        <input class="input-small" id="id_parcel-2-length" name="parcel-2-length" style="width: 55px" type="text" value="1" />
+                                                    </div>
                                                 </div>
                                                 <div class="ib pd7">
                                                     宽度(cm)
                                     <div>
-                                        <input class="input-small" id="id_parcel-2-width" name="parcel-2-width" style="width: 55px" type="text" value="1" /></div>
+                                        <input class="input-small" id="id_parcel-2-width" name="parcel-2-width" style="width: 55px" type="text" value="1" />
+                                                    </div>
                                                 </div>
                                                 <div class="ib pd7">
                                                     高度(cm)
                                     <div>
-                                        <input class="input-small" id="id_parcel-2-height" name="parcel-2-height" style="width: 55px" type="text" value="1" /></div>
+                                        <input class="input-small" id="id_parcel-2-height" name="parcel-2-height" style="width: 55px" type="text" value="1" />
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="ib" style="margin-left: 20px">
@@ -949,7 +1026,7 @@
         的保险赔偿条款。
                             </p>
                             <p>
-                                １、我已经阅读并同意<a href="https://conditions_terms/" target="_blank" style="color: #f00; float: none">速递中国服务条款</a>，<a href="https://send2china.co.uk/privacy_policy/" target="_blank" style="color: #f00; float: none">个人隐私保护条款</a>，并且确认所快递物品符合相应国家出口及违禁品控制条例。<br />
+                                １、我已经阅读并同意<a href="/conditions_terms/" target="_blank" style="color: #f00; float: none">速递中国服务条款</a>，<a href="/privacy_policy/" target="_blank" style="color: #f00; float: none">个人隐私保护条款</a>，并且确认所快递物品符合相应国家出口及违禁品控制条例。<br />
                                 ２、<span style="color: #f00; float: none">我同意若因本人提供的包裹尺寸或重量与运营商的测量不符，而导致额外费用，速递中国有权从我所提供的银行卡信息对应的银行账户内扣除相应费用。</span><br />
                                 ３、我同意由本人或相应收件人承担支付取货国家所产生的所有额外关税。（<a href="http://www.customs.gov.cn/publish/portal0/tab3889/module1188/info362458.htm" target="_blank" style="color: #f00; float: none">详见中国入境个人邮寄物品完税价格表</a>）<br />
                                 ４、我确认所提供的包裹内物品信息（种类，数量，价格）与实际包裹内物品相符。
@@ -981,7 +1058,8 @@
 
                             <p>
                                 <p>
-                                    <img src="/static/media/uploads/pf_collection.png" width="350" height="78" /></p>
+                                    <img src="/static/media/uploads/pf_collection.png" width="350" height="78" />
+                                </p>
                                 <p><span style="font-size: small;">国际快递时间（不包括清关和旺季延误）: 6-10 天 /&nbsp;自带丢件赔偿: &pound;50磅 /&nbsp;包裹上可贴中文地址</span></p>
                             </p>
 
@@ -991,7 +1069,8 @@
                             <div style="margin-bottom: 5px">
                                 <label style="font-weight: bold">
                                     <input type="checkbox" class="agreed" style="margin-top: -3px" />
-                                    我同意服务条款</label></div>
+                                    我同意服务条款</label>
+                            </div>
                             <input type="submit" name="order" id="add2cart" class="btn btn-primary btn-large" disabled="disabled" value="添加到购物车">
                         </div>
                         <!-- .panel -->
@@ -1073,13 +1152,19 @@
                     <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
                     <label style="display: block; margin-right: 40px">
                         <input type="radio" name="recv_addr" class="recv_addr" value="45816" style="display: none" />
-                        <div style="display: inline-block; width: 100px" class="addr-name">1<br />
-                            1</div>
-                        <div style="display: inline-block; width: 100px">1<br />
-                            1</div>
+                        <div style="display: inline-block; width: 100px" class="addr-name">
+                            1<br />
+                            1
+                        </div>
+                        <div style="display: inline-block; width: 100px">
+                            1<br />
+                            1
+                        </div>
                         <div style="display: inline-block; width: 56px">610000</div>
-                        <div style="display: inline-block; width: 477px">1<br />
-                            1  </div>
+                        <div style="display: inline-block; width: 477px">
+                            1<br />
+                            1 
+                        </div>
                     </label>
                 </div>
 
@@ -1089,13 +1174,19 @@
                     <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
                     <label style="display: block; margin-right: 40px">
                         <input type="radio" name="recv_addr" class="recv_addr" value="46413" style="display: none" />
-                        <div style="display: inline-block; width: 100px" class="addr-name">c<br />
-                            C</div>
-                        <div style="display: inline-block; width: 100px">c<br />
-                            C</div>
+                        <div style="display: inline-block; width: 100px" class="addr-name">
+                            c<br />
+                            C
+                        </div>
+                        <div style="display: inline-block; width: 100px">
+                            c<br />
+                            C
+                        </div>
                         <div style="display: inline-block; width: 56px">111111</div>
-                        <div style="display: inline-block; width: 477px">c<br />
-                            C  </div>
+                        <div style="display: inline-block; width: 477px">
+                            c<br />
+                            C 
+                        </div>
                     </label>
                 </div>
 
@@ -1105,13 +1196,19 @@
                     <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
                     <label style="display: block; margin-right: 40px">
                         <input type="radio" name="recv_addr" class="recv_addr" value="45839" style="display: none" />
-                        <div style="display: inline-block; width: 100px" class="addr-name">吃<br />
-                            CHI</div>
-                        <div style="display: inline-block; width: 100px">吃<br />
-                            CHI</div>
+                        <div style="display: inline-block; width: 100px" class="addr-name">
+                            吃<br />
+                            CHI
+                        </div>
+                        <div style="display: inline-block; width: 100px">
+                            吃<br />
+                            CHI
+                        </div>
                         <div style="display: inline-block; width: 56px">666666</div>
-                        <div style="display: inline-block; width: 477px">吃<br />
-                            CHI  </div>
+                        <div style="display: inline-block; width: 477px">
+                            吃<br />
+                            CHI 
+                        </div>
                     </label>
                 </div>
 
@@ -1121,13 +1218,19 @@
                     <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
                     <label style="display: block; margin-right: 40px">
                         <input type="radio" name="recv_addr" class="recv_addr" value="35071" style="display: none" />
-                        <div style="display: inline-block; width: 100px" class="addr-name">ddd<br />
-                            DDD</div>
-                        <div style="display: inline-block; width: 100px">ddd<br />
-                            DDD</div>
+                        <div style="display: inline-block; width: 100px" class="addr-name">
+                            ddd<br />
+                            DDD
+                        </div>
+                        <div style="display: inline-block; width: 100px">
+                            ddd<br />
+                            DDD
+                        </div>
                         <div style="display: inline-block; width: 56px">666666</div>
-                        <div style="display: inline-block; width: 477px">ddddddd<br />
-                            DDDDDDD  </div>
+                        <div style="display: inline-block; width: 477px">
+                            ddddddd<br />
+                            DDDDDDD 
+                        </div>
                     </label>
                 </div>
 
@@ -1137,13 +1240,19 @@
                     <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
                     <label style="display: block; margin-right: 40px">
                         <input type="radio" name="recv_addr" class="recv_addr" value="45815" style="display: none" />
-                        <div style="display: inline-block; width: 100px" class="addr-name">李<br />
-                            LI</div>
-                        <div style="display: inline-block; width: 100px">才<br />
-                            C</div>
+                        <div style="display: inline-block; width: 100px" class="addr-name">
+                            李<br />
+                            LI
+                        </div>
+                        <div style="display: inline-block; width: 100px">
+                            才<br />
+                            C
+                        </div>
                         <div style="display: inline-block; width: 56px">666666</div>
-                        <div style="display: inline-block; width: 477px">才<br />
-                            CAI  </div>
+                        <div style="display: inline-block; width: 477px">
+                            才<br />
+                            CAI 
+                        </div>
                     </label>
                 </div>
 
@@ -1153,13 +1262,19 @@
                     <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
                     <label style="display: block; margin-right: 40px">
                         <input type="radio" name="recv_addr" class="recv_addr" value="44718" style="display: none" />
-                        <div style="display: inline-block; width: 100px" class="addr-name">李潇磊<br />
-                            LI XIAO LEI</div>
-                        <div style="display: inline-block; width: 100px">成都<br />
-                            CHENG DU</div>
+                        <div style="display: inline-block; width: 100px" class="addr-name">
+                            李潇磊<br />
+                            LI XIAO LEI
+                        </div>
+                        <div style="display: inline-block; width: 100px">
+                            成都<br />
+                            CHENG DU
+                        </div>
                         <div style="display: inline-block; width: 56px">610000</div>
-                        <div style="display: inline-block; width: 477px">中和<br />
-                            ZHONG HE  </div>
+                        <div style="display: inline-block; width: 477px">
+                            中和<br />
+                            ZHONG HE 
+                        </div>
                     </label>
                 </div>
 
@@ -1169,60 +1284,59 @@
             </div>
 
 
-        </div>
+       
 
-    </div>
+   
 
-        <!--[if lt IE 9]>
+    <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
     <script>
-        $(function(){
+        $(function () {
             $('.main-menu ul.nav li.dropdown').hover(
-                function(){
-                    if($('.main-menu .navbar-header').is(':hidden'))
+                function () {
+                    if ($('.main-menu .navbar-header').is(':hidden'))
                         $(this).addClass('open');
-                },function(){
-                    if($('.main-menu .navbar-header').is(':hidden'))
+                }, function () {
+                    if ($('.main-menu .navbar-header').is(':hidden'))
                         $(this).removeClass('open');
                 }
-            ).click(function(e){
-                if($('.main-menu .navbar-header').is(':visible')) {
+            ).click(function (e) {
+                if ($('.main-menu .navbar-header').is(':visible')) {
                     var opened = $(this).hasClass('open');
                     $(this).siblings().removeClass('open').end().addClass('open');
-                    if(!opened)
+                    if (!opened)
                         e.preventDefault();
                 }
             });
         });
     </script>
-    
-    
+
+
     <script src="/static/jquery-ui-1.11/jquery-ui.min.js"></script>
     <script src="/static/js/underscore-min.js"></script>
-    
+
     <script src="/static/js/tree2.js?v=140902v2"></script>
     <script type="text/javascript">
-        function smart_split(str, len)
-        {
+        function smart_split(str, len) {
             var arr = str.split(' ');
             var arr2 = ['', '', '', ''], j = 0;
             var sep = ' ';
 
-            for(var i=0;i<arr.length;i++){
-                if( (arr2[j]+sep+arr[i]).length <= len )
-                    if(arr2[j] == '')
+            for (var i = 0; i < arr.length; i++) {
+                if ((arr2[j] + sep + arr[i]).length <= len)
+                    if (arr2[j] == '')
                         arr2[j] += arr[i];
                     else
-                        arr2[j] += sep+arr[i];
+                        arr2[j] += sep + arr[i];
                 else
-                    if(j < 2){
+                    if (j < 2) {
                         j += 1;
                         i -= 1;
                     }
-                    else{
+                    else {
                         arr2[3] = arr[i];
                         break;
                     }
@@ -1231,41 +1345,41 @@
             return arr2;
         }
 
-        $(document).ready(function() {
+        $(document).ready(function () {
 
-            $('#tree').on('click', '.add_mx', function(){
+            $('#tree').on('click', '.add_mx', function () {
                 var mx = $(this).closest('.mx'),
                     mx_parent = mx.parent();
-                if(mx_parent.find('.mx').length >=10)
+                if (mx_parent.find('.mx').length >= 10)
                     return;
                 mx_parent.append(mx.clone());
                 // update names
-                $('#tree').find('.parcelItem').each(function(i){
-                    $(this).find('.mx').each(function(j){
-                        $(this).find('.mx_sq').html(j+1);
-                        $(this).find('select').attr('name', 'parcel-'+i+'-content-'+j+'-type');
-                        $(this).find('input').eq(0).attr('name', 'parcel-'+i+'-content-'+j+'-quantity');
-                        $(this).find('input').eq(1).attr('name', 'parcel-'+i+'-content-'+j+'-cost');
-                        $(this).find('input').eq(2).attr('name', 'parcel-'+i+'-content-'+j+'-packet_id');
+                $('#tree').find('.parcelItem').each(function (i) {
+                    $(this).find('.mx').each(function (j) {
+                        $(this).find('.mx_sq').html(j + 1);
+                        $(this).find('select').attr('name', 'parcel-' + i + '-content-' + j + '-type');
+                        $(this).find('input').eq(0).attr('name', 'parcel-' + i + '-content-' + j + '-quantity');
+                        $(this).find('input').eq(1).attr('name', 'parcel-' + i + '-content-' + j + '-cost');
+                        $(this).find('input').eq(2).attr('name', 'parcel-' + i + '-content-' + j + '-packet_id');
                     });
                     $(this).find('input[name$=-content-TOTAL_FORMS]').val($(this).find('.mx').length);
                     $(this).find('.mx_cal:first').blur();
                 });
             });
 
-            $('#tree').on('click', '.del_mx', function(){
+            $('#tree').on('click', '.del_mx', function () {
                 var mx = $(this).closest('.mx'),
                     mx_parent = mx.parent();
-                if(mx_parent.find('.mx').length == 1)
+                if (mx_parent.find('.mx').length == 1)
                     return;
                 mx.remove();
                 // update names
-                $('#tree').find('.parcelItem').each(function(i){
-                    $(this).find('.mx').each(function(j){
-                        $(this).find('.mx_sq').html(j+1);
-                        $(this).find('select').attr('name', 'parcel-'+i+'-content-'+j+'-type');
-                        $(this).find('input').eq(0).attr('name', 'parcel-'+i+'-content-'+j+'-quantity');
-                        $(this).find('input').eq(1).attr('name', 'parcel-'+i+'-content-'+j+'-cost');
+                $('#tree').find('.parcelItem').each(function (i) {
+                    $(this).find('.mx').each(function (j) {
+                        $(this).find('.mx_sq').html(j + 1);
+                        $(this).find('select').attr('name', 'parcel-' + i + '-content-' + j + '-type');
+                        $(this).find('input').eq(0).attr('name', 'parcel-' + i + '-content-' + j + '-quantity');
+                        $(this).find('input').eq(1).attr('name', 'parcel-' + i + '-content-' + j + '-cost');
                     });
                     $(this).find('input[name$=-content-TOTAL_FORMS]').val($(this).find('.mx').length);
                     $(this).find('.mx_cal:first').blur();
@@ -1273,195 +1387,195 @@
             });
 
             // caculate total value on blur(change quantity/cost)
-            $('#tree').on('blur', '.mx_cal', function(){
+            $('#tree').on('blur', '.mx_cal', function () {
                 var mx = $(this).closest('.mx'),
                     total = 0;
-                mx.parent().find('.mx').each(function(){
+                mx.parent().find('.mx').each(function () {
                     var q = parseInt($(this).find('.mx_quantity input').val()),
                         c = parseFloat($(this).find('.mx_cost input').val());
-                    if(!isNaN(q) && !isNaN(c))
-                        total +=  q * c;
+                    if (!isNaN(q) && !isNaN(c))
+                        total += q * c;
                 });
                 mx.parent().find('.mx_total').html(total);
             });
 
             // initial caculation
-            $('#tree').find('.parcelItem').each(function(){
+            $('#tree').find('.parcelItem').each(function () {
                 $(this).find('.mx_cal:first').blur();
             });
 
-            $('.agreed').click(function(){
-                if($(this).prop('checked')){
+            $('.agreed').click(function () {
+                if ($(this).prop('checked')) {
                     $('.agreed').not($(this)).prop('checked', 'checked');
                     $('#add2cart').removeAttr('disabled');
                 }
-                else{
+                else {
                     $('.agreed').not($(this)).removeAttr('checked');
                     $('#add2cart').prop('disabled', 'disabled');
                 }
             });
 
-            
-            
-            _.each([], function(v, k, lst){
-                $('#addr_'+k+'_insurance').val(v);
+
+
+            _.each([], function (v, k, lst) {
+                $('#addr_' + k + '_insurance').val(v);
             });
-            
+
             recalcAll();
-            
-            
-            
-            
-            
-            
-            $('#tree').submit(function(e){
-                $('#root').find('[id$=-postcode]').each(function(){
-                    if(/^[0-9]{6}$/.test($(this).val())){
+
+
+
+
+
+
+            $('#tree').submit(function (e) {
+                $('#root').find('[id$=-postcode]').each(function () {
+                    if (/^[0-9]{6}$/.test($(this).val())) {
                         $(this).siblings('ul.errorlist').remove();
                     }
-                    else{
+                    else {
                         e.preventDefault();
-                        if($(this).siblings('ul.errorlist').length==0)
+                        if ($(this).siblings('ul.errorlist').length == 0)
                             $(this).after('<ul class="errorlist"><li>必须是6位数字</li></ul>');
                     }
                 });
-                $('#root').find('[id$=-phone]').each(function(){
-                    if(/^[0-9]{11}$/.test($(this).val())){
+                $('#root').find('[id$=-phone]').each(function () {
+                    if (/^[0-9]{11}$/.test($(this).val())) {
                         $(this).siblings('ul.errorlist').remove();
                     }
-                    else{
+                    else {
                         e.preventDefault();
-                        if($(this).siblings('ul.errorlist').length==0)
+                        if ($(this).siblings('ul.errorlist').length == 0)
                             $(this).after('<ul class="errorlist"><li>必须是11位数字</li></ul>');
                     }
                 });
             });
-            
-            
-            $('#root').on('keyup change', '.cn_fields', function(){
+
+
+            $('#root').on('keyup change', '.cn_fields', function () {
                 var $this = $(this);
                 var $addr_item = $this.closest('.addrItem');
-                if($this.data('timer'))
+                if ($this.data('timer'))
                     clearTimeout($this.data('timer'));
-                var func = function(s){
+                var func = function (s) {
                     $addr_item.find('.py_fields').show();
-                    if($this.hasClass('cn_name')){
-                        if(s == '')
+                    if ($this.hasClass('cn_name')) {
+                        if (s == '')
                             $addr_item.find('.py_name').html('&nbsp;');
                         else
                             $addr_item.find('.py_name').html(s);
                         $addr_item.find('.en_name').val(s);
                     }
-                    if($this.hasClass('cn_city')){
+                    if ($this.hasClass('cn_city')) {
                         var arr = smart_split(s, 24);
-                        if(arr[1] == '')
+                        if (arr[1] == '')
                             $addr_item.find('.py_city').html(arr[0]);
                         else
-                            $addr_item.find('.py_city').html(arr[0]+' <span style="color:#f00">(字太多截断了请缩短中文城市)</span>');
+                            $addr_item.find('.py_city').html(arr[0] + ' <span style="color:#f00">(字太多截断了请缩短中文城市)</span>');
                         $addr_item.find('.en_city').val(arr[0]);
                     }
-                    if($this.hasClass('cn_street')){
+                    if ($this.hasClass('cn_street')) {
                         var arr = smart_split(s, 24);
-                        if(arr[3] == '')
-                            $addr_item.find('.py_street').html(arr[0]+' '+arr[1]+' '+arr[2]);
+                        if (arr[3] == '')
+                            $addr_item.find('.py_street').html(arr[0] + ' ' + arr[1] + ' ' + arr[2]);
                         else
-                            $addr_item.find('.py_street').html(arr[0]+' '+arr[1]+' '+arr[2]+' <span style="color:#f00">(字太多截断了请缩短中文地址)</span>');
+                            $addr_item.find('.py_street').html(arr[0] + ' ' + arr[1] + ' ' + arr[2] + ' <span style="color:#f00">(字太多截断了请缩短中文地址)</span>');
                         $addr_item.find('.en_street').val(arr[0]);
                         $addr_item.find('.en_street2').val(arr[1]);
                         $addr_item.find('.en_street3').val(arr[2]);
                     }
                 };
                 var val = $.trim($this.val());
-                
-                if($this.hasClass('cn_name'))
+
+                if ($this.hasClass('cn_name'))
                     $addr_item.find('.cn_name_en').html(val);
-                if($this.hasClass('cn_city'))
+                if ($this.hasClass('cn_city'))
                     $addr_item.find('.cn_city_en').html(val);
-                if($this.hasClass('cn_street'))
+                if ($this.hasClass('cn_street'))
                     $addr_item.find('.cn_street_en').html(val);
-                
-                if(/^[a-zA-Z0-9 ]*$/.test(val))     // printable ascii chars
+
+                if (/^[a-zA-Z0-9 ]*$/.test(val))     // printable ascii chars
                     func(val.toUpperCase());
                 else
                     $this.data('timer',
-                        setTimeout(function(){
-                            $.get('/pinyin/', {'s': val}, func);
+                        setTimeout(function () {
+                            $.get('/pinyin/', { 's': val }, func);
                         }, 500)
                     );
             });
-            
-            $('.addrItem').each(function(){
+
+            $('.addrItem').each(function () {
                 var $addr_item = $(this);
-                $addr_item.find('.cn_fields').each(function(){
-                    if($(this).hasClass('cn_name'))
+                $addr_item.find('.cn_fields').each(function () {
+                    if ($(this).hasClass('cn_name'))
                         $addr_item.find('.cn_name_en').html($(this).val());
-                    if($(this).hasClass('cn_city'))
+                    if ($(this).hasClass('cn_city'))
                         $addr_item.find('.cn_city_en').html($(this).val());
-                    if($(this).hasClass('cn_street'))
+                    if ($(this).hasClass('cn_street'))
                         $addr_item.find('.cn_street_en').html($(this).val());
                 });
-                $addr_item.find('.en_fields').each(function(){
-                    if($(this).val() || $(this).siblings('ul.errorlist').length)
+                $addr_item.find('.en_fields').each(function () {
+                    if ($(this).val() || $(this).siblings('ul.errorlist').length)
                         $addr_item.find('.py_fields').show();
-                    if($(this).hasClass('en_name')){
+                    if ($(this).hasClass('en_name')) {
                         $addr_item.find('.py_name').html($(this).val());
-                        if($(this).siblings('ul.errorlist').length){
+                        if ($(this).siblings('ul.errorlist').length) {
                             $addr_item.find('.py_name').append($(this).siblings('ul.errorlist').clone());
                             $addr_item.find('.py_fields').addClass('red-border');
 
                         }
                     }
-                    if($(this).hasClass('en_city')){
+                    if ($(this).hasClass('en_city')) {
                         $addr_item.find('.py_city').html($(this).val());
-                        if($(this).siblings('ul.errorlist').length){
+                        if ($(this).siblings('ul.errorlist').length) {
                             $addr_item.find('.py_city').append($(this).siblings('ul.errorlist').clone());
                             $addr_item.find('.py_fields').addClass('red-border');
                         }
                     }
-                    if($(this).hasClass('en_street')){
-                        $addr_item.find('.py_street').html($(this).val()+' '+$addr_item.find('.en_street2').val()+' '+$addr_item.find('.en_street3').val());
-                        if($(this).siblings('ul.errorlist').length){
+                    if ($(this).hasClass('en_street')) {
+                        $addr_item.find('.py_street').html($(this).val() + ' ' + $addr_item.find('.en_street2').val() + ' ' + $addr_item.find('.en_street3').val());
+                        if ($(this).siblings('ul.errorlist').length) {
                             $addr_item.find('.py_street').append($(this).siblings('ul.errorlist').clone());
                             $addr_item.find('.py_fields').addClass('red-border');
                         }
                     }
-                    if($(this).hasClass('en_street2')){
-                        if($(this).siblings('ul.errorlist').length){
+                    if ($(this).hasClass('en_street2')) {
+                        if ($(this).siblings('ul.errorlist').length) {
                             $addr_item.find('.py_street').append($(this).siblings('ul.errorlist').clone());
                             $addr_item.find('.py_fields').addClass('red-border');
                         }
                     }
-                    if($(this).hasClass('en_street3')){
-                        if($(this).siblings('ul.errorlist').length){
+                    if ($(this).hasClass('en_street3')) {
+                        if ($(this).siblings('ul.errorlist').length) {
                             $addr_item.find('.py_street').append($(this).siblings('ul.errorlist').clone());
                             $addr_item.find('.py_fields').addClass('red-border');
                         }
                     }
                 });
             });
-            
-            $('#root').on('click', '.display_hidden', function(){
+
+            $('#root').on('click', '.display_hidden', function () {
                 $(this).closest('.addrItem').find('.hidden_address').modal();
             });
-            
-            $('#root').on('click', '.change_translation', function(){
+
+            $('#root').on('click', '.change_translation', function () {
                 var $addr_item = $(this).closest('.addrItem');
-                $addr_item.find('.en_fields').each(function(){
-                    if($(this).hasClass('en_name'))
+                $addr_item.find('.en_fields').each(function () {
+                    if ($(this).hasClass('en_name'))
                         $addr_item.find('.py_name').html($(this).val());
-                    if($(this).hasClass('en_city'))
+                    if ($(this).hasClass('en_city'))
                         $addr_item.find('.py_city').html($(this).val());
-                    if($(this).hasClass('en_street'))
-                        $addr_item.find('.py_street').html($(this).val()+' '+$addr_item.find('.en_street2').val()+' '+$addr_item.find('.en_street3').val());
+                    if ($(this).hasClass('en_street'))
+                        $addr_item.find('.py_street').html($(this).val() + ' ' + $addr_item.find('.en_street2').val() + ' ' + $addr_item.find('.en_street3').val());
                 });
             });
-            
-            $('#root').on('click', '.translate', function(){
+
+            $('#root').on('click', '.translate', function () {
                 $(this).closest('.addrItem').find('.cn_fields').trigger('change');
             });
-            
+
             var $current_addr_item = 0;
-            $('#root').on('click', '.select-addr2', function(){
+            $('#root').on('click', '.select-addr2', function () {
                 $current_addr_item = $(this).closest('.addrItem');
                 $('#dialog-addrs').dialog({
                     modal: true,
@@ -1469,11 +1583,11 @@
                     height: 500
                 });
             });
-            
-            $('#dialog-addrs').find('.recv_addr').click(function(){
-                $('#dialog-addrs').dialog( "close" );
+
+            $('#dialog-addrs').find('.recv_addr').click(function () {
+                $('#dialog-addrs').dialog("close");
                 var addr = recv_addr_dict[$(this).val()];
-                if($current_addr_item){
+                if ($current_addr_item) {
                     $current_addr_item.find('[id$=cn_name]').val(addr[0]);
                     $current_addr_item.find('[id$=cn_city]').val(addr[1]);
                     $current_addr_item.find('[id$=cn_street]').val(addr[2]);
@@ -1485,33 +1599,33 @@
                     $current_addr_item.find('[id$=postcode]').val(addr[8]);
                     $current_addr_item.find('[id$=phone]').val(addr[9]);
                 }
-                $current_addr_item.find('.en_fields').each(function(){
-                    if($(this).hasClass('en_name'))
+                $current_addr_item.find('.en_fields').each(function () {
+                    if ($(this).hasClass('en_name'))
                         $current_addr_item.find('.py_name').html($(this).val());
-                    if($(this).hasClass('en_city'))
+                    if ($(this).hasClass('en_city'))
                         $current_addr_item.find('.py_city').html($(this).val());
-                    if($(this).hasClass('en_street'))
-                        $current_addr_item.find('.py_street').html($(this).val()+$current_addr_item.find('.en_street2').val()+$current_addr_item.find('.en_street3').val());
+                    if ($(this).hasClass('en_street'))
+                        $current_addr_item.find('.py_street').html($(this).val() + $current_addr_item.find('.en_street2').val() + $current_addr_item.find('.en_street3').val());
                 });
                 $current_addr_item.find('.py_fields').show();
             });
-            
-            $('#dialog-addrs').find('.del_addr_row').click(function(){
+
+            $('#dialog-addrs').find('.del_addr_row').click(function () {
                 var $addr_row = $(this).closest('.addr_row');
                 var id = $addr_row.find('.recv_addr').val();
-                if(confirm("你确定吗?"))
-                    $.get('/rm_user_address/?id='+id, function(data){
-                        if(data == 'done')
+                if (confirm("你确定吗?"))
+                    $.get('/rm_user_address/?id=' + id, function (data) {
+                        if (data == 'done')
                             $addr_row.remove();
                     });
             });
 
-            $('#lookup_name').keyup(function() {
+            $('#lookup_name').keyup(function () {
                 var re = new RegExp($(this).val(), "i");
-                $('.addr_row').show().filter(function() {
+                $('.addr_row').show().filter(function () {
                     return !re.test($(this).find('.addr-name').html());
                 }).hide();
             });
-        });   
+        });
     </script>
 </asp:Content>

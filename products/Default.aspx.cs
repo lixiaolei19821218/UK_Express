@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Globalization;
 
 public partial class product_Default : System.Web.UI.Page
 {
@@ -22,7 +23,15 @@ public partial class product_Default : System.Web.UI.Page
         {            
             svs.Add(new ServiceView(s));
         }
-
+        
         return svs;
+    }
+
+    public IEnumerable<Recipient> Recipients
+    {
+        get
+        {
+            return (List<Recipient>)Session["Recipients"];
+        }
     }
 }

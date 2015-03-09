@@ -10,6 +10,20 @@
 using System;
 using System.Collections.Generic;
 
+public partial class Order
+{
+    public Order()
+    {
+        this.Recipients = new HashSet<Recipient>();
+    }
+
+    public int Id { get; set; }
+    public Nullable<int> SenderId { get; set; }
+
+    public virtual ICollection<Recipient> Recipients { get; set; }
+    public virtual Sender Sender { get; set; }
+}
+
 public partial class Package
 {
     public Package()
@@ -78,8 +92,29 @@ public partial class Recipient
     public string Address { get; set; }
     public string ZipCode { get; set; }
     public string PhoneNumber { get; set; }
+    public Nullable<int> OrderId { get; set; }
 
     public virtual ICollection<Package> Packages { get; set; }
+    public virtual Order Order { get; set; }
+}
+
+public partial class Sender
+{
+    public Sender()
+    {
+        this.Orders = new HashSet<Order>();
+    }
+
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string City { get; set; }
+    public string Address1 { get; set; }
+    public string Address2 { get; set; }
+    public string Address3 { get; set; }
+    public string Phone { get; set; }
+    public string ZipCode { get; set; }
+
+    public virtual ICollection<Order> Orders { get; set; }
 }
 
 public partial class Service

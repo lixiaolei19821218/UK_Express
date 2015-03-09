@@ -1,12 +1,12 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="product_Default" MasterPageFile="~/MasterPage.master" %>
+<%@ Import Namespace="System.Globalization" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <title>服务 | 速递中国-可靠,快捷,实惠</title>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <div class="main" style="background-color: #F1F1F1">
-        <div class="container" style="background: none; padding-top: 0">
+    
             <ul class="breadcrumb" style="background: none; margin-top: 15px"></ul>
 
             <div style="margin-top: 30px">
@@ -52,7 +52,7 @@
                                         <i class="glyphicon glyphicon-print"></i>
                                     </td>
                                     <td style="vertical-align: middle">
-                                        <%# Item.Id %>
+                                        <%# Item.GetPrice(Recipients).ToString("C", CultureInfo.CreateSpecificCulture("en-UK")) %>
                                         <br />
                                         <br />
                                         <a href="/products/14/" class="btn btn-warning">购买</a>
@@ -69,7 +69,4 @@
                 <a href="/" style="font-size: 20px; text-decoration: underline">&lt;&lt; 返回</a>
             </div>
 
-        </div>
-
-    </div>
 </asp:Content>
