@@ -1628,4 +1628,63 @@
             });
         });
     </script>
+
+    
+    <script type="text/javascript" src="/static/bootstrap-datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+
+    <script type="text/javascript">
+
+
+        $('.form_datetime').datetimepicker({
+            format: 'yyyy-mm-dd',
+            //startDate: date,
+            //endDate: '2015-03-12',
+            weekStart: 0,
+            daysOfWeekDisabled: [0, 6],
+            autoclose: true,
+            startView: 2,
+            minView: 2,
+            maxView: 3,
+            todayBtn: false,
+            todayHighlight: false,
+            minuteStep: 5,
+            pickerPosition: 'bottom-right',
+            showMeridian: false,
+            clearBtn: false,
+            language: 'en',
+            //initialDate: '2015-03-10',
+            daysDisabled: ['2014-04-18', '2014-04-21', '2014-05-05', '2014-05-26', '2014-08-25', '2014-12-24', '2014-12-25', '2014-12-26', '2015-01-01', '2015-04-03', '2015-04-06', '2015-05-04', '2015-05-25', '2015-08-31', '2015-12-25', '2015-12-28']
+        });
+        $('.form_date').datetimepicker({
+            language: 'en',
+            weekStart: 1,
+            todayBtn: 1,
+            autoclose: 1,
+            todayHighlight: 1,
+            startView: 2,
+            minView: 2,
+            forceParse: 0
+        });
+        $('.form_time').datetimepicker({
+            format: 'yyyy-mm-dd',
+            startDate: '2015-03-10',
+            endDate: '2015-03-12',
+            weekStart: 0,
+            daysOfWeekDisabled: [0, 6],
+            autoclose: true,
+            startView: 2,
+            minView: 2,
+            maxView: 3,
+            todayBtn: false,
+            todayHighlight: false,
+            minuteStep: 5,
+            pickerPosition: 'bottom-right',
+            showMeridian: false,
+            clearBtn: false,
+            language: 'en',
+            initialDate: '2015-03-10',
+            daysDisabled: ['2014-04-18', '2014-04-21', '2014-05-05', '2014-05-26', '2014-08-25', '2014-12-24', '2014-12-25', '2014-12-26', '2015-01-01', '2015-04-03', '2015-04-06', '2015-05-04', '2015-05-25', '2015-08-31', '2015-12-25', '2015-12-28']
+        });
+    </script>
 </asp:Content>

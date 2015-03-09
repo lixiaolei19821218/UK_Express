@@ -55,7 +55,8 @@
                                         <%# Item.GetPrice(Recipients).ToString("C", CultureInfo.CreateSpecificCulture("en-UK")) %>
                                         <br />
                                         <br />
-                                        <a href="/products/14/" class="btn btn-warning">购买</a>
+                                        
+                                        <asp:HyperLink CssClass="btn btn-warning" runat="server">购买</asp:HyperLink>
                                     </td>
                                 </tr>
                             </ItemTemplate>
