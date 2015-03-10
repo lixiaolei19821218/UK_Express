@@ -23,4 +23,12 @@ public class Repository
             return context.Services;
         }
     }
+
+    public IEnumerable<Recipient> Recipients
+    {
+        get
+        {
+            return context.Recipients;
+        }
+    }
 }
