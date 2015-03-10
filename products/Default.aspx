@@ -1,73 +1,75 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="product_Default" MasterPageFile="~/MasterPage.master" %>
+
 <%@ Import Namespace="System.Globalization" %>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="server">
     <title>服务 | 速递中国-可靠,快捷,实惠</title>
 </asp:Content>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    
-            <ul class="breadcrumb" style="background: none; margin-top: 15px"></ul>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-            <div style="margin-top: 30px">
-                <div style="margin-left: auto; margin-right: auto; width: 713px; padding-left: 12px; background: url(/static/img/buzou.png) 1px 0 no-repeat;">
-                    <a href="/" class="fl buzou" style="padding-left: 20px">快速询价</a>
-                    <a href="/products/" class="fl buzou active">产品选择</a>
-                    <a href="#" class="fl buzou" style="padding-left: 30px">包裹信息</a>
-                    <a href="#" class="fl buzou" style="padding-left: 30px">在线支付</a>
-                    <a href="#" class="fl buzou" style="padding-left: 10">邮件查收</a>
-                    <div class="cb"></div>
-                </div>
-            </div>
+    <ul class="breadcrumb" style="background: none; margin-top: 15px"></ul>
 
-            <div class="sz16 bold colorb2" style="margin-top: 20px">请选择一个服务：</div>
+    <div style="margin-top: 30px">
+        <div style="margin-left: auto; margin-right: auto; width: 713px; padding-left: 12px; background: url(/static/img/buzou.png) 1px 0 no-repeat;">
+            <a href="/" class="fl buzou" style="padding-left: 20px">快速询价</a>
+            <a href="/products/" class="fl buzou active">产品选择</a>
+            <a href="#" class="fl buzou" style="padding-left: 30px">包裹信息</a>
+            <a href="#" class="fl buzou" style="padding-left: 30px">在线支付</a>
+            <a href="#" class="fl buzou" style="padding-left: 10">邮件查收</a>
+            <div class="cb"></div>
+        </div>
+    </div>
 
-            <div style="margin-top: 15px; background-color: #fff">
-                <table class="table table-products">
-                    <tr>
-                        <th style="min-width: 180px">服务</th>
-                        <th>描述</th>
-                        <th style="min-width: 73px; text-align: center">上门取件</th>
-                        <th style="min-width: 60px; text-align: center">打印</th>
-                        <th style="min-width: 160px">价格(<span style="font-size: 12px">包含取件费</span>)</th>
-                    </tr>
+    <div class="sz16 bold colorb2" style="margin-top: 20px">请选择一个服务：</div>
 
-                    <tbody>
-                        <asp:Repeater ItemType="ServiceView" EnableViewState="false"
-                            SelectMethod="GetServices" runat="server">
-                            <ItemTemplate>
-                                <tr>
-                                    <td style="vertical-align: middle">
-                                        <img src="<%# Item.PictureLink %>" style="float: left; min-height: 40px; max-width: 60px; margin-right: 3px" />
-                                        <%# Item.Name %>
-                                    </td>
-                                    <td>
-                                        <p><img src="<%# Item.DiscribePictureLink %>" width="350" height="78" /></p>
-                                        <p><span style="font-size: small;"><%# Item.Discribe %>></span></p>
-                                    </td>
-                                    <td style="vertical-align: middle; text-align: center">
-                                        <i class="glyphicon glyphicon-ok"></i>
-                                    </td>
-                                    <td style="vertical-align: middle; text-align: center">
-                                        <i class="glyphicon glyphicon-print"></i>
-                                    </td>
-                                    <td style="vertical-align: middle">
-                                        <%# Item.GetPrice(Recipients).ToString("C", CultureInfo.CreateSpecificCulture("en-UK")) %>
-                                        <br />
-                                        <br />
-                                        
-                                        <asp:HyperLink CssClass="btn btn-warning" runat="server">购买</asp:HyperLink>
-                                    </td>
-                                </tr>
-                            </ItemTemplate>
-                        </asp:Repeater>
-                    </tbody>         
+    <div style="margin-top: 15px; background-color: #fff">
+        <form runat="server">
+            <table class="table table-products">
+                <tr>
+                    <th style="min-width: 180px">服务</th>
+                    <th>描述</th>
+                    <th style="min-width: 73px; text-align: center">上门取件</th>
+                    <th style="min-width: 60px; text-align: center">打印</th>
+                    <th style="min-width: 160px">价格(<span style="font-size: 12px">包含取件费</span>)</th>
+                </tr>
 
-                </table>
-            </div>
+                <tbody>
+                    <asp:Repeater ItemType="ServiceView" EnableViewState="false"
+                        SelectMethod="GetServices" runat="server">
+                        <ItemTemplate>
+                            <tr>
+                                <td style="vertical-align: middle">
+                                    <img src="<%# Item.PictureLink %>" style="float: left; min-height: 40px; max-width: 60px; margin-right: 3px" />
+                                    <%# Item.Name %>
+                                </td>
+                                <td>
+                                    <p>
+                                        <img src="<%# Item.DiscribePictureLink %>" width="350" height="78" /></p>
+                                    <p><span style="font-size: small;"><%# Item.Discribe %>></span></p>
+                                </td>
+                                <td style="vertical-align: middle; text-align: center">
+                                    <i class="glyphicon glyphicon-ok"></i>
+                                </td>
+                                <td style="vertical-align: middle; text-align: center">
+                                    <i class="glyphicon glyphicon-print"></i>
+                                </td>
+                                <td style="vertical-align: middle">
+                                    <%# Item.GetPrice(Recipients).ToString("C", CultureInfo.CreateSpecificCulture("en-GB")) %>
+                                    <br />
+                                    <br />
+                                    <button class="btn btn-warning" name="order" value="<%#Item.Id %>" type="submit">购买</button>
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </tbody>
+            </table>
+        </form>
+    </div>
 
-            <div style="margin-top: 15px; margin-bottom: 35px; text-align: right">
-                <a href="/" style="font-size: 20px; text-decoration: underline">&lt;&lt; 返回</a>
-            </div>
+    <div style="margin-top: 15px; margin-bottom: 35px; text-align: right">
+        <a href="/" style="font-size: 20px; text-decoration: underline">&lt;&lt; 返回</a>
+    </div>
 
 </asp:Content>

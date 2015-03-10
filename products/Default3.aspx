@@ -1,21 +1,20 @@
-﻿<html>
-<head>
-    <script src="/static/bootstrap3/js/jquery-1.11.1.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("button").click(function () {
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default3.aspx.cs" Inherits="products_Default3" %>
 
-                $.get("http://www.w3school.com.cn/example/jquery/demo_test.asp/", function (data, status) {
-                    alert("数据：" + data + "\n状态：" + status);
-                });
+<!DOCTYPE html>
 
-            });
-        });
-    </script>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
 </head>
 <body>
-
-    <button>向页面发送 HTTP GET 请求，然后获得返回的结果</button>
-
+    <form id="form1" runat="server">
+    <div>
+    
+        <asp:Button ID="Button1" runat="server" Text="Button" />
+    
+    </div>
+    </form>
+    <button class="btn btn-warning" name="order" type="submit">购买</button>
 </body>
 </html>

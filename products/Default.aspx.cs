@@ -12,7 +12,15 @@ public partial class product_Default : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (IsPostBack)
+        {
+            int id;
+            if (int.TryParse(Request.Form["order"], out id))
+            {
+                Session.Add("ServiceID", id);
+                Response.Redirect("Product.aspx");
+            }
+        }
     }
 
     public IEnumerable<ServiceView> GetServices()

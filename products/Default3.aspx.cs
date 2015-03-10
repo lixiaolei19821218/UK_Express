@@ -8,7 +8,8 @@ using System.Web.UI.WebControls;
 public partial class products_Default3 : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
+    
     {
-
+        Button1.Text += "cbx";
     }
 }
