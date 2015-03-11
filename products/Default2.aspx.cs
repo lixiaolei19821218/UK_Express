@@ -11,4 +11,8 @@ public partial class products_Default2 : System.Web.UI.Page
     {
 
     }
+    protected void TextBox1_TextChanged(object sender, EventArgs e)
+    {
+        this.Title = "mymymy";
+    }
 }

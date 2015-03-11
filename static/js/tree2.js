@@ -224,7 +224,7 @@ function recalcAll() {
         if (response.total)
             $("#total").html('&#163;' + response.total);
         if (response.details)
-            $('#details').html(response.details);
+            $('#details').html(response.details);        
     });
 }
 

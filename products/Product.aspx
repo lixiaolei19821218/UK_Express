@@ -1,5 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Product.aspx.cs" Inherits="products_Product" MasterPageFile="~/MasterPage.master" %>
-
+<%@ Import Namespace="System.Globalization" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <title>包裹信息 | 速递中国-可靠,快捷,实惠</title>
 
@@ -73,721 +73,950 @@
         }
     </style>
 
-  
 
 
 
 
-            <ul class="breadcrumb" style="background: none; margin-top: 15px">
-            </ul>
+
+    <ul class="breadcrumb" style="background: none; margin-top: 15px">
+    </ul>
 
 
 
 
-            <div style="margin-top: 30px">
-                <div style="margin-left: auto; margin-right: auto; width: 713px; padding-left: 12px; background: url(/static/img/buzou.png) 1px 0 no-repeat;">
-                    <a href="/" class="fl buzou" style="padding-left: 20px">快速询价</a>
-                    <a href="/products/" class="fl buzou" style="padding-left: 20px">产品选择</a>
-                    <a href="" class="fl buzou active" style="margin: 0 -14px; width: 150px">包裹信息</a>
-                    <a href="#" class="fl buzou" style="padding-left: 45px">在线支付</a>
-                    <a href="#" class="fl buzou" style="padding-left: 27px">邮件查收</a>
-                    <div class="cb"></div>
+    <div style="margin-top: 30px">
+        <div style="margin-left: auto; margin-right: auto; width: 713px; padding-left: 12px; background: url(/static/img/buzou.png) 1px 0 no-repeat;">
+            <a href="/" class="fl buzou" style="padding-left: 20px">快速询价</a>
+            <a href="/products/" class="fl buzou" style="padding-left: 20px">产品选择</a>
+            <a href="" class="fl buzou active" style="margin: 0 -14px; width: 150px">包裹信息</a>
+            <a href="#" class="fl buzou" style="padding-left: 45px">在线支付</a>
+            <a href="#" class="fl buzou" style="padding-left: 27px">邮件查收</a>
+            <div class="cb"></div>
+        </div>
+    </div>
+
+    <form class="form-inline" id="tree" action="" method="post" runat="server">
+        <input type='hidden' name='csrfmiddlewaretoken' value='T6iXH4VfX4yjoqPS3DTyrvWjpPcrC7Za' />
+        <input id="id_addr-TOTAL_FORMS" name="addr-TOTAL_FORMS" type="hidden" value="2" /><input id="id_addr-INITIAL_FORMS" name="addr-INITIAL_FORMS" type="hidden" value="0" /><input id="id_addr-MAX_NUM_FORMS" name="addr-MAX_NUM_FORMS" type="hidden" value="1000" />
+        <input id="id_parcel-TOTAL_FORMS" name="parcel-TOTAL_FORMS" type="hidden" value="3" /><input id="id_parcel-INITIAL_FORMS" name="parcel-INITIAL_FORMS" type="hidden" value="0" /><input id="id_parcel-MAX_NUM_FORMS" name="parcel-MAX_NUM_FORMS" type="hidden" value="1000" />
+
+        <div class="row" style="background-color: #fff; padding: 20px 15px; margin: 20px 0 30px">
+            <div class="col-sm-10 col-xs-12" style="padding-left: 0">
+
+                <!-- alert messages -->
+                <div>
+
+                    <div class="alert alert-success">
+                        <a class="close" href="#" onclick="$(this).parent().fadeOut('fast'); return false;">×</a>
+                        <ul>
+                            <li>收件人信息可以直接中文输入, 拼音地址同步转换呈现。 输入的中文地址会显示在运单条形码文件中， 最大化节省您的时间。</li>
+                            <li>中国的手机必须为11位数字, 邮编必须为6位数字。</li>
+                            <li>一次下单可添加发往多个收件人的包裹，所产生的文档一键打印即可。</li>
+                        </ul>
+                    </div>
+
                 </div>
-            </div>
 
-            <form class="form-inline" id="tree" action="" method="post">
-                <input type='hidden' name='csrfmiddlewaretoken' value='T6iXH4VfX4yjoqPS3DTyrvWjpPcrC7Za' />
-                <input id="id_addr-TOTAL_FORMS" name="addr-TOTAL_FORMS" type="hidden" value="2" /><input id="id_addr-INITIAL_FORMS" name="addr-INITIAL_FORMS" type="hidden" value="0" /><input id="id_addr-MAX_NUM_FORMS" name="addr-MAX_NUM_FORMS" type="hidden" value="1000" />
-                <input id="id_parcel-TOTAL_FORMS" name="parcel-TOTAL_FORMS" type="hidden" value="3" /><input id="id_parcel-INITIAL_FORMS" name="parcel-INITIAL_FORMS" type="hidden" value="0" /><input id="id_parcel-MAX_NUM_FORMS" name="parcel-MAX_NUM_FORMS" type="hidden" value="1000" />
 
-                <div class="row" style="background-color: #fff; padding: 20px 15px; margin: 20px 0 30px">
-                    <div class="col-sm-10 col-xs-12" style="padding-left: 0">
 
-                        <!-- alert messages -->
-                        <div>
 
-                            <div class="alert alert-success">
-                                <a class="close" href="#" onclick="$(this).parent().fadeOut('fast'); return false;">×</a>
-                                <ul>
-                                    <li>收件人信息可以直接中文输入, 拼音地址同步转换呈现。 输入的中文地址会显示在运单条形码文件中， 最大化节省您的时间。</li>
-                                    <li>中国的手机必须为11位数字, 邮编必须为6位数字。</li>
-                                    <li>一次下单可添加发往多个收件人的包裹，所产生的文档一键打印即可。</li>
-                                </ul>
-                            </div>
+                <script src="/static/js/crafty_postcode.class.js"></script>
+                <script>
+                    var cp_obj_1 = CraftyPostcodeCreate();
+                    cp_obj_1.set("access_token", "17fa9-377f8-077dc-00faf");
+                    cp_obj_1.set("first_res_line", "----- 请选择一个地址 ----");
+                    cp_obj_1.set("res_autoselect", "0");
+                    cp_obj_1.set("result_elem_id", "crafty_postcode_result_display_1");
+                    cp_obj_1.set("form", "");
+                    cp_obj_1.set("elem_street1", "id_billing_detail_street");
+                    cp_obj_1.set("elem_street2", "id_billing_detail_street2");
+                    cp_obj_1.set("elem_street3", "id_billing_detail_street3");
+                    cp_obj_1.set("elem_town", "id_billing_detail_city");
+                    cp_obj_1.set("elem_postcode", "id_billing_detail_postcode");
+                    cp_obj_1.set("single_res_autoselect", 1);
 
+                    $(function () {
+                        $('#crafty_postcode_result_display_1').on('change', 'select', function () {
+                            $('#crafty_postcode_result_display_1').html('');
+                        });
+                    });
+                </script>
+
+                
+                <ol id="root" style="padding-left: 0">
+                    <li style="list-style: none">
+
+                        <!-- sender address -->
+                        <div class="bg1 rds1 clrw1" style="height: 38px; background-position: 0 0; background-repeat: repeat-x; padding: 10px 20px">
+                            发件人地址（英国）
                         </div>
 
+                        <div class="rds2" style="border: 1px solid #ddd; background-color: #F2F8FC; padding: 5px 1px">
+                            <div style="float: left; margin: 5px" class="control-group ">
+                                <label for="id_billing_detail_name">姓名</label>
+                                <input class="input-medium" id="id_billing_detail_name" maxlength="25" name="billing_detail_name" style="width: 115px" type="text" />
 
 
 
-                        <script src="/static/js/crafty_postcode.class.js"></script>
-                        <script>
-                            var cp_obj_1 = CraftyPostcodeCreate();
-                            cp_obj_1.set("access_token", "17fa9-377f8-077dc-00faf");
-                            cp_obj_1.set("first_res_line", "----- 请选择一个地址 ----");
-                            cp_obj_1.set("res_autoselect", "0");
-                            cp_obj_1.set("result_elem_id", "crafty_postcode_result_display_1");
-                            cp_obj_1.set("form", "");
-                            cp_obj_1.set("elem_street1", "id_billing_detail_street");
-                            cp_obj_1.set("elem_street2", "id_billing_detail_street2");
-                            cp_obj_1.set("elem_street3", "id_billing_detail_street3");
-                            cp_obj_1.set("elem_town", "id_billing_detail_city");
-                            cp_obj_1.set("elem_postcode", "id_billing_detail_postcode");
-                            cp_obj_1.set("single_res_autoselect", 1);
 
-                            $(function () {
-                                $('#crafty_postcode_result_display_1').on('change', 'select', function () {
-                                    $('#crafty_postcode_result_display_1').html('');
-                                });
-                            });
-                        </script>
+                            </div>
+                            <div style="float: left; margin: 5px" class="control-group ">
+                                <label for="id_billing_detail_street">地址</label>
+                                <input class="input-xxlarge" id="id_billing_detail_street" maxlength="24" name="billing_detail_street" style="width: 180px" type="text" />
 
-                        <ol id="root" style="padding-left: 0">
-                            <li style="list-style: none">
 
-                                <!-- sender address -->
-                                <div class="bg1 rds1 clrw1" style="height: 38px; background-position: 0 0; background-repeat: repeat-x; padding: 10px 20px">
-                                    发件人地址（英国）
+
+
+                            </div>
+                            <div style="float: left; margin: 5px" class="control-group ">
+                                <input class="input-medium" id="id_billing_detail_street2" maxlength="24" name="billing_detail_street2" style="width: 180px" type="text" />
+
+
+
+
+                            </div>
+                            <div style="float: left; margin: 5px" class="control-group ">
+                                <input class="input-medium" id="id_billing_detail_street3" maxlength="24" name="billing_detail_street3" style="width: 173px" type="text" />
+
+
+
+
+                            </div>
+                            <div style="clear: both"></div>
+
+                            <div style="float: left; margin: 5px" class="control-group ">
+                                <label for="id_billing_detail_city">城市</label>
+                                <input class="input-medium" id="id_billing_detail_city" maxlength="24" name="billing_detail_city" style="width: 115px" type="text" />
+
+
+
+
+                            </div>
+                            <div style="float: left; margin: 5px" class="control-group ">
+                                <label for="id_billing_detail_phone">电话</label>
+                                <input class="input-medium" id="id_billing_detail_phone" maxlength="15" name="billing_detail_phone" style="width: 180px" type="text" />
+
+
+
+
+                            </div>
+                            <div style="float: left; margin: 5px" class="control-group ">
+                                <label for="id_billing_detail_postcode">邮编</label>
+                                <input class="input-medium" id="id_billing_detail_postcode" maxlength="8" name="billing_detail_postcode" style="width: 100px" type="text" />
+
+
+
+
+                            </div>
+
+                            <div style="float: left; margin: 5px">
+                                <button type="button" onclick="cp_obj_1.doLookup()">查找地址</button>
+                            </div>
+
+                            <div id="crafty_postcode_result_display_1" style="float: left; margin: 5px"></div>
+
+                            <div style="clear: both; display: none">
+                                <div style="float: left; margin: 5px" class="control-group ">
+                                    <label for="id_billing_detail_email">Email</label>
+                                    <input class="input-medium" id="id_billing_detail_email" maxlength="50" name="billing_detail_email" style="width: 180px" type="text" />
+
+
+
+
                                 </div>
+                            </div>
 
-                                <div class="rds2" style="border: 1px solid #ddd; background-color: #F2F8FC; padding: 5px 1px">
-                                    <div style="float: left; margin: 5px" class="control-group ">
-                                        <label for="id_billing_detail_name">姓名</label>
-                                        <input class="input-medium" id="id_billing_detail_name" maxlength="25" name="billing_detail_name" style="width: 115px" type="text" value="dddd" />
+                            <div style="clear: both"></div>
+                        </div>
 
+                        <div style="margin-top: 10px;">
+                            <div class="clrw1 rds1" style="background-color: #7F7983; padding: 5px 20px">
+                                取件安排
+                            </div>
+                            <div class="rds2" style="padding: 5px 2px; border: 1px solid #ddd; background-color: #F2F8FC">
+                                <div style="float: left; margin: 5px; font-weight: bold; margin-right: 10px">取件公司 <span style="background-color: #e1e1e1; padding: 2px 4px; font-size: 12px; font-weight: normal">Parcelforce</span></div>
 
-
-
+                                <div style="float: left; margin: 5px" class="control-group ">
+                                    <label for="id_pickup_time_0">日期</label>
+                                    <div id="f" class="input-append date form_datetime">
+                                        <input class="input-medium" foo_bar="prevent_readonly" id="id_pickup_time_0" name="pickup_time_0" type="text" />
+                                        <span id="sp" class="add-on"><i class="icon-th"></i></span>
                                     </div>
-                                    <div style="float: left; margin: 5px" class="control-group ">
-                                        <label for="id_billing_detail_street">地址</label>
-                                        <input class="input-xxlarge" id="id_billing_detail_street" maxlength="24" name="billing_detail_street" style="width: 180px" type="text" value="ddd" />
-
-
-
-
-                                    </div>
-                                    <div style="float: left; margin: 5px" class="control-group ">
-                                        <input class="input-medium" id="id_billing_detail_street2" maxlength="24" name="billing_detail_street2" style="width: 180px" type="text" value="ddd" />
-
-
-
-
-                                    </div>
-                                    <div style="float: left; margin: 5px" class="control-group ">
-                                        <input class="input-medium" id="id_billing_detail_street3" maxlength="24" name="billing_detail_street3" style="width: 173px" type="text" value="ddd" />
-
-
-
-
-                                    </div>
-                                    <div style="clear: both"></div>
-
-                                    <div style="float: left; margin: 5px" class="control-group ">
-                                        <label for="id_billing_detail_city">城市</label>
-                                        <input class="input-medium" id="id_billing_detail_city" maxlength="24" name="billing_detail_city" style="width: 115px" type="text" value="dddd" />
-
-
-
-
-                                    </div>
-                                    <div style="float: left; margin: 5px" class="control-group ">
-                                        <label for="id_billing_detail_phone">电话</label>
-                                        <input class="input-medium" id="id_billing_detail_phone" maxlength="15" name="billing_detail_phone" style="width: 180px" type="text" value="11111" />
-
-
-
-
-                                    </div>
-                                    <div style="float: left; margin: 5px" class="control-group ">
-                                        <label for="id_billing_detail_postcode">邮编</label>
-                                        <input class="input-medium" id="id_billing_detail_postcode" maxlength="8" name="billing_detail_postcode" style="width: 100px" type="text" value="M2 5BQ" />
-
-
-
-
-                                    </div>
-
-                                    <div style="float: left; margin: 5px">
-                                        <button type="button" onclick="cp_obj_1.doLookup()">查找地址</button>
-                                    </div>
-
-                                    <div id="crafty_postcode_result_display_1" style="float: left; margin: 5px"></div>
-
-                                    <div style="clear: both; display: none">
-                                        <div style="float: left; margin: 5px" class="control-group ">
-                                            <label for="id_billing_detail_email">Email</label>
-                                            <input class="input-medium" id="id_billing_detail_email" maxlength="50" name="billing_detail_email" style="width: 180px" type="text" />
-
-
-
-
-                                        </div>
-                                    </div>
-
-                                    <div style="clear: both"></div>
+                                    <script type="text/javascript">
+                                        $("#f").datetimepicker({
+                                            format: 'yyyy-mm-dd',
+                                            startDate: '2015-03-10',
+                                            endDate: '2015-03-12',
+                                            weekStart: 0,
+                                            daysOfWeekDisabled: [0, 6],
+                                            autoclose: true,
+                                            startView: 2,
+                                            minView: 2,
+                                            maxView: 3,
+                                            todayBtn: false,
+                                            todayHighlight: false,
+                                            minuteStep: 5,
+                                            pickerPosition: 'bottom-right',
+                                            showMeridian: false,
+                                            clearBtn: false,
+                                            language: 'en',
+                                            initialDate: '2015-03-10',
+                                            daysDisabled: ['2014-04-18', '2014-04-21', '2014-05-05', '2014-05-26', '2014-08-25', '2014-12-24', '2014-12-25', '2014-12-26', '2015-01-01', '2015-04-03', '2015-04-06', '2015-05-04', '2015-05-25', '2015-08-31', '2015-12-25', '2015-12-28']
+                                        });
+                                    </script>
                                 </div>
-
-                                <div style="margin-top: 10px;">
-                                    <div class="clrw1 rds1" style="background-color: #7F7983; padding: 5px 20px">
-                                        取件安排
-                                    </div>
-                                    <div class="rds2" style="padding: 5px 2px; border: 1px solid #ddd; background-color: #F2F8FC">
-                                        <div style="float: left; margin: 5px; font-weight: bold; margin-right: 10px">取件公司 <span style="background-color: #e1e1e1; padding: 2px 4px; font-size: 12px; font-weight: normal">Parcelforce</span></div>
-
-                                        <div style="float: left; margin: 5px" class="control-group ">
-                                            <label for="id_pickup_time_0">日期</label>
-                                            <div id="f" class="input-append date form_datetime">
-                                                <input class="input-medium" foo_bar="prevent_readonly" id="id_pickup_time_0" name="pickup_time_0" type="text" />
-                                                <span id="sp" class="add-on"><i class="icon-th"></i></span>
-                                            </div>
-                                            <script type="text/javascript">
-                                                $("#f").datetimepicker({
-                                                    format: 'yyyy-mm-dd',
-                                                    startDate: '2015-03-10',
-                                                    endDate: '2015-03-12',
-                                                    weekStart: 0,
-                                                    daysOfWeekDisabled: [0, 6],
-                                                    autoclose: true,
-                                                    startView: 2,
-                                                    minView: 2,
-                                                    maxView: 3,
-                                                    todayBtn: false,
-                                                    todayHighlight: false,
-                                                    minuteStep: 5,
-                                                    pickerPosition: 'bottom-right',
-                                                    showMeridian: false,
-                                                    clearBtn: false,
-                                                    language: 'en',
-                                                    initialDate: '2015-03-10',
-                                                    daysDisabled: ['2014-04-18', '2014-04-21', '2014-05-05', '2014-05-26', '2014-08-25', '2014-12-24', '2014-12-25', '2014-12-26', '2015-01-01', '2015-04-03', '2015-04-06', '2015-05-04', '2015-05-25', '2015-08-31', '2015-12-25', '2015-12-28']
-                                                });
-                                            </script>
-                                        </div>
-                                        <div style="float: left; margin: 5px; font-weight: bold; margin-left: 10px; margin-right: 10px">
-                                            时间
+                                <div style="float: left; margin: 5px; font-weight: bold; margin-left: 10px; margin-right: 10px">
+                                    时间
 
                     
                         <span style="background-color: #BFBFBF; padding: 2px 4px; font-size: 12px; font-weight: normal">9:00-18:00</span>
 
 
-                                        </div>
+                                </div>
 
-                                        <div style="float: left; margin: 5px" class="control-group ">
-                                            <label for="id_additional_instructions">备注</label>
-                                            <input class="input-xxlarge" id="id_additional_instructions" maxlength="50" name="additional_instructions" style="width: 290px" type="text" />
-
-
+                                <div style="float: left; margin: 5px" class="control-group ">
+                                    <label for="id_additional_instructions">备注</label>
+                                    <input class="input-xxlarge" id="id_additional_instructions" maxlength="50" name="additional_instructions" style="width: 290px" type="text" />
 
 
-                                        </div>
+
+
+                                </div>
+                                <div style="clear: both"></div>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <asp:FormView ID="FormView1" runat="server" ItemType="Recipient">
+                         <ItemTemplate>
+                            <li class="addrItem" style="list-style: none; margin-top: 20px; background-color: #ffffcd; border: 1px solid #ddd">
+                                <div class="clrw1" style="background-color: #FD7F23; padding: 5px 20px">
+                                    <div class="pull-left" style="padding-top: 4px">收件人地址 <span class="addr_item_num">1</span></div>
+                                    <div class="select-addr2 pull-left btn btn-primary btn-small btn-hover"><i class="icon-book icon-white"></i><span>调用地址簿</span></div>
+                                    <div class="del-addr pull-right btn btn-danger btn-small btn-hover"><i class="icon-trash icon-white"></i><span>删除收件人</span></div>
+                                    <div class="add-addr pull-right btn btn-primary btn-small btn-hover"><i class="icon-plus icon-white"></i><span>添加收件人</span></div>
+                                    <div style="clear: both"></div>
+                                </div>
+                                <input id="id_addr-0-id" name="addr-0-id" type="hidden" />
+                                <!-- recipient address -->
+                                <div style="padding-top: 10px">
+                                    <div class="py_fields" style="position: relative; background-color: #e1e1e1; min-height: 24px; display: none; margin-left: 5px; margin-right: 5px; font-size: 13px">
+                                        <div class="py_name" style="float: left; width: 162px; padding-left: 60px">&nbsp;</div>
+                                        <div class="py_city" style="float: left; width: 162px; padding-left: 28px"></div>
+                                        <div class="py_street" style="margin-left: 324px; margin-right: 38px"></div>
+                                        <button class="display_hidden btn btn-small" type="button" style="position: absolute; right: 0; top: 0; background-color: #BFBFBF" title="修改转换">编辑</button>
                                         <div style="clear: both"></div>
                                     </div>
-                                </div>
-                            </li>
-
-                            <asp:Repeater runat="server" ItemType="Recipient" EnableViewState="false" SelectMethod="GetRecipients">
-                                <ItemTemplate>
-                                    <li class="addrItem" style="list-style: none; margin-top: 20px; background-color: #ffffcd; border: 1px solid #ddd">
-                                        <div class="clrw1" style="background-color: #FD7F23; padding: 5px 20px">
-                                            <div class="pull-left" style="padding-top: 4px">收件人地址 <span class="addr_item_num">1</span></div>
-                                            <div class="select-addr2 pull-left btn btn-primary btn-small btn-hover"><i class="icon-book icon-white"></i><span>调用地址簿</span></div>
-                                            <div class="del-addr pull-right btn btn-danger btn-small btn-hover"><i class="icon-trash icon-white"></i><span>删除收件人</span></div>
-                                            <div class="add-addr pull-right btn btn-primary btn-small btn-hover"><i class="icon-plus icon-white"></i><span>添加收件人</span></div>
-                                            <div style="clear: both"></div>
+                                    <div style="float: left; margin: 5px" class="control-group ">
+                                        <label for="id_addr-0-cn_name">中文姓名</label>
+                                        
+                                        <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" value="<%#Item.Name %>"/>
+                                    </div>
+                                    <div style="float: left; margin: 5px" class="control-group ">
+                                        <label for="id_addr-0-cn_city">中文城市</label>
+                                        <input class="cn_fields cn_city" id="id_addr-0-cn_city" maxlength="24" name="addr-0-cn_city" style="width: 60px" type="text" value="<%#Item.City %>"/>
+                                    </div>
+                                    <div style="float: left; margin: 5px" class="control-group ">
+                                        <label for="id_addr-0-cn_street">中文地址</label>
+                                        <input class="cn_fields cn_street" id="id_addr-0-cn_street" maxlength="72" name="addr-0-cn_street" style="width: 415px" type="text" />
+                                    </div>
+                                    <div style="clear: both"></div>
+                                    <div style="float: left; margin: 5px; margin-left: 17px; font-weight: bold">
+                                        收件地<span style="padding: 2px 4px; background-color: #e1e1e1; font-weight: normal">中国大陆</span>
+                                    </div>
+                                    <div style="margin-left: 26px; float: left">
+                                        <div style="float: left; margin: 5px" class="control-group ">
+                                            <label for="id_addr-0-postcode">邮编</label>
+                                            <input id="id_addr-0-postcode" maxlength="6" name="addr-0-postcode" style="width: 60px" type="text" />
                                         </div>
-                                        <input id="id_addr-0-id" name="addr-0-id" type="hidden" />
-                                        <!-- recipient address -->
-                                        <div style="padding-top: 10px">
-                                            <div class="py_fields" style="position: relative; background-color: #e1e1e1; min-height: 24px; display: none; margin-left: 5px; margin-right: 5px; font-size: 13px">
-                                                <div class="py_name" style="float: left; width: 162px; padding-left: 60px">&nbsp;</div>
-                                                <div class="py_city" style="float: left; width: 162px; padding-left: 28px"></div>
-                                                <div class="py_street" style="margin-left: 324px; margin-right: 38px"></div>
-                                                <button class="display_hidden btn btn-small" type="button" style="position: absolute; right: 0; top: 0; background-color: #BFBFBF" title="修改转换">编辑</button>
-                                                <div style="clear: both"></div>
-                                            </div>
-                                            <div style="float: left; margin: 5px" class="control-group ">
-                                                <label for="id_addr-0-cn_name">中文姓名</label>
-                                                <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" />
-                                            </div>
-                                            <div style="float: left; margin: 5px" class="control-group ">
-                                                <label for="id_addr-0-cn_city">中文城市</label>
-                                                <input class="cn_fields cn_city" id="id_addr-0-cn_city" maxlength="24" name="addr-0-cn_city" style="width: 60px" type="text" />
-                                            </div>
-                                            <div style="float: left; margin: 5px" class="control-group ">
-                                                <label for="id_addr-0-cn_street">中文地址</label>
-                                                <input class="cn_fields cn_street" id="id_addr-0-cn_street" maxlength="72" name="addr-0-cn_street" style="width: 415px" type="text" />
-                                            </div>
-                                            <div style="clear: both"></div>
-                                            <div style="float: left; margin: 5px; margin-left: 17px; font-weight: bold">
-                                                收件地<span style="padding: 2px 4px; background-color: #e1e1e1; font-weight: normal">中国大陆</span>
-                                            </div>
-                                            <div style="margin-left: 26px; float: left">
-                                                <div style="float: left; margin: 5px" class="control-group ">
-                                                    <label for="id_addr-0-postcode">邮编</label>
-                                                    <input id="id_addr-0-postcode" maxlength="6" name="addr-0-postcode" style="width: 60px" type="text" />
-                                                </div>
-                                            </div>
-                                            <div style="margin-left: 26px; float: left">
-                                                <div style="float: left; margin: 5px" class="control-group ">
-                                                    <label for="id_addr-0-phone">电话</label>
-                                                    <input id="id_addr-0-phone" maxlength="11" name="addr-0-phone" style="width: 100px" type="text" />
-                                                </div>
-                                            </div>
-                                            <div style="float: left; margin: 5px; margin-left: 20px" class="control-group">
-                                                <label>
-                                                    额外保险
+                                    </div>
+                                    <div style="margin-left: 26px; float: left">
+                                        <div style="float: left; margin: 5px" class="control-group ">
+                                            <label for="id_addr-0-phone">电话</label>
+                                            <input id="id_addr-0-phone" maxlength="11" name="addr-0-phone" style="width: 100px" type="text" />
+                                        </div>
+                                    </div>
+                                    <div style="float: left; margin: 5px; margin-left: 20px" class="control-group">
+                                        <label>
+                                            额外保险
                                                     <select name="addr_0_insurance" class="addr_insurance" id="addr_0_insurance">
-                                                         <option value="0">无</option>
+                                                        <option value="0">无</option>
                                                     </select>
-                                                </label>
+                                        </label>
+                                    </div>
+                                    <div class="hidden_address modal fade" style="display: none; clear: both">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">英文／拼音地址手动输入</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div style="background-color: #e1e1e1">中文姓名：<span class="cn_name_en"></span></div>
+                                                    <div style="float: left; margin: 5px" class="control-group ">
+                                                        <label for="id_addr-0-name">姓名</label>
+                                                        <input class="en_fields en_name" id="id_addr-0-name" maxlength="25" name="addr-0-name" style="width: 250px" type="text" />
+                                                    </div>
+                                                    <div style="clear: both"></div>
+                                                    <div style="background-color: #e1e1e1">中文城市：<span class="cn_city_en"></span></div>
+                                                    <div style="float: left; margin: 5px" class="control-group ">
+                                                        <label for="id_addr-0-city">城市</label>
+                                                        <input class="en_fields en_city" id="id_addr-0-city" maxlength="24" name="addr-0-city" style="width: 250px" type="text" />
+                                                    </div>
+                                                    <div style="clear: both"></div>
+                                                    <div style="background-color: #e1e1e1">中文地址：<span class="cn_street_en"></span></div>
+                                                    <div style="float: left; margin: 5px" class="control-group ">
+                                                        <label for="id_addr-0-street">地址</label>
+                                                        <input class="en_fields en_street" id="id_addr-0-street" maxlength="24" name="addr-0-street" style="width: 250px" type="text" />
+                                                    </div>
+                                                    <div style="float: left; margin: 5px" class="control-group ">
+                                                        <input class="en_fields en_street2" id="id_addr-0-street2" maxlength="24" name="addr-0-street2" style="width: 250px; margin-left: 32px" type="text" />
+                                                    </div>
+                                                    <div style="float: left; margin: 5px" class="control-group ">
+                                                        <input class="en_fields en_street3" id="id_addr-0-street3" maxlength="24" name="addr-0-street3" style="width: 250px; margin-left: 32px" type="text" />
+                                                    </div>
+                                                    <div style="clear: both"></div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary change_translation" data-dismiss="modal">确定</button>
+                                                    <button type="button" class="btn btn-default translate">恢复拼音转换</button>
+                                                </div>
                                             </div>
-                                            <div class="hidden_address modal fade" style="display: none; clear: both">
-                                                <div class="modal-dialog">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                            <h4 class="modal-title" id="myModalLabel">英文／拼音地址手动输入</h4>
+                                        </div>
+                                    </div>
+                                    <div style="float: left; margin: 5px; display: none" class="control-group">
+                                        <label>
+                                            <input type="checkbox" name="save_addr" checked="checked" value="1" class="save_addr" style="margin-bottom: 7px" />
+                                            保存到地址簿
+                                        </label>
+                                    </div>
+                                    <div style="clear: both"></div>
+                                </div>
+
+                                <ol class="con" style="padding-left: 20px; padding-right: 10px; padding-bottom: 20px">
+                                    <asp:Repeater runat="server" ItemType="Package" EnableViewState="false" DataSource="<%#Item.Packages %>">
+                                        <ItemTemplate>
+                                            <li class="parcelItem" style="list-style: none; margin-top: 15px">
+                                                <div class="rds1 clrw1" style="background-color: #0075C2; padding: 5px 20px">
+                                                    包裹 <span class="ordering_number">1</span>
+                                                    <span class="del-parcel pull-right btn btn-danger btn-small btn-hover"><i class="icon-trash icon-white"></i><span>删除包裹</span></span>
+                                                    <span class="clone pull-right btn btn-primary btn-small btn-hover"><i class="icon-plus icon-white"></i><span>添加包裹</span></span>
+                                                </div>
+                                                <input id="id_parcel-0-address_id" name="parcel-0-address_id" type="hidden" value="0" />
+                                                <input id="id_parcel-0-id" name="parcel-0-id" type="hidden" />
+                                                <div class="rds2" style="padding-top: 10px; background-color: #E0EDF4; border: 1px solid #ddd;">
+                                                    <div class="ib">
+                                                        <div class="pd7 bold">重量/尺寸</div>
+                                                        <div class="ib pd7">
+                                                            重量(kg)
+                                                            <div>
+                                                                <asp:TextBox runat="server" style="width: 55px" Text=<%#Item.Weight %> OnTextChanged="Weight_TextChanged" AutoPostBack="true" />                                                                
+                                                            </div>
                                                         </div>
-                                                        <div class="modal-body">
-                                                            <div style="background-color: #e1e1e1">中文姓名：<span class="cn_name_en"></span></div>
-                                                            <div style="float: left; margin: 5px" class="control-group ">
-                                                                <label for="id_addr-0-name">姓名</label>
-                                                                <input class="en_fields en_name" id="id_addr-0-name" maxlength="25" name="addr-0-name" style="width: 250px" type="text" />
+                                                        <div class="ib pd7">
+                                                            长度(cm)                                   
+                                                            <div>
+                                                                <input class="input-small" id="id_parcel-0-length" name="parcel-0-length" style="width: 55px" type="text" value=<%#Item.Length %> />
                                                             </div>
-                                                            <div style="clear: both"></div>
-                                                            <div style="background-color: #e1e1e1">中文城市：<span class="cn_city_en"></span></div>
-                                                            <div style="float: left; margin: 5px" class="control-group ">
-                                                                <label for="id_addr-0-city">城市</label>
-                                                                <input class="en_fields en_city" id="id_addr-0-city" maxlength="24" name="addr-0-city" style="width: 250px" type="text" />
-                                                            </div>
-                                                            <div style="clear: both"></div>
-                                                            <div style="background-color: #e1e1e1">中文地址：<span class="cn_street_en"></span></div>
-                                                            <div style="float: left; margin: 5px" class="control-group ">
-                                                                <label for="id_addr-0-street">地址</label>
-                                                                <input class="en_fields en_street" id="id_addr-0-street" maxlength="24" name="addr-0-street" style="width: 250px" type="text" />
-                                                            </div>
-                                                            <div style="float: left; margin: 5px" class="control-group ">
-                                                                <input class="en_fields en_street2" id="id_addr-0-street2" maxlength="24" name="addr-0-street2" style="width: 250px; margin-left: 32px" type="text" />
-                                                            </div>
-                                                            <div style="float: left; margin: 5px" class="control-group ">
-                                                                <input class="en_fields en_street3" id="id_addr-0-street3" maxlength="24" name="addr-0-street3" style="width: 250px; margin-left: 32px" type="text" />
-                                                            </div>
-                                                            <div style="clear: both"></div>
                                                         </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-primary change_translation" data-dismiss="modal">确定</button>
-                                                            <button type="button" class="btn btn-default translate">恢复拼音转换</button>
+                                                        <div class="ib pd7">
+                                                            宽度(cm)                                   
+                                                            <div>
+                                                                <input class="input-small" id="id_parcel-0-width" name="parcel-0-width" style="width: 55px" type="text" value=<%#Item.Width %> />
+                                                            </div>
+                                                        </div>
+                                                        <div class="ib pd7">
+                                                            高度(cm)                                
+                                                            <div>
+                                                                <input class="input-small" id="id_parcel-0-height" name="parcel-0-height" style="width: 55px" type="text" value=<%#Item.Height %> />
+                                                            </div>
                                                         </div>
                                                     </div>
+                                                    <div class="ib" style="margin-left: 20px">
+                                                        <div>
+                                                            <div class="ib pd7 bold">包裹明细</div>
+                                                            <div class="ib pd7 bold" style="margin-left: 40px">
+                                                                总额(£):<span class="mx_total"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- parcel content details -->
+
+                                                        <div class="mx">
+                                                            <div class="ib pd7">(<span class="mx_sq">1</span>)</div>
+                                                            <div class="ib mx_type">
+                                                                <select id="id_parcel-0-content-0-type" name="parcel-0-content-0-type" style="width: 100px">
+                                                                    <option value="婴儿奶粉" selected="selected">婴儿奶粉</option>
+                                                                    <option value="婴儿食品">婴儿食品</option>
+                                                                    <option value="成人奶粉">成人奶粉</option>
+                                                                    <option value="婴儿推车">婴儿推车</option>
+                                                                    <option value="安全座椅">安全座椅</option>
+                                                                    <option value="婴儿用品">婴儿用品</option>
+                                                                    <option value="食品">食品</option>
+                                                                    <option value="保健品">保健品</option>
+                                                                    <option value="服装服饰">服装服饰</option>
+                                                                    <option value="服饰配件">服饰配件</option>
+                                                                    <option value="箱包">箱包</option>
+                                                                    <option value="鞋靴">鞋靴</option>
+                                                                    <option value="钟表">钟表</option>
+                                                                    <option value="钟表配件">钟表配件</option>
+                                                                    <option value="化妆品">化妆品</option>
+                                                                    <option value="护肤品">护肤品</option>
+                                                                    <option value="洗漱用品">洗漱用品</option>
+                                                                    <option value="厨卫清洁用品">厨卫清洁用品</option>
+                                                                    <option value="小家电（含游戏机等）">小家电（含游戏机等）</option>
+                                                                    <option value="家用医疗用品">家用医疗用品</option>
+                                                                    <option value="美容保健器材">美容保健器材</option>
+                                                                    <option value="影音设备">影音设备</option>
+                                                                    <option value="手机和移动设备">手机和移动设备</option>
+                                                                    <option value="手机和移动设备配件">手机和移动设备配件</option>
+                                                                    <option value="计算机">计算机</option>
+                                                                    <option value="计算机外围设备">计算机外围设备</option>
+                                                                    <option value="书报、刊物">书报、刊物</option>
+                                                                    <option value="音响制品（唱片、影片等）">音响制品（唱片、影片等）</option>
+                                                                    <option value="文具">文具</option>
+                                                                    <option value="玩具">玩具</option>
+                                                                    <option value="教育用品">教育用品</option>
+                                                                    <option value="体育用品">体育用品</option>
+                                                                    <option value="户外用品">户外用品</option>
+                                                                    <option value="邮票">邮票</option>
+                                                                    <option value="乐器">乐器</option>
+                                                                    <option value="茶包">茶包</option>
+                                                                    <option value="个人行李 - 旧箱包">个人行李 - 旧箱包</option>
+                                                                    <option value="个人行李 - 旧文具">个人行李 - 旧文具</option>
+                                                                    <option value="个人行李 - 旧电子物品">个人行李 - 旧电子物品</option>
+                                                                    <option value="个人行李 - 旧护肤品">个人行李 - 旧护肤品</option>
+                                                                    <option value="个人行李 - 个人礼品">个人行李 - 个人礼品</option>
+                                                                    <option value="个人行李 - 旧衣物">个人行李 - 旧衣物</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="ib mx_quantity mx_cal">
+                                                                数量:                                                       
+                                                                <input id="id_parcel-0-content-0-quantity" name="parcel-0-content-0-quantity" style="width: 40px" type="text" />
+                                                            </div>
+                                                            <div class="ib mx_cost mx_cal">
+                                                                单价(£):                                                       
+                                                                <input id="id_parcel-0-content-0-cost" name="parcel-0-content-0-cost" style="width: 40px" type="text" />
+                                                            </div>
+                                                            <div class="ib">
+                                                                <button style="border: 1px solid #ddd; background: none" class="btn add_mx btn_mx" type="button" title="添加包裹明细"><i class="icon-plus icon-white"></i></button>
+                                                            </div>
+                                                            <div class="ib">
+                                                                <button style="border: 1px solid #ddd; background: none" class="btn del_mx btn_mx" type="button" title="删除包裹明细"><i class="icon-minus"></i></button>
+                                                            </div>
+                                                        </div>
+                                                        <input id="id_parcel-0-content-TOTAL_FORMS" name="parcel-0-content-TOTAL_FORMS" type="hidden" value="1" /><input id="id_parcel-0-content-INITIAL_FORMS" name="parcel-0-content-INITIAL_FORMS" type="hidden" value="0" /><input id="id_parcel-0-content-MAX_NUM_FORMS" name="parcel-0-content-MAX_NUM_FORMS" type="hidden" value="1000" />
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </ol>
+                            </li>
+                        </ItemTemplate>
+                        <EditItemTemplate>
+                            <li class="addrItem" style="list-style: none; margin-top: 20px; background-color: #ffffcd; border: 1px solid #ddd">
+                                <div class="clrw1" style="background-color: #FD7F23; padding: 5px 20px">
+                                    <div class="pull-left" style="padding-top: 4px">收件人地址 <span class="addr_item_num">1</span></div>
+                                    <div class="select-addr2 pull-left btn btn-primary btn-small btn-hover"><i class="icon-book icon-white"></i><span>调用地址簿</span></div>
+                                    <div class="del-addr pull-right btn btn-danger btn-small btn-hover"><i class="icon-trash icon-white"></i><span>删除收件人</span></div>
+                                    <div class="add-addr pull-right btn btn-primary btn-small btn-hover"><i class="icon-plus icon-white"></i><span>添加收件人</span></div>
+                                    <div style="clear: both"></div>
+                                </div>
+                                <input id="id_addr-0-id" name="addr-0-id" type="hidden" />
+                                <!-- recipient address -->
+                                <div style="padding-top: 10px">
+                                    <div class="py_fields" style="position: relative; background-color: #e1e1e1; min-height: 24px; display: none; margin-left: 5px; margin-right: 5px; font-size: 13px">
+                                        <div class="py_name" style="float: left; width: 162px; padding-left: 60px">&nbsp;</div>
+                                        <div class="py_city" style="float: left; width: 162px; padding-left: 28px"></div>
+                                        <div class="py_street" style="margin-left: 324px; margin-right: 38px"></div>
+                                        <button class="display_hidden btn btn-small" type="button" style="position: absolute; right: 0; top: 0; background-color: #BFBFBF" title="修改转换">编辑</button>
+                                        <div style="clear: both"></div>
+                                    </div>
+                                    <div style="float: left; margin: 5px" class="control-group ">
+                                        <label for="id_addr-0-cn_name">中文姓名</label>
+                                        
+                                        <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" value="<%# Item.Name %>" />
+                                    </div>
+                                    <div style="float: left; margin: 5px" class="control-group ">
+                                        <label for="id_addr-0-cn_city">中文城市</label>
+                                        <input class="cn_fields cn_city" id="id_addr-0-cn_city" maxlength="24" name="addr-0-cn_city" style="width: 60px" type="text" value="<%#Item.City %>"/>
+                                    </div>
+                                    <div style="float: left; margin: 5px" class="control-group ">
+                                        <label for="id_addr-0-cn_street">中文地址</label>
+                                        <input class="cn_fields cn_street" id="id_addr-0-cn_street" maxlength="72" name="addr-0-cn_street" style="width: 415px" type="text" />
+                                    </div>
+                                    <div style="clear: both"></div>
+                                    <div style="float: left; margin: 5px; margin-left: 17px; font-weight: bold">
+                                        收件地<span style="padding: 2px 4px; background-color: #e1e1e1; font-weight: normal">中国大陆</span>
+                                    </div>
+                                    <div style="margin-left: 26px; float: left">
+                                        <div style="float: left; margin: 5px" class="control-group ">
+                                            <label for="id_addr-0-postcode">邮编</label>
+                                            <input id="id_addr-0-postcode" maxlength="6" name="addr-0-postcode" style="width: 60px" type="text" />
+                                        </div>
+                                    </div>
+                                    <div style="margin-left: 26px; float: left">
+                                        <div style="float: left; margin: 5px" class="control-group ">
+                                            <label for="id_addr-0-phone">电话</label>
+                                            <input id="id_addr-0-phone" maxlength="11" name="addr-0-phone" style="width: 100px" type="text" />
+                                        </div>
+                                    </div>
+                                    <div style="float: left; margin: 5px; margin-left: 20px" class="control-group">
+                                        <label>
+                                            额外保险
+                                                    <select name="addr_0_insurance" class="addr_insurance" id="addr_0_insurance">
+                                                        <option value="0">无</option>
+                                                    </select>
+                                        </label>
+                                    </div>
+                                    <div class="hidden_address modal fade" style="display: none; clear: both">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title" id="myModalLabel">英文／拼音地址手动输入</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div style="background-color: #e1e1e1">中文姓名：<span class="cn_name_en"></span></div>
+                                                    <div style="float: left; margin: 5px" class="control-group ">
+                                                        <label for="id_addr-0-name">姓名</label>
+                                                        <input class="en_fields en_name" id="id_addr-0-name" maxlength="25" name="addr-0-name" style="width: 250px" type="text" />
+                                                    </div>
+                                                    <div style="clear: both"></div>
+                                                    <div style="background-color: #e1e1e1">中文城市：<span class="cn_city_en"></span></div>
+                                                    <div style="float: left; margin: 5px" class="control-group ">
+                                                        <label for="id_addr-0-city">城市</label>
+                                                        <input class="en_fields en_city" id="id_addr-0-city" maxlength="24" name="addr-0-city" style="width: 250px" type="text" />
+                                                    </div>
+                                                    <div style="clear: both"></div>
+                                                    <div style="background-color: #e1e1e1">中文地址：<span class="cn_street_en"></span></div>
+                                                    <div style="float: left; margin: 5px" class="control-group ">
+                                                        <label for="id_addr-0-street">地址</label>
+                                                        <input class="en_fields en_street" id="id_addr-0-street" maxlength="24" name="addr-0-street" style="width: 250px" type="text" />
+                                                    </div>
+                                                    <div style="float: left; margin: 5px" class="control-group ">
+                                                        <input class="en_fields en_street2" id="id_addr-0-street2" maxlength="24" name="addr-0-street2" style="width: 250px; margin-left: 32px" type="text" />
+                                                    </div>
+                                                    <div style="float: left; margin: 5px" class="control-group ">
+                                                        <input class="en_fields en_street3" id="id_addr-0-street3" maxlength="24" name="addr-0-street3" style="width: 250px; margin-left: 32px" type="text" />
+                                                    </div>
+                                                    <div style="clear: both"></div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary change_translation" data-dismiss="modal">确定</button>
+                                                    <button type="button" class="btn btn-default translate">恢复拼音转换</button>
                                                 </div>
                                             </div>
-                                            <div style="float: left; margin: 5px; display: none" class="control-group">
-                                                <label>
-                                                    <input type="checkbox" name="save_addr" checked="checked" value="1" class="save_addr" style="margin-bottom: 7px" />
-                                                    保存到地址簿
-                                                </label>
-                                            </div>
-                                            <div style="clear: both"></div>
                                         </div>
+                                    </div>
+                                    <div style="float: left; margin: 5px; display: none" class="control-group">
+                                        <label>
+                                            <input type="checkbox" name="save_addr" checked="checked" value="1" class="save_addr" style="margin-bottom: 7px" />
+                                            保存到地址簿
+                                        </label>
+                                    </div>
+                                    <div style="clear: both"></div>
+                                </div>
 
-                                        <ol class="con" style="padding-left: 20px; padding-right: 10px; padding-bottom: 20px">
-                                            <asp:Repeater runat="server" ItemType="Package" EnableViewState="false" DataSource=<%#Item.Packages %>>
-                                                <ItemTemplate>
-                                                    <li class="parcelItem" style="list-style: none; margin-top: 15px">
-                                                        <div class="rds1 clrw1" style="background-color: #0075C2; padding: 5px 20px">
-                                                            包裹 <span class="ordering_number">1</span>
-                                                            <span class="del-parcel pull-right btn btn-danger btn-small btn-hover"><i class="icon-trash icon-white"></i><span>删除包裹</span></span>
-                                                            <span class="clone pull-right btn btn-primary btn-small btn-hover"><i class="icon-plus icon-white"></i><span>添加包裹</span></span>
+                                <ol class="con" style="padding-left: 20px; padding-right: 10px; padding-bottom: 20px">
+                                    <asp:Repeater runat="server" ItemType="Package" EnableViewState="false" DataSource="<%#Item.Packages %>">
+                                        <ItemTemplate>
+                                            <li class="parcelItem" style="list-style: none; margin-top: 15px">
+                                                <div class="rds1 clrw1" style="background-color: #0075C2; padding: 5px 20px">
+                                                    包裹 <span class="ordering_number">1</span>
+                                                    <span class="del-parcel pull-right btn btn-danger btn-small btn-hover"><i class="icon-trash icon-white"></i><span>删除包裹</span></span>
+                                                    <span class="clone pull-right btn btn-primary btn-small btn-hover"><i class="icon-plus icon-white"></i><span>添加包裹</span></span>
+                                                </div>
+                                                <input id="id_parcel-0-address_id" name="parcel-0-address_id" type="hidden" value="0" />
+                                                <input id="id_parcel-0-id" name="parcel-0-id" type="hidden" />
+                                                <div class="rds2" style="padding-top: 10px; background-color: #E0EDF4; border: 1px solid #ddd;">
+                                                    <div class="ib">
+                                                        <div class="pd7 bold">重量/尺寸</div>
+                                                        <div class="ib pd7">
+                                                            重量(kg)
+                                                            <div>
+                                                                <asp:TextBox runat="server" style="width: 55px" Text=<%#Item.Weight %> OnTextChanged="Weight_TextChanged" AutoPostBack="true" />                                                                
+                                                            </div>
                                                         </div>
-                                                        <input id="id_parcel-0-address_id" name="parcel-0-address_id" type="hidden" value="0" />
-                                                        <input id="id_parcel-0-id" name="parcel-0-id" type="hidden" />
-                                                        <div class="rds2" style="padding-top: 10px; background-color: #E0EDF4; border: 1px solid #ddd;">
+                                                        <div class="ib pd7">
+                                                            长度(cm)                                   
+                                                            <div>
+                                                                <input class="input-small" id="id_parcel-0-length" name="parcel-0-length" style="width: 55px" type="text" value=<%#Item.Length %> />
+                                                            </div>
+                                                        </div>
+                                                        <div class="ib pd7">
+                                                            宽度(cm)                                   
+                                                            <div>
+                                                                <input class="input-small" id="id_parcel-0-width" name="parcel-0-width" style="width: 55px" type="text" value=<%#Item.Width %> />
+                                                            </div>
+                                                        </div>
+                                                        <div class="ib pd7">
+                                                            高度(cm)                                
+                                                            <div>
+                                                                <input class="input-small" id="id_parcel-0-height" name="parcel-0-height" style="width: 55px" type="text" value=<%#Item.Height %> />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ib" style="margin-left: 20px">
+                                                        <div>
+                                                            <div class="ib pd7 bold">包裹明细</div>
+                                                            <div class="ib pd7 bold" style="margin-left: 40px">
+                                                                总额(£):<span class="mx_total"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- parcel content details -->
+
+                                                        <div class="mx">
+                                                            <div class="ib pd7">(<span class="mx_sq">1</span>)</div>
+                                                            <div class="ib mx_type">
+                                                                <select id="id_parcel-0-content-0-type" name="parcel-0-content-0-type" style="width: 100px">
+                                                                    <option value="婴儿奶粉" selected="selected">婴儿奶粉</option>
+                                                                    <option value="婴儿食品">婴儿食品</option>
+                                                                    <option value="成人奶粉">成人奶粉</option>
+                                                                    <option value="婴儿推车">婴儿推车</option>
+                                                                    <option value="安全座椅">安全座椅</option>
+                                                                    <option value="婴儿用品">婴儿用品</option>
+                                                                    <option value="食品">食品</option>
+                                                                    <option value="保健品">保健品</option>
+                                                                    <option value="服装服饰">服装服饰</option>
+                                                                    <option value="服饰配件">服饰配件</option>
+                                                                    <option value="箱包">箱包</option>
+                                                                    <option value="鞋靴">鞋靴</option>
+                                                                    <option value="钟表">钟表</option>
+                                                                    <option value="钟表配件">钟表配件</option>
+                                                                    <option value="化妆品">化妆品</option>
+                                                                    <option value="护肤品">护肤品</option>
+                                                                    <option value="洗漱用品">洗漱用品</option>
+                                                                    <option value="厨卫清洁用品">厨卫清洁用品</option>
+                                                                    <option value="小家电（含游戏机等）">小家电（含游戏机等）</option>
+                                                                    <option value="家用医疗用品">家用医疗用品</option>
+                                                                    <option value="美容保健器材">美容保健器材</option>
+                                                                    <option value="影音设备">影音设备</option>
+                                                                    <option value="手机和移动设备">手机和移动设备</option>
+                                                                    <option value="手机和移动设备配件">手机和移动设备配件</option>
+                                                                    <option value="计算机">计算机</option>
+                                                                    <option value="计算机外围设备">计算机外围设备</option>
+                                                                    <option value="书报、刊物">书报、刊物</option>
+                                                                    <option value="音响制品（唱片、影片等）">音响制品（唱片、影片等）</option>
+                                                                    <option value="文具">文具</option>
+                                                                    <option value="玩具">玩具</option>
+                                                                    <option value="教育用品">教育用品</option>
+                                                                    <option value="体育用品">体育用品</option>
+                                                                    <option value="户外用品">户外用品</option>
+                                                                    <option value="邮票">邮票</option>
+                                                                    <option value="乐器">乐器</option>
+                                                                    <option value="茶包">茶包</option>
+                                                                    <option value="个人行李 - 旧箱包">个人行李 - 旧箱包</option>
+                                                                    <option value="个人行李 - 旧文具">个人行李 - 旧文具</option>
+                                                                    <option value="个人行李 - 旧电子物品">个人行李 - 旧电子物品</option>
+                                                                    <option value="个人行李 - 旧护肤品">个人行李 - 旧护肤品</option>
+                                                                    <option value="个人行李 - 个人礼品">个人行李 - 个人礼品</option>
+                                                                    <option value="个人行李 - 旧衣物">个人行李 - 旧衣物</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="ib mx_quantity mx_cal">
+                                                                数量:                                                       
+                                                                <input id="id_parcel-0-content-0-quantity" name="parcel-0-content-0-quantity" style="width: 40px" type="text" />
+                                                            </div>
+                                                            <div class="ib mx_cost mx_cal">
+                                                                单价(£):                                                       
+                                                                <input id="id_parcel-0-content-0-cost" name="parcel-0-content-0-cost" style="width: 40px" type="text" />
+                                                            </div>
                                                             <div class="ib">
-                                                                <div class="pd7 bold">重量/尺寸</div>
-                                                                <div class="ib pd7">
-                                                                    重量(kg)
-                                    <div>
-                                        <input class="input-small" id="id_parcel-0-weight" name="parcel-0-weight" style="width: 55px" type="text" value="15.0" />
-                                    </div>
-                                                                </div>
-                                                                <div class="ib pd7">
-                                                                    长度(cm)
-                                    <div>
-                                        <input class="input-small" id="id_parcel-0-length" name="parcel-0-length" style="width: 55px" type="text" value="12" />
-                                    </div>
-                                                                </div>
-                                                                <div class="ib pd7">
-                                                                    宽度(cm)
-                                    <div>
-                                        <input class="input-small" id="id_parcel-0-width" name="parcel-0-width" style="width: 55px" type="text" value="1" />
-                                    </div>
-                                                                </div>
-                                                                <div class="ib pd7">
-                                                                    高度(cm)
-                                    <div>
-                                        <input class="input-small" id="id_parcel-0-height" name="parcel-0-height" style="width: 55px" type="text" value="1" />
-                                    </div>
-                                                                </div>
+                                                                <button style="border: 1px solid #ddd; background: none" class="btn add_mx btn_mx" type="button" title="添加包裹明细"><i class="icon-plus icon-white"></i></button>
                                                             </div>
-                                                            <div class="ib" style="margin-left: 20px">
-                                                                <div>
-                                                                    <div class="ib pd7 bold">包裹明细</div>
-                                                                    <div class="ib pd7 bold" style="margin-left: 40px">
-                                                                        总额(£): 
-                                        <span class="mx_total"></span>
-                                                                    </div>
-                                                                </div>
-
-                                                                <!-- parcel content details -->
-
-                                                                <div class="mx">
-                                                                    <div class="ib pd7">(<span class="mx_sq">1</span>)</div>
-                                                                    <div class="ib mx_type">
-                                                                        <select id="id_parcel-0-content-0-type" name="parcel-0-content-0-type" style="width: 100px">
-                                                                            <option value="婴儿奶粉" selected="selected">婴儿奶粉</option>
-                                                                            <option value="婴儿食品">婴儿食品</option>
-                                                                            <option value="成人奶粉">成人奶粉</option>
-                                                                            <option value="婴儿推车">婴儿推车</option>
-                                                                            <option value="安全座椅">安全座椅</option>
-                                                                            <option value="婴儿用品">婴儿用品</option>
-                                                                            <option value="食品">食品</option>
-                                                                            <option value="保健品">保健品</option>
-                                                                            <option value="服装服饰">服装服饰</option>
-                                                                            <option value="服饰配件">服饰配件</option>
-                                                                            <option value="箱包">箱包</option>
-                                                                            <option value="鞋靴">鞋靴</option>
-                                                                            <option value="钟表">钟表</option>
-                                                                            <option value="钟表配件">钟表配件</option>
-                                                                            <option value="化妆品">化妆品</option>
-                                                                            <option value="护肤品">护肤品</option>
-                                                                            <option value="洗漱用品">洗漱用品</option>
-                                                                            <option value="厨卫清洁用品">厨卫清洁用品</option>
-                                                                            <option value="小家电（含游戏机等）">小家电（含游戏机等）</option>
-                                                                            <option value="家用医疗用品">家用医疗用品</option>
-                                                                            <option value="美容保健器材">美容保健器材</option>
-                                                                            <option value="影音设备">影音设备</option>
-                                                                            <option value="手机和移动设备">手机和移动设备</option>
-                                                                            <option value="手机和移动设备配件">手机和移动设备配件</option>
-                                                                            <option value="计算机">计算机</option>
-                                                                            <option value="计算机外围设备">计算机外围设备</option>
-                                                                            <option value="书报、刊物">书报、刊物</option>
-                                                                            <option value="音响制品（唱片、影片等）">音响制品（唱片、影片等）</option>
-                                                                            <option value="文具">文具</option>
-                                                                            <option value="玩具">玩具</option>
-                                                                            <option value="教育用品">教育用品</option>
-                                                                            <option value="体育用品">体育用品</option>
-                                                                            <option value="户外用品">户外用品</option>
-                                                                            <option value="邮票">邮票</option>
-                                                                            <option value="乐器">乐器</option>
-                                                                            <option value="茶包">茶包</option>
-                                                                            <option value="个人行李 - 旧箱包">个人行李 - 旧箱包</option>
-                                                                            <option value="个人行李 - 旧文具">个人行李 - 旧文具</option>
-                                                                            <option value="个人行李 - 旧电子物品">个人行李 - 旧电子物品</option>
-                                                                            <option value="个人行李 - 旧护肤品">个人行李 - 旧护肤品</option>
-                                                                            <option value="个人行李 - 个人礼品">个人行李 - 个人礼品</option>
-                                                                            <option value="个人行李 - 旧衣物">个人行李 - 旧衣物</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="ib mx_quantity mx_cal">
-                                                                        数量:
-                                                        <input id="id_parcel-0-content-0-quantity" name="parcel-0-content-0-quantity" style="width: 40px" type="text" />
-                                                                    </div>
-                                                                    <div class="ib mx_cost mx_cal">
-                                                                        单价(£):
-                                                        <input id="id_parcel-0-content-0-cost" name="parcel-0-content-0-cost" style="width: 40px" type="text" />
-                                                                    </div>
-                                                                    <div class="ib">
-                                                                        <button style="border: 1px solid #ddd; background: none" class="btn add_mx btn_mx" type="button" title="添加包裹明细"><i class="icon-plus icon-white"></i></button>
-                                                                    </div>
-                                                                    <div class="ib">
-                                                                        <button style="border: 1px solid #ddd; background: none" class="btn del_mx btn_mx" type="button" title="删除包裹明细"><i class="icon-minus"></i></button>
-                                                                    </div>
-                                                                </div>
-
-
-                                                                <input id="id_parcel-0-content-TOTAL_FORMS" name="parcel-0-content-TOTAL_FORMS" type="hidden" value="1" /><input id="id_parcel-0-content-INITIAL_FORMS" name="parcel-0-content-INITIAL_FORMS" type="hidden" value="0" /><input id="id_parcel-0-content-MAX_NUM_FORMS" name="parcel-0-content-MAX_NUM_FORMS" type="hidden" value="1000" />
+                                                            <div class="ib">
+                                                                <button style="border: 1px solid #ddd; background: none" class="btn del_mx btn_mx" type="button" title="删除包裹明细"><i class="icon-minus"></i></button>
                                                             </div>
                                                         </div>
-                                                    </li>
-                                                </ItemTemplate>
-                                            </asp:Repeater>
-                                        </ol>
-                                    </li>
-                                </ItemTemplate>
-                            </asp:Repeater>
-                        </ol>
+                                                        <input id="id_parcel-0-content-TOTAL_FORMS" name="parcel-0-content-TOTAL_FORMS" type="hidden" value="1" /><input id="id_parcel-0-content-INITIAL_FORMS" name="parcel-0-content-INITIAL_FORMS" type="hidden" value="0" /><input id="id_parcel-0-content-MAX_NUM_FORMS" name="parcel-0-content-MAX_NUM_FORMS" type="hidden" value="1000" />
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </ol>
+                            </li>
+                        </EditItemTemplate>
+                    </asp:FormView>
 
-                        <!-- terms -->
-                        <div style="border: 1px solid #ccc; padding: 10px; margin-top: 30px">
+                    
+                      
 
-                            <div class="sz16 bold" style="padding: 10px 0">特别注意事项及服务条款</div>
-                            <p>
-                                在您下单之前，您需要认真阅读并同意以下条款，确认您的快递物品没有违反国际运输相关条例，并且检查您所申报的物品是否符合相关
+                </ol>
+               
+                <!-- terms -->
+                <div style="border: 1px solid #ccc; padding: 10px; margin-top: 30px">
+
+                    <div class="sz16 bold" style="padding: 10px 0">特别注意事项及服务条款</div>
+                    <p>
+                        在您下单之前，您需要认真阅读并同意以下条款，确认您的快递物品没有违反国际运输相关条例，并且检查您所申报的物品是否符合相关
         的保险赔偿条款。
-                            </p>
-                            <p>
-                                １、我已经阅读并同意<a href="/conditions_terms/" target="_blank" style="color: #f00; float: none">速递中国服务条款</a>，<a href="/privacy_policy/" target="_blank" style="color: #f00; float: none">个人隐私保护条款</a>，并且确认所快递物品符合相应国家出口及违禁品控制条例。<br />
-                                ２、<span style="color: #f00; float: none">我同意若因本人提供的包裹尺寸或重量与运营商的测量不符，而导致额外费用，速递中国有权从我所提供的银行卡信息对应的银行账户内扣除相应费用。</span><br />
-                                ３、我同意由本人或相应收件人承担支付取货国家所产生的所有额外关税。（<a href="http://www.customs.gov.cn/publish/portal0/tab3889/module1188/info362458.htm" target="_blank" style="color: #f00; float: none">详见中国入境个人邮寄物品完税价格表</a>）<br />
-                                ４、我确认所提供的包裹内物品信息（种类，数量，价格）与实际包裹内物品相符。
-                            </p>
+                    </p>
+                    <p>
+                        １、我已经阅读并同意<a href="/conditions_terms/" target="_blank" style="color: #f00; float: none">速递中国服务条款</a>，<a href="/privacy_policy/" target="_blank" style="color: #f00; float: none">个人隐私保护条款</a>，并且确认所快递物品符合相应国家出口及违禁品控制条例。<br />
+                        ２、<span style="color: #f00; float: none">我同意若因本人提供的包裹尺寸或重量与运营商的测量不符，而导致额外费用，速递中国有权从我所提供的银行卡信息对应的银行账户内扣除相应费用。</span><br />
+                        ３、我同意由本人或相应收件人承担支付取货国家所产生的所有额外关税。（<a href="http://www.customs.gov.cn/publish/portal0/tab3889/module1188/info362458.htm" target="_blank" style="color: #f00; float: none">详见中国入境个人邮寄物品完税价格表</a>）<br />
+                        ４、我确认所提供的包裹内物品信息（种类，数量，价格）与实际包裹内物品相符。
+                    </p>
 
 
-                            <label style="font-weight: bold">
-                                <input type="checkbox" class="agreed" style="margin-top: -3px" />
-                                我同意服务条款</label>
-                        </div>
-
-                    </div>
-
-                    <!-- right column -->
-                    <div class="col-sm-2 col-xs-12" style="border: 1px solid #69ADDB">
-                        <div class="panel" style="box-shadow: none">
-                            <div style="margin-top: 10px">
-
-
-
-
-                                <img src="/static/media/carriers/logo/bpost-logo.png" style="width: 130px" />
-
-
-                            </div>
-
-                            <p><strong>Bpost - Parcelforce取件</strong></p>
-
-
-                            <p>
-                                <p>
-                                    <img src="/static/media/uploads/pf_collection.png" width="350" height="78" />
-                                </p>
-                                <p><span style="font-size: small;">国际快递时间（不包括清关和旺季延误）: 6-10 天 /&nbsp;自带丢件赔偿: &pound;50磅 /&nbsp;包裹上可贴中文地址</span></p>
-                            </p>
-
-
-                            <div id="details"></div>
-                            <p>总额: <span id="total" class="sz16 bold clrr1">-</span></p>
-                            <div style="margin-bottom: 5px">
-                                <label style="font-weight: bold">
-                                    <input type="checkbox" class="agreed" style="margin-top: -3px" />
-                                    我同意服务条款</label>
-                            </div>
-                            <input type="submit" name="order" id="add2cart" class="btn btn-primary btn-large" disabled="disabled" value="添加到购物车">
-                        </div>
-                        <!-- .panel -->
-                    </div>
+                    <label style="font-weight: bold">
+                        <input type="checkbox" class="agreed" style="margin-top: -3px" />
+                        我同意服务条款</label>
                 </div>
-            </form>
+
+            </div>
+
+            <!-- right column -->
+            <div class="col-sm-2 col-xs-12" style="border: 1px solid #69ADDB">
+                <div class="panel" style="box-shadow: none">
+                    <div style="margin-top: 10px">
 
 
-            <div id="dialog-pinyin" title="中文转为拼音" style="display: none">
-                <p style="font-size: 14px; margin-top: 20px; font-style: italic">输入中文地址，点击翻译，转换为汉语拼音，点击确定，把翻译后的汉语拼音输入收件人地址。</p>
-                <div style="margin-top: 20px; margin-bottom: 15px; font-size: 20px; font-weight: bold;">中文：</div>
-                <div>
-                    姓名:
+
+
+                        <img src="/static/media/carriers/logo/bpost-logo.png" style="width: 130px" />
+
+
+                    </div>
+
+                    <p><strong>Bpost - Parcelforce取件</strong></p>
+
+
+                    <p>
+                        <p>
+                            <img src="/static/media/uploads/pf_collection.png" width="350" height="78" />
+                        </p>
+                        <p><span style="font-size: small;">国际快递时间（不包括清关和旺季延误）: 6-10 天 /&nbsp;自带丢件赔偿: &pound;50磅 /&nbsp;包裹上可贴中文地址</span></p>
+                    </p>
+
+
+                    <div id="details"></div>
+                    <p>总额: <span id="total" class="sz16 bold clrr1"><%=GetTotalPrice().ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></span></p>
+                    <div style="margin-bottom: 5px">
+                        <label style="font-weight: bold">
+                            <input type="checkbox" class="agreed" style="margin-top: -3px" />
+                            我同意服务条款</label>
+                    </div>
+                    <input type="submit" name="order" id="add2cart" class="btn btn-primary btn-large" disabled="disabled" value="添加到购物车">
+                </div>
+                <!-- .panel -->
+            </div>
+        </div>
+    </form>
+
+
+    <div id="dialog-pinyin" title="中文转为拼音" style="display: none">
+        <p style="font-size: 14px; margin-top: 20px; font-style: italic">输入中文地址，点击翻译，转换为汉语拼音，点击确定，把翻译后的汉语拼音输入收件人地址。</p>
+        <div style="margin-top: 20px; margin-bottom: 15px; font-size: 20px; font-weight: bold;">中文：</div>
+        <div>
+            姓名:
                     <input type="text" id="py_name" style="width: 100px" />
-                    &nbsp;
+            &nbsp;
         城市:
                     <input type="text" id="py_city" style="width: 100px" />
-                    &nbsp;
+            &nbsp;
         邮编:
                     <input type="text" id="py_zip" style="width: 100px" />
-                    &nbsp;
+            &nbsp;
         电话:
                     <input type="text" id="py_phone" style="width: 140px" />
-                    &nbsp;
-                </div>
-                <div>
-                    地址:
+            &nbsp;
+        </div>
+        <div>
+            地址:
                     <input type="text" id="py_street" style="width: 650px" />
-                </div>
+        </div>
 
-                <div style="margin-top: 20px; margin-bottom: 15px; font-size: 20px; font-weight: bold;">拼音：</div>
-                <div>
-                    姓名:
+        <div style="margin-top: 20px; margin-bottom: 15px; font-size: 20px; font-weight: bold;">拼音：</div>
+        <div>
+            姓名:
                     <input type="text" id="py2_name" style="width: 100px" />
-                    &nbsp;
+            &nbsp;
         城市:
                     <input type="text" id="py2_city" style="width: 100px" />
-                    &nbsp;
+            &nbsp;
         邮编:
                     <input type="text" id="py2_zip" style="width: 100px" />
-                    &nbsp;
+            &nbsp;
         电话:
                     <input type="text" id="py2_phone" style="width: 140px" />
-                    &nbsp;
-                </div>
-                <div>
-                    地址:
+            &nbsp;
+        </div>
+        <div>
+            地址:
                     <input type="text" id="py2_street1" />
-                    <input type="text" id="py2_street2" />
-                    <input type="text" id="py2_street3" />
+            <input type="text" id="py2_street2" />
+            <input type="text" id="py2_street3" />
+        </div>
+    </div>
+
+    <div id="dialog-addrs" title="地址簿" style="background-color: #fff; display: none; font-size: 13px">
+
+        <style style="text/css">
+            .addr_row {
+                background-color: #F1F1F1;
+                margin: 1px 0;
+            }
+
+                .addr_row:hover {
+                    background-color: #ddd;
+                }
+        </style>
+        <script>var recv_addr_dict = {};</script>
+
+        <div style="margin: 10px 0"><span>输入姓名过滤：</span><input type="text" id="lookup_name" /></div>
+
+        <div>
+            <div style="display: inline-block; width: 100px">姓名</div>
+            <div style="display: inline-block; width: 100px">城市</div>
+            <div style="display: inline-block; width: 56px">邮编</div>
+            <div style="display: inline-block; width: 477px">地址</div>
+        </div>
+
+
+        <div class="addr_row">
+            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
+            <label style="display: block; margin-right: 40px">
+                <input type="radio" name="recv_addr" class="recv_addr" value="45816" style="display: none" />
+                <div style="display: inline-block; width: 100px" class="addr-name">
+                    1<br />
+                    1
                 </div>
-            </div>
-
-            <div id="dialog-addrs" title="地址簿" style="background-color: #fff; display: none; font-size: 13px">
-
-                <style style="text/css">
-                    .addr_row {
-                        background-color: #F1F1F1;
-                        margin: 1px 0;
-                    }
-
-                        .addr_row:hover {
-                            background-color: #ddd;
-                        }
-                </style>
-                <script>var recv_addr_dict = {};</script>
-
-                <div style="margin: 10px 0"><span>输入姓名过滤：</span><input type="text" id="lookup_name" /></div>
-
-                <div>
-                    <div style="display: inline-block; width: 100px">姓名</div>
-                    <div style="display: inline-block; width: 100px">城市</div>
-                    <div style="display: inline-block; width: 56px">邮编</div>
-                    <div style="display: inline-block; width: 477px">地址</div>
+                <div style="display: inline-block; width: 100px">
+                    1<br />
+                    1
                 </div>
-
-
-                <div class="addr_row">
-                    <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-                    <label style="display: block; margin-right: 40px">
-                        <input type="radio" name="recv_addr" class="recv_addr" value="45816" style="display: none" />
-                        <div style="display: inline-block; width: 100px" class="addr-name">
-                            1<br />
-                            1
-                        </div>
-                        <div style="display: inline-block; width: 100px">
-                            1<br />
-                            1
-                        </div>
-                        <div style="display: inline-block; width: 56px">610000</div>
-                        <div style="display: inline-block; width: 477px">
-                            1<br />
-                            1 
-                        </div>
-                    </label>
+                <div style="display: inline-block; width: 56px">610000</div>
+                <div style="display: inline-block; width: 477px">
+                    1<br />
+                    1 
                 </div>
+            </label>
+        </div>
 
-                <script>recv_addr_dict['45816'] = ['1', '1', '1', '1', '1', '1', '', '', '610000', '18010631890'];</script>
+        <script>recv_addr_dict['45816'] = ['1', '1', '1', '1', '1', '1', '', '', '610000', '18010631890'];</script>
 
-                <div class="addr_row">
-                    <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-                    <label style="display: block; margin-right: 40px">
-                        <input type="radio" name="recv_addr" class="recv_addr" value="46413" style="display: none" />
-                        <div style="display: inline-block; width: 100px" class="addr-name">
-                            c<br />
-                            C
-                        </div>
-                        <div style="display: inline-block; width: 100px">
-                            c<br />
-                            C
-                        </div>
-                        <div style="display: inline-block; width: 56px">111111</div>
-                        <div style="display: inline-block; width: 477px">
-                            c<br />
-                            C 
-                        </div>
-                    </label>
+        <div class="addr_row">
+            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
+            <label style="display: block; margin-right: 40px">
+                <input type="radio" name="recv_addr" class="recv_addr" value="46413" style="display: none" />
+                <div style="display: inline-block; width: 100px" class="addr-name">
+                    c<br />
+                    C
                 </div>
-
-                <script>recv_addr_dict['46413'] = ['c', 'c', 'c', 'C', 'C', 'C', '', '', '111111', '11111111111'];</script>
-
-                <div class="addr_row">
-                    <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-                    <label style="display: block; margin-right: 40px">
-                        <input type="radio" name="recv_addr" class="recv_addr" value="45839" style="display: none" />
-                        <div style="display: inline-block; width: 100px" class="addr-name">
-                            吃<br />
-                            CHI
-                        </div>
-                        <div style="display: inline-block; width: 100px">
-                            吃<br />
-                            CHI
-                        </div>
-                        <div style="display: inline-block; width: 56px">666666</div>
-                        <div style="display: inline-block; width: 477px">
-                            吃<br />
-                            CHI 
-                        </div>
-                    </label>
+                <div style="display: inline-block; width: 100px">
+                    c<br />
+                    C
                 </div>
-
-                <script>recv_addr_dict['45839'] = ['吃', '吃', '吃', 'CHI', 'CHI', 'CHI', '', '', '666666', '11111111111'];</script>
-
-                <div class="addr_row">
-                    <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-                    <label style="display: block; margin-right: 40px">
-                        <input type="radio" name="recv_addr" class="recv_addr" value="35071" style="display: none" />
-                        <div style="display: inline-block; width: 100px" class="addr-name">
-                            ddd<br />
-                            DDD
-                        </div>
-                        <div style="display: inline-block; width: 100px">
-                            ddd<br />
-                            DDD
-                        </div>
-                        <div style="display: inline-block; width: 56px">666666</div>
-                        <div style="display: inline-block; width: 477px">
-                            ddddddd<br />
-                            DDDDDDD 
-                        </div>
-                    </label>
+                <div style="display: inline-block; width: 56px">111111</div>
+                <div style="display: inline-block; width: 477px">
+                    c<br />
+                    C 
                 </div>
+            </label>
+        </div>
 
-                <script>recv_addr_dict['35071'] = ['ddd', 'ddd', 'ddddddd', 'DDD', 'DDD', 'DDDDDDD', '', '', '666666', '11111111111'];</script>
+        <script>recv_addr_dict['46413'] = ['c', 'c', 'c', 'C', 'C', 'C', '', '', '111111', '11111111111'];</script>
 
-                <div class="addr_row">
-                    <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-                    <label style="display: block; margin-right: 40px">
-                        <input type="radio" name="recv_addr" class="recv_addr" value="45815" style="display: none" />
-                        <div style="display: inline-block; width: 100px" class="addr-name">
-                            李<br />
-                            LI
-                        </div>
-                        <div style="display: inline-block; width: 100px">
-                            才<br />
-                            C
-                        </div>
-                        <div style="display: inline-block; width: 56px">666666</div>
-                        <div style="display: inline-block; width: 477px">
-                            才<br />
-                            CAI 
-                        </div>
-                    </label>
+        <div class="addr_row">
+            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
+            <label style="display: block; margin-right: 40px">
+                <input type="radio" name="recv_addr" class="recv_addr" value="45839" style="display: none" />
+                <div style="display: inline-block; width: 100px" class="addr-name">
+                    吃<br />
+                    CHI
                 </div>
-
-                <script>recv_addr_dict['45815'] = ['李', '才', '才', 'LI', 'C', 'CAI', '', '', '666666', '18010631890'];</script>
-
-                <div class="addr_row">
-                    <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-                    <label style="display: block; margin-right: 40px">
-                        <input type="radio" name="recv_addr" class="recv_addr" value="44718" style="display: none" />
-                        <div style="display: inline-block; width: 100px" class="addr-name">
-                            李潇磊<br />
-                            LI XIAO LEI
-                        </div>
-                        <div style="display: inline-block; width: 100px">
-                            成都<br />
-                            CHENG DU
-                        </div>
-                        <div style="display: inline-block; width: 56px">610000</div>
-                        <div style="display: inline-block; width: 477px">
-                            中和<br />
-                            ZHONG HE 
-                        </div>
-                    </label>
+                <div style="display: inline-block; width: 100px">
+                    吃<br />
+                    CHI
                 </div>
+                <div style="display: inline-block; width: 56px">666666</div>
+                <div style="display: inline-block; width: 477px">
+                    吃<br />
+                    CHI 
+                </div>
+            </label>
+        </div>
 
-                <script>recv_addr_dict['44718'] = ['李潇磊', '成都', '中和', 'LI XIAO LEI', 'CHENG DU', 'ZHONG HE', '', '', '610000', '11111111111'];</script>
+        <script>recv_addr_dict['45839'] = ['吃', '吃', '吃', 'CHI', 'CHI', 'CHI', '', '', '666666', '11111111111'];</script>
+
+        <div class="addr_row">
+            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
+            <label style="display: block; margin-right: 40px">
+                <input type="radio" name="recv_addr" class="recv_addr" value="35071" style="display: none" />
+                <div style="display: inline-block; width: 100px" class="addr-name">
+                    ddd<br />
+                    DDD
+                </div>
+                <div style="display: inline-block; width: 100px">
+                    ddd<br />
+                    DDD
+                </div>
+                <div style="display: inline-block; width: 56px">666666</div>
+                <div style="display: inline-block; width: 477px">
+                    ddddddd<br />
+                    DDDDDDD 
+                </div>
+            </label>
+        </div>
+
+        <script>recv_addr_dict['35071'] = ['ddd', 'ddd', 'ddddddd', 'DDD', 'DDD', 'DDDDDDD', '', '', '666666', '11111111111'];</script>
+
+        <div class="addr_row">
+            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
+            <label style="display: block; margin-right: 40px">
+                <input type="radio" name="recv_addr" class="recv_addr" value="45815" style="display: none" />
+                <div style="display: inline-block; width: 100px" class="addr-name">
+                    李<br />
+                    LI
+                </div>
+                <div style="display: inline-block; width: 100px">
+                    才<br />
+                    C
+                </div>
+                <div style="display: inline-block; width: 56px">666666</div>
+                <div style="display: inline-block; width: 477px">
+                    才<br />
+                    CAI 
+                </div>
+            </label>
+        </div>
+
+        <script>recv_addr_dict['45815'] = ['李', '才', '才', 'LI', 'C', 'CAI', '', '', '666666', '18010631890'];</script>
+
+        <div class="addr_row">
+            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
+            <label style="display: block; margin-right: 40px">
+                <input type="radio" name="recv_addr" class="recv_addr" value="44718" style="display: none" />
+                <div style="display: inline-block; width: 100px" class="addr-name">
+                    李潇磊<br />
+                    LI XIAO LEI
+                </div>
+                <div style="display: inline-block; width: 100px">
+                    成都<br />
+                    CHENG DU
+                </div>
+                <div style="display: inline-block; width: 56px">610000</div>
+                <div style="display: inline-block; width: 477px">
+                    中和<br />
+                    ZHONG HE 
+                </div>
+            </label>
+        </div>
+
+        <script>recv_addr_dict['44718'] = ['李潇磊', '成都', '中和', 'LI XIAO LEI', 'CHENG DU', 'ZHONG HE', '', '', '610000', '11111111111'];</script>
 
 
-            </div>
+    </div>
 
 
-       
 
-   
+
+
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -1130,7 +1359,7 @@
         });
     </script>
 
-    
+
     <script type="text/javascript" src="/static/bootstrap-datetimepicker/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 
