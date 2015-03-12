@@ -35,15 +35,15 @@ public partial class Default2 : System.Web.UI.Page
                     {
                         package.Weight = decimal.Parse(Request.Form.Get(pkgAttr));
                     }
-                    if (pkgAttr.Contains("length"))
+                    else if (pkgAttr.Contains("length"))
                     {
                         package.Length = decimal.Parse(Request.Form.Get(pkgAttr));
                     }
-                    if (pkgAttr.Contains("width"))
+                    else if (pkgAttr.Contains("width"))
                     {
                         package.Width = decimal.Parse(Request.Form.Get(pkgAttr));
                     }
-                    if (pkgAttr.Contains("height"))
+                    else if (pkgAttr.Contains("height"))
                     {
                         package.Height = decimal.Parse(Request.Form.Get(pkgAttr));
                     }

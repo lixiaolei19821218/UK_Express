@@ -8,10 +8,8 @@
     <title></title>
 </head>
 <body>
-    <form id="form1" runat="server">
-    <div>
-        <asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged"></asp:TextBox>
-    </div>
-    </form>
-</body>
+    <form id="form1" runat="server" >
+        <asp:TextBox ID="TextBox1" runat="server" OnTextChanged="TextBox1_TextChanged1" AutoPostBack="true"></asp:TextBox>
+    </form >
+</body >
 </html>

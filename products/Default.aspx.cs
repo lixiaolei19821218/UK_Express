@@ -18,7 +18,7 @@ public partial class product_Default : System.Web.UI.Page
             if (int.TryParse(Request.Form["order"], out id))
             {
                 Session.Add("ServiceID", id);
-                Response.Redirect("Product.aspx");
+                Response.Redirect("product.aspx");
             }
         }
     }
