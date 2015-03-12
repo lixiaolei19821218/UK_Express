@@ -95,6 +95,7 @@ public partial class products_Product : System.Web.UI.Page
 
                 reciptientList.Add(r);
             }
+            Session["Recipients"] = reciptientList;
             recipients = reciptientList;
         }
     }

@@ -565,7 +565,7 @@
                             </p>
 
                             <div id="details"></div>
-                            <p>总额: <span id="total" class="sz16 bold clrr1"><%=GetTotalPrice().ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></span></p>
+                            <p>总额: <span id="total" class="sz16 bold clrr1" runat="server"><%=GetTotalPrice().ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></span></p>
                             <div style="margin-bottom: 5px">
                                 <label style="font-weight: bold">
                                     <input type="checkbox" class="agreed" style="margin-top: -3px" />
