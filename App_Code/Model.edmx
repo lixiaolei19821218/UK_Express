@@ -26,12 +26,12 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Length" Type="decimal" Precision="18" Scale="1" Nullable="false" />
           <Property Name="Width" Type="decimal" Precision="18" Scale="1" Nullable="false" />
           <Property Name="Height" Type="decimal" Precision="18" Scale="1" Nullable="false" />
           <Property Name="Weight" Type="decimal" Precision="18" Scale="1" Nullable="false" />
-          <Property Name="WaybillNumber" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WaybillNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="RecipientID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="PriceItems">
@@ -54,7 +54,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="City" Type="nvarchar" MaxLength="50" />
           <Property Name="Address" Type="nvarchar" MaxLength="50" />
@@ -86,6 +86,7 @@
           <Property Name="DiscribePictureLink" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="PickUpService" Type="bit" Nullable="false" />
           <Property Name="PriceListID" Type="int" />
+          <Property Name="PickUpCompany" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <Association Name="FK_OrderID">
           <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
@@ -235,7 +236,7 @@
           <Property Name="Width" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
           <Property Name="Height" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
           <Property Name="Weight" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
-          <Property Name="WaybillNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WaybillNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PackageDetails" Relationship="UK_ExpressModel.PackageID" FromRole="Package" ToRole="PackageDetail" />
           <Property Name="RecipientID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Recipient" Relationship="UK_ExpressModel.FK_RecipientID" FromRole="Package" ToRole="Recipient" />
@@ -300,6 +301,7 @@
           <Property Name="PickUpService" Type="Boolean" Nullable="false" />
           <Property Name="PriceListID" Type="Int32" />
           <NavigationProperty Name="PriceList" Relationship="UK_ExpressModel.FK_PriceListID_Services" FromRole="Service" ToRole="PriceList" />
+          <Property Name="PickUpCompany" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PriceList">
           <Key>
@@ -437,6 +439,7 @@
           <EntitySetMapping Name="Services">
             <EntityTypeMapping TypeName="UK_ExpressModel.Service">
               <MappingFragment StoreEntitySet="Services">
+                <ScalarProperty Name="PickUpCompany" ColumnName="PickUpCompany" />
                 <ScalarProperty Name="PriceListID" ColumnName="PriceListID" />
                 <ScalarProperty Name="PickUpService" ColumnName="PickUpService" />
                 <ScalarProperty Name="DiscribePictureLink" ColumnName="DiscribePictureLink" />

@@ -31,4 +31,38 @@ public class Repository
             return context.Recipients;
         }
     }
+
+    public IEnumerable<Order> Orders
+    {
+        get
+        {
+            return context.Orders;
+        }
+    }
+
+    public void SaveOrder(Order order)
+    {
+        if (order.Id == 0)
+        {
+            order = context.Orders.Add(order);            
+        }
+        else
+        {
+            Order dbOrder = context.Orders.Find(order.Id);
+            if (dbOrder != null)
+            {
+               
+            }
+        }
+        context.SaveChanges();
+    }
+
+    public void SaveRecipient(Recipient recipient)
+    {
+        if (recipient.Id == 0)
+        {
+            recipient = context.Recipients.Add(recipient);
+        }        
+        context.SaveChanges();
+    }
 }

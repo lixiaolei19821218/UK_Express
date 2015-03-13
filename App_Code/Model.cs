@@ -126,6 +126,7 @@ public partial class Service
     public string DiscribePictureLink { get; set; }
     public bool PickUpService { get; set; }
     public Nullable<int> PriceListID { get; set; }
+    public string PickUpCompany { get; set; }
 
     public virtual PriceList PriceList { get; set; }
 }

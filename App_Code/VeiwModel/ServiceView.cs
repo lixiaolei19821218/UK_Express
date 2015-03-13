@@ -15,7 +15,7 @@ public class ServiceView
     public string DiscribePictureLink { get; set; }
     public bool PickUpService { get; set; }
     public Nullable<int> PriceListID { get; set; }
-
+    public string PickUpCompany { get; set; }
     public virtual PriceList PriceList { get; set; }    
 
 	public ServiceView()
@@ -33,6 +33,7 @@ public class ServiceView
         this.Discribe = service.Discribe;
         this.DiscribePictureLink = service.DiscribePictureLink;
         this.PriceListID = service.PriceListID;
+        this.PickUpCompany = service.PickUpCompany;
         this.PriceList = service.PriceList;
     }
 
@@ -90,7 +91,7 @@ public class ServiceView
         return price;
     }
 
-    private decimal GetPackageDeliverPrice(Package package)
+    public decimal GetPackageDeliverPrice(Package package)
     {
         decimal priceByWeight = PriceList.PriceItems.OrderBy(i => i.Weight).First(i => i.Weight >= package.Weight).Price;
         decimal priceBySize = package.Length * package.Width * package.Height / 5000m;
