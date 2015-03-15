@@ -144,7 +144,7 @@
                     });
                 </script>
 
-
+                <asp:Label ID="LabelError" runat="server" Text="Label" ForeColor="Red" Visible="false"></asp:Label>
                 <ol id="root" style="padding-left: 0">
                     <li style="list-style: none">
 
@@ -157,8 +157,6 @@
                             <div style="float: left; margin: 5px" class="control-group ">
                                 <label for="id_billing_detail_name">姓名</label>
                                 <input class="input-medium" id="id_billing_detail_name" maxlength="25" name="billing_detail_name" style="width: 115px" type="text" />
-
-
 
 
                             </div>

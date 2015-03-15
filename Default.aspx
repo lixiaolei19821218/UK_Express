@@ -70,7 +70,9 @@
                                     </div>
                                 </div>
 
-
+                                <div style="align-content:flex-start">
+                                <asp:Label ID="LabelError" runat="server" Text="Label" Visible="false" ForeColor="Red"></asp:Label>
+                                    </div>
                                 <div class="formset formset_1">
                                     <div class="bg4 addr clrb3 bold tal" style="margin: 20px -15px 0; padding: 7px 15px">
                                         收件人
@@ -88,16 +90,16 @@
                                         <div style="margin-right: 50px; margin-left: 12px">
                                             <div class="row" style="display: inline-block; width: 100%; margin-top: -3px">
                                                 <div class="attr col-xs-3 input1">
-                                                    <input id="id_addr_0-0-weight" name="addr_0-0-weight" placeholder="重量" type="text" value="3" />
+                                                    <input id="id_addr_0-0-weight" name="addr_0-0-weight" placeholder="重量" type="text" />
                                                     (kg)</div>
                                                 <div class="attr col-xs-3 input1">
-                                                    <input id="id_addr_0-0-length" name="addr_0-0-length" placeholder="长度" type="text" value="3" />
+                                                    <input id="id_addr_0-0-length" name="addr_0-0-length" placeholder="长度" type="text" />
                                                     (cm)</div>
                                                 <div class="attr col-xs-3 input1">
-                                                    <input id="id_addr_0-0-width" name="addr_0-0-width" placeholder="宽度" type="text" value="3" />
+                                                    <input id="id_addr_0-0-width" name="addr_0-0-width" placeholder="宽度" type="text"  />
                                                     (cm)</div>
                                                 <div class="attr col-xs-3 input1">
-                                                    <input id="id_addr_0-0-height" name="addr_0-0-height" placeholder="高度" type="text" value="3" />
+                                                    <input id="id_addr_0-0-height" name="addr_0-0-height" placeholder="高度" type="text" />
                                                     (cm)</div>
                                             </div>
                                         </div>

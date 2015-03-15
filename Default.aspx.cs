@@ -33,19 +33,59 @@ public partial class Default2 : System.Web.UI.Page
                 {
                     if (pkgAttr.Contains("weight"))
                     {
-                        package.Weight = decimal.Parse(Request.Form.Get(pkgAttr));
+                        decimal weight;
+                        if (decimal.TryParse(Request.Form.Get(pkgAttr), out weight) && weight > 0m && weight < 30)
+                        {
+                            package.Weight = weight;
+                        }
+                        else
+                        {
+                            LabelError.Text = "请正确输入重量";
+                            LabelError.Visible = true;
+                            return;
+                        }
                     }
                     else if (pkgAttr.Contains("length"))
                     {
-                        package.Length = decimal.Parse(Request.Form.Get(pkgAttr));
+                        decimal length;
+                        if (decimal.TryParse(Request.Form.Get(pkgAttr), out length) && length > 0m)
+                        {
+                            package.Length = length;
+                        }
+                        else
+                        {
+                            LabelError.Text = "请正确输入长度";
+                            LabelError.Visible = true;
+                            return;
+                        }
                     }
                     else if (pkgAttr.Contains("width"))
                     {
-                        package.Width = decimal.Parse(Request.Form.Get(pkgAttr));
+                        decimal width;
+                        if (decimal.TryParse(Request.Form.Get(pkgAttr), out width) && width > 0m)
+                        {
+                            package.Width = width;
+                        }
+                        else
+                        {
+                            LabelError.Text = "请正确输入宽度";
+                            LabelError.Visible = true;
+                            return;
+                        }
                     }
                     else if (pkgAttr.Contains("height"))
                     {
-                        package.Height = decimal.Parse(Request.Form.Get(pkgAttr));
+                        decimal height;
+                        if (decimal.TryParse(Request.Form.Get(pkgAttr), out height) && height > 0m)
+                        {
+                            package.Height = height;
+                        }
+                        else
+                        {
+                            LabelError.Text = "请正确输入高度";
+                            LabelError.Visible = true;
+                            return;
+                        }
                     }
                 }
 

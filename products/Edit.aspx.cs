@@ -36,6 +36,8 @@ public partial class products_Edit : System.Web.UI.Page
         //find parcel-x-address_id
         var pkgAddIdKeys = from k in Request.Form.AllKeys where Regex.Match(k, @"parcel-\d-address_id").Success select k;
 
+        bool pass = true;
+        string errorMsg = "";
         List<Recipient> reciptientList = new List<Recipient>();
         foreach (var g in groups)
         {
@@ -64,33 +66,77 @@ public partial class products_Edit : System.Web.UI.Page
                     r.PhoneNumber = Request.Form.Get(k);
                 }
             }
-
+            
             var pkgs = from k in pkgAddIdKeys where Request.Form.Get(k) == g.Key.ToString() select k;
             foreach (var p in pkgs)
             {
                 char pkgId = p[7];
                 string regExp = string.Format(@"parcel-{0}-length|parcel-{0}-width|parcel-{0}-height|parcel-{0}-weight", pkgId);
-                var sizeArrs = from k in Request.Form.AllKeys where Regex.Match(k, regExp).Success select k;
+                var sizeArrs = (from k in Request.Form.AllKeys where Regex.Match(k, regExp).Success select k).ToArray();
 
                 Package package = new Package();
 
-                foreach (string add in sizeArrs)
+                for (int i = 0; i < sizeArrs.Length; i++)
                 {
-                    if (add.Contains("length"))
+                    string add = sizeArrs[i];
+                    if (add.Contains("weight"))
                     {
-                        package.Length = decimal.Parse(Request.Form.Get(add));
+                        decimal weight;
+                        if (decimal.TryParse(Request.Form.Get(add), out weight) && weight > 0m && weight < 30)
+                        {
+                            package.Weight = weight;
+                        }
+                        else
+                        {
+                            pass = false;
+                            errorMsg = string.Format("请正确输入包裹重量", i + 1);
+                            return;
+                        }
                     }
                     else if (add.Contains("width"))
                     {
-                        package.Width = decimal.Parse(Request.Form.Get(add));
+                        decimal width;
+                        if (decimal.TryParse(Request.Form.Get(add), out width) && width > 0m)
+                        {
+                            package.Width = width;
+                        }
+                        else
+                        {
+                            pass = false;
+                            errorMsg = string.Format("请正确输入包裹宽度", i + 1);
+                            return;
+                        }
+                          
                     }
                     else if (add.Contains("height"))
                     {
-                        package.Height = decimal.Parse(Request.Form.Get(add));
+                        decimal height;
+                        if (decimal.TryParse(Request.Form.Get(add), out height) && height > 0m)
+                        {
+                            package.Height = height;
+                        }
+                        else
+                        {
+                            pass = false;
+                            errorMsg = string.Format("请正确输入包裹高度", i + 1);
+                            return;
+                        }
+                          
                     }
-                    else if (add.Contains("weight"))
+                    else if (add.Contains("length"))
                     {
-                        package.Weight = decimal.Parse(Request.Form.Get(add));
+                        decimal length;
+                        if (decimal.TryParse(Request.Form.Get(add), out length) && length > 0m)
+                        {
+                            package.Length = length;
+                        }
+                        else
+                        {
+                            pass = false;
+                            errorMsg = string.Format("请正确输入包裹长度", i + 1);
+                            return;
+                        }
+                          
                     }
                 }
 
@@ -101,6 +147,15 @@ public partial class products_Edit : System.Web.UI.Page
         }
 
         Session["Recipients"] = reciptientList;
-        Response.Redirect("product.aspx");
+
+        if (pass)
+        {
+            Response.Redirect("product.aspx");
+        }
+        else
+        {
+            LabelError.Visible = true;
+            LabelError.Text = errorMsg;
+        }
     }
 }

@@ -143,7 +143,7 @@
                     });
                 </script>
 
-
+                <asp:Label ID="LabelError" runat="server" Text="Label" Visible="false" ForeColor="Red"></asp:Label>
                 <ol id="root" style="padding-left: 0">                  
 
                     <asp:Repeater runat="server" ItemType="Recipient" SelectMethod="GetRecipients">
@@ -183,18 +183,7 @@
                                     <div style="float: left; margin: 5px; margin-left: 17px; font-weight: bold">
                                         收件地<span style="padding: 2px 4px; background-color: #e1e1e1; font-weight: normal">中国大陆</span>
                                     </div>
-                                    <div style="margin-left: 26px; float: left">
-                                        <div style="float: left; margin: 5px" class="control-group ">
-                                            <label for="id_addr-0-postcode">邮编</label>
-                                            <input id="id_addr-0-postcode" maxlength="6" name="addr-0-postcode" style="width: 60px" type="text" value="<%#Item.ZipCode %>" />
-                                        </div>
-                                    </div>
-                                    <div style="margin-left: 26px; float: left">
-                                        <div style="float: left; margin: 5px" class="control-group ">
-                                            <label for="id_addr-0-phone">电话</label>
-                                            <input id="id_addr-0-phone" maxlength="11" name="addr-0-phone" style="width: 100px" type="text" value="<%#Item.PhoneNumber %>" />
-                                        </div>
-                                    </div>
+                                    
                                     <div style="float: left; margin: 5px; margin-left: 20px" class="control-group">
                                         <label>
                                             额外保险
@@ -312,9 +301,7 @@
             </div>
 
             <!-- right column -->
-            <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
-            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                <ContentTemplate>
+          
                     <div class="col-sm-2 col-xs-12" style="border: 1px solid #69ADDB">
                         <div class="panel" style="box-shadow: none">
                             <div style="margin-top: 10px">
@@ -334,217 +321,13 @@
                         </div>
                         <!-- .panel -->
                     </div>
-                    </ContentTemplate>
-             </asp:UpdatePanel>
+
             
 
         </div>
     </form>
 
 
-    <div id="dialog-pinyin" title="中文转为拼音" style="display: none">
-        <p style="font-size: 14px; margin-top: 20px; font-style: italic">输入中文地址，点击翻译，转换为汉语拼音，点击确定，把翻译后的汉语拼音输入收件人地址。</p>
-        <div style="margin-top: 20px; margin-bottom: 15px; font-size: 20px; font-weight: bold;">中文：</div>
-        <div>
-            姓名:
-                    <input type="text" id="py_name" style="width: 100px" />
-            &nbsp;
-        城市:
-                    <input type="text" id="py_city" style="width: 100px" />
-            &nbsp;
-        邮编:
-                    <input type="text" id="py_zip" style="width: 100px" />
-            &nbsp;
-        电话:
-                    <input type="text" id="py_phone" style="width: 140px" />
-            &nbsp;
-        </div>
-        <div>
-            地址:
-                    <input type="text" id="py_street" style="width: 650px" />
-        </div>
-
-        <div style="margin-top: 20px; margin-bottom: 15px; font-size: 20px; font-weight: bold;">拼音：</div>
-        <div>
-            姓名:
-                    <input type="text" id="py2_name" style="width: 100px" />
-            &nbsp;
-        城市:
-                    <input type="text" id="py2_city" style="width: 100px" />
-            &nbsp;
-        邮编:
-                    <input type="text" id="py2_zip" style="width: 100px" />
-            &nbsp;
-        电话:
-                    <input type="text" id="py2_phone" style="width: 140px" />
-            &nbsp;
-        </div>
-        <div>
-            地址:
-                    <input type="text" id="py2_street1" />
-            <input type="text" id="py2_street2" />
-            <input type="text" id="py2_street3" />
-        </div>
-    </div>
-
-    <div id="dialog-addrs" title="地址簿" style="background-color: #fff; display: none; font-size: 13px">
-
-        <style style="text/css">
-            .addr_row {
-                background-color: #F1F1F1;
-                margin: 1px 0;
-            }
-
-                .addr_row:hover {
-                    background-color: #ddd;
-                }
-        </style>
-        <script>var recv_addr_dict = {};</script>
-
-        <div style="margin: 10px 0"><span>输入姓名过滤：</span><input type="text" id="lookup_name" /></div>
-
-        <div>
-            <div style="display: inline-block; width: 100px">姓名</div>
-            <div style="display: inline-block; width: 100px">城市</div>
-            <div style="display: inline-block; width: 56px">邮编</div>
-            <div style="display: inline-block; width: 477px">地址</div>
-        </div>
-
-
-        <div class="addr_row">
-            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-            <label style="display: block; margin-right: 40px">
-                <input type="radio" name="recv_addr" class="recv_addr" value="45816" style="display: none" />
-                <div style="display: inline-block; width: 100px" class="addr-name">
-                    1<br />
-                    1
-                </div>
-                <div style="display: inline-block; width: 100px">
-                    1<br />
-                    1
-                </div>
-                <div style="display: inline-block; width: 56px">610000</div>
-                <div style="display: inline-block; width: 477px">
-                    1<br />
-                    1 
-                </div>
-            </label>
-        </div>
-
-        <script>recv_addr_dict['45816'] = ['1', '1', '1', '1', '1', '1', '', '', '610000', '18010631890'];</script>
-
-        <div class="addr_row">
-            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-            <label style="display: block; margin-right: 40px">
-                <input type="radio" name="recv_addr" class="recv_addr" value="46413" style="display: none" />
-                <div style="display: inline-block; width: 100px" class="addr-name">
-                    c<br />
-                    C
-                </div>
-                <div style="display: inline-block; width: 100px">
-                    c<br />
-                    C
-                </div>
-                <div style="display: inline-block; width: 56px">111111</div>
-                <div style="display: inline-block; width: 477px">
-                    c<br />
-                    C 
-                </div>
-            </label>
-        </div>
-
-        <script>recv_addr_dict['46413'] = ['c', 'c', 'c', 'C', 'C', 'C', '', '', '111111', '11111111111'];</script>
-
-        <div class="addr_row">
-            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-            <label style="display: block; margin-right: 40px">
-                <input type="radio" name="recv_addr" class="recv_addr" value="45839" style="display: none" />
-                <div style="display: inline-block; width: 100px" class="addr-name">
-                    吃<br />
-                    CHI
-                </div>
-                <div style="display: inline-block; width: 100px">
-                    吃<br />
-                    CHI
-                </div>
-                <div style="display: inline-block; width: 56px">666666</div>
-                <div style="display: inline-block; width: 477px">
-                    吃<br />
-                    CHI 
-                </div>
-            </label>
-        </div>
-
-        <script>recv_addr_dict['45839'] = ['吃', '吃', '吃', 'CHI', 'CHI', 'CHI', '', '', '666666', '11111111111'];</script>
-
-        <div class="addr_row">
-            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-            <label style="display: block; margin-right: 40px">
-                <input type="radio" name="recv_addr" class="recv_addr" value="35071" style="display: none" />
-                <div style="display: inline-block; width: 100px" class="addr-name">
-                    ddd<br />
-                    DDD
-                </div>
-                <div style="display: inline-block; width: 100px">
-                    ddd<br />
-                    DDD
-                </div>
-                <div style="display: inline-block; width: 56px">666666</div>
-                <div style="display: inline-block; width: 477px">
-                    ddddddd<br />
-                    DDDDDDD 
-                </div>
-            </label>
-        </div>
-
-        <script>recv_addr_dict['35071'] = ['ddd', 'ddd', 'ddddddd', 'DDD', 'DDD', 'DDDDDDD', '', '', '666666', '11111111111'];</script>
-
-        <div class="addr_row">
-            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-            <label style="display: block; margin-right: 40px">
-                <input type="radio" name="recv_addr" class="recv_addr" value="45815" style="display: none" />
-                <div style="display: inline-block; width: 100px" class="addr-name">
-                    李<br />
-                    LI
-                </div>
-                <div style="display: inline-block; width: 100px">
-                    才<br />
-                    C
-                </div>
-                <div style="display: inline-block; width: 56px">666666</div>
-                <div style="display: inline-block; width: 477px">
-                    才<br />
-                    CAI 
-                </div>
-            </label>
-        </div>
-
-        <script>recv_addr_dict['45815'] = ['李', '才', '才', 'LI', 'C', 'CAI', '', '', '666666', '18010631890'];</script>
-
-        <div class="addr_row">
-            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-            <label style="display: block; margin-right: 40px">
-                <input type="radio" name="recv_addr" class="recv_addr" value="44718" style="display: none" />
-                <div style="display: inline-block; width: 100px" class="addr-name">
-                    李潇磊<br />
-                    LI XIAO LEI
-                </div>
-                <div style="display: inline-block; width: 100px">
-                    成都<br />
-                    CHENG DU
-                </div>
-                <div style="display: inline-block; width: 56px">610000</div>
-                <div style="display: inline-block; width: 477px">
-                    中和<br />
-                    ZHONG HE 
-                </div>
-            </label>
-        </div>
-
-        <script>recv_addr_dict['44718'] = ['李潇磊', '成都', '中和', 'LI XIAO LEI', 'CHENG DU', 'ZHONG HE', '', '', '610000', '11111111111'];</script>
-
-
-    </div>
 
 
 
