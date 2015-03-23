@@ -5,13 +5,56 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
+using System.Web.Security;
 
 public partial class Default2 : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (!IsPostBack)
+        {
+            string action = Request["login"];
 
+            if (action == null)
+            {
+                if (Request.IsAuthenticated)
+                {
+                    loginDiv.Visible = false;
+                    logoutDiv.Visible = true;
+                }
+                else
+                {
+                    loginDiv.Visible = true;
+                    logoutDiv.Visible = false;
+                }
+            }
+            else//点击登录
+            {
+                string user = Request["username"];
+                string pass = Request["password"];
+                
+                if (Membership.ValidateUser(user, pass))
+                {
+                    FormsAuthentication.RedirectFromLoginPage(user, false);
+                }
+                else
+                {
+                    Response.Redirect("accounts/login/");
+                }
+            }
+        }       
     }
+
+    protected string GetGreeting()
+    {
+        return Context.User.Identity.Name;
+    }
+
+    protected DateTime GetLastLoginTime()
+    {
+        return Membership.GetUser(Context.User.Identity.Name).LastLoginDate;
+    }    
+
     protected void btnSubmit_Click(object sender, EventArgs e)
     {      
         //pkgAttr is like addr_x-x-weight

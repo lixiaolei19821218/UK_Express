@@ -213,12 +213,12 @@
 
 
 
-                    <div class="mg1 login-form">
+                    <div class="mg1 login-form" id="loginDiv" runat="server">
                         <div class="bg1 rds1 clrw1 sz16" style="height: 38px; background-position: 0 -129px; background-repeat: repeat-x; padding: 10px 20px">
                             登陆
                         </div>
                         <div class="rds2" style="background-color: #fff; padding: 10px 20px 0">
-                            <form method="post" action="/accounts/login/" style="margin: 0">
+                            <form method="post" style="margin: 0">
                                 <input type='hidden' name='csrfmiddlewaretoken' value='8aqZpoXHNqSZ280pPAWg7NUC4SD31C5B' />
                                 <table style="width: 100%">
                                     <tr>
@@ -238,9 +238,24 @@
             <a href="/account/signup/">注册</a>
                                 </div>
                                 <div class="tar">
-                                    <input type="submit" class="bg2 clrw1" style="width: 83px; height: 23px; background-position: -3px -63px; border: none; background-color: #fff" value="登陆 &gt;" />
+                                    <input type="submit" id="login" name="login" class="bg2 clrw1" style="width: 83px; height: 23px; background-position: -3px -63px; border: none; background-color: #fff" value="登陆 &gt;" />
                                 </div>
                             </form>
+                        </div>
+                    </div>
+
+                    <div class="mg1 login-form" id="logoutDiv" runat="server" visible="false">
+                        <div class="bg1 rds1 clrw1 sz16" style="height: 38px; background-position: 0 -129px; background-repeat: repeat-x; padding: 10px 20px">
+                            欢迎回来
+                        </div>
+                        <div class="rds2" style="background-color: #fff; padding: 10px 20px; min-height: 143px">
+                            <p>欢迎回来  <%: GetGreeting() %>.</p>
+
+                            <p>上次登陆日期: <%: GetLastLoginTime() %></p>
+
+                            <p>                                             
+                                <a href="/accounts/logout/?next=<%: Request.Path %>" >退出</a>
+                            </p>
                         </div>
                     </div>
 

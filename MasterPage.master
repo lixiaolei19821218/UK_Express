@@ -88,18 +88,26 @@
                             </a>
                         </div>
 
+                        <div runat="server" id="welcomeDiv" visible="false">
+                            <a class="fr pd2 clrb2" href="/accounts/logout/?next=<%: Request.Path %>">退出</a>
+                            <a class="fr pd2 clrb2" href="/sudi/shop/cart/">商城购物车</a>
+                            <div class="fr clrb2">|</div>
+                            <a class="fr pd2 clrb2" href="/cart/">直邮购物车</a>
+                            <div class="fr clrb2">|</div>
+                            <a class="fr pd2 clrb2" href="/account/orders/">我的帐户</a>
+                            <div class="fr clrb2">|</div>
+                            <div class="fr pd2">欢迎你 <%: GetGreeting() %></div>
+                        </div>
 
-                        <a class="fr pd2 clrb2" href="/accounts/logout/?next=/">退出</a>
-                        <a class="fr pd2 clrb2" href="/sudi/shop/cart/">商城购物车</a>
-                        <div class="fr clrb2">|</div>
-                        <a class="fr pd2 clrb2" href="/cart/">直邮购物车</a>
-                        <div class="fr clrb2">|</div>
-                        <a class="fr pd2 clrb2" href="/account/orders/">我的帐户</a>
-                        <div class="fr clrb2">|</div>
-                        <div class="fr pd2">欢迎你 charlie_li</div>
+                        <div runat="server" id="loginDiv" visible="true">
+                            <a class="fr pd2 clrb2" href="/account/signup/?next=/" style="background-color: #EFF3F7; border: 1px solid #B4B6BA; border-radius: 5px">注册</a>
+                            <a class="fr pd2 clrb2" href="/accounts/login/?next=/" style="background-color: #EFF3F7; border: 1px solid #B4B6BA; margin-right: 15px; border-radius: 5px">登陆</a>
+                        </div>
 
                         <div class="cb"></div>
                     </div>
+
+                   
 
                     <div class="navbar navbar-default" style="margin-bottom: 0; border: none; box-shadow: none; background: none">
                         <div class="container main-menu" style="margin-top: 21px">
