@@ -92,7 +92,7 @@
                             <a class="fr pd2 clrb2" href="/accounts/logout/?next=<%: Request.Path %>">退出</a>
                             <a class="fr pd2 clrb2" href="/sudi/shop/cart/">商城购物车</a>
                             <div class="fr clrb2">|</div>
-                            <a class="fr pd2 clrb2" href="/cart/">直邮购物车</a>
+                            <a class="fr pd2 clrb2" href="/cart/cart.aspx">直邮购物车</a>
                             <div class="fr clrb2">|</div>
                             <a class="fr pd2 clrb2" href="/account/orders/">我的帐户</a>
                             <div class="fr clrb2">|</div>
@@ -100,7 +100,7 @@
                         </div>
 
                         <div runat="server" id="loginDiv" visible="true">
-                            <a class="fr pd2 clrb2" href="/account/signup/?next=/" style="background-color: #EFF3F7; border: 1px solid #B4B6BA; border-radius: 5px">注册</a>
+                            <a class="fr pd2 clrb2" href="/accounts/signup/?next=/" style="background-color: #EFF3F7; border: 1px solid #B4B6BA; border-radius: 5px">注册</a>
                             <a class="fr pd2 clrb2" href="/accounts/login/?next=/" style="background-color: #EFF3F7; border: 1px solid #B4B6BA; margin-right: 15px; border-radius: 5px">登陆</a>
                         </div>
 

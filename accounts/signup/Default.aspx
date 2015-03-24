@@ -2,13 +2,20 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <title>注册 | 速递中国-可靠,快捷,实惠</title>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="/static/css/mezzanine.css">
+
+    <link rel="stylesheet" href="/static/css/cartridge.css">
+
+    <link rel="stylesheet" href="/static/css/theme.css">
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <ul class="breadcrumb" style="background: none; margin-top: 15px"/>
+    <ul class="breadcrumb" style="background: none; margin-top: 15px" />
     <div style="background-color: #fff; padding: 30px">
-        <fieldset>           
-            <form id="form1" runat="server">                
+        <fieldset>
+            <form id="form1" runat="server">
                 <div class="control-group input_id_first_name ">
                     <label class="control-label" for="id_first_name">名字</label>
                     <div class="controls">
@@ -76,8 +83,7 @@
 
 
 
-                <div class="control-group input_id_password2 
-    ">
+                <div class="control-group input_id_password2 ">
                     <label class="control-label" for="id_password2">
                         密码(重复)
                     </label>
@@ -91,8 +97,7 @@
 
 
 
-                <div class="control-group input_id_phone 
-    ">
+                <div class="control-group input_id_phone">
                     <label class="control-label" for="id_phone">
                         Phone
                     </label>

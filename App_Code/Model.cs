@@ -19,6 +19,8 @@ public partial class Order
 
     public int Id { get; set; }
     public Nullable<int> SenderId { get; set; }
+    public string User { get; set; }
+    public byte[] OrderTime { get; set; }
 
     public virtual ICollection<Recipient> Recipients { get; set; }
     public virtual Sender Sender { get; set; }

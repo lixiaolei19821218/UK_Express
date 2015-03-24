@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
+using System.Web.Security;
 
 public partial class products_Product : System.Web.UI.Page
 {
@@ -125,6 +126,7 @@ public partial class products_Product : System.Web.UI.Page
 
         if (pass)
         {
+            order.User = Membership.GetUser().UserName;
             repo.SaveOrder(order);
             Response.Redirect("/cart/cart.aspx");
         }
