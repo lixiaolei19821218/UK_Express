@@ -25,6 +25,7 @@ public partial class products_Product : System.Web.UI.Page
         {
             int id = int.Parse(order_id);
             order = repo.Orders.FirstOrDefault(o => o.Id == id);
+            Session["Order"] = order;
         }
         Service service = repo.Services.FirstOrDefault(s => s.Id == order.ServiceID);
         sv = new ServiceView(service);
