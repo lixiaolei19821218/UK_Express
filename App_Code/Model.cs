@@ -20,10 +20,15 @@ public partial class Order
     public int Id { get; set; }
     public Nullable<int> SenderId { get; set; }
     public string User { get; set; }
-    public byte[] OrderTime { get; set; }
+    public Nullable<System.DateTime> OrderTime { get; set; }
+    public Nullable<int> ServiceID { get; set; }
+    public Nullable<bool> HasPaid { get; set; }
+    public Nullable<System.DateTime> PickupTime { get; set; }
+    public Nullable<bool> IsValid { get; set; }
 
     public virtual ICollection<Recipient> Recipients { get; set; }
     public virtual Sender Sender { get; set; }
+    public virtual Service Service { get; set; }
 }
 
 public partial class Package
@@ -121,6 +126,11 @@ public partial class Sender
 
 public partial class Service
 {
+    public Service()
+    {
+        this.Orders = new HashSet<Order>();
+    }
+
     public int Id { get; set; }
     public string Name { get; set; }
     public string PictureLink { get; set; }
@@ -131,4 +141,5 @@ public partial class Service
     public string PickUpCompany { get; set; }
 
     public virtual PriceList PriceList { get; set; }
+    public virtual ICollection<Order> Orders { get; set; }
 }

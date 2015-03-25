@@ -10,21 +10,19 @@ public partial class products_Edit : System.Web.UI.Page
 {
     private Repository repo = new Repository();
 
-    private ServiceView sv;
-    private List<Recipient> recipients;
+    private Order order;
+    private ServiceView sv;   
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        int id = (int)Session["ServiceID"];
-        Service service = repo.Services.FirstOrDefault(s => s.Id == id);
+        order = (Order)Session["Order"];
+        Service service = repo.Services.FirstOrDefault(s => s.Id == order.ServiceID);
         sv = new ServiceView(service);
-
-        recipients = (List<Recipient>)Session["Recipients"];
     }
 
     public IEnumerable<Recipient> GetRecipients()
     {
-        return recipients;
+        return order.Recipients;
     }
   
     protected void ButtonToOrder_Click(object sender, EventArgs e)
@@ -146,7 +144,7 @@ public partial class products_Edit : System.Web.UI.Page
             reciptientList.Add(r);
         }
 
-        Session["Recipients"] = reciptientList;
+        order.Recipients = reciptientList;
 
         if (pass)
         {

@@ -137,10 +137,9 @@ public partial class Default2 : System.Web.UI.Page
             reciptientList.Add(r);
         }
 
-        Repository re = new Repository();
-        re.SaveRecipient(reciptientList[0]);
-
-        Session.Add("Recipients", reciptientList);        
+        Order order = new Order();
+        order.Recipients = reciptientList;
+        Session.Add("Order", order);        
 
         Response.Redirect("/products/");
     }

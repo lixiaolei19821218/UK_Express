@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Cart.aspx.cs" Inherits="cart_Cart" MasterPageFile="~/MasterPage.master" %>
+<%@ Import Namespace="System.Globalization" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <title>购物车 | 速递中国-可靠,快捷,实惠</title>
@@ -42,7 +43,7 @@
             <input type='hidden' name='delOrder' id='delOrder' />
         </form>
 
-        <form action="" method="post" id="placeOrder" style="padding-top: 0px">
+        <form action="" runat="server" method="post" id="placeOrder" style="padding-top: 0px">
             <input type='hidden' name='csrfmiddlewaretoken' value='8WyFROe9ydu80zMt8DIf6Vje0yzvE4Tm' />
             <table class="table table-orders">
 
@@ -59,17 +60,17 @@
                         </tr>
                     </HeaderTemplate>
                     <ItemTemplate>
-                        <input type='hidden' name='orders' value='43758' />
+                        <input type='hidden' name='orders' />
                         <tr id="<%#Item.Id %>">
-                            <td class="tac"><%#Item.Id %></td>
-                            <td class="left">2015/3/7</td>
-                            <td class="tac"><%#GetOrderPrice(Item) %></td>
+                            <td class="tac"><%#string.Format("{0:d9}", Item.Id) %></td>
+                            <td class="left"><%#Item.OrderTime.Value.ToShortDateString() %></td>
+                            <td class="tac"><%#GetOrderPrice(Item).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></td>
                             <td class="tac"><%#Item.Recipients.Sum(r => r.Packages.Count) %></td>
                             <td class="tac"><%#Item.Sender.Name %></td>
-                            <td class="right">China Economy 自送邮局</td>
-                            <td colspan="2">
-                                <a class="btn btn-info btn-small edit" href="/products/order/43758/edit/">修改</a>
-                                <span class="btn btn-danger btn-small del">删除</span>
+                            <td class="right"><%#Item.Service.Name %></td>
+                            <td colspan="2">                                
+                                <a class="btn btn-info btn-small edit" href="/products/product.aspx?order_id=<%#Item.Id %>">修改</a>
+                                <button class="btn btn-danger btn-small del" name="delete" value="<%#Item.Id %>">删除</button>
                             </td>
                         </tr>
                     </ItemTemplate>
@@ -80,7 +81,7 @@
 
             <div>
                 <a href="/" class="btn btn-info" style="line-height: 1">继续下单</a>
-                <div style="float: right">总金额: £<strong class="total-price" style="color: #f00">312.25</strong></div>
+                <div style="float: right">总金额: <strong class="total-price" style="color: #f00"><%:GetTotalPrice().ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></strong></div>
             </div>
 
 

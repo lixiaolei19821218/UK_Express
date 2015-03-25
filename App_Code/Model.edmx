@@ -12,7 +12,11 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SenderId" Type="int" />
           <Property Name="User" Type="nvarchar" MaxLength="50" />
-          <Property Name="OrderTime" Type="datetime2" Precision="7" StoreGeneratedPattern="Computed" />
+          <Property Name="OrderTime" Type="datetime" />
+          <Property Name="ServiceID" Type="int" />
+          <Property Name="HasPaid" Type="bit" />
+          <Property Name="PickupTime" Type="datetime" />
+          <Property Name="IsValid" Type="bit" />
         </EntityType>
         <EntityType Name="PackageDetails">
           <Key>
@@ -138,6 +142,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ServiceID">
+          <End Role="Services" Type="Self.Services" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Services">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="PackageID">
           <End Role="Packages" Type="Self.Packages" Multiplicity="1" />
           <End Role="PackageDetails" Type="Self.PackageDetails" Multiplicity="*" />
@@ -173,6 +189,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_SenderID" Association="Self.FK_SenderID">
             <End Role="Senders" EntitySet="Senders" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceID" Association="Self.FK_ServiceID">
+            <End Role="Services" EntitySet="Services" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="PackageID" Association="Self.PackageID">
@@ -226,6 +246,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_SenderID" Association="UK_ExpressModel.FK_SenderID">
             <End Role="Sender" EntitySet="Senders" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ServiceID" Association="UK_ExpressModel.FK_ServiceID">
+            <End Role="Service" EntitySet="Services" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
         </EntityContainer>
@@ -304,6 +328,7 @@
           <Property Name="PriceListID" Type="Int32" />
           <NavigationProperty Name="PriceList" Relationship="UK_ExpressModel.FK_PriceListID_Services" FromRole="Service" ToRole="PriceList" />
           <Property Name="PickUpCompany" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="UK_ExpressModel.FK_ServiceID" FromRole="Service" ToRole="Order" />
         </EntityType>
         <EntityType Name="PriceList">
           <Key>
@@ -347,7 +372,12 @@
           <NavigationProperty Name="Recipients" Relationship="UK_ExpressModel.FK_OrderID" FromRole="Order" ToRole="Recipient" />
           <NavigationProperty Name="Sender" Relationship="UK_ExpressModel.FK_SenderID" FromRole="Order" ToRole="Sender" />
           <Property Name="User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OrderTime" Type="Binary" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="OrderTime" Type="DateTime" Precision="3" />
+          <Property Name="ServiceID" Type="Int32" />
+          <Property Name="HasPaid" Type="Boolean" />
+          <NavigationProperty Name="Service" Relationship="UK_ExpressModel.FK_ServiceID" FromRole="Order" ToRole="Service" />
+          <Property Name="PickupTime" Type="DateTime" Precision="3" />
+          <Property Name="IsValid" Type="Boolean" />
         </EntityType>
         <EntityType Name="Sender">
           <Key>
@@ -384,6 +414,18 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="SenderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ServiceID">
+          <End Type="UK_ExpressModel.Service" Role="Service" Multiplicity="0..1" />
+          <End Type="UK_ExpressModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Service">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="ServiceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -465,6 +507,10 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="UK_ExpressModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="IsValid" ColumnName="IsValid" />
+                <ScalarProperty Name="PickupTime" ColumnName="PickupTime" />
+                <ScalarProperty Name="HasPaid" ColumnName="HasPaid" />
+                <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
                 <ScalarProperty Name="OrderTime" ColumnName="OrderTime" />
                 <ScalarProperty Name="User" ColumnName="User" />
                 <ScalarProperty Name="SenderId" ColumnName="SenderId" />

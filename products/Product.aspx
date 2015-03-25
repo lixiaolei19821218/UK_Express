@@ -234,7 +234,7 @@
                                 取件安排
                             </div>
                             <div class="rds2" style="padding: 5px 2px; border: 1px solid #ddd; background-color: #F2F8FC">
-                                <div style="float: left; margin: 5px; font-weight: bold; margin-right: 10px">取件公司 <span style="background-color: #e1e1e1; padding: 2px 4px; font-size: 12px; font-weight: normal">UK Mail</span></div>
+                                <div style="float: left; margin: 5px; font-weight: bold; margin-right: 10px">取件公司 <span style="background-color: #e1e1e1; padding: 2px 4px; font-size: 12px; font-weight: normal"><%:ServiceView.PickUpCompany %></span></div>
 
                                 <div style="float: left; margin: 5px" class="control-group ">
                                     <label for="id_pickup_time_0">日期</label>
@@ -566,9 +566,7 @@
                                 <br />
                                 <asp:Repeater runat="server" ItemType="Package" SelectMethod="GetAllPackages">
                                     <ItemTemplate>
-                                        包裹 <%#Container.ItemIndex + 1 %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%#GetPackagePrice(Item).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %>
-                                        <br />
-                                -----------------
+                                        包裹 <%#Container.ItemIndex + 1 %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%#GetPackagePrice(Item).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %><br />-----------------
                                     </ItemTemplate>
                                 </asp:Repeater>                                
                                 

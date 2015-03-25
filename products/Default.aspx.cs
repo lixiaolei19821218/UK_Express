@@ -9,15 +9,18 @@ using System.Globalization;
 public partial class product_Default : System.Web.UI.Page
 {
     private Repository repo = new Repository();
+    private Order order;
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        order = (Order)Session["Order"];
+
         if (IsPostBack)
         {
-            int id;
-            if (int.TryParse(Request.Form["order"], out id))
+            int serviceID;
+            if (int.TryParse(Request.Form["order"], out serviceID))
             {
-                Session.Add("ServiceID", id);
+                order.ServiceID = serviceID;
                 Response.Redirect("product.aspx");
             }
         }
@@ -35,11 +38,11 @@ public partial class product_Default : System.Web.UI.Page
         return svs;
     }
 
-    public IEnumerable<Recipient> Recipients
+    public Order Order
     {
         get
         {
-            return (List<Recipient>)Session["Recipients"];
+            return order;
         }
     }
 }

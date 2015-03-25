@@ -13,7 +13,8 @@ public class Repository
 	{
 		//
 		// TODO: 在此处添加构造函数逻辑
-		//
+        //
+        
 	}
 
     public IEnumerable<Service> Services
@@ -51,7 +52,16 @@ public class Repository
             Order dbOrder = context.Orders.Find(order.Id);
             if (dbOrder != null)
             {
-               
+                dbOrder.IsValid = order.IsValid;
+                dbOrder.HasPaid = order.HasPaid;
+                dbOrder.OrderTime = order.OrderTime;
+                dbOrder.PickupTime = order.PickupTime;
+                dbOrder.Recipients = order.Recipients;
+                dbOrder.Sender = order.Sender;
+                dbOrder.SenderId = order.SenderId;
+                dbOrder.Service = order.Service;
+                dbOrder.ServiceID = order.ServiceID;
+                dbOrder.User = order.User;
             }
         }
         context.SaveChanges();

@@ -42,6 +42,11 @@ public class ServiceView
         return GetPickupPrice(recipients) + GetDeliverPrice(recipients);
     }
 
+    public decimal GetPrice(Order order)
+    {
+        return GetPrice(order.Recipients);
+    }
+
     public decimal GetPickupPrice(IEnumerable<Recipient> recipients)
     {
         decimal price = 0m;
@@ -73,7 +78,7 @@ public class ServiceView
                 break;
         }
 
-        return price;
+        return Math.Round(price, 2);
     }
 
     public decimal GetDeliverPrice(IEnumerable<Recipient> recipients)
@@ -96,8 +101,8 @@ public class ServiceView
         decimal priceByWeight = PriceList.PriceItems.OrderBy(i => i.Weight).First(i => i.Weight >= package.Weight).Price;
         decimal priceBySize = package.Length * package.Width * package.Height / 5000m;
 
-        decimal price = priceByWeight > priceBySize ? priceByWeight : priceBySize; 
+        decimal price = priceByWeight > priceBySize ? priceByWeight : priceBySize;
 
-        return price;
+        return Math.Round(price, 2);
     }
 }
