@@ -20,9 +20,16 @@ public partial class cart_Cart : System.Web.UI.Page
             {
                 Order myOrder = repo.Orders.Where(o => o.Id == id).FirstOrDefault();
                 if (myOrder != null)
-                {
-                    myOrder.IsValid = false;
-                    repo.SaveOrder(myOrder);
+                {   /*                 
+                    foreach (Recipient r in myOrder.Recipients)
+                    {
+                        repo.Context.Packages.RemoveRange(r.Packages);
+                    }
+                    repo.Context.Recipients.RemoveRange(myOrder.Recipients);                    
+                    repo.Context.Orders.Remove(myOrder); */
+
+                    myOrder.Recipients.Remove(myOrder.Recipients.First());
+                    repo.Context.SaveChanges();
                 }
             }            
             Response.Redirect(Request.Path);
@@ -32,7 +39,7 @@ public partial class cart_Cart : System.Web.UI.Page
     public IEnumerable<Order> GetOrders()
     {
         string user = Membership.GetUser().UserName;
-        return from o in repo.Orders where o.User == user && (o.IsValid ?? false) select o;
+        return from o in repo.Orders where o.User == user select o;
     }
 
     public decimal GetOrderPrice(Order order)

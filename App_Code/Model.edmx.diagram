@@ -17,9 +17,7 @@
         <AssociationConnector Association="UK_ExpressModel.FK_PriceListID_PriceItems" />
         <AssociationConnector Association="UK_ExpressModel.FK_PriceListID_Services" />
         <EntityTypeShape EntityType="UK_ExpressModel.Order" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="UK_ExpressModel.Sender" Width="1.5" PointX="5.375" PointY="4.75" />
         <AssociationConnector Association="UK_ExpressModel.FK_OrderID" />
-        <AssociationConnector Association="UK_ExpressModel.FK_SenderID" />
         <AssociationConnector Association="UK_ExpressModel.FK_ServiceID" />
       </Diagram>
     </edmx:Diagrams>

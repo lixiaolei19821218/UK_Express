@@ -156,27 +156,27 @@
                         <div class="rds2" style="border: 1px solid #ddd; background-color: #F2F8FC; padding: 5px 1px">
                             <div style="float: left; margin: 5px" class="control-group ">
                                 <label for="id_billing_detail_name">姓名</label>
-                                <input class="input-medium" id="id_billing_detail_name" maxlength="25" name="billing_detail_name" style="width: 115px" type="text" />
+                                <input class="input-medium" id="id_billing_detail_name" maxlength="25" name="billing_detail_name" style="width: 115px" type="text" value="<%:Order.SenderName %>" />
 
 
                             </div>
                             <div style="float: left; margin: 5px" class="control-group ">
                                 <label for="id_billing_detail_street">地址</label>
-                                <input class="input-xxlarge" id="id_billing_detail_street" maxlength="24" name="billing_detail_street" style="width: 180px" type="text" />
+                                <input class="input-xxlarge" id="id_billing_detail_street" maxlength="24" name="billing_detail_street" style="width: 180px" type="text" value="<%:Order.SenderAddress1 %>" />
 
 
 
 
                             </div>
                             <div style="float: left; margin: 5px" class="control-group ">
-                                <input class="input-medium" id="id_billing_detail_street2" maxlength="24" name="billing_detail_street2" style="width: 180px" type="text" />
+                                <input class="input-medium" id="id_billing_detail_street2" maxlength="24" name="billing_detail_street2" style="width: 180px" type="text" value="<%:Order.SenderAddress2 %>"/>
 
 
 
 
                             </div>
                             <div style="float: left; margin: 5px" class="control-group ">
-                                <input class="input-medium" id="id_billing_detail_street3" maxlength="24" name="billing_detail_street3" style="width: 173px" type="text" />
+                                <input class="input-medium" id="id_billing_detail_street3" maxlength="24" name="billing_detail_street3" style="width: 173px" type="text" value="<%:Order.SenderAddress3 %>"/>
 
 
 
@@ -186,7 +186,7 @@
 
                             <div style="float: left; margin: 5px" class="control-group ">
                                 <label for="id_billing_detail_city">城市</label>
-                                <input class="input-medium" id="id_billing_detail_city" maxlength="24" name="billing_detail_city" style="width: 115px" type="text" />
+                                <input class="input-medium" id="id_billing_detail_city" maxlength="24" name="billing_detail_city" style="width: 115px" type="text" value="<%:Order.SenderCity %>"/>
 
 
 
@@ -194,7 +194,7 @@
                             </div>
                             <div style="float: left; margin: 5px" class="control-group ">
                                 <label for="id_billing_detail_phone">电话</label>
-                                <input class="input-medium" id="id_billing_detail_phone" maxlength="15" name="billing_detail_phone" style="width: 180px" type="text" />
+                                <input class="input-medium" id="id_billing_detail_phone" maxlength="15" name="billing_detail_phone" style="width: 180px" type="text" value="<%:Order.SenderPhone %>"/>
 
 
 
@@ -202,7 +202,7 @@
                             </div>
                             <div style="float: left; margin: 5px" class="control-group ">
                                 <label for="id_billing_detail_postcode">邮编</label>
-                                <input class="input-medium" id="id_billing_detail_postcode" maxlength="8" name="billing_detail_postcode" style="width: 100px" type="text" />
+                                <input class="input-medium" id="id_billing_detail_postcode" maxlength="8" name="billing_detail_postcode" style="width: 100px" type="text" value="<%:Order.SenderZipCode %>"/>
 
 
 
@@ -218,7 +218,7 @@
                             <div style="clear: both; display: none">
                                 <div style="float: left; margin: 5px" class="control-group ">
                                     <label for="id_billing_detail_email">Email</label>
-                                    <input class="input-medium" id="id_billing_detail_email" maxlength="50" name="billing_detail_email" style="width: 180px" type="text" />
+                                    <input class="input-medium" id="id_billing_detail_email" maxlength="50" name="billing_detail_email" style="width: 180px" type="text" value="<%:Order.SenderZipCode %>"/>
 
 
 
@@ -239,7 +239,7 @@
                                 <div style="float: left; margin: 5px" class="control-group ">
                                     <label for="id_pickup_time_0">日期</label>
                                     <div id="f" class="input-append date form_datetime">
-                                        <input class="input-medium" foo_bar="prevent_readonly" id="id_pickup_time_0" name="pickup_time_0" type="text" />
+                                        <input class="input-medium" foo_bar="prevent_readonly" id="id_pickup_time_0" name="pickup_time_0" type="text" value="<%:Order.PickupTime %>"/>
                                         <span id="sp" class="add-on"><i class="icon-th"></i></span>
                                     </div>
                                     <script type="text/javascript">

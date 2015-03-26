@@ -26,7 +26,8 @@ public partial class products_Product : System.Web.UI.Page
             int id = int.Parse(order_id);
             order = repo.Orders.FirstOrDefault(o => o.Id == id);
             Session["Order"] = order;
-        }
+        }        
+
         Service service = repo.Services.FirstOrDefault(s => s.Id == order.ServiceID);
         sv = new ServiceView(service);
     }
@@ -42,57 +43,54 @@ public partial class products_Product : System.Web.UI.Page
     }
     protected void add2cart_Click(object sender, EventArgs e)
     {
-        List<Recipient> recipientList = order.Recipients.ToList();
+        order.SenderName = Request.Form.Get("billing_detail_name");
+        order.SenderCity = Request.Form.Get("billing_detail_city");
+        order.SenderPhone = Request.Form.Get("billing_detail_phone");
+        order.SenderAddress1 = Request.Form.Get("billing_detail_street");
+        order.SenderAddress2 = Request.Form.Get("billing_detail_street2");
+        order.SenderAddress3 = Request.Form.Get("billing_detail_street3");
+        order.SenderZipCode = Request.Form.Get("billing_detail_postcode");
 
+        List<Recipient> recipientList = order.Recipients.ToList();
         for (int i = 0; i < recipientList.Count; i++)
         {
             Recipient recipient = recipientList[i];
-            recipient.Name = Request.Form.Get(string.Format("addr-{0}-cn_name", i));            
+            recipient.Name = Request.Form.Get(string.Format("addr-{0}-cn_name", i));
             recipient.City = Request.Form.Get(string.Format("addr-{0}-cn_city", i));
             recipient.Address = Request.Form.Get(string.Format("addr-{0}-cn_street", i));
             recipient.PhoneNumber = Request.Form.Get(string.Format("addr-{0}-phone", i));
             recipient.ZipCode = Request.Form.Get(string.Format("addr-{0}-postcode", i));
-        }
-
-        Sender s = new Sender();
-        s.Name = Request.Form.Get("billing_detail_name");
-        s.City = Request.Form.Get("billing_detail_city");
-        s.Phone = Request.Form.Get("billing_detail_phone");
-        s.Address1 = Request.Form.Get("billing_detail_street");
-        s.Address2 = Request.Form.Get("billing_detail_street2");
-        s.Address3 = Request.Form.Get("billing_detail_street3");
-        s.ZipCode = Request.Form.Get("billing_detail_postcode");
+        }        
 
         bool pass = true;
         string errorMsg = "";
-
-        if (string.IsNullOrEmpty(s.Name))
+        if (string.IsNullOrEmpty(order.SenderName))
         {
             pass = false;
-            errorMsg = "请输入发件人的姓名";            
+            errorMsg = "请输入发件人的姓名";
         }
-        else if (string.IsNullOrEmpty(s.City))
+        else if (string.IsNullOrEmpty(order.SenderCity))
         {
             pass = false;
-            errorMsg = "请输入发件人的城市";            
+            errorMsg = "请输入发件人的城市";
         }
-        else if (string.IsNullOrEmpty(s.Address1) || string.IsNullOrEmpty(s.Address2) || string.IsNullOrEmpty(s.Address3))
+        else if (string.IsNullOrEmpty(order.SenderAddress1) || string.IsNullOrEmpty(order.SenderAddress2) || string.IsNullOrEmpty(order.SenderAddress3))
         {
             pass = false;
             errorMsg = "请输入发件人的地址";
-            
+
         }
-        else if (string.IsNullOrEmpty(s.ZipCode))
+        else if (string.IsNullOrEmpty(order.SenderZipCode))
         {
             pass = false;
-            errorMsg = "请输入发件人的邮编";            
+            errorMsg = "请输入发件人的邮编";
         }
-        else if (string.IsNullOrEmpty(s.Phone))
+        else if (string.IsNullOrEmpty(order.SenderPhone))
         {
             pass = false;
             errorMsg = "请输入发件人的电话";
-        }        
-  
+        }
+
         for (int i = 0; i < recipientList.Count; i++)
         {
             Recipient r = recipientList[i];
@@ -128,20 +126,31 @@ public partial class products_Product : System.Web.UI.Page
             }
         }
 
+        DateTime date;
+        if (!DateTime.TryParse(Request["pickup_time_0"], out date))
+        {
+            pass = false;
+            errorMsg = string.Format("请输入正确的取件时间");
+        }
+
         if (pass)
         {
-            order.Sender = s;
-            order.IsValid = true;
-            order.User = Membership.GetUser().UserName;
-            order.PickupTime = DateTime.Parse(Request["pickup_time_0"]);
-            order.OrderTime = DateTime.Now;            
-            repo.SaveOrder(order);
+            order.PickupTime = DateTime.Parse(Request["pickup_time_0"]);       
+
+            if (order.Id == 0)
+            {               
+                order.User = Membership.GetUser().UserName;
+                order.OrderTime = DateTime.Now;
+                repo.Context.Orders.Add(order);
+            }            
+           
+            repo.Context.SaveChanges();
             Response.Redirect("/cart/cart.aspx");
         }
         else
         {
             LabelError.Visible = true;
-            LabelError.Text = errorMsg;            
+            LabelError.Text = errorMsg;
         }
     }
 
@@ -175,5 +184,13 @@ public partial class products_Product : System.Web.UI.Page
         {
             return order.Recipients;
         }
-    }   
+    }
+
+    public Order Order
+    {
+        get
+        {
+            return order;
+        }
+    }
 }

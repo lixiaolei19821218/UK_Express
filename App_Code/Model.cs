@@ -18,16 +18,21 @@ public partial class Order
     }
 
     public int Id { get; set; }
-    public Nullable<int> SenderId { get; set; }
     public string User { get; set; }
     public Nullable<System.DateTime> OrderTime { get; set; }
     public Nullable<int> ServiceID { get; set; }
     public Nullable<bool> HasPaid { get; set; }
     public Nullable<System.DateTime> PickupTime { get; set; }
     public Nullable<bool> IsValid { get; set; }
+    public string SenderName { get; set; }
+    public string SenderCity { get; set; }
+    public string SenderAddress1 { get; set; }
+    public string SenderAddress2 { get; set; }
+    public string SenderAddress3 { get; set; }
+    public string SenderPhone { get; set; }
+    public string SenderZipCode { get; set; }
 
     public virtual ICollection<Recipient> Recipients { get; set; }
-    public virtual Sender Sender { get; set; }
     public virtual Service Service { get; set; }
 }
 
@@ -103,25 +108,6 @@ public partial class Recipient
 
     public virtual ICollection<Package> Packages { get; set; }
     public virtual Order Order { get; set; }
-}
-
-public partial class Sender
-{
-    public Sender()
-    {
-        this.Orders = new HashSet<Order>();
-    }
-
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string City { get; set; }
-    public string Address1 { get; set; }
-    public string Address2 { get; set; }
-    public string Address3 { get; set; }
-    public string Phone { get; set; }
-    public string ZipCode { get; set; }
-
-    public virtual ICollection<Order> Orders { get; set; }
 }
 
 public partial class Service

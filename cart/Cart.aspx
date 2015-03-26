@@ -66,7 +66,7 @@
                             <td class="left"><%#Item.OrderTime.Value.ToShortDateString() %></td>
                             <td class="tac"><%#GetOrderPrice(Item).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></td>
                             <td class="tac"><%#Item.Recipients.Sum(r => r.Packages.Count) %></td>
-                            <td class="tac"><%#Item.Sender.Name %></td>
+                            <td class="tac"><%#Item.SenderName %></td>
                             <td class="right"><%#Item.Service.Name %></td>
                             <td colspan="2">                                
                                 <a class="btn btn-info btn-small edit" href="/products/product.aspx?order_id=<%#Item.Id %>">修改</a>

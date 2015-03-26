@@ -13,9 +13,16 @@ public class Repository
 	{
 		//
 		// TODO: 在此处添加构造函数逻辑
-        //
-        
+        //        
 	}
+
+    public UK_ExpressEntities Context
+    {
+        get
+        {
+            return context;
+        }
+    }
 
     public IEnumerable<Service> Services
     {
@@ -56,11 +63,11 @@ public class Repository
                 dbOrder.HasPaid = order.HasPaid;
                 dbOrder.OrderTime = order.OrderTime;
                 dbOrder.PickupTime = order.PickupTime;
-                dbOrder.Recipients = order.Recipients;
-                dbOrder.Sender = order.Sender;
-                dbOrder.SenderId = order.SenderId;
-                dbOrder.Service = order.Service;
-                dbOrder.ServiceID = order.ServiceID;
+                //dbOrder.Recipients = order.Recipients;
+                //dbOrder.Sender = order.Sender;
+                //dbOrder.SenderId = order.SenderId;
+                //dbOrder.Service = order.Service;
+                //dbOrder.ServiceID = order.ServiceID;
                 dbOrder.User = order.User;
             }
         }

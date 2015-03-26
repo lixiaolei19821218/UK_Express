@@ -9,6 +9,16 @@ using System.Web.Security;
 
 public partial class Default2 : System.Web.UI.Page
 {
+    private Order order = new Order();
+
+    public Order Order
+    {
+        get
+        {
+            return order;
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -56,21 +66,21 @@ public partial class Default2 : System.Web.UI.Page
     }    
 
     protected void btnSubmit_Click(object sender, EventArgs e)
-    {      
+    {
         //pkgAttr is like addr_x-x-weight
         var pkgAttrs = from p in Request.Form.AllKeys where Regex.Match(p, @"addr_\d-\d-weight|addr_\d-\d-length|addr_\d-\d-width|addr_\d-\d-height").Success select p;
         var groups = from p in pkgAttrs group p by p[5];
-
-        List<Recipient> reciptientList = new List<Recipient>();
+       
         foreach (var g in groups)
-        {
+        {            
             Recipient r = new Recipient();
+            order.Recipients.Add(r);
 
             var pkgs = from p in g group p by p[7];
-
             foreach (var pkg in pkgs)
             {
                 Package package = new Package();
+                r.Packages.Add(package);
                 
                 foreach (string pkgAttr in pkg)
                 {
@@ -130,17 +140,11 @@ public partial class Default2 : System.Web.UI.Page
                             return;
                         }
                     }
-                }
-
-                r.Packages.Add(package);
-            }                       
-            reciptientList.Add(r);
-        }
-
-        Order order = new Order();
-        order.Recipients = reciptientList;
-        Session.Add("Order", order);        
-
+                }               
+            }  
+        }        
+        
+        Session.Add("Order", order); 
         Response.Redirect("/products/");
     }
 }

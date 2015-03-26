@@ -10,13 +10,19 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SenderId" Type="int" />
           <Property Name="User" Type="nvarchar" MaxLength="50" />
           <Property Name="OrderTime" Type="datetime" />
           <Property Name="ServiceID" Type="int" />
           <Property Name="HasPaid" Type="bit" />
           <Property Name="PickupTime" Type="datetime" />
           <Property Name="IsValid" Type="bit" />
+          <Property Name="SenderName" Type="nvarchar" MaxLength="50" />
+          <Property Name="SenderCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="SenderAddress1" Type="nvarchar" MaxLength="50" />
+          <Property Name="SenderAddress2" Type="nvarchar" MaxLength="50" />
+          <Property Name="SenderAddress3" Type="nvarchar" MaxLength="50" />
+          <Property Name="SenderPhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="SenderZipCode" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PackageDetails">
           <Key>
@@ -68,19 +74,6 @@
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="OrderId" Type="int" />
         </EntityType>
-        <EntityType Name="Senders">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="City" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address1" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address2" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address3" Type="nvarchar" MaxLength="50" />
-          <Property Name="Phone" Type="nvarchar" MaxLength="50" />
-          <Property Name="ZipCode" Type="nvarchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="Services">
           <Key>
             <PropertyRef Name="Id" />
@@ -130,18 +123,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_SenderID">
-          <End Role="Senders" Type="Self.Senders" Multiplicity="0..1" />
-          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Senders">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Orders">
-              <PropertyRef Name="SenderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_ServiceID">
           <End Role="Services" Type="Self.Services" Multiplicity="0..1" />
           <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
@@ -173,7 +154,6 @@
           <EntitySet Name="PriceItems" EntityType="Self.PriceItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PriceLists" EntityType="Self.PriceLists" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Recipients" EntityType="Self.Recipients" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Senders" EntityType="Self.Senders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Services" EntityType="Self.Services" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_OrderID" Association="Self.FK_OrderID">
             <End Role="Orders" EntitySet="Orders" />
@@ -186,10 +166,6 @@
           <AssociationSet Name="FK_RecipientID" Association="Self.FK_RecipientID">
             <End Role="Recipients" EntitySet="Recipients" />
             <End Role="Packages" EntitySet="Packages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SenderID" Association="Self.FK_SenderID">
-            <End Role="Senders" EntitySet="Senders" />
-            <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_ServiceID" Association="Self.FK_ServiceID">
             <End Role="Services" EntitySet="Services" />
@@ -239,14 +215,9 @@
             <End Role="Service" EntitySet="Services" />
           </AssociationSet>
           <EntitySet Name="Orders" EntityType="UK_ExpressModel.Order" />
-          <EntitySet Name="Senders" EntityType="UK_ExpressModel.Sender" />
           <AssociationSet Name="FK_OrderID" Association="UK_ExpressModel.FK_OrderID">
             <End Role="Order" EntitySet="Orders" />
             <End Role="Recipient" EntitySet="Recipients" />
-          </AssociationSet>
-          <AssociationSet Name="FK_SenderID" Association="UK_ExpressModel.FK_SenderID">
-            <End Role="Sender" EntitySet="Senders" />
-            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_ServiceID" Association="UK_ExpressModel.FK_ServiceID">
             <End Role="Service" EntitySet="Services" />
@@ -368,9 +339,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SenderId" Type="Int32" />
           <NavigationProperty Name="Recipients" Relationship="UK_ExpressModel.FK_OrderID" FromRole="Order" ToRole="Recipient" />
-          <NavigationProperty Name="Sender" Relationship="UK_ExpressModel.FK_SenderID" FromRole="Order" ToRole="Sender" />
           <Property Name="User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OrderTime" Type="DateTime" Precision="3" />
           <Property Name="ServiceID" Type="Int32" />
@@ -378,20 +347,13 @@
           <NavigationProperty Name="Service" Relationship="UK_ExpressModel.FK_ServiceID" FromRole="Order" ToRole="Service" />
           <Property Name="PickupTime" Type="DateTime" Precision="3" />
           <Property Name="IsValid" Type="Boolean" />
-        </EntityType>
-        <EntityType Name="Sender">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Orders" Relationship="UK_ExpressModel.FK_SenderID" FromRole="Sender" ToRole="Order" />
+          <Property Name="SenderName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SenderCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SenderAddress1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SenderAddress2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SenderAddress3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SenderPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SenderZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_OrderID">
           <End Type="UK_ExpressModel.Order" Role="Order" Multiplicity="0..1" />
@@ -402,18 +364,6 @@
             </Principal>
             <Dependent Role="Recipient">
               <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_SenderID">
-          <End Type="UK_ExpressModel.Sender" Role="Sender" Multiplicity="0..1" />
-          <End Type="UK_ExpressModel.Order" Role="Order" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Sender">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Order">
-              <PropertyRef Name="SenderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -507,27 +457,19 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="UK_ExpressModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="SenderZipCode" ColumnName="SenderZipCode" />
+                <ScalarProperty Name="SenderPhone" ColumnName="SenderPhone" />
+                <ScalarProperty Name="SenderAddress3" ColumnName="SenderAddress3" />
+                <ScalarProperty Name="SenderAddress2" ColumnName="SenderAddress2" />
+                <ScalarProperty Name="SenderAddress1" ColumnName="SenderAddress1" />
+                <ScalarProperty Name="SenderCity" ColumnName="SenderCity" />
+                <ScalarProperty Name="SenderName" ColumnName="SenderName" />
                 <ScalarProperty Name="IsValid" ColumnName="IsValid" />
                 <ScalarProperty Name="PickupTime" ColumnName="PickupTime" />
                 <ScalarProperty Name="HasPaid" ColumnName="HasPaid" />
                 <ScalarProperty Name="ServiceID" ColumnName="ServiceID" />
                 <ScalarProperty Name="OrderTime" ColumnName="OrderTime" />
                 <ScalarProperty Name="User" ColumnName="User" />
-                <ScalarProperty Name="SenderId" ColumnName="SenderId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Senders">
-            <EntityTypeMapping TypeName="UK_ExpressModel.Sender">
-              <MappingFragment StoreEntitySet="Senders">
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="Phone" ColumnName="Phone" />
-                <ScalarProperty Name="Address3" ColumnName="Address3" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

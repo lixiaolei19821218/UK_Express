@@ -17,7 +17,7 @@ public partial class products_Edit : System.Web.UI.Page
     {
         order = (Order)Session["Order"];
         Service service = repo.Services.FirstOrDefault(s => s.Id == order.ServiceID);
-        sv = new ServiceView(service);
+        sv = new ServiceView(service);              
     }
 
     public IEnumerable<Recipient> GetRecipients()
@@ -35,11 +35,13 @@ public partial class products_Edit : System.Web.UI.Page
         var pkgAddIdKeys = from k in Request.Form.AllKeys where Regex.Match(k, @"parcel-\d-address_id").Success select k;
 
         bool pass = true;
-        string errorMsg = "";
-        List<Recipient> reciptientList = new List<Recipient>();
+        string errorMsg = string.Empty;
+
+        //order.Recipients.Clear();
         foreach (var g in groups)
         {
             Recipient r = new Recipient();
+            order.Recipients.Add(r);
 
             foreach (string k in g)
             {
@@ -139,12 +141,8 @@ public partial class products_Edit : System.Web.UI.Page
                 }
 
                 r.Packages.Add(package);
-            }
-
-            reciptientList.Add(r);
-        }
-
-        order.Recipients = reciptientList;
+            }            
+        }        
 
         if (pass)
         {
