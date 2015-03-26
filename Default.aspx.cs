@@ -9,7 +9,7 @@ using System.Web.Security;
 
 public partial class Default2 : System.Web.UI.Page
 {
-    private Order order = new Order();
+    private Order order;   
 
     public Order Order
     {
@@ -19,8 +19,16 @@ public partial class Default2 : System.Web.UI.Page
         }
     }
 
+    public IEnumerable<Recipient> GetRecipients()
+    {
+        return order.Recipients;
+    }
+    
+
     protected void Page_Load(object sender, EventArgs e)
     {
+        order = Session["Order"] as Order;        
+
         if (!IsPostBack)
         {
             string action = Request["login"];
@@ -36,7 +44,7 @@ public partial class Default2 : System.Web.UI.Page
                 {
                     loginDiv.Visible = true;
                     logoutDiv.Visible = false;
-                }
+                }                
             }
             else//点击登录
             {
@@ -70,7 +78,7 @@ public partial class Default2 : System.Web.UI.Page
         //pkgAttr is like addr_x-x-weight
         var pkgAttrs = from p in Request.Form.AllKeys where Regex.Match(p, @"addr_\d-\d-weight|addr_\d-\d-length|addr_\d-\d-width|addr_\d-\d-height").Success select p;
         var groups = from p in pkgAttrs group p by p[5];
-       
+        
         foreach (var g in groups)
         {            
             Recipient r = new Recipient();
@@ -95,7 +103,7 @@ public partial class Default2 : System.Web.UI.Page
                         {
                             LabelError.Text = "请正确输入重量";
                             LabelError.Visible = true;
-                            return;
+                            //return;
                         }
                     }
                     else if (pkgAttr.Contains("length"))
@@ -109,7 +117,7 @@ public partial class Default2 : System.Web.UI.Page
                         {
                             LabelError.Text = "请正确输入长度";
                             LabelError.Visible = true;
-                            return;
+                            //return;
                         }
                     }
                     else if (pkgAttr.Contains("width"))
@@ -123,7 +131,7 @@ public partial class Default2 : System.Web.UI.Page
                         {
                             LabelError.Text = "请正确输入宽度";
                             LabelError.Visible = true;
-                            return;
+                            //return;
                         }
                     }
                     else if (pkgAttr.Contains("height"))
@@ -137,14 +145,13 @@ public partial class Default2 : System.Web.UI.Page
                         {
                             LabelError.Text = "请正确输入高度";
                             LabelError.Visible = true;
-                            return;
+                            //return;
                         }
                     }
                 }               
             }  
-        }        
-        
-        Session.Add("Order", order); 
-        Response.Redirect("/products/");
+        }   
+         
+        //Response.Redirect("/products/");
     }
 }

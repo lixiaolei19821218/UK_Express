@@ -24,8 +24,7 @@ public partial class products_Product : System.Web.UI.Page
         else
         {
             int id = int.Parse(order_id);
-            order = repo.Orders.FirstOrDefault(o => o.Id == id);
-            Session["Order"] = order;
+            order = repo.Orders.FirstOrDefault(o => o.Id == id);            
         }        
 
         Service service = repo.Services.FirstOrDefault(s => s.Id == order.ServiceID);

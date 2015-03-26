@@ -566,6 +566,7 @@
                                 <br />
                                 <asp:Repeater runat="server" ItemType="Package" SelectMethod="GetAllPackages">
                                     <ItemTemplate>
+                                        <br />
                                         包裹 <%#Container.ItemIndex + 1 %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%#GetPackagePrice(Item).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %><br />-----------------
                                     </ItemTemplate>
                                 </asp:Repeater>                                
@@ -580,8 +581,8 @@
                             </div>
                             <asp:Button runat="server" name="order" ClientIDMode="Static" ID="add2cart" CssClass ="btn btn-primary btn-large" Text="添加到购物车" Enabled="false" OnClick="add2cart_Click" />
                
-                                           <div style="margin:12px">
-                            <a href="Edit.aspx" class="previous" >修改包裹尺寸</a>
+                                           <div style="margin:10px">
+                            <a href="Edit.aspx" class="previous"  >返回修改包裹</a>
                                            </div>
                         </div>
                         <!-- .panel -->

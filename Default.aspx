@@ -1,13 +1,14 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Default2" %>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="head" Runat="Server">
+<asp:content id="Content2" contentplaceholderid="head" runat="Server">
     <title>首页 | 速递中国-可靠,快捷,实惠</title>
-</asp:Content>
+</asp:content>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:content id="Content1" contentplaceholderid="ContentPlaceHolder1" runat="Server">
     <div class="row" style="position: relative">
                 <div style="position: absolute; right: -125px; top: 160px">
-                    <img src="/static/img/kefu.png" /></div>
+                    <img src="/static/img/kefu.png" />
+</div>
 
                 <div class="col-sm-8 col-xs-12" style="padding-right: 5px">
 
@@ -72,21 +73,24 @@
 
                                 <div style="align-content:flex-start">
                                 <asp:Label ID="LabelError" runat="server" Text="Label" Visible="false" ForeColor="Red"></asp:Label>
-                                    </div>
-                                <div class="formset formset_1">
+                                </div> 
+                               
+    <asp:Repeater runat="server" ItemType="Recipient" SelectMethod="GetRecipients">
+    <ItemTemplate>
+                    <div class="formset formset_1">                                          
                                     <div class="bg4 addr clrb3 bold tal" style="margin: 20px -15px 0; padding: 7px 15px">
-                                        收件人
-                    <span class="addr_num">1</span>
+                                        收件人<span class="addr_num"><%#Container.ItemIndex + 1 %></span>
                                         <button type="button" class="del_addr btn1 fr" title="删除收件人" style="margin-left: 7px">-</button>
                                         <button type="button" class="add_addr btn1 fr" title="添加收件人">+</button>
                                     </div>
 
-
+    <asp:Repeater runat="server" ItemType="Package" DataSource="<%#Item.Packages %>">
+    <ItemTemplate>
                                     <div class="pkt-err"></div>
                                     <div class="packet" style="margin: 15px 0 0">
                                         <button type="button" class="del_pkt btn2 fr" title="删除包裹" style="margin-left: 7px">-</button>
                                         <button type="button" class="add_pkt btn2 fr" title="添加包裹">+</button>
-                                        <div class="num clrb3 fl" style="width: 10px">1</div>
+                                        <div class="num clrb3 fl" style="width: 10px"><%#Container.ItemIndex + 1  %></div>
                                         <div style="margin-right: 50px; margin-left: 12px">
                                             <div class="row" style="display: inline-block; width: 100%; margin-top: -3px">
                                                 <div class="attr col-xs-3 input1">
@@ -105,15 +109,15 @@
                                         </div>
                                         <div class="cb"></div>
                                     </div>
-
-
-
+     </ItemTemplate>
+                                    </asp:Repeater>
                                     <input id="id_addr_0-TOTAL_FORMS" name="addr_0-TOTAL_FORMS" type="hidden" value="1" /><input id="id_addr_0-INITIAL_FORMS" name="addr_0-INITIAL_FORMS" type="hidden" value="0" /><input id="id_addr_0-MAX_NUM_FORMS" name="addr_0-MAX_NUM_FORMS" type="hidden" value="100" />
                                     <script>
                                         $(function () { add_address('addr_0', $('.formset_1')); });
                                     </script>
                                 </div>
-
+     </ItemTemplate>
+                                    </asp:Repeater>
 
                                 <div class="tar" style="margin-top: 25px">
                                     <div style="float: left; font-size: 14px; margin-top: -5px; color: #0075c2">

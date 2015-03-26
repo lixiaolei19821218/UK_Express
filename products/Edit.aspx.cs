@@ -37,12 +37,13 @@ public partial class products_Edit : System.Web.UI.Page
         bool pass = true;
         string errorMsg = string.Empty;
 
-        //order.Recipients.Clear();
+        order.Recipients.Clear();
+
         foreach (var g in groups)
         {
             Recipient r = new Recipient();
             order.Recipients.Add(r);
-
+            
             foreach (string k in g)
             {
                 if (k.Contains("cn_name"))
