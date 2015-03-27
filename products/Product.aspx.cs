@@ -51,6 +51,18 @@ public partial class products_Product : System.Web.UI.Page
                 }
                 repo.Context.Recipients.RemoveRange(old.Recipients);
 
+                old.HasPaid = order.HasPaid;
+                old.IsValid = order.IsValid;
+                old.OrderTime = order.OrderTime;
+                old.PickupTime = order.PickupTime;
+                old.SenderAddress1 = order.SenderAddress1;
+                old.SenderAddress2 = order.SenderAddress2;
+                old.SenderAddress3 = order.SenderAddress3;
+                old.SenderCity = order.SenderCity;
+                old.SenderName = order.SenderName;
+                old.SenderPhone = order.SenderPhone;
+                old.SenderZipCode = order.SenderZipCode;                
+
                 foreach (Recipient r in order.Recipients)
                 {
                     old.Recipients.Add(r);
