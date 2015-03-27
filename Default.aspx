@@ -2,6 +2,22 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" Runat="Server">
     <title>首页 | 速递中国-可靠,快捷,实惠</title>
+    <%: System.Web.Optimization.Scripts.Render("~/bundle/jquery") %>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function (e) {
+                var inputElem = $("#Name")[0];
+                if (inputElem.checkValidity() && !inputElem.validity.customError) {
+                    var length = inputElem.value.length;
+                    if (length < 5 || length > 20) {
+                        inputElem.setCustomValidity("Name must be 5-20 characters");
+                    }
+                } else {
+                    inputElem.setCustomValidity("");
+                }
+            });
+        });
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -89,17 +105,17 @@
                                         <div class="num clrb3 fl" style="width: 10px">1</div>
                                         <div style="margin-right: 50px; margin-left: 12px">
                                             <div class="row" style="display: inline-block; width: 100%; margin-top: -3px">
-                                                <div class="attr col-xs-3 input1">
-                                                    <input id="id_addr_0-0-weight" name="addr_0-0-weight" placeholder="重量" type="text" />
+                                                <div class="attr col-xs-3 input1">                                                    
+                                                    <input id="id_addr_0-0-weight" name="addr_0-0-weight" placeholder="重量" type="text" required="required"/>
                                                     (kg)</div>
                                                 <div class="attr col-xs-3 input1">
-                                                    <input id="id_addr_0-0-length" name="addr_0-0-length" placeholder="长度" type="text" />
+                                                    <input id="id_addr_0-0-length" name="addr_0-0-length" placeholder="长度" type="text" required="required" />
                                                     (cm)</div>
                                                 <div class="attr col-xs-3 input1">
-                                                    <input id="id_addr_0-0-width" name="addr_0-0-width" placeholder="宽度" type="text"  />
+                                                    <input id="id_addr_0-0-width" name="addr_0-0-width" placeholder="宽度" type="text" required="required" />
                                                     (cm)</div>
                                                 <div class="attr col-xs-3 input1">
-                                                    <input id="id_addr_0-0-height" name="addr_0-0-height" placeholder="高度" type="text" />
+                                                    <input id="id_addr_0-0-height" name="addr_0-0-height" placeholder="高度" type="text" required="required" />
                                                     (cm)</div>
                                             </div>
                                         </div>

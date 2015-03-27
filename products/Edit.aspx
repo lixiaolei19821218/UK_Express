@@ -150,8 +150,7 @@
                         <ItemTemplate>
                             <li class="addrItem" style="list-style: none; margin-top: 20px; background-color: #ffffcd; border: 1px solid #ddd">
                                 <div class="clrw1" style="background-color: #FD7F23; padding: 5px 20px">
-                                    <div class="pull-left" style="padding-top: 4px">收件人地址 <span class="addr_item_num"><%#Container.ItemIndex + 1 %></span></div>
-                                    <div class="select-addr2 pull-left btn btn-primary btn-small btn-hover"><i class="icon-book icon-white"></i><span>调用地址簿</span></div>
+                                    <div class="pull-left" style="padding-top: 4px">收件人 <span class="addr_item_num"><%#Container.ItemIndex + 1 %>: <%#Item.Name %></span></div>                                    
                                     <div class="del-addr pull-right btn btn-danger btn-small btn-hover"><i class="icon-trash icon-white"></i><span>删除收件人</span></div>
                                     <div class="add-addr pull-right btn btn-primary btn-small btn-hover"><i class="icon-plus icon-white"></i><span>添加收件人</span></div>
                                     <div style="clear: both"></div>
@@ -183,7 +182,18 @@
                                     <div style="float: left; margin: 5px; margin-left: 17px; font-weight: bold">
                                         收件地<span style="padding: 2px 4px; background-color: #e1e1e1; font-weight: normal">中国大陆</span>
                                     </div>
-                                    
+                                    <div style="margin-left: 26px; float: left">
+                                        <div style="float: left; margin: 5px" class="control-group ">
+                                            <label for="id_addr-0-postcode">邮编</label>
+                                            <input id="id_addr-0-postcode" maxlength="6" name="addr-0-postcode" style="width: 60px" type="text" value="<%#Item.ZipCode %>" />
+                                        </div>
+                                    </div>
+                                    <div style="margin-left: 26px; float: left">
+                                        <div style="float: left; margin: 5px" class="control-group ">
+                                            <label for="id_addr-0-phone">电话</label>
+                                            <input id="id_addr-0-phone" maxlength="11" name="addr-0-phone" style="width: 100px" type="text" value="<%#Item.PhoneNumber %>" />
+                                        </div>
+                                    </div>
                                     <div style="float: left; margin: 5px; margin-left: 20px" class="control-group">
                                         <label>
                                             额外保险
@@ -474,29 +484,7 @@
 
 
 
-            $('#tree').submit(function (e) {
-                $('#root').find('[id$=-postcode]').each(function () {
-                    if (/^[0-9]{6}$/.test($(this).val())) {
-                        $(this).siblings('ul.errorlist').remove();
-                    }
-                    else {
-                        e.preventDefault();
-                        if ($(this).siblings('ul.errorlist').length == 0)
-                            $(this).after('<ul class="errorlist"><li>必须是6位数字</li></ul>');
-                    }
-                });
-                $('#root').find('[id$=-phone]').each(function () {
-                    if (/^[0-9]{11}$/.test($(this).val())) {
-                        $(this).siblings('ul.errorlist').remove();
-                    }
-                    else {
-                        e.preventDefault();
-                        if ($(this).siblings('ul.errorlist').length == 0)
-                            $(this).after('<ul class="errorlist"><li>必须是11位数字</li></ul>');
-                    }
-                });
-            });
-
+            
 
             $('#root').on('keyup change', '.cn_fields', function () {
                 var $this = $(this);

@@ -11,13 +11,13 @@ public partial class products_Edit : System.Web.UI.Page
     private Repository repo = new Repository();
 
     private Order order;
-    private ServiceView sv;   
+    private ServiceView sv;
 
     protected void Page_Load(object sender, EventArgs e)
     {
         order = (Order)Session["Order"];
         Service service = repo.Services.FirstOrDefault(s => s.Id == order.ServiceID);
-        sv = new ServiceView(service);              
+        sv = new ServiceView(service);
     }
 
     public IEnumerable<Recipient> GetRecipients()
@@ -37,7 +37,7 @@ public partial class products_Edit : System.Web.UI.Page
         bool pass = true;
         string errorMsg = string.Empty;
 
-        //order.Recipients.Clear();
+        order.Recipients.Clear();
         foreach (var g in groups)
         {
             Recipient r = new Recipient();

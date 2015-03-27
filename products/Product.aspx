@@ -4,6 +4,23 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <title>填写订单信息 | 速递中国-可靠,快捷,实惠</title>
 
+     <%: System.Web.Optimization.Scripts.Render("~/bundle/jquery") %>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function (e) {
+                var inputElem = $("#Name")[0];
+                if (inputElem.checkValidity() && !inputElem.validity.customError) {
+                    var length = inputElem.value.length;
+                    if (length < 5 || length > 20) {
+                        inputElem.setCustomValidity("Name must be 5-20 characters");
+                    }
+                } else {
+                    inputElem.setCustomValidity("");
+                }
+            });
+        });
+    </script>
+
     <link rel="stylesheet" href="/static/jquery-ui-1.11/jquery-ui.min.css">
     <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css">
 
@@ -156,27 +173,27 @@
                         <div class="rds2" style="border: 1px solid #ddd; background-color: #F2F8FC; padding: 5px 1px">
                             <div style="float: left; margin: 5px" class="control-group ">
                                 <label for="id_billing_detail_name">姓名</label>
-                                <input class="input-medium" id="id_billing_detail_name" maxlength="25" name="billing_detail_name" style="width: 115px" type="text" value="<%:Order.SenderName %>" />
+                                <input class="input-medium" id="id_billing_detail_name" maxlength="25" name="billing_detail_name" style="width: 115px" type="text" value="<%:Order.SenderName %>" required="required"/>
 
 
                             </div>
                             <div style="float: left; margin: 5px" class="control-group ">
                                 <label for="id_billing_detail_street">地址</label>
-                                <input class="input-xxlarge" id="id_billing_detail_street" maxlength="24" name="billing_detail_street" style="width: 180px" type="text" value="<%:Order.SenderAddress1 %>" />
+                                <input class="input-xxlarge" id="id_billing_detail_street" maxlength="24" name="billing_detail_street" style="width: 180px" type="text" value="<%:Order.SenderAddress1 %>" required="required"/>
 
 
 
 
                             </div>
                             <div style="float: left; margin: 5px" class="control-group ">
-                                <input class="input-medium" id="id_billing_detail_street2" maxlength="24" name="billing_detail_street2" style="width: 180px" type="text" value="<%:Order.SenderAddress2 %>"/>
+                                <input class="input-medium" id="id_billing_detail_street2" maxlength="24" name="billing_detail_street2" style="width: 180px" type="text" value="<%:Order.SenderAddress2 %>" required="required"/>
 
 
 
 
                             </div>
                             <div style="float: left; margin: 5px" class="control-group ">
-                                <input class="input-medium" id="id_billing_detail_street3" maxlength="24" name="billing_detail_street3" style="width: 173px" type="text" value="<%:Order.SenderAddress3 %>"/>
+                                <input class="input-medium" id="id_billing_detail_street3" maxlength="24" name="billing_detail_street3" style="width: 173px" type="text" value="<%:Order.SenderAddress3 %>" required="required"/>
 
 
 
@@ -186,7 +203,7 @@
 
                             <div style="float: left; margin: 5px" class="control-group ">
                                 <label for="id_billing_detail_city">城市</label>
-                                <input class="input-medium" id="id_billing_detail_city" maxlength="24" name="billing_detail_city" style="width: 115px" type="text" value="<%:Order.SenderCity %>"/>
+                                <input class="input-medium" id="id_billing_detail_city" maxlength="24" name="billing_detail_city" style="width: 115px" type="text" value="<%:Order.SenderCity %>" required="required"/>
 
 
 
@@ -194,7 +211,7 @@
                             </div>
                             <div style="float: left; margin: 5px" class="control-group ">
                                 <label for="id_billing_detail_phone">电话</label>
-                                <input class="input-medium" id="id_billing_detail_phone" maxlength="15" name="billing_detail_phone" style="width: 180px" type="text" value="<%:Order.SenderPhone %>"/>
+                                <input class="input-medium" id="id_billing_detail_phone" maxlength="15" name="billing_detail_phone" style="width: 180px" type="text" value="<%:Order.SenderPhone %>" required="required"/>
 
 
 
@@ -202,7 +219,7 @@
                             </div>
                             <div style="float: left; margin: 5px" class="control-group ">
                                 <label for="id_billing_detail_postcode">邮编</label>
-                                <input class="input-medium" id="id_billing_detail_postcode" maxlength="8" name="billing_detail_postcode" style="width: 100px" type="text" value="<%:Order.SenderZipCode %>"/>
+                                <input class="input-medium" id="id_billing_detail_postcode" maxlength="8" name="billing_detail_postcode" style="width: 100px" type="text" value="<%:Order.SenderZipCode %>" required="required"/>
 
 
 
@@ -218,7 +235,7 @@
                             <div style="clear: both; display: none">
                                 <div style="float: left; margin: 5px" class="control-group ">
                                     <label for="id_billing_detail_email">Email</label>
-                                    <input class="input-medium" id="id_billing_detail_email" maxlength="50" name="billing_detail_email" style="width: 180px" type="text" value="<%:Order.SenderZipCode %>"/>
+                                    <input class="input-medium" id="id_billing_detail_email" maxlength="50" name="billing_detail_email" style="width: 180px" type="text" value="<%:Order.SenderZipCode %>" />
 
 
 
@@ -239,7 +256,7 @@
                                 <div style="float: left; margin: 5px" class="control-group ">
                                     <label for="id_pickup_time_0">日期</label>
                                     <div id="f" class="input-append date form_datetime">
-                                        <input class="input-medium" foo_bar="prevent_readonly" id="id_pickup_time_0" name="pickup_time_0" type="text" value="<%:Order.PickupTime %>"/>
+                                        <input class="input-medium" foo_bar="prevent_readonly" id="id_pickup_time_0" name="pickup_time_0" type="text" value="<%:Order.PickupTime.HasValue ? Order.PickupTime.Value.ToShortDateString() : null %>"  required="required"/>
                                         <span id="sp" class="add-on"><i class="icon-th"></i></span>
                                     </div>
                                     <script type="text/javascript">
@@ -308,15 +325,15 @@
                                     <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_name">中文姓名</label>
 
-                                        <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" value="<%#Item.Name %>" />
+                                        <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" value="<%#Item.Name %>"  required="required"/>
                                     </div>
                                     <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_city">中文城市</label>
-                                        <input class="cn_fields cn_city" id="id_addr-0-cn_city" maxlength="24" name="addr-0-cn_city" style="width: 60px" type="text" value="<%#Item.City %>" />
+                                        <input class="cn_fields cn_city" id="id_addr-0-cn_city" maxlength="24" name="addr-0-cn_city" style="width: 60px" type="text" value="<%#Item.City %>" required="required"/>
                                     </div>
                                     <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_street">中文地址</label>
-                                        <input class="cn_fields cn_street" id="id_addr-0-cn_street" maxlength="72" name="addr-0-cn_street" style="width: 415px" type="text" value="<%#Item.Address %>" />
+                                        <input class="cn_fields cn_street" id="id_addr-0-cn_street" maxlength="72" name="addr-0-cn_street" style="width: 415px" type="text" value="<%#Item.Address %>" required="required"/>
                                     </div>
                                     <div style="clear: both"></div>
                                     <div style="float: left; margin: 5px; margin-left: 17px; font-weight: bold">
@@ -325,13 +342,13 @@
                                     <div style="margin-left: 26px; float: left">
                                         <div style="float: left; margin: 5px" class="control-group ">
                                             <label for="id_addr-0-postcode">邮编</label>
-                                            <input id="id_addr-0-postcode" maxlength="6" name="addr-0-postcode" style="width: 60px" type="text" value="<%#Item.ZipCode %>" />
+                                            <input id="id_addr-0-postcode" maxlength="6" name="addr-0-postcode" style="width: 60px" type="text" value="<%#Item.ZipCode %>"  required="required"/>
                                         </div>
                                     </div>
                                     <div style="margin-left: 26px; float: left">
                                         <div style="float: left; margin: 5px" class="control-group ">
                                             <label for="id_addr-0-phone">电话</label>
-                                            <input id="id_addr-0-phone" maxlength="11" name="addr-0-phone" style="width: 100px" type="text" value="<%#Item.PhoneNumber %>" />
+                                            <input id="id_addr-0-phone" maxlength="11" name="addr-0-phone" style="width: 100px" type="text" value="<%#Item.PhoneNumber %>"  required="required"/>
                                         </div>
                                     </div>
                                     <div style="float: left; margin: 5px; margin-left: 20px" class="control-group">
@@ -580,8 +597,9 @@
                             </div>
                             <asp:Button runat="server" name="order" ClientIDMode="Static" ID="add2cart" CssClass ="btn btn-primary btn-large" Text="添加到购物车" Enabled="false" OnClick="add2cart_Click" />
                
-                                           <div style="margin:12px">
-                            <a href="Edit.aspx" class="previous" >修改包裹尺寸</a>
+                                           <div style="margin:10px">
+
+                                               <asp:LinkButton ID="LinkButtonEdit" runat="server" OnClick="LinkButtonEdit_Click">添加/修改包裹</asp:LinkButton>
                                            </div>
                         </div>
                         <!-- .panel -->

@@ -68,13 +68,13 @@
                             <td class="tac"><%#Item.Recipients.Sum(r => r.Packages.Count) %></td>
                             <td class="tac"><%#Item.SenderName %></td>
                             <td class="right"><%#Item.Service.Name %></td>
-                            <td colspan="2">                                
-                                <a class="btn btn-info btn-small edit" href="/products/product.aspx?order_id=<%#Item.Id %>">修改</a>
-                                <button class="btn btn-danger btn-small del" name="delete" value="<%#Item.Id %>">删除</button>
+                            <td colspan="2">
+                                <asp:Button ID="ButtonEdit" class="btn btn-info btn-small edit" runat="server" Text="修改" ToolTip="<%#Item.Id %>" OnClick="ButtonEdit_Click" />                   
+                                <asp:Button ID="ButtonDel" class="btn btn-danger btn-small del" runat="server" Text="删除" ToolTip="<%#Item.Id %>" OnClick="ButtonDel_Click" />                                
                             </td>
                         </tr>
                     </ItemTemplate>
-                </asp:Repeater>
+                </asp:Repeater>                
             </table>
 
 
