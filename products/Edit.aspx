@@ -3,7 +3,7 @@
 <%@ Import Namespace="System.Globalization" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <title>包裹信息 | 速递中国-可靠,快捷,实惠</title>
-
+     <%: System.Web.Optimization.Scripts.Render("~/bundle/jquery") %>
     <link rel="stylesheet" href="/static/jquery-ui-1.11/jquery-ui.min.css">
     <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css">
 
@@ -268,25 +268,25 @@
                                                         <div class="ib pd7">
                                                             重量(kg)
                                                             <div>   
-                                                                 <input onchange="" class="input-small" id="id_parcel-0-weight" name="parcel-0-weight" style="width: 55px" type="text" value="<%#Item.Weight %>" />
+                                                                 <input onchange="" class="input-small" id="id_parcel-0-weight" name="parcel-0-weight" style="width: 55px" type="text" value="<%#Item.Weight %>" required="required" />
                                                             </div>
                                                         </div>
                                                         <div class="ib pd7">
                                                             长度(cm)                                   
                                                             <div>
-                                                                <input onchange="" class="input-small" id="id_parcel-0-length" name="parcel-0-length" style="width: 55px" type="text" value="<%#Item.Length %>" />
+                                                                <input onchange="" class="input-small" id="id_parcel-0-length" name="parcel-0-length" style="width: 55px" type="text" value="<%#Item.Length %>" required="required"/>
                                                             </div>
                                                         </div>
                                                         <div class="ib pd7">
                                                             宽度(cm)                                   
                                                             <div>
-                                                                <input class="input-small" id="id_parcel-0-width" name="parcel-0-width" style="width: 55px" type="text" value="<%#Item.Width %>" />
+                                                                <input class="input-small" id="id_parcel-0-width" name="parcel-0-width" style="width: 55px" type="text" value="<%#Item.Width %>" required="required"/>
                                                             </div>
                                                         </div>
                                                         <div class="ib pd7">
                                                             高度(cm)                                
                                                             <div>
-                                                                <input class="input-small" id="id_parcel-0-height" name="parcel-0-height" style="width: 55px" type="text" value="<%#Item.Height %>" />
+                                                                <input class="input-small" id="id_parcel-0-height" name="parcel-0-height" style="width: 55px" type="text" value="<%#Item.Height %>" required="required"/>
                                                             </div>
                                                         </div>
                                                     </div>
