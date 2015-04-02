@@ -251,7 +251,7 @@
                                 <div style="margin: 5px 6px">
                                     <a href="/account/password/reset/">忘记密码？</a>
                                     或
-            <a href="/account/signup/">注册</a>
+            <a href="/accounts/signup/">注册</a>
                                 </div>
                                 <div class="tar">
                                     <input type="submit" id="login" name="login" class="bg2 clrw1" style="width: 83px; height: 23px; background-position: -3px -63px; border: none; background-color: #fff" value="登陆 &gt;" />
