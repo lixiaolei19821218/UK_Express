@@ -5,11 +5,9 @@
     <title>填写订单信息 | 速递中国-可靠,快捷,实惠</title>
 
      <%: System.Web.Optimization.Scripts.Render("~/bundle/jquery") %>
-    <script type="text/javascript" src="Scripts/jquery-1.8.0.min.js"></script>
-    <script type="text/javascript" src="Scripts/jQuery.Hz2Py-min.js"></script>
-     <script src="/static/bootstrap3/js/jquery-1.11.1.min.js"></script>
-    <script src="/static/js/contact.js"></script>
-
+    <script type="text/javascript" src="../Scripts/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jQuery.Hz2Py-min.js"></script>
+     
     <script>
         $(document).ready(function () {
             $("button").click(function (e) {
@@ -140,16 +138,7 @@
                         </ul>
                     </div>                  
                 </div>
-
-                <div>
-    输入中文：<input name="hz" id="hz" onblur="py.value=($('#hz').toPinyin());" onchange="py.value=($('#hz').toPinyin())" onkeydown="py.value=($('#hz').toPinyin())" type="text" size="50" /> 
-显示拼音：<input name="py" id="py" type="text" size="50" /> 
-最后，需要说明的是： 
-1、onBlur、onChange、onKeydown三种鼠标事件可任选其一或组合使用； 
-2、除“-”（连字号）以外，其他标点符号不会被显示，空格显示为“-”（连字号）。 
-缺点：暂无法识别多音字；
-    </div>
-                 
+                   
                 <script src="/static/js/crafty_postcode.class.js"></script>
                 <script>
                     var cp_obj_1 = CraftyPostcodeCreate();
@@ -305,15 +294,15 @@
                                 <!-- recipient address -->
                                 <div style="padding-top: 10px">
                                     <div class="py_fields" style="position: relative; background-color: #e1e1e1; min-height: 24px; display: none; margin-left: 5px; margin-right: 5px; font-size: 13px">
-                                       
+                                       <input name="py" id="py" type="text" size="50" />       
                                         <div class="py_city" style="float: left; width: 162px; padding-left: 28px"></div>
                                         <div class="py_street" style="margin-left: 324px; margin-right: 38px"></div>
                                         <button class="display_hidden btn btn-small" type="button" style="position: absolute; right: 0; top: 0; background-color: #BFBFBF" title="修改转换">编辑</button>
                                         <div style="clear: both"></div>
-                                    </div>
+                                    </div><input name="hz" id="hz" onblur="py.value=($('#hz').toPinyin());" onchange="py.value=($('#hz').toPinyin())" onkeydown="py.value=($('#hz').toPinyin())" type="text" size="50" /> 
                                     <div style="float: left; margin: 5px" class="control-group ">
-                                        <label for="id_addr-0-cn_name">中文姓名</label>                                       
-                                        <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" value="<%#Item.Name %>"  required="required" onblur="py.value=($('#id_addr-0-cn_name').toPinyin());" onchange="py.value=($('#id_addr-0-cn_name').toPinyin())" onkeydown="py.value=($('#id_addr-0-cn_name').toPinyin())"/>
+                                        <label for="id_addr-0-cn_name">中文姓名</label>                                 
+                                        <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" value="<%#Item.Name %>"  required="required" onblur="py.value=($('#addr-0-cn_name').toPinyin());" onchange="py.value=($('#addr-0-cn_name').toPinyin())" onkeydown="py.value=($('#addr-0-cn_name').toPinyin())"/>
                                     </div>
                                     <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_city">中文城市</label>
