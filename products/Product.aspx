@@ -5,6 +5,11 @@
     <title>填写订单信息 | 速递中国-可靠,快捷,实惠</title>
 
      <%: System.Web.Optimization.Scripts.Render("~/bundle/jquery") %>
+    <script type="text/javascript" src="Scripts/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="Scripts/jQuery.Hz2Py-min.js"></script>
+     <script src="/static/bootstrap3/js/jquery-1.11.1.min.js"></script>
+    <script src="/static/js/contact.js"></script>
+
     <script>
         $(document).ready(function () {
             $("button").click(function (e) {
@@ -29,7 +34,7 @@
     <![endif]-->
 
     <link href="/static/css/datetimepicker.css" type="text/css" media="all" rel="stylesheet" />
-    <script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js"></script>
+    <script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js"></script>    
 
     <style type="text/css">
         label {
@@ -133,11 +138,17 @@
                             <li>中国的手机必须为11位数字, 邮编必须为6位数字。</li>
                             <li>一次下单可添加发往多个收件人的包裹，所产生的文档一键打印即可。</li>
                         </ul>
-                    </div>
-
+                    </div>                  
                 </div>
 
-
+                <div>
+    输入中文：<input name="hz" id="hz" onblur="py.value=($('#hz').toPinyin());" onchange="py.value=($('#hz').toPinyin())" onkeydown="py.value=($('#hz').toPinyin())" type="text" size="50" /> 
+显示拼音：<input name="py" id="py" type="text" size="50" /> 
+最后，需要说明的是： 
+1、onBlur、onChange、onKeydown三种鼠标事件可任选其一或组合使用； 
+2、除“-”（连字号）以外，其他标点符号不会被显示，空格显示为“-”（连字号）。 
+缺点：暂无法识别多音字；
+    </div>
                  
                 <script src="/static/js/crafty_postcode.class.js"></script>
                 <script>
@@ -251,36 +262,14 @@
                                 取件安排
                             </div>
                             <div class="rds2" style="padding: 5px 2px; border: 1px solid #ddd; background-color: #F2F8FC">
-                                <div style="float: left; margin: 5px; font-weight: bold; margin-right: 10px">取件公司 <span style="background-color: #e1e1e1; padding: 2px 4px; font-size: 12px; font-weight: normal"><%:ServiceView.PickUpCompany %></span></div>
+                                <div style="float: left; margin: 5px; font-weight: bold; margin-right: 10px">取件公司 <span id="pickUpCompany" style="background-color: #e1e1e1; padding: 2px 4px; font-size: 12px; font-weight: normal"><%:ServiceView.PickUpCompany %></span></div>
 
                                 <div style="float: left; margin: 5px" class="control-group ">
                                     <label for="id_pickup_time_0">日期</label>
-                                    <div id="f" class="input-append date form_datetime">
+                                    <div class="input-append date form_datetime">
                                         <input class="input-medium" foo_bar="prevent_readonly" id="id_pickup_time_0" name="pickup_time_0" type="text" value="<%:Order.PickupTime.HasValue ? Order.PickupTime.Value.ToShortDateString() : null %>"  required="required"/>
                                         <span id="sp" class="add-on"><i class="icon-th"></i></span>
-                                    </div>
-                                    <script type="text/javascript">
-                                        $("#f").datetimepicker({
-                                            format: 'yyyy-mm-dd',
-                                            startDate: '2015-03-10',
-                                            endDate: '2015-03-12',
-                                            weekStart: 0,
-                                            daysOfWeekDisabled: [0, 6],
-                                            autoclose: true,
-                                            startView: 2,
-                                            minView: 2,
-                                            maxView: 3,
-                                            todayBtn: false,
-                                            todayHighlight: false,
-                                            minuteStep: 5,
-                                            pickerPosition: 'bottom-right',
-                                            showMeridian: false,
-                                            clearBtn: false,
-                                            language: 'en',
-                                            initialDate: '2015-03-10',
-                                            daysDisabled: ['2014-04-18', '2014-04-21', '2014-05-05', '2014-05-26', '2014-08-25', '2014-12-24', '2014-12-25', '2014-12-26', '2015-01-01', '2015-04-03', '2015-04-06', '2015-05-04', '2015-05-25', '2015-08-31', '2015-12-25', '2015-12-28']
-                                        });
-                                    </script>
+                                    </div>                                   
                                 </div>
                                 <div style="float: left; margin: 5px; font-weight: bold; margin-left: 10px; margin-right: 10px">
                                     时间
@@ -316,16 +305,15 @@
                                 <!-- recipient address -->
                                 <div style="padding-top: 10px">
                                     <div class="py_fields" style="position: relative; background-color: #e1e1e1; min-height: 24px; display: none; margin-left: 5px; margin-right: 5px; font-size: 13px">
-                                        <div class="py_name" style="float: left; width: 162px; padding-left: 60px">&nbsp;</div>
+                                       
                                         <div class="py_city" style="float: left; width: 162px; padding-left: 28px"></div>
                                         <div class="py_street" style="margin-left: 324px; margin-right: 38px"></div>
                                         <button class="display_hidden btn btn-small" type="button" style="position: absolute; right: 0; top: 0; background-color: #BFBFBF" title="修改转换">编辑</button>
                                         <div style="clear: both"></div>
                                     </div>
                                     <div style="float: left; margin: 5px" class="control-group ">
-                                        <label for="id_addr-0-cn_name">中文姓名</label>
-
-                                        <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" value="<%#Item.Name %>"  required="required"/>
+                                        <label for="id_addr-0-cn_name">中文姓名</label>                                       
+                                        <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" value="<%#Item.Name %>"  required="required" onblur="py.value=($('#id_addr-0-cn_name').toPinyin());" onchange="py.value=($('#id_addr-0-cn_name').toPinyin())" onkeydown="py.value=($('#id_addr-0-cn_name').toPinyin())"/>
                                     </div>
                                     <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_city">中文城市</label>
@@ -849,6 +837,8 @@
 
     <script src="/static/jquery-ui-1.11/jquery-ui.min.js"></script>
     <script src="/static/js/underscore-min.js"></script>
+    <script type="text/javascript" src="/static/bootstrap-datetimepicker/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 
     <script src="/static/js/tree2.js?v=140902v2"></script>
     <script type="text/javascript">
@@ -1031,7 +1021,7 @@
                 else
                     $this.data('timer',
                         setTimeout(function () {
-                            $.get('/pinyin/', { 's': val }, func);
+                            $.get('send2china.co.uk/pinyin/', { 's': val }, func);
                         }, 500)
                     );
             });
@@ -1159,19 +1149,20 @@
                 }).hide();
             });
         });
-    </script>
 
 
-    <script type="text/javascript" src="/static/bootstrap-datetimepicker/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="/static/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
+        var myStartDate = new Date();
+        var myEndDate = new Date();
+        if ($('#pickUpCompany')[0].innerText == 'UK Mail') {
+            myStartDate.setDate(myStartDate.getDate() + 1);
+        }
 
-    <script type="text/javascript">
-
+        myEndDate.setDate(myEndDate.getDate() + 7);
 
         $('.form_datetime').datetimepicker({
-            format: 'yyyy-mm-dd',
-            //startDate: date,
-            //endDate: '2015-03-12',
+            format: 'yyyy/mm/dd',
+            startDate: myStartDate,
+            endDate: myEndDate,
             weekStart: 0,
             daysOfWeekDisabled: [0, 6],
             autoclose: true,
@@ -1185,38 +1176,10 @@
             showMeridian: false,
             clearBtn: false,
             language: 'en',
-            //initialDate: '2015-03-10',
+            //initialDate: '2015-04-1',
             daysDisabled: ['2014-04-18', '2014-04-21', '2014-05-05', '2014-05-26', '2014-08-25', '2014-12-24', '2014-12-25', '2014-12-26', '2015-01-01', '2015-04-03', '2015-04-06', '2015-05-04', '2015-05-25', '2015-08-31', '2015-12-25', '2015-12-28']
-        });
-        $('.form_date').datetimepicker({
-            language: 'en',
-            weekStart: 1,
-            todayBtn: 1,
-            autoclose: 1,
-            todayHighlight: 1,
-            startView: 2,
-            minView: 2,
-            forceParse: 0
-        });
-        $('.form_time').datetimepicker({
-            format: 'yyyy-mm-dd',
-            startDate: '2015-03-10',
-            endDate: '2015-03-12',
-            weekStart: 0,
-            daysOfWeekDisabled: [0, 6],
-            autoclose: true,
-            startView: 2,
-            minView: 2,
-            maxView: 3,
-            todayBtn: false,
-            todayHighlight: false,
-            minuteStep: 5,
-            pickerPosition: 'bottom-right',
-            showMeridian: false,
-            clearBtn: false,
-            language: 'en',
-            initialDate: '2015-03-10',
-            daysDisabled: ['2014-04-18', '2014-04-21', '2014-05-05', '2014-05-26', '2014-08-25', '2014-12-24', '2014-12-25', '2014-12-26', '2015-01-01', '2015-04-03', '2015-04-06', '2015-05-04', '2015-05-25', '2015-08-31', '2015-12-25', '2015-12-28']
-        });
+        });       
     </script>
+
+
 </asp:Content>
