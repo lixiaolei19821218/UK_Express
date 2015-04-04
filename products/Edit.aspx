@@ -13,6 +13,7 @@
 
     <link href="/static/css/datetimepicker.css" type="text/css" media="all" rel="stylesheet" />
     <script type="text/javascript" src="/static/js/bootstrap-datetimepicker.js"></script>
+    <script src="/static/bootstrap3/js/jquery-1.11.1.min.js"></script>
 
     <style type="text/css">
         label {

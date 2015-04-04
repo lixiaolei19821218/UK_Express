@@ -3,6 +3,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="head" Runat="Server">
     <title>首页 | 速递中国-可靠,快捷,实惠</title>
     <%: System.Web.Optimization.Scripts.Render("~/bundle/jquery") %>
+    <script src="/static/bootstrap3/js/jquery-1.11.1.min.js"></script>
     <script>
         $(document).ready(function () {
             $("button").click(function (e) {

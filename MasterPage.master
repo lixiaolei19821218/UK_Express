@@ -22,9 +22,8 @@
 
 
 
-
-   
-
+    
+    <script src="/static/js/contact.js"></script>
 
     <style type="text/css">
         .carousel-inner img {
