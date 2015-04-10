@@ -76,7 +76,7 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    
+   
     <style type="text/css">
         label {
             margin-bottom: 5px;
@@ -284,6 +284,7 @@
 
                     <asp:Repeater runat="server" ItemType="Recipient" SelectMethod="GetRecipients">
                         <ItemTemplate>
+                            
                             <li class="addrItem" style="list-style: none; margin-top: 20px; background-color: #ffffcd; border: 1px solid #ddd">
                                 <div class="clrw1" style="background-color: #FD7F23; padding: 5px 20px">
                                     <div class="pull-left" style="padding-top: 4px">收件人地址 <span class="addr_item_num"><%#Container.ItemIndex + 1 %></span></div>
@@ -294,23 +295,24 @@
                                 <!-- recipient address -->
                                 <div style="padding-top: 10px">
                                     <div class="py_fields" style="position: relative; background-color: #e1e1e1; min-height: 24px; display: none; margin-left: 5px; margin-right: 5px; font-size: 13px">
-                                       <input name="py" id="py" type="text" size="50" />       
-                                        <div class="py_city" style="float: left; width: 162px; padding-left: 28px"></div>
-                                        <div class="py_street" style="margin-left: 324px; margin-right: 38px"></div>
+                                        <div class="py_name" style="float: left; width: 162px; padding-left: 60px" id="py_name<%#Container.ItemIndex %>">&nbsp;</div>
+                                        <div class="py_city" style="float: left; width: 162px; padding-left: 28px" id="py_city<%#Container.ItemIndex %>"></div>
+                                        <div class="py_street" style="margin-left: 324px; margin-right: 38px" id="py_street<%#Container.ItemIndex %>"></div>
                                         <button class="display_hidden btn btn-small" type="button" style="position: absolute; right: 0; top: 0; background-color: #BFBFBF" title="修改转换">编辑</button>
                                         <div style="clear: both"></div>
-                                    </div><input name="hz" id="hz" onblur="py.value=($('#hz').toPinyin());" onchange="py.value=($('#hz').toPinyin())" onkeydown="py.value=($('#hz').toPinyin())" type="text" size="50" /> 
+                                    </div>
+                                    
                                     <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_name">中文姓名</label>                                 
-                                        <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" value="<%#Item.Name %>"  required="required" onblur="py.value=($('#addr-0-cn_name').toPinyin());" onchange="py.value=($('#addr-0-cn_name').toPinyin())" onkeydown="py.value=($('#addr-0-cn_name').toPinyin())"/>
+                                        <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" value="<%#Item.Name %>"  required="required" onblur="py_name<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_name').toPinyin());" onchange="py_name<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_name').toPinyin());" onkeydown="py_name<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_name').toPinyin());"/>
                                     </div>
                                     <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_city">中文城市</label>
-                                        <input class="cn_fields cn_city" id="id_addr-0-cn_city" maxlength="24" name="addr-0-cn_city" style="width: 60px" type="text" value="<%#Item.City %>" required="required"/>
+                                        <input class="cn_fields cn_city" id="id_addr-0-cn_city" maxlength="24" name="addr-0-cn_city" style="width: 60px" type="text" value="<%#Item.City %>" required="required" onblur="py_city<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_city').toPinyin());" onchange="py_city<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_city').toPinyin());" onkeydown="py_city<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_city').toPinyin());"/>
                                     </div>
                                     <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_street">中文地址</label>
-                                        <input class="cn_fields cn_street" id="id_addr-0-cn_street" maxlength="72" name="addr-0-cn_street" style="width: 415px" type="text" value="<%#Item.Address %>" required="required"/>
+                                        <input class="cn_fields cn_street" id="id_addr-0-cn_street" maxlength="72" name="addr-0-cn_street" style="width: 415px" type="text" value="<%#Item.Address %>" required="required" onblur="py_street<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_street').toPinyin());" onchange="py_street<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_street').toPinyin());" onkeydown="py_street<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_street').toPinyin());"/>
                                     </div>
                                     <div style="clear: both"></div>
                                     <div style="float: left; margin: 5px; margin-left: 17px; font-weight: bold">
@@ -1167,7 +1169,12 @@
             language: 'en',
             //initialDate: '2015-04-1',
             daysDisabled: ['2014-04-18', '2014-04-21', '2014-05-05', '2014-05-26', '2014-08-25', '2014-12-24', '2014-12-25', '2014-12-26', '2015-01-01', '2015-04-03', '2015-04-06', '2015-05-04', '2015-05-25', '2015-08-31', '2015-12-25', '2015-12-28']
-        });       
+        });
+
+        var toPinyin = function(zh, pinyin)
+        {
+            pinyin.innerText = ($('#' + pinyin).toPinyin());
+        }
     </script>
 
 
