@@ -575,7 +575,7 @@
                                     我同意服务条款
                                 </label>
                             </div>
-                            <asp:Button runat="server" name="order" ClientIDMode="Static" ID="add2cart" CssClass ="btn btn-primary btn-large" Text="添加到购物车" Enabled="false" OnClick="add2cart_Click" />
+                            <asp:Button runat="server" name="order" ClientIDMode="Static" ID="add2cart" CssClass ="btn btn-primary btn-large" Text="下一步" Enabled="false" OnClick="add2cart_Click" />
                
                                            <div style="margin:10px">
 
