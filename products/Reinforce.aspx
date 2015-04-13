@@ -23,16 +23,16 @@
         <div class="row" style="background-color: #fff; padding: 20px 15px; margin: 20px 0 30px">
             <div class="col-sm-10 col-xs-12" style="padding-left: 0">
                 <div style="border: 0px solid #ccc; padding: 0px; margin-top: 0px">
-                    <img width="750" src="/static/img/banner/sudi_shop3.jpg" style="cursor: pointer" title="选取加固方式一" />
+                    <img width="750" src="/static/img/reinforce/reinforce1.jpg"" style="cursor: pointer" title="选取加固方式一" />
                 </div>
                 <div style="border: 0px solid #ccc; padding: 0px; margin-top: 0px">
-                    <input type="radio" name="reforce" id="reforce1" checked="checked"/>选择加固方式一       
+                    <input type="radio" name="reforce" id="reforce1" checked="checked"/>普通加固    
                 </div>
                 <div style="border: 0px solid #ccc; padding: 0px; margin-top: 30px">
-                    <img width="750" src="/static/img/banner/sudi.png" style="cursor: pointer" title="选取加固方式二" />
+                    <img width="750" src="/static/img/reinforce/reinforce2.jpg" style="cursor: pointer" title="选取加固方式二" />
                 </div>
                 <div style="border: 0px solid #ccc; padding: 0px; margin-top: 0px">
-                    <input type="radio" name="reforce" id="reforce2" />选择加固方式二
+                    <input type="radio" name="reforce" id="reforce2" />用气泡膜和clear wraps
                 </div>
             </div>
 
