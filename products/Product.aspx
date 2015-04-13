@@ -536,30 +536,28 @@
 
             </div>
 
-            <!-- right column -->
-            
+            <!-- right column -->            
                     <div class="col-sm-2 col-xs-12" style="border: 1px solid #69ADDB">
                         <div class="panel" style="box-shadow: none">
                             <div style="margin-top: 10px">
-                                <img src="/static/media/carriers/logo/bpost-logo.png" style="width: 130px" />
+                                <img src="<%:ServiceView.PictureLink %>" style="width: 130px" />
                             </div>
 
-                            <p><strong><%=ServiceView.Name %></strong></p>
+                            <p><strong><%:ServiceView.Name %></strong></p>
                             <p>
                                 <p>
-                                    <img src="/static/media/uploads/ukmail_collection.png" width="130" height="78" />
+                                    <img src=<%:ServiceView.DiscribePictureLink %> width="130" height="78" />
                                 </p>
                                 <p><span style="font-size: small;">国际快递时间（不包括清关和旺季延误）: 6-10 天 /&nbsp;自带丢件赔偿: &pound;50磅 /&nbsp;包裹上可贴中文地址</span></p>
                             </p>
 
                             <div id="details">
                                 <br />
-                                <%=ServiceView.PickUpCompany %>:
+                                <%:ServiceView.PickUpCompany %>:
                                 <br />
-                                <%=ServiceView.GetPickupPrice(Recipients).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %>
+                                <%:ServiceView.GetPickupPrice(Recipients).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %>
                                 <br />
-                                -----------------
-                                <br />
+                               
                                 <asp:Repeater runat="server" ItemType="Package" SelectMethod="GetAllPackages">
                                     <ItemTemplate>
                                         <br />
@@ -568,14 +566,15 @@
                                 </asp:Repeater>                                
                                 
                             </div>
-                            <p>总额: <span id="total" class="sz16 bold clrr1" runat="server"><%=GetTotalPrice().ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></span></p>
+                            <br />
+                            <p>总额: <span id="total" class="sz16 bold clrr1" runat="server"><%:GetTotalPrice().ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></span></p>
                             <div style="margin-bottom: 5px">
                                 <label style="font-weight: bold">
                                     <input type="checkbox" class="agreed" style="margin-top: -3px" />
                                     我同意服务条款
                                 </label>
                             </div>
-                            <asp:Button runat="server" name="order" ClientIDMode="Static" ID="add2cart" CssClass ="btn btn-primary btn-large" Text="下一步" Enabled="false" OnClick="add2cart_Click" />
+                            <asp:Button runat="server" name="order" ClientIDMode="Static" ID="add2cart" CssClass ="btn btn-primary btn-large" Text="下一步" Enabled="false" OnClick="add2cart_Click" Width="120" />
                
                                            <div style="margin:10px">
 
@@ -679,118 +678,14 @@
             </label>
         </div>
 
-        <script>recv_addr_dict['45816'] = ['1', '1', '1', '1', '1', '1', '', '', '610000', '18010631890'];</script>
+      
+        
+        
+        
 
-        <div class="addr_row">
-            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-            <label style="display: block; margin-right: 40px">
-                <input type="radio" name="recv_addr" class="recv_addr" value="46413" style="display: none" />
-                <div style="display: inline-block; width: 100px" class="addr-name">
-                    c<br />
-                    C
-                </div>
-                <div style="display: inline-block; width: 100px">
-                    c<br />
-                    C
-                </div>
-                <div style="display: inline-block; width: 56px">111111</div>
-                <div style="display: inline-block; width: 477px">
-                    c<br />
-                    C 
-                </div>
-            </label>
-        </div>
+       
 
-        <script>recv_addr_dict['46413'] = ['c', 'c', 'c', 'C', 'C', 'C', '', '', '111111', '11111111111'];</script>
-
-        <div class="addr_row">
-            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-            <label style="display: block; margin-right: 40px">
-                <input type="radio" name="recv_addr" class="recv_addr" value="45839" style="display: none" />
-                <div style="display: inline-block; width: 100px" class="addr-name">
-                    吃<br />
-                    CHI
-                </div>
-                <div style="display: inline-block; width: 100px">
-                    吃<br />
-                    CHI
-                </div>
-                <div style="display: inline-block; width: 56px">666666</div>
-                <div style="display: inline-block; width: 477px">
-                    吃<br />
-                    CHI 
-                </div>
-            </label>
-        </div>
-
-        <script>recv_addr_dict['45839'] = ['吃', '吃', '吃', 'CHI', 'CHI', 'CHI', '', '', '666666', '11111111111'];</script>
-
-        <div class="addr_row">
-            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-            <label style="display: block; margin-right: 40px">
-                <input type="radio" name="recv_addr" class="recv_addr" value="35071" style="display: none" />
-                <div style="display: inline-block; width: 100px" class="addr-name">
-                    ddd<br />
-                    DDD
-                </div>
-                <div style="display: inline-block; width: 100px">
-                    ddd<br />
-                    DDD
-                </div>
-                <div style="display: inline-block; width: 56px">666666</div>
-                <div style="display: inline-block; width: 477px">
-                    ddddddd<br />
-                    DDDDDDD 
-                </div>
-            </label>
-        </div>
-
-        <script>recv_addr_dict['35071'] = ['ddd', 'ddd', 'ddddddd', 'DDD', 'DDD', 'DDDDDDD', '', '', '666666', '11111111111'];</script>
-
-        <div class="addr_row">
-            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-            <label style="display: block; margin-right: 40px">
-                <input type="radio" name="recv_addr" class="recv_addr" value="45815" style="display: none" />
-                <div style="display: inline-block; width: 100px" class="addr-name">
-                    李<br />
-                    LI
-                </div>
-                <div style="display: inline-block; width: 100px">
-                    才<br />
-                    C
-                </div>
-                <div style="display: inline-block; width: 56px">666666</div>
-                <div style="display: inline-block; width: 477px">
-                    才<br />
-                    CAI 
-                </div>
-            </label>
-        </div>
-
-        <script>recv_addr_dict['45815'] = ['李', '才', '才', 'LI', 'C', 'CAI', '', '', '666666', '18010631890'];</script>
-
-        <div class="addr_row">
-            <button type="button" style="float: right; margin-top: 5px" class="btn btn-danger btn-small del_addr_row" title="删除"><i class="icon-trash icon-white"></i></button>
-            <label style="display: block; margin-right: 40px">
-                <input type="radio" name="recv_addr" class="recv_addr" value="44718" style="display: none" />
-                <div style="display: inline-block; width: 100px" class="addr-name">
-                    李潇磊<br />
-                    LI XIAO LEI
-                </div>
-                <div style="display: inline-block; width: 100px">
-                    成都<br />
-                    CHENG DU
-                </div>
-                <div style="display: inline-block; width: 56px">610000</div>
-                <div style="display: inline-block; width: 477px">
-                    中和<br />
-                    ZHONG HE 
-                </div>
-            </label>
-        </div>
-
-        <script>recv_addr_dict['44718'] = ['李潇磊', '成都', '中和', 'LI XIAO LEI', 'CHENG DU', 'ZHONG HE', '', '', '610000', '11111111111'];</script>
-
+      
 
     </div>
 

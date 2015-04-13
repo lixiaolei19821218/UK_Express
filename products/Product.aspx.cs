@@ -19,6 +19,12 @@ public partial class products_Product : System.Web.UI.Page
         order = (Order)Session["Order"];
         Service service = repo.Services.FirstOrDefault(s => s.Id == order.ServiceID);
         sv = new ServiceView(service);
+
+        //ParcelForce
+        if (sv.Id == 15 || sv.Id == 17)
+        {
+            add2cart.Text = "添加到购物车";
+        }
     }
 
     public IEnumerable<Recipient> GetRecipients()
@@ -70,7 +76,16 @@ public partial class products_Product : System.Web.UI.Page
             }
 
             repo.Context.SaveChanges();
-            Response.Redirect("/cart/cart.aspx");
+
+            //ParcelForce
+            if (sv.Id == 15 || sv.Id == 17)
+            {
+                Response.Redirect("/cart/cart.aspx");
+            }
+            else
+            {
+                Response.Redirect("/products/reinforce.aspx");
+            }
         }
         else
         {
