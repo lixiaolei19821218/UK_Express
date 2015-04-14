@@ -27,6 +27,30 @@ public partial class products_Reinforce : System.Web.UI.Page
         }
     }
 
+    public Reinforce Reinforce1
+    {
+        get
+        {
+            return repo.Reinforces.ElementAt(0);
+        }
+    }
+
+    public Reinforce Reinforce2
+    {
+        get
+        {
+            return repo.Reinforces.ElementAt(1);
+        }
+    }
+
+    public Order Order
+    {
+        get
+        {
+            return order;
+        }
+    }
+
     public IEnumerable<Recipient> Recipients
     {
         get
@@ -42,7 +66,7 @@ public partial class products_Reinforce : System.Web.UI.Page
 
     public decimal GetTotalPrice()
     {
-        return sv.GetPrice(order.Recipients);
+        return sv.GetPrice(order);
     }
 
     public IEnumerable<Package> GetAllPackages()
@@ -54,5 +78,21 @@ public partial class products_Reinforce : System.Web.UI.Page
         }
 
         return packages;
-    }   
+    }
+    protected void add2cart_Click(object sender, EventArgs e)
+    {       
+        Order old = repo.Context.Orders.Find(order.Id);
+        
+        if (Request.Form["reinforce"] == null)
+        {
+            old.ReinforceID = null;
+        }
+        else
+        {
+            old.ReinforceID = int.Parse(Request.Form["reinforce"]);
+        }
+        
+        repo.Context.SaveChanges();
+        Response.Redirect("/cart/cart.aspx");
+    }
 }

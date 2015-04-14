@@ -31,8 +31,10 @@ public partial class Order
     public string SenderAddress3 { get; set; }
     public string SenderPhone { get; set; }
     public string SenderZipCode { get; set; }
+    public Nullable<int> ReinforceID { get; set; }
 
     public virtual ICollection<Recipient> Recipients { get; set; }
+    public virtual Reinforce Reinforce { get; set; }
     public virtual Service Service { get; set; }
 }
 
@@ -41,6 +43,7 @@ public partial class Package
     public Package()
     {
         this.PackageDetails = new HashSet<PackageDetail>();
+        this.PackageDetails1 = new HashSet<PackageDetail>();
     }
 
     public int Id { get; set; }
@@ -52,6 +55,7 @@ public partial class Package
     public int RecipientID { get; set; }
 
     public virtual ICollection<PackageDetail> PackageDetails { get; set; }
+    public virtual ICollection<PackageDetail> PackageDetails1 { get; set; }
     public virtual Recipient Recipient { get; set; }
 }
 
@@ -64,6 +68,7 @@ public partial class PackageDetail
     public int PackageID { get; set; }
 
     public virtual Package Package { get; set; }
+    public virtual Package Package1 { get; set; }
 }
 
 public partial class PriceItem
@@ -106,8 +111,24 @@ public partial class Recipient
     public string PhoneNumber { get; set; }
     public Nullable<int> OrderId { get; set; }
 
-    public virtual ICollection<Package> Packages { get; set; }
     public virtual Order Order { get; set; }
+    public virtual ICollection<Package> Packages { get; set; }
+}
+
+public partial class Reinforce
+{
+    public Reinforce()
+    {
+        this.Orders = new HashSet<Order>();
+    }
+
+    public int Id { get; set; }
+    public string Type { get; set; }
+    public Nullable<decimal> Price { get; set; }
+    public string Describe { get; set; }
+    public string PictureLink { get; set; }
+
+    public virtual ICollection<Order> Orders { get; set; }
 }
 
 public partial class Service
@@ -126,6 +147,67 @@ public partial class Service
     public Nullable<int> PriceListID { get; set; }
     public string PickUpCompany { get; set; }
 
-    public virtual PriceList PriceList { get; set; }
     public virtual ICollection<Order> Orders { get; set; }
+    public virtual PriceList PriceList { get; set; }
+}
+
+public partial class aspnet_Membership_GetPassword_Result
+{
+    public string Column1 { get; set; }
+    public Nullable<int> Column2 { get; set; }
+}
+
+public partial class aspnet_Membership_GetPasswordWithFormat_Result
+{
+    public string Column1 { get; set; }
+    public Nullable<int> Column2 { get; set; }
+    public string Column3 { get; set; }
+    public Nullable<int> Column4 { get; set; }
+    public Nullable<int> Column5 { get; set; }
+    public Nullable<bool> Column6 { get; set; }
+    public Nullable<System.DateTime> Column7 { get; set; }
+    public Nullable<System.DateTime> Column8 { get; set; }
+}
+
+public partial class aspnet_Membership_GetUserByName_Result
+{
+    public string Email { get; set; }
+    public string PasswordQuestion { get; set; }
+    public string Comment { get; set; }
+    public bool IsApproved { get; set; }
+    public System.DateTime CreateDate { get; set; }
+    public System.DateTime LastLoginDate { get; set; }
+    public System.DateTime LastActivityDate { get; set; }
+    public System.DateTime LastPasswordChangedDate { get; set; }
+    public System.Guid UserId { get; set; }
+    public bool IsLockedOut { get; set; }
+    public System.DateTime LastLockoutDate { get; set; }
+}
+
+public partial class aspnet_Membership_GetUserByUserId_Result
+{
+    public string Email { get; set; }
+    public string PasswordQuestion { get; set; }
+    public string Comment { get; set; }
+    public bool IsApproved { get; set; }
+    public System.DateTime CreateDate { get; set; }
+    public System.DateTime LastLoginDate { get; set; }
+    public System.DateTime LastActivityDate { get; set; }
+    public System.DateTime LastPasswordChangedDate { get; set; }
+    public string UserName { get; set; }
+    public bool IsLockedOut { get; set; }
+    public System.DateTime LastLockoutDate { get; set; }
+}
+
+public partial class aspnet_Profile_GetProperties_Result
+{
+    public string PropertyNames { get; set; }
+    public string PropertyValuesString { get; set; }
+    public byte[] PropertyValuesBinary { get; set; }
+}
+
+public partial class aspnet_UsersInRoles_RemoveUsersFromRoles_Result
+{
+    public string Column1 { get; set; }
+    public string Name { get; set; }
 }

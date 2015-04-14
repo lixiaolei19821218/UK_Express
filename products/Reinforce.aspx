@@ -21,23 +21,27 @@
 
     <form class="form-inline" id="tree" method="post" runat="server">
         <div class="row" style="background-color: #fff; padding: 20px 15px; margin: 20px 0 30px">
+            
+            <!-- main --> 
             <div class="col-sm-10 col-xs-12" style="padding-left: 0">
                 <div style="border: 0px solid #ccc; padding: 0px; margin-top: 0px">
-                    <img width="750" src="/static/img/reinforce/reinforce1.jpg"" style="cursor: pointer" title="选取加固方式一" />
+                    <img width="750" src="<%:Reinforce1.PictureLink %>" style="cursor: pointer" title="<%:Reinforce1.Type %>" />
                 </div>
-                <div style="border: 0px solid #ccc; padding: 0px; margin-top: 0px">
-                    <input type="radio" name="reforce" id="reforce1" checked="checked"/>普通加固    
+                <div style="border: 0px solid #ccc; padding: 0px; margin-top: 0px">                    
+                    <input type="radio" name="reinforce" id="reinforce1" checked="checked" value="<%:Reinforce1.Id %>"/><%:Reinforce1.Describe %>    
                 </div>
                 <div style="border: 0px solid #ccc; padding: 0px; margin-top: 30px">
-                    <img width="750" src="/static/img/reinforce/reinforce2.jpg" style="cursor: pointer" title="选取加固方式二" />
+                    <img width="750" src="<%:Reinforce2.PictureLink %>" style="cursor: pointer" title="<%:Reinforce2.Type %>" />
                 </div>
                 <div style="border: 0px solid #ccc; padding: 0px; margin-top: 0px">
-                    <input type="radio" name="reforce" id="reforce2" />用气泡膜和clear wraps
+                    <input type="radio" name="reinforce" id="reinforce2" value="<%:Reinforce2.Id %>"/><%:Reinforce2.Describe %> 
                 </div>
             </div>
 
             <!-- right column -->
-            <input hidden="hidden" value="<%:GetTotalPrice() %>" />
+            <input hidden="hidden" value="<%:GetTotalPrice() %>" id="sendPrice" />
+            <input hidden="hidden" value="<%:Reinforce1.Price * Order.Recipients.Sum(r => r.Packages.Count) %>" id="reforce1" />
+            <input hidden="hidden" value="<%:Reinforce2.Price * Order.Recipients.Sum(r => r.Packages.Count) %>" id="reforce2" />
             <div class="col-sm-2 col-xs-12" style="border: 1px solid #69ADDB">
                 <div class="panel" style="box-shadow: none">
                     <div style="margin-top: 10px">
@@ -54,7 +58,7 @@
                         <br />
                         <%:ServiceView.PickUpCompany %>:
                         <br />
-                        <%:ServiceView.GetPickupPrice(Recipients).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %>
+                        <%:ServiceView.GetPickupPrice(Order).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %>
                         <br />                        
                         
                         <asp:Repeater runat="server" ItemType="Package" SelectMethod="GetAllPackages">
@@ -66,67 +70,75 @@
                         </asp:Repeater>                        
                         <br />
                         <br />
-                        <p id="reiforcePrice">加固服务：<%:10.ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></p>                                               
+                        <p>加固服务: &nbsp;&nbsp;£<span id="reiforcePrice"></span></p>                                               
                     </div>
                     <br />
-                    <p>总额: <span id="total" class="sz16 bold clrr1"><%:GetTotalPrice().ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></span></p>
+                    <p>总额:&nbsp;<span class="sz16 bold clrr1">£</span><span id="total" class="sz16 bold clrr1"></span></p>
                     <div style="margin-bottom: 5px">
                         <label style="font-weight: bold">
                             <input type="checkbox" id="needReforce" class="agreed" checked="checked" style="margin-top: -3px" />
                             需要加固服务
                         </label>
                     </div>
-                    <input type="submit" value="添加到购物车" id="add2cart" class="aspNetDisabled btn btn-primary btn-large" name="order" />
-
-
+                    <asp:Button runat="server" name="order" ClientIDMode="Static" ID="add2cart" CssClass ="btn btn-primary btn-large" Text="添加到购物车" OnClick="add2cart_Click"/>
                 </div>
             </div>
         </div>
     </form>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#needReforce').change(function (e) {
-                $.ajax({
-                    //要用post方式   
-                    type: "Post",
-                    //方法所在页面和方法名   
-                    url: "/products/reinforce.aspx/SayHello",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (data) {
-                        //返回的数据用data.d获取内容   
-                        alert(data.d);
-                    },
-                    error: function (err) {
-                        alert(err);
-                    }
-                });
+    <script type="text/javascript">        
+        var sendPrice = parseFloat($('#sendPrice')[0].value);
+        var reinforcePrice1 = parseFloat($('#reforce1')[0].value);
+        var reinforcePrice2 = parseFloat($('#reforce2')[0].value);
 
-                if ($('#needReforce')[0].checked) {
-                    $('#reforce1')[0].disabled = false;
-                    $('#reforce2')[0].disabled = false;
-                    $('#reiforcePrice')[0].innerText = "加固服务：10.0";
-                }
-                else {
-                    $('#reforce1')[0].disabled = true;
-                    $('#reforce2')[0].disabled = true;
-                    $('#reiforcePrice')[0].innerText = "加固服务：0.0";
-                }
+        $(document).ready(function () {
+            $(window).load(function () {           
+                $('#reiforcePrice')[0].innerText = reinforcePrice1.toFixed(2);
+                $('#total')[0].innerText = (sendPrice + reinforcePrice1).toFixed(2);
             });
 
-            $('#reforce1').change(function (e) {
+            $('#needReforce').change(function (e) {                
 
-                if ($('#reforce1')[0].checked)
-                {
-                    $('#total')[0].innerText = "加固服务：1.0";
+                var reinforcePrice;
+                if ($('#needReforce')[0].checked) {
+                    $('#reinforce1')[0].disabled = false;
+                    $('#reinforce2')[0].disabled = false;                    
+                    
+                    if ($('#reinforce1')[0].checked)
+                    {
+                        reinforcePrice = reinforcePrice1;
+                    }
+                    else
+                    {
+                        reinforcePrice = reinforcePrice2;
+                    }
+                    
+                }
+                else {
+                    $('#reinforce1')[0].disabled = true;
+                    $('#reinforce2')[0].disabled = true;
+
+                    reinforcePrice = 0.0;
+                }
+
+                $('#reiforcePrice')[0].innerText = reinforcePrice.toFixed(2);
+                $('#total')[0].innerText = (reinforcePrice + sendPrice).toFixed(2);
+            });
+
+            $('#reinforce1').change(function (e) {
+
+                if ($('#reinforce1')[0].checked)
+                {                    
+                    $('#reiforcePrice')[0].innerText = reinforcePrice1.toFixed(2);
+                    $('#total')[0].innerText = (reinforcePrice1 + sendPrice).toFixed(2);
                 }                
             });
 
-            $('#reforce2').change(function (e) {
+            $('#reinforce2').change(function (e) {
 
-                if ($('#reforce2')[0].checked) {
-                    $('#total')[0].innerText = "加固服务：2.0";
+                if ($('#reinforce2')[0].checked) {
+                    $('#reiforcePrice')[0].innerText = reinforcePrice2.toFixed(2);
+                    $('#total')[0].innerText = (reinforcePrice2 + sendPrice).toFixed(2);
                 }
             });
            

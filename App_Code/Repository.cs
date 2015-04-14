@@ -48,6 +48,14 @@ public class Repository
         }
     }
 
+    public IEnumerable<Reinforce> Reinforces
+    {
+        get
+        {
+            return context.Reinforces;
+        }
+    }
+
     public void SaveOrder(Order order)
     {
         if (order.Id == 0)

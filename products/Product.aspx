@@ -555,7 +555,7 @@
                                 <br />
                                 <%:ServiceView.PickUpCompany %>:
                                 <br />
-                                <%:ServiceView.GetPickupPrice(Recipients).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %>
+                                <%:ServiceView.GetPickupPrice(Order).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %>
                                 <br />
                                
                                 <asp:Repeater runat="server" ItemType="Package" SelectMethod="GetAllPackages">
@@ -567,7 +567,7 @@
                                 
                             </div>
                             <br />
-                            <p>总额: <span id="total" class="sz16 bold clrr1" runat="server"><%:GetTotalPrice().ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></span></p>
+                            <p>总额: <span id="total" class="sz16 bold clrr1" runat="server"><%:GetSendPrice().ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></span></p>
                             <div style="margin-bottom: 5px">
                                 <label style="font-weight: bold">
                                     <input type="checkbox" class="agreed" style="margin-top: -3px" />

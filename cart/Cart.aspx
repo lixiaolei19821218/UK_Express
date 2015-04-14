@@ -38,12 +38,12 @@
 
 
 
-        <form action="" method="post" id="delOrderForm" style="display: none">
+        <form method="post" id="delOrderForm" style="display: none">
             <input type='hidden' name='csrfmiddlewaretoken' value='8WyFROe9ydu80zMt8DIf6Vje0yzvE4Tm' />
             <input type='hidden' name='delOrder' id='delOrder' />
         </form>
 
-        <form action="" runat="server" method="post" id="placeOrder" style="padding-top: 0px">
+        <form runat="server" method="post" id="placeOrder" style="padding-top: 0px">
             <input type='hidden' name='csrfmiddlewaretoken' value='8WyFROe9ydu80zMt8DIf6Vje0yzvE4Tm' />
             <table class="table table-orders">
 

@@ -16,7 +16,7 @@ public class ServiceView
     public bool PickUpService { get; set; }
     public Nullable<int> PriceListID { get; set; }
     public string PickUpCompany { get; set; }
-    public virtual PriceList PriceList { get; set; }    
+    public virtual PriceList PriceList { get; set; }
 
 	public ServiceView()
 	{
@@ -34,20 +34,38 @@ public class ServiceView
         this.DiscribePictureLink = service.DiscribePictureLink;
         this.PriceListID = service.PriceListID;
         this.PickUpCompany = service.PickUpCompany;
-        this.PriceList = service.PriceList;
-    }
-
-    public decimal GetPrice(IEnumerable<Recipient> recipients)
-    {
-        return GetPickupPrice(recipients) + GetDeliverPrice(recipients);
-    }
+        this.PriceList = service.PriceList;        
+    }    
 
     public decimal GetPrice(Order order)
     {
-        return GetPrice(order.Recipients);
+        return GetReinforcePrice(order) + GetPickupPrice(order) + GetDeliverPrice(order);
     }
 
-    public decimal GetPickupPrice(IEnumerable<Recipient> recipients)
+    public decimal GetSendPrice(Order order)
+    {
+        return GetPickupPrice(order) + GetDeliverPrice(order);
+    }
+
+    public decimal GetReinforcePrice(Order order)
+    {
+        decimal price = 0m;
+
+        if (order.ReinforceID.HasValue)
+        {
+            foreach (Recipient r in order.Recipients)
+            {
+                foreach (Package p in r.Packages)
+                {
+                    price += order.Reinforce.Price.HasValue ? order.Reinforce.Price.Value : 0.0m;
+                }
+            }
+        }
+
+        return price;
+    }
+
+    public decimal GetPickupPrice(Order order)
     {
         decimal price = 0m;
 
@@ -62,7 +80,7 @@ public class ServiceView
             case 6://Bpost UKMail取件
             case 12://TPG UKMail取件
                 //ukmail取件费用，单箱5镑，2-3箱7镑，4箱以上每箱2镑的
-                int packageCount = recipients.Sum(r => r.Packages.Count);
+                int packageCount = order.Recipients.Sum(r => r.Packages.Count);
                 if (packageCount == 1)
                 {
                     price = 5m;
@@ -81,11 +99,11 @@ public class ServiceView
         return Math.Round(price, 2);
     }
 
-    public decimal GetDeliverPrice(IEnumerable<Recipient> recipients)
+    public decimal GetDeliverPrice(Order order)
     {
         decimal price = 0m;
 
-        foreach (Recipient r in recipients)
+        foreach (Recipient r in order.Recipients)
         {
             foreach (Package p in r.Packages)
             {

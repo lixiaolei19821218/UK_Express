@@ -32,9 +32,9 @@ public partial class products_Product : System.Web.UI.Page
         return order.Recipients;
     }
 
-    public decimal GetTotalPrice()
+    public decimal GetSendPrice()
     {
-        return sv.GetPrice(order.Recipients);
+        return sv.GetPrice(order);
     }
     protected void add2cart_Click(object sender, EventArgs e)
     {
