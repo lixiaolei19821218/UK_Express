@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -28,6 +30,13 @@ public partial class cart_Cart : System.Web.UI.Page
         decimal orderPrice = sv.GetPrice(order);
         totalPrice += orderPrice;
         return orderPrice;
+    }
+
+    public string GetOrderTip(Order order)
+    {
+        ServiceView sv = new ServiceView(order.Service);
+        Thread.CurrentThread.CurrentCulture = new CultureInfo("en-gb");
+        return string.Format("取件费：{0:c2}，加固费：{1:c2}，快递费：{2:c2}", sv.GetPickupPrice(order), sv.GetReinforcePrice(order), sv.GetDeliverPrice(order));
     }
 
     public decimal GetTotalPrice()

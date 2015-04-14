@@ -52,7 +52,7 @@
                         <tr>
                             <th class="tac">订单号</th>
                             <th class="left">下单日期</th>
-                            <th class="tac">价格</th>
+                            <th class="tac">价格</th>                            
                             <th class="tac">包裹数量</th>
                             <th class="tac">发件人</th>
                             <th>服务</th>
@@ -61,10 +61,10 @@
                     </HeaderTemplate>
                     <ItemTemplate>
                         <input type='hidden' name='orders' />
-                        <tr id="<%#Item.Id %>">
+                        <tr id="<%#Item.Id %>" title="<%#GetOrderTip(Item) %>">
                             <td class="tac"><%#string.Format("{0:d9}", Item.Id) %></td>
                             <td class="left"><%#Item.OrderTime.Value.ToShortDateString() %></td>
-                            <td class="tac"><%#GetOrderPrice(Item).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></td>
+                            <td class="tac"><%#GetOrderPrice(Item).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></td>                            
                             <td class="tac"><%#Item.Recipients.Sum(r => r.Packages.Count) %></td>
                             <td class="tac"><%#Item.SenderName %></td>
                             <td class="right"><%#Item.Service.Name %></td>
