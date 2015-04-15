@@ -46,7 +46,7 @@
                                 <td>
                                     <p>
                                         <img src="<%# Item.DiscribePictureLink %>" width="350" height="78" /></p>
-                                    <p><span style="font-size: small;"><%# Item.Discribe %>></span></p>
+                                    <p><span style="font-size: small;"><%# Item.Discribe %></span></p>
                                 </td>
                                 <td style="vertical-align: middle; text-align: center">
                                     <i class="glyphicon glyphicon-ok"></i>
