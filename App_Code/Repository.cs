@@ -24,6 +24,14 @@ public class Repository
         }
     }
 
+    public IEnumerable<SheffieldService> SheffieldServices
+    {
+        get
+        {
+            return context.SheffieldServices;
+        }
+    }
+
     public IEnumerable<Service> Services
     {
         get

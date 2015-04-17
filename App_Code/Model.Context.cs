@@ -33,6 +33,8 @@ public partial class UK_ExpressEntities : DbContext
     public virtual DbSet<Recipient> Recipients { get; set; }
     public virtual DbSet<Reinforce> Reinforces { get; set; }
     public virtual DbSet<Service> Services { get; set; }
+    public virtual DbSet<SheffieldOrder> SheffieldOrders { get; set; }
+    public virtual DbSet<SheffieldService> SheffieldServices { get; set; }
 
     public virtual ObjectResult<string> aspnet_AnyDataInTables(Nullable<int> tablesToCheck)
     {

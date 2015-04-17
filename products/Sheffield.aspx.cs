@@ -7,8 +7,15 @@ using System.Web.UI.WebControls;
 
 public partial class products_Sheffield : System.Web.UI.Page
 {
+    private Repository repo = new Repository();
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
+    }
+
+    public IEnumerable<SheffieldService> GetSheffieldService()
+    {
+        return repo.SheffieldServices;
     }
 }

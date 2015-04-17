@@ -22,6 +22,9 @@
         <AssociationConnector Association="UK_ExpressModel.FK_RecipientID" />
         <AssociationConnector Association="UK_ExpressModel.FK_PriceListID" />
         <AssociationConnector Association="UK_ExpressModel.FK_PriceListID_Service" />
+        <EntityTypeShape EntityType="UK_ExpressModel.SheffieldOrder" Width="1.5" PointX="8.375" PointY="5.875" />
+        <EntityTypeShape EntityType="UK_ExpressModel.SheffieldService" Width="1.5" PointX="8.375" PointY="8.75" />
+        <AssociationConnector Association="UK_ExpressModel.FK_SheffieldOrderID" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

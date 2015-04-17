@@ -32,10 +32,13 @@ public partial class Order
     public string SenderPhone { get; set; }
     public string SenderZipCode { get; set; }
     public Nullable<int> ReinforceID { get; set; }
+    public Nullable<bool> IsSheffieldOrder { get; set; }
+    public Nullable<int> SheffieldOrderID { get; set; }
 
     public virtual ICollection<Recipient> Recipients { get; set; }
     public virtual Reinforce Reinforce { get; set; }
     public virtual Service Service { get; set; }
+    public virtual SheffieldOrder SheffieldOrder { get; set; }
 }
 
 public partial class Package
@@ -149,6 +152,33 @@ public partial class Service
 
     public virtual ICollection<Order> Orders { get; set; }
     public virtual PriceList PriceList { get; set; }
+}
+
+public partial class SheffieldOrder
+{
+    public SheffieldOrder()
+    {
+        this.Orders = new HashSet<Order>();
+    }
+
+    public int Id { get; set; }
+
+    public virtual ICollection<Order> Orders { get; set; }
+}
+
+public partial class SheffieldService
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string PictureLink { get; set; }
+    public string Discribe1 { get; set; }
+    public string Discribe2 { get; set; }
+    public string DiscribePictureLink { get; set; }
+    public decimal ReinforcePrice { get; set; }
+    public Nullable<decimal> PackageWeight { get; set; }
+    public Nullable<decimal> PackageLength { get; set; }
+    public Nullable<decimal> PackageWidth { get; set; }
+    public Nullable<decimal> PackageHeight { get; set; }
 }
 
 public partial class aspnet_Membership_GetPassword_Result
