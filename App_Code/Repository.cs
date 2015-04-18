@@ -64,6 +64,14 @@ public class Repository
         }
     }
 
+    public IEnumerable<PriceList> PriceLists
+    {
+        get
+        {
+            return context.PriceLists;
+        }
+    }
+
     public void SaveOrder(Order order)
     {
         if (order.Id == 0)

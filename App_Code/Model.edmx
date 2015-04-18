@@ -64,6 +64,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="ShortName" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Recipients">
           <Key>
@@ -117,10 +118,10 @@
           <Property Name="Discribe2" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DiscribePictureLink" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ReinforcePrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="PackageWeight" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="PackageLength" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="PackageWidth" Type="decimal" Precision="18" Scale="2" />
-          <Property Name="PackageHeight" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="PackageWeight" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PackageLength" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PackageWidth" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PackageHeight" Type="decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <Association Name="FK_OrderID">
           <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
@@ -1112,6 +1113,7 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PriceItems" Relationship="UK_ExpressModel.FK_PriceListID" FromRole="PriceList" ToRole="PriceItem" />
           <NavigationProperty Name="Services" Relationship="UK_ExpressModel.FK_PriceListID_Service" FromRole="PriceList" ToRole="Service" />
+          <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Recipient">
           <Key>
@@ -1267,10 +1269,10 @@
           <Property Name="Discribe2" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="DiscribePictureLink" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ReinforcePrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="PackageWeight" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PackageLength" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PackageWidth" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="PackageHeight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="PackageWeight" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PackageLength" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PackageWidth" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="PackageHeight" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
         </EntityType>
         <Association Name="FK_SheffieldOrderID">
           <End Type="UK_ExpressModel.SheffieldOrder" Role="SheffieldOrder" Multiplicity="0..1" />
@@ -1472,6 +1474,7 @@
           <EntitySetMapping Name="PriceLists">
             <EntityTypeMapping TypeName="UK_ExpressModel.PriceList">
               <MappingFragment StoreEntitySet="PriceLists">
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

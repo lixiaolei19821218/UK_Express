@@ -116,11 +116,12 @@ public class ServiceView
 
     public decimal GetPackageDeliverPrice(Package package)
     {
-        decimal priceByWeight = PriceList.PriceItems.OrderBy(i => i.Weight).First(i => i.Weight >= package.Weight).Price;
-        decimal priceBySize = package.Length * package.Width * package.Height / 5000m;
+        PriceListView pv = new PriceListView(PriceList);
+        return pv.GetPackageDeliverPrice(package);        
+    }
 
-        decimal price = priceByWeight > priceBySize ? priceByWeight : priceBySize;
-
-        return Math.Round(price, 2);
+    public decimal GetPackagesDeliverPrice(IEnumerable<Package> packages)
+    {
+        return packages.Sum(p => GetPackageDeliverPrice(p));
     }
 }

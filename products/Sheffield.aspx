@@ -2,6 +2,23 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <title>谢菲尔德地区服务 | 速递中国-可靠,快捷,实惠</title>
+    <script src="../Scripts/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript">
+       
+        $get_values()
+        {
+
+        }
+        var values = get_values();
+
+        $(document).ready(function () {
+            $('#id_sender').onchange = function()
+            {
+                alert("ddddd");
+            }
+        }
+        )
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -25,7 +42,7 @@
                 </tr>
 
                 <tbody>
-                    <asp:Repeater runat="server" ItemType="SheffieldService" SelectMethod="GetSheffieldService">
+                    <asp:Repeater runat="server" ID="rp1" ItemType="SheffieldService" SelectMethod="GetSheffieldService">
                         <ItemTemplate>
                             <tr>
                                 <td style="vertical-align: middle">
@@ -38,25 +55,25 @@
                                     <p><span style="font-size: small;"><%#Item.Discribe2 %></span></p>
                                 </td>
                                 <td style="vertical-align: middle; text-align: center">
-                                    <i class="glyphicon glyphicon-ok">
-                                        <asp:DropDownList ID="DropDownList1" runat="server">
-                                            <asp:ListItem>荷兰邮政</asp:ListItem>
-                                            <asp:ListItem>比利时邮政</asp:ListItem>
-                                            <asp:ListItem>EMS</asp:ListItem>
-                                            <asp:ListItem>pf economy</asp:ListItem>
-                                            <asp:ListItem>pf priority</asp:ListItem>
-                                        </asp:DropDownList></i>
+                                    <i class="glyphicon glyphicon-ok">                                       
+                                        <select name="sender" id="id_sender" itemid="<%#Item.Id %>">
+                                            <asp:Repeater runat="server" ItemType="PriceListView" SelectMethod="GetPriceListViews">
+                                                <ItemTemplate>
+                                                    <option value="<%#Item.Id %>"><%#Item.ShortName %></option>
+                                                </ItemTemplate>
+                                            </asp:Repeater>                                            
+                                        </select>                                        
+                                    </i>
                                 </td>
                                 <td style="vertical-align: middle; text-align: center">
-
                                     <input type="number" style="width: 40px">
                                 </td>
-                                <td style="vertical-align: middle; text-align: center">£258.80
+                                <td style="vertical-align: middle; text-align: center">
+                                    £258.80
                                 </td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>
-                 
                 </tbody>
             </table>
         </form>

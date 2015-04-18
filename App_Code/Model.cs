@@ -94,6 +94,7 @@ public partial class PriceList
 
     public int Id { get; set; }
     public string Name { get; set; }
+    public string ShortName { get; set; }
 
     public virtual ICollection<PriceItem> PriceItems { get; set; }
     public virtual ICollection<Service> Services { get; set; }
@@ -175,10 +176,10 @@ public partial class SheffieldService
     public string Discribe2 { get; set; }
     public string DiscribePictureLink { get; set; }
     public decimal ReinforcePrice { get; set; }
-    public Nullable<decimal> PackageWeight { get; set; }
-    public Nullable<decimal> PackageLength { get; set; }
-    public Nullable<decimal> PackageWidth { get; set; }
-    public Nullable<decimal> PackageHeight { get; set; }
+    public decimal PackageWeight { get; set; }
+    public decimal PackageLength { get; set; }
+    public decimal PackageWidth { get; set; }
+    public decimal PackageHeight { get; set; }
 }
 
 public partial class aspnet_Membership_GetPassword_Result
