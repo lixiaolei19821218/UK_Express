@@ -4,20 +4,29 @@
     <title>谢菲尔德地区服务 | 速递中国-可靠,快捷,实惠</title>
     <script src="../Scripts/jquery-1.8.0.min.js"></script>
     <script type="text/javascript">
-       
+       /*
         $get_values()
         {
 
         }
         var values = get_values();
-
+        */
         $(document).ready(function () {
-            $('#id_sender').onchange = function()
-            {
-                alert("ddddd");
-            }
+
+            $('select').change(function (e) {
+                var service_id = this.attributes['itemid'].value;
+                var sender_id = this.selectedOptions[0].value;
+                alert(this.selectedOptions[0].attributes['data-v'].value);
+                this.parentElement.parentElement.parentElement.lastElementChild.innerText = sender_id;
+            });
+
+        })
+
+        function get_price(e)
+        {
+
         }
-        )
+      
     </script>
 </asp:Content>
 
@@ -55,21 +64,21 @@
                                     <p><span style="font-size: small;"><%#Item.Discribe2 %></span></p>
                                 </td>
                                 <td style="vertical-align: middle; text-align: center">
-                                    <i class="glyphicon glyphicon-ok">                                       
-                                        <select name="sender" id="id_sender" itemid="<%#Item.Id %>">
-                                            <asp:Repeater runat="server" ItemType="PriceListView" SelectMethod="GetPriceListViews">
+                                    <i class="glyphicon glyphicon-ok">
+                                        <select name="sender" id="id_sender">
+                                            <% %>
+                                            <asp:Repeater runat="server" ItemType="PriceListView" DataSource="<%#GetPriceListViews(Item.Id) %>">
                                                 <ItemTemplate>
-                                                    <option value="<%#Item.Id %>"><%#Item.ShortName %></option>
+                                                    <option value="<%#Item.Id %>" data-price="<%#GetPrice(Item.SheffieldServiceId, Item.Id) %>"><%#Item.ShortName %></option>
                                                 </ItemTemplate>
-                                            </asp:Repeater>                                            
-                                        </select>                                        
+                                            </asp:Repeater>
+                                        </select>
                                     </i>
                                 </td>
                                 <td style="vertical-align: middle; text-align: center">
                                     <input type="number" style="width: 40px">
                                 </td>
-                                <td style="vertical-align: middle; text-align: center">
-                                    £258.80
+                                <td style="vertical-align: middle; text-align: center">£258.80
                                 </td>
                             </tr>
                         </ItemTemplate>

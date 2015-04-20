@@ -23,8 +23,20 @@ public partial class products_Sheffield : System.Web.UI.Page
         return repo.SheffieldServices;
     }
 
-    public IEnumerable<PriceListView> GetPriceListViews()
+    public IEnumerable<PriceListView> GetPriceListViews(int sheffieldServiceId)
     {
+        foreach (PriceListView pv in priceListViews)
+        {
+            pv.SheffieldServiceId = sheffieldServiceId;
+        }
         return priceListViews;
+    }
+
+    public decimal GetPrice(int serviceId, int senderId)
+    {
+        PriceList pl = repo.PriceLists.FirstOrDefault(p => p.Id == senderId);
+        SheffieldService ss = repo.SheffieldServices.FirstOrDefault(s => s.Id == serviceId);
+        Package package = new Package { Weight = ss.PackageWeight, Length = ss.PackageLength, Width = ss.PackageWidth, Height = ss.PackageHeight };
+        return new PriceListView(pl).GetPackageDeliverPrice(package);
     }
 }

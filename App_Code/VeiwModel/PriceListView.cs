@@ -14,6 +14,7 @@ public class PriceListView
 
     public virtual ICollection<PriceItem> PriceItems { get; set; }
     public virtual ICollection<Service> Services { get; set; }
+    public int SheffieldServiceId { get; set; }
 
 	public PriceListView()
 	{
