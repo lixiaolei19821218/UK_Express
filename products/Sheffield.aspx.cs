@@ -8,14 +8,16 @@ using System.Web.UI.WebControls;
 public partial class products_Sheffield : System.Web.UI.Page
 {
     private Repository repo = new Repository();
-
-    private IEnumerable<Package> packages;
-    private IEnumerable<PriceListView> priceListViews;
+    
+    private List<PriceListView> priceListViews;
 
     protected void Page_Load(object sender, EventArgs e)
-    {
-        //packages = from s in repo.SheffieldServices select new Package { Weight = s.PackageWeight, Length = s.PackageLength, Width = s.PackageWidth, Height = s.PackageHeight };
-        priceListViews = from pl in repo.PriceLists select new PriceListView(pl);
+    {        
+        priceListViews = new List<PriceListView>();
+        foreach (PriceList p in repo.PriceLists)
+        {
+            priceListViews.Add( new PriceListView(p));
+        }
     }
 
     public IEnumerable<SheffieldService> GetSheffieldService()
@@ -24,16 +26,17 @@ public partial class products_Sheffield : System.Web.UI.Page
     }
 
     public IEnumerable<PriceListView> GetPriceListViews(int sheffieldServiceId)
-    {
+    {       
         foreach (PriceListView pv in priceListViews)
-        {
+        {            
             pv.SheffieldServiceId = sheffieldServiceId;
+            
         }
         return priceListViews;
     }
 
     public decimal GetPrice(int serviceId, int senderId)
-    {
+    {        
         PriceList pl = repo.PriceLists.FirstOrDefault(p => p.Id == senderId);
         SheffieldService ss = repo.SheffieldServices.FirstOrDefault(s => s.Id == serviceId);
         Package package = new Package { Weight = ss.PackageWeight, Length = ss.PackageLength, Width = ss.PackageWidth, Height = ss.PackageHeight };

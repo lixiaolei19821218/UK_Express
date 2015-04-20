@@ -14,18 +14,28 @@
         $(document).ready(function () {
 
             $('select').change(function (e) {
-                var service_id = this.attributes['itemid'].value;
-                var sender_id = this.selectedOptions[0].value;
-                alert(this.selectedOptions[0].attributes['data-v'].value);
-                this.parentElement.parentElement.parentElement.lastElementChild.innerText = sender_id;
+                //var service_id = this.attributes['data-sid'].value;
+                //var sender_id = this.selectedOptions[0].value;
+                //alert(this.selectedOptions[0].attributes['data-price'].value);
+                //alert(this)
+                var count;
+                if (this.parentElement.parentElement.parentElement.children[3].lastElementChild.value == '')
+                {
+                    count = 0;
+                }
+                else
+                {
+                    count = cparseInt(this.parentElement.parentElement.parentElement.children[3].lastElementChild.value);
+                }
+                var price = parseFloat(this.selectedOptions[0].attributes['data-price'].value);
+                this.parentElement.parentElement.parentElement.lastElementChild.innerText = '£' + (price * count).toFixed(2);
             });
 
-        })
+            $('input').input = (function () {
 
-        function get_price(e)
-        {
-
-        }
+                alert("cc");
+            });
+        })       
       
     </script>
 </asp:Content>
@@ -65,8 +75,7 @@
                                 </td>
                                 <td style="vertical-align: middle; text-align: center">
                                     <i class="glyphicon glyphicon-ok">
-                                        <select name="sender" id="id_sender">
-                                            <% %>
+                                        <select name="sender" id="id_sender" data-sid="<%#Item.Id %>">                                           
                                             <asp:Repeater runat="server" ItemType="PriceListView" DataSource="<%#GetPriceListViews(Item.Id) %>">
                                                 <ItemTemplate>
                                                     <option value="<%#Item.Id %>" data-price="<%#GetPrice(Item.SheffieldServiceId, Item.Id) %>"><%#Item.ShortName %></option>
@@ -76,9 +85,9 @@
                                     </i>
                                 </td>
                                 <td style="vertical-align: middle; text-align: center">
-                                    <input type="number" style="width: 40px">
+                                    <input type="number" style="width: 40px" id="id_count">
                                 </td>
-                                <td style="vertical-align: middle; text-align: center">£258.80
+                                <td style="vertical-align: middle; text-align: center">
                                 </td>
                             </tr>
                         </ItemTemplate>
