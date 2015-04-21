@@ -4,62 +4,67 @@
     <title>谢菲尔德地区服务 | 速递中国-可靠,快捷,实惠</title>
     <script src="../Scripts/jquery-1.8.0.min.js"></script>
     <script type="text/javascript">
-       /*
-        $get_values()
-        {
-
-        }
-        var values = get_values();
-        */
         $(document).ready(function () {
 
             $('select').change(function (e) {
-                //var service_id = this.attributes['data-sid'].value;
-                //var sender_id = this.selectedOptions[0].value;
-                //alert(this.selectedOptions[0].attributes['data-price'].value);
-                //alert(this)
                 var count;
-                if (this.parentElement.parentElement.parentElement.children[3].lastElementChild.value == '')
-                {
+                if (this.parentElement.parentElement.parentElement.children[3].lastElementChild.value == '') {
                     count = 0;
                 }
-                else
-                {
-                    count = cparseInt(this.parentElement.parentElement.parentElement.children[3].lastElementChild.value);
+                else {
+                    count = parseInt(this.parentElement.parentElement.parentElement.children[3].lastElementChild.value);
                 }
                 var price = parseFloat(this.selectedOptions[0].attributes['data-price'].value);
-                this.parentElement.parentElement.parentElement.lastElementChild.innerText = '£' + (price * count).toFixed(2);
+                this.parentElement.parentElement.parentElement.lastElementChild.innerText = (price * count).toFixed(2);
+
+                getTotal();
             });
 
-            $('input').input = (function () {
 
-                alert("cc");
-            });
-        })       
-      
+        })
+
+        function countChange(e) {
+            var count;
+            if (e.value == '') {
+                count = 0;
+            }
+            else {
+                count = parseInt(e.value);
+            }
+            var price = parseFloat(e.parentElement.parentElement.children[2].children[0].children[0].selectedOptions[0].attributes['data-price'].value);
+            e.parentElement.parentElement.lastElementChild.innerText = (price * count).toFixed(2);
+
+            getTotal();
+        }
+
+        function getTotal() {
+            var totalPrice = 0;
+            var serviceCount = parseInt($('table')[0].children[1].childElementCount);
+            for (i = 0; i < serviceCount; i++) {
+                if ($('table')[0].children[1].children[i].lastElementChild.innerText == '') {
+                    continue;
+                }
+                totalPrice += parseFloat($('table')[0].children[1].children[i].lastElementChild.innerText);
+            }
+            $('#total_price')[0].innerText = '£' + totalPrice.toFixed(2);
+        }
+
     </script>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-
-
-    <ul class="breadcrumb" style="background: none; margin-top: 15px"></ul>
-
-
-
-    <div class="sz16 bold colorb2" style="margin-top: 20px">请选择您需要的服务：</div>
-
-    <div style="margin-top: 15px; background-color: #fff">
-        <form runat="server">
+    <form runat="server">
+        <ul class="breadcrumb" style="background: none; margin-top: 15px"></ul>
+        <div class="sz16 bold colorb2" style="margin-top: 20px">请选择您需要的服务：</div>
+        <div style="margin-top: 15px; background-color: #fff">
             <table class="table table-products">
                 <tr>
                     <th style="min-width: 180px">服务</th>
                     <th>描述</th>
                     <th style="min-width: 73px; text-align: center">快递公司</th>
                     <th style="min-width: 73px; text-align: center">数量</th>
-                    <th style="min-width: 147px; text-align: center">价格</th>
+                    <th style="min-width: 147px; text-align: center">价格 / £</th>
                 </tr>
-
                 <tbody>
                     <asp:Repeater runat="server" ID="rp1" ItemType="SheffieldService" SelectMethod="GetSheffieldService">
                         <ItemTemplate>
@@ -75,7 +80,7 @@
                                 </td>
                                 <td style="vertical-align: middle; text-align: center">
                                     <i class="glyphicon glyphicon-ok">
-                                        <select name="sender" id="id_sender" data-sid="<%#Item.Id %>">                                           
+                                        <select name="sender" id="id_sender" data-sid="<%#Item.Id %>">
                                             <asp:Repeater runat="server" ItemType="PriceListView" DataSource="<%#GetPriceListViews(Item.Id) %>">
                                                 <ItemTemplate>
                                                     <option value="<%#Item.Id %>" data-price="<%#GetPrice(Item.SheffieldServiceId, Item.Id) %>"><%#Item.ShortName %></option>
@@ -85,23 +90,21 @@
                                     </i>
                                 </td>
                                 <td style="vertical-align: middle; text-align: center">
-                                    <input type="number" style="width: 40px" id="id_count">
+                                    <input type="number" min="0" max="10000" required="required" value="0" style="width: 40px" id="id_count" oninput="countChange(this)" />
                                 </td>
-                                <td style="vertical-align: middle; text-align: center">
-                                </td>
+                                <td style="vertical-align: middle; text-align: center"></td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>
                 </tbody>
             </table>
-        </form>
-    </div>
+        </div>
 
-    <div>
-
-        <div style="float: left">总金额: <strong class="total-price" style="color: #f00">£258.80</strong></div>
-        <div style="margin-top: -5px; margin-bottom: 10px; float: right"><a href="/" class="btn btn-info" style="line-height: 1">添加到购物车</a></div>
-    </div>
-
-
+        <div>
+            <div style="float: left" class="total-price">总金额: <strong class="total-price" id="total_price" style="color: #f00">£0.0</strong></div>
+            <div style="margin-top: -5px; margin-bottom: 10px; float: right">
+                <asp:Button ID="ButtonAddToCart" runat="server" CssClass="btn btn-info" Style="line-height: 1" Text="添加到购物车" OnClick="ButtonAddToCart_Click" />
+            </div>
+        </div>
+    </form>
 </asp:Content>
