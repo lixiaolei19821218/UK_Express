@@ -65,10 +65,10 @@
                     <th style="min-width: 73px; text-align: center">数量</th>
                     <th style="min-width: 147px; text-align: center">价格 / £</th>
                 </tr>
-                <tbody>
-                    <asp:Repeater runat="server" ID="rp1" ItemType="SheffieldService" SelectMethod="GetSheffieldService">
+                <tbody runat="server">
+                    <asp:Repeater runat="server" ID="rpServices" ItemType="SheffieldService" SelectMethod="GetSheffieldService">
                         <ItemTemplate>
-                            <tr>
+                            <tr>                                
                                 <td style="vertical-align: middle">
                                     <img src="<%#Item.PictureLink %>" style="float: left; min-height: 40px; max-width: 60px; margin-right: 3px" />
                                     <%#Item.Name %>
@@ -80,17 +80,18 @@
                                 </td>
                                 <td style="vertical-align: middle; text-align: center">
                                     <i class="glyphicon glyphicon-ok">
-                                        <select name="sender" id="id_sender" data-sid="<%#Item.Id %>">
+                                        <select name="sender">                                            
                                             <asp:Repeater runat="server" ItemType="PriceListView" DataSource="<%#GetPriceListViews(Item.Id) %>">
                                                 <ItemTemplate>
                                                     <option value="<%#Item.Id %>" data-price="<%#GetPrice(Item.SheffieldServiceId, Item.Id) %>"><%#Item.ShortName %></option>
                                                 </ItemTemplate>
                                             </asp:Repeater>
                                         </select>
-                                    </i>
+                                    </i>                                   
                                 </td>
                                 <td style="vertical-align: middle; text-align: center">
-                                    <input type="number" min="0" max="10000" required="required" value="0" style="width: 40px" id="id_count" oninput="countChange(this)" />
+                                    <input type="hidden" value="<%#Item.Id %>" name="service" />
+                                    <input type="number" min="0" max="10000" required="required" value="0" style="width: 40px" id="id_count" name="count" oninput="countChange(this)" />
                                 </td>
                                 <td style="vertical-align: middle; text-align: center"></td>
                             </tr>
@@ -103,7 +104,7 @@
         <div>
             <div style="float: left" class="total-price">总金额: <strong class="total-price" id="total_price" style="color: #f00">£0.0</strong></div>
             <div style="margin-top: -5px; margin-bottom: 10px; float: right">
-                <asp:Button ID="ButtonAddToCart" runat="server" CssClass="btn btn-info" Style="line-height: 1" Text="添加到购物车" OnClick="ButtonAddToCart_Click" />
+                <asp:Button ID="ButtonAddToCart" runat="server" CssClass="btn btn-info" Style="line-height: 1" Text="下一步" OnClick="ButtonAddToCart_Click" />
             </div>
         </div>
     </form>

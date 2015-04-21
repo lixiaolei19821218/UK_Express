@@ -1,4 +1,5 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Cart.aspx.cs" Inherits="cart_Cart" MasterPageFile="~/MasterPage.master" %>
+
 <%@ Import Namespace="System.Globalization" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
@@ -45,40 +46,77 @@
 
         <form runat="server" method="post" id="placeOrder" style="padding-top: 0px">
             <input type='hidden' name='csrfmiddlewaretoken' value='8WyFROe9ydu80zMt8DIf6Vje0yzvE4Tm' />
-            <table class="table table-orders">
+            <fieldset>
+                <legend>直邮订单</legend>
+                <table class="table table-orders">
 
-                <asp:Repeater runat="server" ItemType="Order" SelectMethod="GetOrders">
-                    <HeaderTemplate>
-                        <tr>
-                            <th class="tac">订单号</th>
-                            <th class="left">下单日期</th>
-                            <th class="tac">价格</th>                            
-                            <th class="tac">包裹数量</th>
-                            <th class="tac">发件人</th>
-                            <th>服务</th>
-                            <th colspan="2"></th>
-                        </tr>
-                    </HeaderTemplate>
-                    <ItemTemplate>
-                        <input type='hidden' name='orders' />
-                        <tr id="<%#Item.Id %>" title="<%#GetOrderTip(Item) %>">
-                            <td class="tac"><%#string.Format("{0:d9}", Item.Id) %></td>
-                            <td class="left"><%#Item.OrderTime.Value.ToShortDateString() %></td>
-                            <td class="tac"><%#GetOrderPrice(Item).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></td>                            
-                            <td class="tac"><%#Item.Recipients.Sum(r => r.Packages.Count) %></td>
-                            <td class="tac"><%#Item.SenderName %></td>
-                            <td class="right"><%#Item.Service.Name %></td>
-                            <td colspan="2">
-                                <asp:Button ID="ButtonEdit" class="btn btn-info btn-small edit" runat="server" Text="修改" ToolTip="<%#Item.Id %>" OnClick="ButtonEdit_Click" />                   
-                                <asp:Button ID="ButtonDel" class="btn btn-danger btn-small del" runat="server" Text="删除" ToolTip="<%#Item.Id %>" OnClick="ButtonDel_Click" />                                
-                            </td>
-                        </tr>
-                    </ItemTemplate>
-                </asp:Repeater>                
-            </table>
+                    <asp:Repeater runat="server" ItemType="Order" SelectMethod="GetOrders">
+                        <HeaderTemplate>
+                            <tr>
+                                <th class="tac">订单号</th>
+                                <th class="left">下单日期</th>
+                                <th class="tac">价格</th>
+                                <th class="tac">包裹数量</th>
+                                <th class="tac">发件人</th>
+                                <th>服务</th>
+                                <th colspan="2"></th>
+                            </tr>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <input type='hidden' name='orders' />
+                            <tr id="<%#Item.Id %>" title="<%#GetOrderTip(Item) %>">
+                                <td class="tac"><%#string.Format("{0:d9}", Item.Id) %></td>
+                                <td class="left"><%#Item.OrderTime.Value.ToShortDateString() %></td>
+                                <td class="tac"><%#GetOrderPrice(Item).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></td>
+                                <td class="tac"><%#Item.Recipients.Sum(r => r.Packages.Count) %></td>
+                                <td class="tac"><%#Item.SenderName %></td>
+                                <td class="right"><%#Item.Service.Name %></td>
+                                <td colspan="2">
+                                    <asp:Button ID="ButtonEdit" class="btn btn-info btn-small edit" runat="server" Text="修改" ToolTip="<%#Item.Id %>" OnClick="ButtonEdit_Click" />
+                                    <asp:Button ID="ButtonDel" class="btn btn-danger btn-small del" runat="server" Text="删除" ToolTip="<%#Item.Id %>" OnClick="ButtonDel_Click" />
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </table>
 
+            </fieldset>
+            <br />
+            <fieldset>
+                <legend>谢菲尔德地区订单</legend>
+                <table class="table table-orders">
 
+                    <asp:Repeater runat="server" ItemType="Order" SelectMethod="GetOrders">
+                        <HeaderTemplate>
+                            <tr>
+                                <th class="tac">订单号</th>
+                                <th class="left">下单日期</th>
+                                <th class="tac">价格</th>
+                                <th class="tac">包裹数量</th>
+                                <th class="tac">发件人</th>
+                                <th>服务</th>
+                                <th colspan="2"></th>
+                            </tr>
+                        </HeaderTemplate>
+                        <ItemTemplate>
+                            <input type='hidden' name='orders' />
+                            <tr id="<%#Item.Id %>" title="<%#GetOrderTip(Item) %>">
+                                <td class="tac"><%#string.Format("{0:d9}", Item.Id) %></td>
+                                <td class="left"><%#Item.OrderTime.Value.ToShortDateString() %></td>
+                                <td class="tac"><%#GetOrderPrice(Item).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></td>
+                                <td class="tac"><%#Item.Recipients.Sum(r => r.Packages.Count) %></td>
+                                <td class="tac"><%#Item.SenderName %></td>
+                                <td class="right"><%#Item.Service.Name %></td>
+                                <td colspan="2">
+                                    <asp:Button ID="ButtonEdit" class="btn btn-info btn-small edit" runat="server" Text="修改" ToolTip="<%#Item.Id %>" OnClick="ButtonEdit_Click" />
+                                    <asp:Button ID="ButtonDel" class="btn btn-danger btn-small del" runat="server" Text="删除" ToolTip="<%#Item.Id %>" OnClick="ButtonDel_Click" />
+                                </td>
+                            </tr>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </table>
 
+            </fieldset>
             <div>
                 <a href="/" class="btn btn-info" style="line-height: 1">继续下单</a>
                 <div style="float: right">总金额: <strong class="total-price" style="color: #f00"><%:GetTotalPrice().ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></strong></div>
