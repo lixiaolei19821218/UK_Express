@@ -26,6 +26,9 @@
           <Property Name="ReinforceID" Type="int" />
           <Property Name="IsSheffieldOrder" Type="bit" />
           <Property Name="SheffieldOrderID" Type="int" />
+          <Property Name="SheffieldServiceID" Type="int" />
+          <Property Name="PriceListID" Type="int" />
+          <Property Name="Cost" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="PackageDetails">
           <Key>
@@ -106,6 +109,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="User" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="SheffieldServices">
           <Key>
@@ -155,6 +159,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="PriceItems">
+              <PropertyRef Name="PriceListID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceListID_Orders">
+          <End Role="PriceLists" Type="Self.PriceLists" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceLists">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
               <PropertyRef Name="PriceListID" />
             </Dependent>
           </ReferentialConstraint>
@@ -216,6 +232,18 @@
             </Principal>
             <Dependent Role="Orders">
               <PropertyRef Name="SheffieldOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SheffieldServiceID">
+          <End Role="SheffieldServices" Type="Self.SheffieldServices" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SheffieldServices">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="SheffieldServiceID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -585,6 +613,10 @@
             <End Role="PriceLists" EntitySet="PriceLists" />
             <End Role="PriceItems" EntitySet="PriceItems" />
           </AssociationSet>
+          <AssociationSet Name="FK_PriceListID_Orders" Association="Self.FK_PriceListID_Orders">
+            <End Role="PriceLists" EntitySet="PriceLists" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
           <AssociationSet Name="FK_PriceListID_Service" Association="Self.FK_PriceListID_Service">
             <End Role="PriceLists" EntitySet="PriceLists" />
             <End Role="Services" EntitySet="Services" />
@@ -603,6 +635,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_SheffieldOrderID" Association="Self.FK_SheffieldOrderID">
             <End Role="SheffieldOrders" EntitySet="SheffieldOrders" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SheffieldServiceID" Association="Self.FK_SheffieldServiceID">
+            <End Role="SheffieldServices" EntitySet="SheffieldServices" />
             <End Role="Orders" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="PackageID" Association="Self.PackageID">
@@ -992,6 +1028,14 @@
             <End Role="SheffieldOrder" EntitySet="SheffieldOrders" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
+          <AssociationSet Name="FK_SheffieldServiceID" Association="UK_ExpressModel.FK_SheffieldServiceID">
+            <End Role="SheffieldService" EntitySet="SheffieldServices" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PriceListID_Orders" Association="UK_ExpressModel.FK_PriceListID_Orders">
+            <End Role="PriceList" EntitySet="PriceLists" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="aspnet_Membership_GetPassword_Result">
           <Property Type="String" Name="Column1" Nullable="true" MaxLength="128" />
@@ -1067,6 +1111,11 @@
           <Property Name="IsSheffieldOrder" Type="Boolean" />
           <Property Name="SheffieldOrderID" Type="Int32" />
           <NavigationProperty Name="SheffieldOrder" Relationship="UK_ExpressModel.FK_SheffieldOrderID" FromRole="Order" ToRole="SheffieldOrder" />
+          <Property Name="SheffieldServiceID" Type="Int32" />
+          <NavigationProperty Name="SheffieldService" Relationship="UK_ExpressModel.FK_SheffieldServiceID" FromRole="Order" ToRole="SheffieldService" />
+          <Property Name="PriceListID" Type="Int32" />
+          <NavigationProperty Name="PriceList" Relationship="UK_ExpressModel.FK_PriceListID_Orders" FromRole="Order" ToRole="PriceList" />
+          <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="PackageDetail">
           <Key>
@@ -1114,6 +1163,7 @@
           <NavigationProperty Name="PriceItems" Relationship="UK_ExpressModel.FK_PriceListID" FromRole="PriceList" ToRole="PriceItem" />
           <NavigationProperty Name="Services" Relationship="UK_ExpressModel.FK_PriceListID_Service" FromRole="PriceList" ToRole="Service" />
           <Property Name="ShortName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="UK_ExpressModel.FK_PriceListID_Orders" FromRole="PriceList" ToRole="Order" />
         </EntityType>
         <EntityType Name="Recipient">
           <Key>
@@ -1257,6 +1307,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Orders" Relationship="UK_ExpressModel.FK_SheffieldOrderID" FromRole="SheffieldOrder" ToRole="Order" />
+          <Property Name="User" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="SheffieldService">
           <Key>
@@ -1273,6 +1324,7 @@
           <Property Name="PackageLength" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="PackageWidth" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="PackageHeight" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="UK_ExpressModel.FK_SheffieldServiceID" FromRole="SheffieldService" ToRole="Order" />
         </EntityType>
         <Association Name="FK_SheffieldOrderID">
           <End Type="UK_ExpressModel.SheffieldOrder" Role="SheffieldOrder" Multiplicity="0..1" />
@@ -1283,6 +1335,30 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="SheffieldOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SheffieldServiceID">
+          <End Type="UK_ExpressModel.SheffieldService" Role="SheffieldService" Multiplicity="0..1" />
+          <End Type="UK_ExpressModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SheffieldService">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="SheffieldServiceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PriceListID_Orders">
+          <End Type="UK_ExpressModel.PriceList" Role="PriceList" Multiplicity="0..1" />
+          <End Type="UK_ExpressModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PriceList">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="PriceListID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1417,6 +1493,9 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="UK_ExpressModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="PriceListID" ColumnName="PriceListID" />
+                <ScalarProperty Name="SheffieldServiceID" ColumnName="SheffieldServiceID" />
                 <ScalarProperty Name="SheffieldOrderID" ColumnName="SheffieldOrderID" />
                 <ScalarProperty Name="IsSheffieldOrder" ColumnName="IsSheffieldOrder" />
                 <ScalarProperty Name="ReinforceID" ColumnName="ReinforceID" />
@@ -1521,6 +1600,7 @@
           <EntitySetMapping Name="SheffieldOrders">
             <EntityTypeMapping TypeName="UK_ExpressModel.SheffieldOrder">
               <MappingFragment StoreEntitySet="SheffieldOrders">
+                <ScalarProperty Name="User" ColumnName="User" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

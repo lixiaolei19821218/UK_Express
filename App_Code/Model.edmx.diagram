@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="914f643574f44fc69d626da314bb1769" Name="Diagram1">
+      <Diagram DiagramId="914f643574f44fc69d626da314bb1769" Name="Diagram1" ZoomLevel="93">
         <EntityTypeShape EntityType="UK_ExpressModel.Table" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="UK_ExpressModel.Order" Width="1.5" PointX="3" PointY="1" />
         <EntityTypeShape EntityType="UK_ExpressModel.PackageDetail" Width="1.5" PointX="9.75" PointY="2.125" />
@@ -25,6 +25,8 @@
         <EntityTypeShape EntityType="UK_ExpressModel.SheffieldOrder" Width="1.5" PointX="8.375" PointY="5.875" />
         <EntityTypeShape EntityType="UK_ExpressModel.SheffieldService" Width="1.5" PointX="8.375" PointY="8.75" />
         <AssociationConnector Association="UK_ExpressModel.FK_SheffieldOrderID" />
+        <AssociationConnector Association="UK_ExpressModel.FK_SheffieldServiceID" />
+        <AssociationConnector Association="UK_ExpressModel.FK_PriceListID_Orders" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

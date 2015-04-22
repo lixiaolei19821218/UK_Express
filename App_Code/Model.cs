@@ -34,11 +34,16 @@ public partial class Order
     public Nullable<int> ReinforceID { get; set; }
     public Nullable<bool> IsSheffieldOrder { get; set; }
     public Nullable<int> SheffieldOrderID { get; set; }
+    public Nullable<int> SheffieldServiceID { get; set; }
+    public Nullable<int> PriceListID { get; set; }
+    public Nullable<decimal> Cost { get; set; }
 
     public virtual ICollection<Recipient> Recipients { get; set; }
     public virtual Reinforce Reinforce { get; set; }
     public virtual Service Service { get; set; }
     public virtual SheffieldOrder SheffieldOrder { get; set; }
+    public virtual SheffieldService SheffieldService { get; set; }
+    public virtual PriceList PriceList { get; set; }
 }
 
 public partial class Package
@@ -90,6 +95,7 @@ public partial class PriceList
     {
         this.PriceItems = new HashSet<PriceItem>();
         this.Services = new HashSet<Service>();
+        this.Orders = new HashSet<Order>();
     }
 
     public int Id { get; set; }
@@ -98,6 +104,7 @@ public partial class PriceList
 
     public virtual ICollection<PriceItem> PriceItems { get; set; }
     public virtual ICollection<Service> Services { get; set; }
+    public virtual ICollection<Order> Orders { get; set; }
 }
 
 public partial class Recipient
@@ -163,12 +170,18 @@ public partial class SheffieldOrder
     }
 
     public int Id { get; set; }
+    public string User { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; }
 }
 
 public partial class SheffieldService
 {
+    public SheffieldService()
+    {
+        this.Orders = new HashSet<Order>();
+    }
+
     public int Id { get; set; }
     public string Name { get; set; }
     public string PictureLink { get; set; }
@@ -180,6 +193,8 @@ public partial class SheffieldService
     public decimal PackageLength { get; set; }
     public decimal PackageWidth { get; set; }
     public decimal PackageHeight { get; set; }
+
+    public virtual ICollection<Order> Orders { get; set; }
 }
 
 public partial class aspnet_Membership_GetPassword_Result

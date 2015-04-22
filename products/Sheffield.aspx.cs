@@ -36,10 +36,10 @@ public partial class products_Sheffield : System.Web.UI.Page
         return priceListViews;
     }
 
-    public decimal GetPrice(int serviceId, int senderId)
+    public decimal GetPrice(int sheffieldServiceId, int priceListId)
     {        
-        PriceList pl = repo.PriceLists.FirstOrDefault(p => p.Id == senderId);
-        SheffieldService ss = repo.SheffieldServices.FirstOrDefault(s => s.Id == serviceId);
+        PriceList pl = repo.PriceLists.FirstOrDefault(p => p.Id == priceListId);
+        SheffieldService ss = repo.SheffieldServices.FirstOrDefault(s => s.Id == sheffieldServiceId);
         Package package = new Package { Weight = ss.PackageWeight, Length = ss.PackageLength, Width = ss.PackageWidth, Height = ss.PackageHeight };
         return new PriceListView(pl).GetPackageDeliverPrice(package);
     }
@@ -60,8 +60,12 @@ public partial class products_Sheffield : System.Web.UI.Page
             if (count != 0)
             {
                 Order order = new Order();
-                order.ServiceID = int.Parse(senders[i]);
+                order.PriceListID = int.Parse(senders[i]);
+                order.PriceList = repo.PriceLists.FirstOrDefault(p => p.Id == order.PriceListID);
                 order.IsSheffieldOrder = true;
+                order.SheffieldServiceID = sheffied_id;
+                order.SheffieldService = ss;
+                order.Cost = GetPrice(order.SheffieldServiceID.Value, order.PriceListID.Value) * count;
                 
                 Recipient r = new Recipient();
                 for (int j = 0; j < count; j++)
@@ -74,7 +78,9 @@ public partial class products_Sheffield : System.Web.UI.Page
             }           
         }
 
-        Session["SheffiledOrder"] = sOrder;
-        Response.Redirect("/SheffiledOrder.aspx");
+       
+        Session.Add("SheffiledOrder", sOrder);
+        Session.Add("Repo", repo);
+        Response.Redirect("/products/SheffiledOrder.aspx");
     }
 }

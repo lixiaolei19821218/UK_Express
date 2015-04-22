@@ -49,8 +49,7 @@
             <fieldset>
                 <legend>直邮订单</legend>
                 <table class="table table-orders">
-
-                    <asp:Repeater runat="server" ItemType="Order" SelectMethod="GetOrders">
+                    <asp:Repeater runat="server" ItemType="Order" SelectMethod="GetNoSheffieldOrders">
                         <HeaderTemplate>
                             <tr>
                                 <th class="tac">订单号</th>
@@ -86,7 +85,7 @@
                 <legend>谢菲尔德地区订单</legend>
                 <table class="table table-orders">
 
-                    <asp:Repeater runat="server" ItemType="Order" SelectMethod="GetOrders">
+                    <asp:Repeater runat="server" ItemType="SheffieldOrder" SelectMethod="GetSheffieldOrders">
                         <HeaderTemplate>
                             <tr>
                                 <th class="tac">订单号</th>
@@ -100,13 +99,13 @@
                         </HeaderTemplate>
                         <ItemTemplate>
                             <input type='hidden' name='orders' />
-                            <tr id="<%#Item.Id %>" title="<%#GetOrderTip(Item) %>">
+                            <tr id="<%#Item.Id %>"">
                                 <td class="tac"><%#string.Format("{0:d9}", Item.Id) %></td>
-                                <td class="left"><%#Item.OrderTime.Value.ToShortDateString() %></td>
-                                <td class="tac"><%#GetOrderPrice(Item).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></td>
-                                <td class="tac"><%#Item.Recipients.Sum(r => r.Packages.Count) %></td>
-                                <td class="tac"><%#Item.SenderName %></td>
-                                <td class="right"><%#Item.Service.Name %></td>
+                                <td class="left"><%#Item.Orders.First().OrderTime.Value.ToShortDateString() %></td>
+                                <td class="tac"><%#Item.Orders.Sum(o => o.Cost) %></td>
+                                <td class="tac"><%#Item.Orders.Sum(o => o.Recipients.First().Packages.Count)%></td>
+                                <td class="tac"><%#Item.Orders.First().SenderName %></td>
+                                <td class="right">谢菲尔德地区服务</td>
                                 <td colspan="2">
                                     <asp:Button ID="ButtonEdit" class="btn btn-info btn-small edit" runat="server" Text="修改" ToolTip="<%#Item.Id %>" OnClick="ButtonEdit_Click" />
                                     <asp:Button ID="ButtonDel" class="btn btn-danger btn-small del" runat="server" Text="删除" ToolTip="<%#Item.Id %>" OnClick="ButtonDel_Click" />

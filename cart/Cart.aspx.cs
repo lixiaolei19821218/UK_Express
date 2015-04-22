@@ -24,6 +24,18 @@ public partial class cart_Cart : System.Web.UI.Page
         return from o in repo.Orders where o.User == user select o;
     }
 
+    public IEnumerable<Order> GetNoSheffieldOrders()
+    {
+        string user = Membership.GetUser().UserName;
+        return from o in repo.Orders where o.User == user && !(o.IsSheffieldOrder.HasValue && o.IsSheffieldOrder.Value) select o;
+    }
+
+    public IEnumerable<SheffieldOrder> GetSheffieldOrders()
+    {
+        string user = Membership.GetUser().UserName;
+        return from o in repo.Context.SheffieldOrders where o.User == user select o;
+    }
+
     public decimal GetOrderPrice(Order order)
     {
         ServiceView sv = new ServiceView(order.Service);
@@ -41,7 +53,7 @@ public partial class cart_Cart : System.Web.UI.Page
 
     public decimal GetTotalPrice()
     {
-        return totalPrice;
+        return totalPrice + GetSheffieldOrders().Sum(so => so.Orders.Sum(o => o.Cost.Value));
     }
     protected void ButtonEdit_Click(object sender, EventArgs e)
     {

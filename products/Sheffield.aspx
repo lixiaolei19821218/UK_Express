@@ -47,6 +47,15 @@
                 totalPrice += parseFloat($('table')[0].children[1].children[i].lastElementChild.innerText);
             }
             $('#total_price')[0].innerText = '£' + totalPrice.toFixed(2);
+
+            if (totalPrice == 0.00)
+            {
+                $('#ButtonAddToCart')[0].disabled = true;
+            }
+            else
+            {
+                $('#ButtonAddToCart')[0].disabled = false;
+            }
         }
 
     </script>
@@ -104,7 +113,7 @@
         <div>
             <div style="float: left" class="total-price">总金额: <strong class="total-price" id="total_price" style="color: #f00">£0.0</strong></div>
             <div style="margin-top: -5px; margin-bottom: 10px; float: right">
-                <asp:Button ID="ButtonAddToCart" runat="server" CssClass="btn btn-info" Style="line-height: 1" Text="下一步" OnClick="ButtonAddToCart_Click" />
+                <asp:Button ID="ButtonAddToCart" ClientIDMode="Static" runat="server" CssClass="btn btn-info" Enabled="false" Style="line-height: 1" Text="下一步" OnClick="ButtonAddToCart_Click" />
             </div>
         </div>
     </form>

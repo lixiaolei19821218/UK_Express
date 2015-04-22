@@ -77,30 +77,6 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
    
-    <style type="text/css">
-        label {
-            margin-bottom: 5px;
-        }
-
-        .add-on {
-            padding-left: 5px;
-        }
-
-        #id_pickup_time_0 {
-            width: 75px;
-            font-size: 12px;
-        }
-
-        .red-border {
-            border: 1px solid #f00;
-        }
-    </style>
-
-
-
-
-
-
     <ul class="breadcrumb" style="background: none; margin-top: 15px">
     </ul>
 
@@ -319,13 +295,13 @@
                                         收件地<span style="padding: 2px 4px; background-color: #e1e1e1; font-weight: normal">中国大陆</span>
                                     </div>
                                     <div style="margin-left: 26px; float: left">
-                                        <div style="float: left; margin: 5px" class="control-group ">
+                                        <div style="float: left; margin: 5px 5px 5px 9px" class="control-group ">
                                             <label for="id_addr-0-postcode">邮编</label>
                                             <input id="id_addr-0-postcode" maxlength="6" name="addr-0-postcode" style="width: 60px" type="text" value="<%#Item.ZipCode %>"  required="required"/>
                                         </div>
                                     </div>
                                     <div style="margin-left: 26px; float: left">
-                                        <div style="float: left; margin: 5px" class="control-group ">
+                                        <div style="float: left; margin: 5px 5px 5px 7px" class="control-group ">
                                             <label for="id_addr-0-phone">电话</label>
                                             <input id="id_addr-0-phone" maxlength="11" name="addr-0-phone" style="width: 100px" type="text" value="<%#Item.PhoneNumber %>"  required="required"/>
                                         </div>
