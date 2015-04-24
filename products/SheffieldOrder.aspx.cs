@@ -8,7 +8,9 @@ using System.Web.UI.WebControls;
 
 public partial class products_SheffiledOrder : System.Web.UI.Page
 {
-    private Repository repo;
+    [Ninject.Inject]
+    public IRepository repo { get; set; }
+
     private SheffieldOrder sOrder;    
 
     public SheffieldOrder SheffieldOrder
@@ -26,8 +28,7 @@ public partial class products_SheffiledOrder : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        sOrder = (SheffieldOrder)Session["SheffieldOrder"];      
-        repo = (Repository)Session["Repo"];
+        sOrder = (SheffieldOrder)Session["SheffieldOrder"];  
     }
 
     protected void add2cart_Click(object sender, EventArgs e)
@@ -61,7 +62,11 @@ public partial class products_SheffiledOrder : System.Web.UI.Page
         }
 
         sOrder.User = Membership.GetUser().UserName;
-        repo.Context.SheffieldOrders.Add(sOrder);
+
+        if (sOrder.Id == 0)
+        {
+            repo.Context.SheffieldOrders.Add(sOrder);
+        }
         repo.Context.SaveChanges();
         Response.Redirect("/cart/cart.aspx");
     }

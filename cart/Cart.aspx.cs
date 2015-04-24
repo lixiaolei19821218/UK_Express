@@ -39,7 +39,8 @@ public partial class cart_Cart : System.Web.UI.Page
     public IEnumerable<SheffieldOrder> GetSheffieldOrders()
     {
         string user = Membership.GetUser().UserName;
-        return from o in repo.Context.SheffieldOrders where o.User == user select o;
+        var r = from o in repo.Context.SheffieldOrders where o.User == user  select o;
+        return r;
     }
 
     public decimal GetOrderPrice(Order order)

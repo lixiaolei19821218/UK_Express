@@ -8,7 +8,8 @@ using System.Web.UI.WebControls;
 
 public partial class products_Edit : System.Web.UI.Page
 {
-    private Repository repo = new Repository();
+    [Ninject.Inject]
+    public IRepository repo { get; set; }
 
     private Order order;
     private ServiceView sv;

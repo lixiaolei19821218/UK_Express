@@ -80,8 +80,7 @@ public partial class products_Sheffield : System.Web.UI.Page
         }
 
        
-        Session.Add("SheffiledOrder", sOrder);
-        Session.Add("Repo", repo);
-        Response.Redirect("/products/SheffiledOrder.aspx");
+        Session.Add("SheffieldOrder", sOrder);        
+        Response.Redirect("/products/SheffieldOrder.aspx");
     }
 }

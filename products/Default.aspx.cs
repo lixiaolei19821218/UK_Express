@@ -8,7 +8,9 @@ using System.Globalization;
 
 public partial class product_Default : System.Web.UI.Page
 {
-    private Repository repo = new Repository();
+    [Ninject.Inject]
+    public IRepository repo { get; set; }
+
     private Order order;
 
     protected void Page_Load(object sender, EventArgs e)

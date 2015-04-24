@@ -158,7 +158,7 @@
                                 <div style="float: left; margin: 5px" class="control-group ">
                                     <label for="id_pickup_time_0">日期</label>
                                     <div class="input-append date form_datetime">
-                                        <input class="input-medium" foo_bar="prevent_readonly" id="id_pickup_time_0" name="pickup_time_0" type="text" value="" required="required" />
+                                        <input class="input-medium" foo_bar="prevent_readonly" id="id_pickup_time_0" name="pickup_time_0" type="text" value="<%:SheffieldOrder.Orders.First().PickupTime.HasValue ? SheffieldOrder.Orders.First().PickupTime.Value.ToShortDateString() : null %>" required="required" />
                                         <span id="sp" class="add-on"><i class="icon-th"></i></span>
                                     </div>
                                 </div>
@@ -191,15 +191,15 @@
                             <div class="rds2" style="border: 1px solid #ddd; background-color: #F2F8FC; padding: 5px 1px">
                                 <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_name">中文姓名</label>                                 
-                                        <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" value=""  required="required" />
+                                        <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" value="<%:SheffieldOrder.Orders.First().Recipients.First().Name%>"  required="required" />
                                     </div>
                                     <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_city">中文城市</label>
-                                        <input class="cn_fields cn_city" id="id_addr-0-cn_city" maxlength="24" name="addr-0-cn_city" style="width: 60px" type="text" value="" required="required" />
+                                        <input class="cn_fields cn_city" id="id_addr-0-cn_city" maxlength="24" name="addr-0-cn_city" style="width: 60px" type="text" value="<%:SheffieldOrder.Orders.First().Recipients.First().City%>" required="required" />
                                     </div>
                                     <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_street">中文地址</label>
-                                        <input class="cn_fields cn_street" id="id_addr-0-cn_street" maxlength="72" name="addr-0-cn_street" style="width: 415px" type="text" value="" required="required" />
+                                        <input class="cn_fields cn_street" id="id_addr-0-cn_street" maxlength="72" name="addr-0-cn_street" style="width: 415px" type="text" value="<%:SheffieldOrder.Orders.First().Recipients.First().Address%>" required="required" />
                                     </div>
                                 <div style="float: left; margin: 5px; margin-left: 17px; font-weight: bold">
                                         收件地<span style="padding: 2px 4px; background-color: #e1e1e1; font-weight: normal">中国大陆</span>
@@ -207,13 +207,13 @@
                                     <div style="margin-left: 26px; float: left">
                                         <div style="float: left; margin: 5px 5px 5px 9px" class="control-group ">
                                             <label for="id_addr-0-postcode">邮编</label>
-                                            <input id="id_addr-0-postcode" maxlength="6" name="addr-0-postcode" style="width: 60px" type="text" value=""  required="required"/>
+                                            <input id="id_addr-0-postcode" maxlength="6" name="addr-0-postcode" style="width: 60px" type="text" value="<%:SheffieldOrder.Orders.First().Recipients.First().ZipCode%>"  required="required"/>
                                         </div>
                                     </div>
                                     <div style="margin-left: 26px; float: left">
                                         <div style="float: left; margin: 5px 5px 5px 7px" class="control-group ">
                                             <label for="id_addr-0-phone">电话</label>
-                                            <input id="id_addr-0-phone" maxlength="11" name="addr-0-phone" style="width: 100px" type="text" value=""  required="required"/>
+                                            <input id="id_addr-0-phone" maxlength="11" name="addr-0-phone" style="width: 100px" type="text" value="<%:SheffieldOrder.Orders.First().Recipients.First().PhoneNumber%>"  required="required"/>
                                         </div>
                                     </div>
                                     <div style="float: left; margin: 5px; margin-left: 20px" class="control-group">

@@ -9,7 +9,8 @@ using System.Web.Security;
 
 public partial class products_Product : System.Web.UI.Page
 {
-    private Repository repo = new Repository();
+    [Ninject.Inject]
+    public IRepository repo { get; set; }
 
     private ServiceView sv;
     private Order order;
