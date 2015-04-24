@@ -6,7 +6,7 @@ using System.Web;
 /// <summary>
 /// Repository 的摘要说明
 /// </summary>
-public class Repository
+public class Repository : IRepository
 {
     private UK_ExpressEntities context = new UK_ExpressEntities(); 
 	public Repository()
@@ -29,6 +29,14 @@ public class Repository
         get
         {
             return context.SheffieldServices;
+        }
+    }
+
+    public IEnumerable<SheffieldOrder> SheffieldOrders
+    {
+        get
+        {
+            return context.SheffieldOrders;
         }
     }
 

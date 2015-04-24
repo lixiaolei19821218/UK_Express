@@ -10,7 +10,13 @@ using System.Web.UI.WebControls;
 
 public partial class cart_Cart : System.Web.UI.Page
 {
-    private Repository repo = new Repository();
+    [Ninject.Inject]
+    public IRepository repo
+    {
+        get;
+        set;
+    }
+
     private decimal totalPrice = 0m;
 
     protected void Page_Load(object sender, EventArgs e)
@@ -123,5 +129,35 @@ public partial class cart_Cart : System.Web.UI.Page
             }
         }
         Response.Redirect(Request.Path);        
+    }
+    protected void ButtonSheffieldEdit_Click(object sender, EventArgs e)
+    {
+        int id;
+        if (int.TryParse((sender as Button).Attributes["data-id"], out id))
+        {
+            SheffieldOrder myOrder = repo.SheffieldOrders.Where(o => o.Id == id).FirstOrDefault();
+            Session["SheffieldOrder"] = myOrder;
+        }
+        Response.Redirect("/products/SheffieldOrder.aspx");       
+    }
+    protected void ButtonSheffieldDel_Click(object sender, EventArgs e)
+    {
+        int id;
+        if (int.TryParse((sender as Button).Attributes["data-id"], out id))
+        {
+            SheffieldOrder myOrder = repo.SheffieldOrders.Where(o => o.Id == id).FirstOrDefault();
+            if (myOrder != null)
+            {
+                foreach (Order o in myOrder.Orders)
+                {
+                    repo.Context.Packages.RemoveRange(o.Recipients.ElementAt(0).Packages);
+                    repo.Context.Recipients.Remove(o.Recipients.ElementAt(0));
+                }
+                repo.Context.Orders.RemoveRange(myOrder.Orders);
+                repo.Context.SheffieldOrders.Remove(myOrder);
+                repo.Context.SaveChanges();
+            }
+        }
+        Response.Redirect(Request.Path);
     }
 }

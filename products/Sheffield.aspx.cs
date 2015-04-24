@@ -8,7 +8,8 @@ using System.Web.UI.WebControls;
 
 public partial class products_Sheffield : System.Web.UI.Page
 {
-    private Repository repo = new Repository();
+    [Ninject.Inject]
+    public IRepository repo { get; set; }
     
     private List<PriceListView> priceListViews;
 

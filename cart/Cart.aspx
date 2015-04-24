@@ -107,8 +107,8 @@
                                 <td class="tac"><%#Item.Orders.First().SenderName %></td>
                                 <td class="right">谢菲尔德地区服务</td>
                                 <td colspan="2">
-                                    <asp:Button ID="ButtonEdit" class="btn btn-info btn-small edit" runat="server" Text="修改" ToolTip="<%#Item.Id %>" OnClick="ButtonEdit_Click" />
-                                    <asp:Button ID="ButtonDel" class="btn btn-danger btn-small del" runat="server" Text="删除" ToolTip="<%#Item.Id %>" OnClick="ButtonDel_Click" />
+                                    <asp:Button ID="ButtonSheffieldEdit" class="btn btn-info btn-small edit" runat="server" Text="修改" data-id="<%#Item.Id %>" ToolTip="<%#Item.Id %>" OnClick="ButtonSheffieldEdit_Click" />
+                                    <asp:Button ID="ButtonSheffieldDel" class="btn btn-danger btn-small del" runat="server" Text="删除" data-id="<%#Item.Id %>" ToolTip="<%#Item.Id %>" OnClick="ButtonSheffieldDel_Click" />
                                 </td>
                             </tr>
                         </ItemTemplate>

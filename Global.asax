@@ -6,12 +6,13 @@
     {
         // 在应用程序启动时运行的代码
         BundleConfig.RegisterBundles(System.Web.Optimization.BundleTable.Bundles);
+        ASP.App_Start.NinjectWebCommon.Start();
     }
     
     void Application_End(object sender, EventArgs e) 
     {
         //  在应用程序关闭时运行的代码
-
+        ASP.App_Start.NinjectWebCommon.Stop();
     }
         
     void Application_Error(object sender, EventArgs e) 

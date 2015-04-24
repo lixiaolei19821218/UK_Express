@@ -26,7 +26,7 @@ public partial class products_SheffiledOrder : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        sOrder = (SheffieldOrder)Session["SheffiledOrder"];      
+        sOrder = (SheffieldOrder)Session["SheffieldOrder"];      
         repo = (Repository)Session["Repo"];
     }
 
