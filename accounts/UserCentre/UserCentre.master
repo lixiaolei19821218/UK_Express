@@ -1,0 +1,42 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="UserCentre.master.cs" Inherits="accounts_UserCentre_UserCentre" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <link href="http://express-xc.co.uk/statics/css/reset.css?v=1.1" rel="stylesheet" type="text/css" />
+    <link href="http://express-xc.co.uk/statics/css/global_v2.0.css" rel="stylesheet" type="text/css" />
+    <link href="http://express-xc.co.uk/tpl/t4/style.css" rel="stylesheet" type="text/css" />
+    <link href="http://express-xc.co.uk/statics/js/artDialog/skins/default.css" rel="stylesheet" type="text/css" />
+    <script src="http://express-xc.co.uk/statics/js/jquery.min.js"></script>
+    <script src="http://express-xc.co.uk/statics/js/artDialog/jquery.artDialog.js"></script>
+    <script src="http://express-xc.co.uk/statics/js/artDialog/iframeTools.js"></script>
+    <script src="http://express-xc.co.uk/statics/js/formValidator/formValidator.min.js"></script>
+    <script src="http://express-xc.co.uk/statics/js/formValidator/formValidator.regex.js"></script>
+</head>
+<body>
+    <div class="top-box">
+        <div class="top-fixed">
+            <div class="top">
+                <ul class="rt">
+                    <li><a href="/index.php?c=home&a=index">首页</a><span class="gap">|</span></li>
+                    <li><a href="/index.php?c=home&a=q">帮助中心</a></li>
+                </ul>
+                <ul>
+                    <li>欢迎来到999parcel，<font class="col-f60">735534185@qq.com</font><span class="gap">|</span></li>
+                    <li><a href="/index.php?c=member&a=logout">退出</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <form id="form1" runat="server">
+        <div>
+            <asp:ContentPlaceHolder ID="body" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+</body>
+</html>
