@@ -90,7 +90,7 @@
 				<div id="taobaopay" style="display:none;">
 					<div class="message">
 						<ul>
-														<li><em>·</em>请按1比9.57的汇率计算人民币数额到以下地址拍下等额数量即可。如冲值100镑换算人民币是957元，请拍957件即可。拍后请立即确认付款，我们审核通过后您就可以在系统内查到您的冲值余额。</li>
+														<li><em>·</em>请按1比9.72的汇率计算人民币数额到以下地址拍下等额数量即可。如冲值100镑换算人民币是972元，请拍972件即可。拍后请立即确认付款，我们审核通过后您就可以在系统内查到您的冲值余额。</li>
 							<li><em>·</em><a href="http://item.taobao.com/item.htm?spm=a230r.1.14.4.jQDViP&id=19933634526&initiative_new=1" target="_blank">http://item.taobao.com/item.htm?spm=a230r.1.14.4.jQDViP&id=19933634526&initiative_new=1</a></li>
 							<li><em>·</em>审核时间是工作日周一至周五10点至18点。您确认后请给我们1至2小时进行查帐并审核，超过两小时还未看到冲值余额的请联系我们客服查询。18点后冲值的，我们将会在第二个工作日为您审核。</li>
 							<li><em>·</em>冲值一次超过1万镑的请联系我们客服，我们会按单独汇率计算。</li>
@@ -129,7 +129,7 @@
 					</ul>
 					<input type="hidden" name="testMode" value="100">
 					<input type="hidden" name="instId" value="1019582">
-					<input type="hidden" name="cartId" value="13570_735534185@qq.com_1430210830">
+					<input type="hidden" name="cartId" value="13570_735534185@qq.com_1430360286">
 					<input type="hidden" name="currency" value="GBP">
 					<input type="hidden" id="amount" name="amount" value="">
 					<input type="hidden" name="desc" value="">
@@ -176,40 +176,41 @@
 		</tr>
 		<tr id="image" style="display:none;">
 			<th>凭证：</th>
-			<td><link rel="stylesheet" type="text/css" href="http://express-xc.co.uk/statics/js/uploadify/uploadify.css"/><script type="text/javascript" src="http://express-xc.co.uk/statics/js/uploadify/jquery.uploadify.min.js?v=9950"></script><script>
-$(function(){
-$('#uploadify-570457592800').uploadify({
-swf:'/statics/js/uploadify/uploadify.swf',
-formData:{'api':'uploadify|pic|single', 'token':'6b79a77180e9ec3a7ca351ebe54641a2'},
-uploader:'/index.php',
-method:'get',
-buttonText:'选择图片',
-queueID: 'fileQueue-1',
-fileTypeDesc:'支持的格式：',
-fileTypeExts:'*.jpg;*.gif;*.jpeg;*.png',
-multi:false,
-fileSizeLimit:'3MB',
-queueSizeLimit:1,
-uploadLimit:99,
-removeTimeout:1,
-fileObjName:'Filedata',
-'onUploadStart':function(file) {
-if ($('#upload-file-570457592800').html() != '') {
-alert('请先删除上传的文件');
-$('#uploadify-570457592800').uploadify('cancel');
-}},
-onUploadSuccess:function (file, data, response) {
-$('#upload-file-570457592800').html(data);
-}
-});
-});
-$('#removeUploadFile').live('click',function(){
-$(this).parents('span').remove()
-});
+			<td><link rel="stylesheet" type="text/css" href="http://express-xc.co.uk/statics/js/uploadify/uploadify.css"/><script type="text/javascript" src="http://express-xc.co.uk/statics/js/uploadify/jquery.uploadify.min.js?v=4237"></script><script>
+			                                                                                                                                                                                                                                            $(function () {
+			                                                                                                                                                                                                                                                $('#uploadify-968021674600').uploadify({
+			                                                                                                                                                                                                                                                    swf: '/statics/js/uploadify/uploadify.swf',
+			                                                                                                                                                                                                                                                    formData: { 'api': 'uploadify|pic|single', 'token': '6b79a77180e9ec3a7ca351ebe54641a2' },
+			                                                                                                                                                                                                                                                    uploader: '/index.php',
+			                                                                                                                                                                                                                                                    method: 'get',
+			                                                                                                                                                                                                                                                    buttonText: '选择图片',
+			                                                                                                                                                                                                                                                    queueID: 'fileQueue-1',
+			                                                                                                                                                                                                                                                    fileTypeDesc: '支持的格式：',
+			                                                                                                                                                                                                                                                    fileTypeExts: '*.jpg;*.gif;*.jpeg;*.png',
+			                                                                                                                                                                                                                                                    multi: false,
+			                                                                                                                                                                                                                                                    fileSizeLimit: '3MB',
+			                                                                                                                                                                                                                                                    queueSizeLimit: 1,
+			                                                                                                                                                                                                                                                    uploadLimit: 99,
+			                                                                                                                                                                                                                                                    removeTimeout: 1,
+			                                                                                                                                                                                                                                                    fileObjName: 'Filedata',
+			                                                                                                                                                                                                                                                    'onUploadStart': function (file) {
+			                                                                                                                                                                                                                                                        if ($('#upload-file-968021674600').html() != '') {
+			                                                                                                                                                                                                                                                            alert('请先删除上传的文件');
+			                                                                                                                                                                                                                                                            $('#uploadify-968021674600').uploadify('cancel');
+			                                                                                                                                                                                                                                                        }
+			                                                                                                                                                                                                                                                    },
+			                                                                                                                                                                                                                                                    onUploadSuccess: function (file, data, response) {
+			                                                                                                                                                                                                                                                        $('#upload-file-968021674600').html(data);
+			                                                                                                                                                                                                                                                    }
+			                                                                                                                                                                                                                                                });
+			                                                                                                                                                                                                                                            });
+			                                                                                                                                                                                                                                            $('#removeUploadFile').live('click', function () {
+			                                                                                                                                                                                                                                                $(this).parents('span').remove()
+			                                                                                                                                                                                                                                            });
 </script>
-<input type="file" id="uploadify-570457592800" />
+<input type="file" id="uploadify-968021674600" />
 <div id="fileQueue-1"></div>
-<div class="upload-file" id="upload-file-570457592800"></div>
+<div class="upload-file" id="upload-file-968021674600"></div>
 </td>
 		</tr>
 		<tr>
@@ -223,64 +224,64 @@ $(this).parents('span').remove()
 </div>
 
 <script>
-$(function(){
-	//表单提交
-	$.formValidator.initConfig({
-		wideWord:false,
-		formID:"chargeForm",
-		onSuccess:function() {
-			if ($('#type').val() == 2 && $('#ww').val() == '') {
-				$.dialog({icon:'warning', time:3, content:'淘宝充值请填写旺旺号'});
-				return false;
-			} else if ($("input[name='type']:checked").val() == 5) {
-				$('#amount').val($('#mny').val());
-			}
-		}
-	});
-	$('#mny').formValidator({
-		onShow:"",
-		onFocus:"正数，每次充值金额：0 - 5000镑"
-	}).regexValidator({
-		regExp:"num",
-		dataType:"enum"
-	});
-});
-// 切换旺旺
-$("[id^='type_']").click(function(){
-	var v = $(this).val();
-	if (v == 1) {
-		$('#taobaopay,#paypalpay,#alipay,#worldpay,#car_type').hide();
-		$('#bankpay,#image').show();		
-	} else if (v == 2) {
-		$('#bankpay,#paypalpay,#alipay,#worldpay,#car_type').hide();
-		$('#taobaopay,#image').show();
-	} else if (v == 3) {
-		$('#bankpay,#taobaopay,#image,#alipay,#worldpay,#car_type').hide();
-		$('#paypalpay').show();
-	} else if (v == 4) {
-		$('#bankpay,#taobaopay,#image,#paypalpay,#worldpay,#car_type').hide();
-		$('#alipay').show();
-	} else if (v == 5) {
-		$('#bankpay,#taobaopay,#image,#paypalpay,#alipay').hide();
-		$('#worldpay,#car_type').show();
-	}
-	if (v == 5) {
-		// worldpay
-		$('#chargeForm').attr("action", "https://secure-test.worldpay.com/wcc/purchase");
-	} else {
-		$('#chargeForm').attr("action", "/index.php?c=charge&a=user_submit");
-	}	
-});
-// 金额换算
-$("#mny").bind('input propertychange', function() {
-	var val = parseFloat($(this).val());
-	if (isNaN(val)) {
-		$(this).val('');
-	} else {
-		var rmb = val * 9.57;
-		$('#mnyRMB').text('RMB：' + rmb.toFixed(0) + '元');
-	}
-});
+    $(function () {
+        //表单提交
+        $.formValidator.initConfig({
+            wideWord: false,
+            formID: "chargeForm",
+            onSuccess: function () {
+                if ($('#type').val() == 2 && $('#ww').val() == '') {
+                    $.dialog({ icon: 'warning', time: 3, content: '淘宝充值请填写旺旺号' });
+                    return false;
+                } else if ($("input[name='type']:checked").val() == 5) {
+                    $('#amount').val($('#mny').val());
+                }
+            }
+        });
+        $('#mny').formValidator({
+            onShow: "",
+            onFocus: "正数，每次充值金额：0 - 5000镑"
+        }).regexValidator({
+            regExp: "num",
+            dataType: "enum"
+        });
+    });
+    // 切换旺旺
+    $("[id^='type_']").click(function () {
+        var v = $(this).val();
+        if (v == 1) {
+            $('#taobaopay,#paypalpay,#alipay,#worldpay,#car_type').hide();
+            $('#bankpay,#image').show();
+        } else if (v == 2) {
+            $('#bankpay,#paypalpay,#alipay,#worldpay,#car_type').hide();
+            $('#taobaopay,#image').show();
+        } else if (v == 3) {
+            $('#bankpay,#taobaopay,#image,#alipay,#worldpay,#car_type').hide();
+            $('#paypalpay').show();
+        } else if (v == 4) {
+            $('#bankpay,#taobaopay,#image,#paypalpay,#worldpay,#car_type').hide();
+            $('#alipay').show();
+        } else if (v == 5) {
+            $('#bankpay,#taobaopay,#image,#paypalpay,#alipay').hide();
+            $('#worldpay,#car_type').show();
+        }
+        if (v == 5) {
+            // worldpay
+            $('#chargeForm').attr("action", "https://secure-test.worldpay.com/wcc/purchase");
+        } else {
+            $('#chargeForm').attr("action", "/index.php?c=charge&a=user_submit");
+        }
+    });
+    // 金额换算
+    $("#mny").bind('input propertychange', function () {
+        var val = parseFloat($(this).val());
+        if (isNaN(val)) {
+            $(this).val('');
+        } else {
+            var rmb = val * 9.72;
+            $('#mnyRMB').text('RMB：' + rmb.toFixed(0) + '元');
+        }
+    });
 </script>	</div>
 </div>
 <div id="footer">
@@ -330,26 +331,26 @@ $("#mny").bind('input propertychange', function() {
 	<div style="margin:10px 0 0 0;"><script type="text/javascript" src="http://static.b.qq.com/account/bizqq/js/wpa.js?wty=1&type=1&kfuin=800056001&ws=http%3A%2F%2Fwww.express-xc.co.uk&btn1=%E4%BC%81%E4%B8%9AQQ%E4%BA%A4%E8%B0%88&aty=0&a=&key=%0CiWf%041Ta%032%03cWgW%3E%03bSlUoV1ScQ7%05fR6%0Bf%045%051"></script></div>
 </div>
 <div class="hidden"><script src="http://s11.cnzz.com/stat.php?id=5312818&web_id=5312818&show=pic2" language="JavaScript"></script></div><script>
-//全选
-$('#chooseAll').click(function(){
-    $(":checkbox[name^='id_s']").attr('checked', true);
-});
-// 反选
-$('#chooseReverse').click(function(){
-    $(":checkbox[name^='id_s']").each(function(){
-        if ($(this).attr('checked') == true) {
-            $(this).attr('checked', false);
-        } else {
-            $(this).attr('checked', true);
-        }
-    });
-});
-$('#quickOrder').mouseenter(function(){
-	$(this).find('div').slideDown(200);
-}).mouseleave(function(){
-	$(this).find('div').slideUp(200);
-});
-$('.table-list tr:even').addClass('alt');
+                                                                                                                                            //全选
+                                                                                                                                            $('#chooseAll').click(function () {
+                                                                                                                                                $(":checkbox[name^='id_s']").attr('checked', true);
+                                                                                                                                            });
+                                                                                                                                            // 反选
+                                                                                                                                            $('#chooseReverse').click(function () {
+                                                                                                                                                $(":checkbox[name^='id_s']").each(function () {
+                                                                                                                                                    if ($(this).attr('checked') == true) {
+                                                                                                                                                        $(this).attr('checked', false);
+                                                                                                                                                    } else {
+                                                                                                                                                        $(this).attr('checked', true);
+                                                                                                                                                    }
+                                                                                                                                                });
+                                                                                                                                            });
+                                                                                                                                            $('#quickOrder').mouseenter(function () {
+                                                                                                                                                $(this).find('div').slideDown(200);
+                                                                                                                                            }).mouseleave(function () {
+                                                                                                                                                $(this).find('div').slideUp(200);
+                                                                                                                                            });
+                                                                                                                                            $('.table-list tr:even').addClass('alt');
 </script>
 </body>
 </html>

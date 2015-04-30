@@ -18,13 +18,15 @@
                         <th><em>*</em>方式：</th>
                         <td>
                             <span class="f14">
-                                <input type="radio" name="type" id="type_3" checked value="3">
-                                PayPal/信用卡/借记卡&nbsp;<input type="radio" name="type" id="type_1" value="1">
-                                英镑支付(转帐或存现)&nbsp;<input type="radio" name="type" id="type_2" value="2">
-                                人民币支付(淘宝拍)&nbsp;<input type="radio" name="type" id="type_4" value="4">
-                                支付宝&nbsp;</span>
+                                <input type="radio" name="type" id="type_1" value="1" checked="checked"/>
+                                英镑支付(转帐或存现)&nbsp;
+                                <input type="radio" name="type" id="type_2" value="2"/>
+                                人民币支付(淘宝拍)&nbsp;
+                                <input type="radio" name="type" id="type_4" value="4"/>
+                                支付宝&nbsp;                                
+                            </span>
                             <span id="typeTip"></span>
-                            <div id="bankpay" class="message" style="display: none;">
+                            <div id="bankpay" class="message">
                                 <ul>
                                     <li>请转帐或存入英镑现金至公司帐户：</li>
                                     <li><em>·</em><span>Bank：NATWEST</span><span>Account：10902619</span><span>Sort Code：602469</span><span>Name: J CHEN</span></li>
@@ -53,15 +55,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                            </div>
-                            <div id="paypalpay" class="message">
-                                <ul>
-                                    <li><em>·</em>凡使用PAYPAL进行冲值的客户，均可享受冲100镑送3镑的优惠活动。（星弛折扣与冲值奖励不能同时享受）</li>
-                                    <li><em>·</em>所有客户使用PAYPAL冲值时均无需支付手续费。</li>
-                                    <li><em>·</em>星弛允许客户退回星弛余额里的款项，只需支付退款手续费3%（手续费不足3镑的按3镑收），如享受过奖励活动的，需扣除活动奖励金额。</li>
-                                    <li><em>·</em>此活动的最终解释权属星弛快递公司(XC LINK LTD)</li>
-                                </ul>
-                            </div>
+                            </div>                            
                             <div id="alipay" class="message" style="display: none;">
                                 <ul>
                                     <li><em>·</em>淘宝拍付汇率以星弛官网显示为准， 支付宝充值以支付宝实时汇率为准</li>
