@@ -1,9 +1,41 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Recharge.aspx.cs" Inherits="accounts_UserCentre_Recharge" MasterPageFile="~/accounts/UserCentre/UserCentre.master" %>
 
-<asp:Content ID="Content2" ContentPlaceHolderID="title" runat="Server">
-    账户充值
+<asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
+    <title>用户中心</title>
+    <link rel="stylesheet" type="text/css" href="../../static/uploadify/uploadify.css" />
+    <script type="text/javascript" src="../../static/uploadify/jquery.uploadify.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#uploadify-819778242100').uploadify({
+                swf: '/statics/js/uploadify/uploadify.swf',
+                formData: { 'api': 'uploadify|pic|single', 'token': '6b79a77180e9ec3a7ca351ebe54641a2' },
+                uploader: '/index.php',
+                method: 'get',
+                buttonText: '选择图片',
+                queueID: 'fileQueue-1',
+                fileTypeDesc: '支持的格式：',
+                fileTypeExts: '*.jpg;*.gif;*.jpeg;*.png',
+                multi: false,
+                fileSizeLimit: '3MB',
+                queueSizeLimit: 1,
+                uploadLimit: 99,
+                removeTimeout: 1,
+                fileObjName: 'Filedata',
+                'onUploadStart': function (file) {
+                    if ($('#upload-file-819778242100').html() != '') {
+                        alert('请先删除上传的文件');
+                        $('#uploadify-819778242100').uploadify('cancel');
+                    }
+                },
+                onUploadSuccess: function (file, data, response) {
+                    $('#upload-file-819778242100').html(data);
+                }
+            });
+        });
+        $('#removeUploadFile').live('click', function () {
+            $(this).parents('span').remove()
+    </script>
 </asp:Content>
-
 
 <asp:Content ID="Content1" ContentPlaceHolderID="body" runat="Server">
     <div class="uitopg">
@@ -18,11 +50,11 @@
                         <th><em>*</em>方式：</th>
                         <td>
                             <span class="f14">
-                                <input type="radio" name="type" id="type_1" value="1" checked="checked"/>
+                                <input type="radio" name="type" id="type_1" value="1" checked="checked" />
                                 英镑支付(转帐或存现)&nbsp;
-                                <input type="radio" name="type" id="type_2" value="2"/>
+                                <input type="radio" name="type" id="type_2" value="2" />
                                 人民币支付(淘宝拍)&nbsp;
-                                <input type="radio" name="type" id="type_4" value="4"/>
+                                <input type="radio" name="type" id="type_4" value="4" />
                                 支付宝&nbsp;                                
                             </span>
                             <span id="typeTip"></span>
@@ -55,7 +87,7 @@
                                         </tr>
                                     </table>
                                 </div>
-                            </div>                            
+                            </div>
                             <div id="alipay" class="message" style="display: none;">
                                 <ul>
                                     <li><em>·</em>淘宝拍付汇率以星弛官网显示为准， 支付宝充值以支付宝实时汇率为准</li>
@@ -123,41 +155,6 @@
                     <tr id="image">
                         <th>凭证：</th>
                         <td>
-                            <asp:FileUpload ID="fu" runat="server" /><asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
-                            <link rel="stylesheet" type="text/css" href="http://express-xc.co.uk/statics/js/uploadify/uploadify.css" />
-                            <script type="text/javascript" src="http://express-xc.co.uk/statics/js/uploadify/jquery.uploadify.min.js?v=3503"></script>
-                            <script>
-                                $(function () {
-                                    $('#uploadify-257072931300').uploadify({
-                                        swf: '/statics/js/uploadify/uploadify.swf',
-                                        formData: { 'api': 'uploadify|pic|single', 'token': '6b79a77180e9ec3a7ca351ebe54641a2' },
-                                        uploader: '/index.php',
-                                        method: 'get',
-                                        buttonText: '选择图片',
-                                        queueID: 'fileQueue-1',
-                                        fileTypeDesc: '支持的格式：',
-                                        fileTypeExts: '*.jpg;*.gif;*.jpeg;*.png',
-                                        multi: false,
-                                        fileSizeLimit: '3MB',
-                                        queueSizeLimit: 1,
-                                        uploadLimit: 99,
-                                        removeTimeout: 1,
-                                        fileObjName: 'Filedata',
-                                        'onUploadStart': function (file) {
-                                            if ($('#upload-file-257072931300').html() != '') {
-                                                alert('请先删除上传的文件');
-                                                $('#uploadify-257072931300').uploadify('cancel');
-                                            }
-                                        },
-                                        onUploadSuccess: function (file, data, response) {
-                                            $('#upload-file-257072931300').html(data);
-                                        }
-                                    });
-                                });
-                                $('#removeUploadFile').live('click', function () {
-                                    $(this).parents('span').remove()
-                                });
-                            </script>
                             <input type="file" id="uploadify-257072931300" />
                             <div id="fileQueue-1"></div>
                             <div class="upload-file" id="upload-file-257072931300"></div>
@@ -173,7 +170,7 @@
         </div>
     </div>
 
-    <script>
+    <script type="text/javascript">
         $(function () {
             //表单提交
             $.formValidator.initConfig({

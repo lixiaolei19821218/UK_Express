@@ -11,9 +11,4 @@ public partial class accounts_UserCentre_Recharge : System.Web.UI.Page
     {
 
     }
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        fu.SaveAs(Server.MapPath("~/") + fu.FileName);
-        //Label1.Text = "上传成功！"; 
-    }
 }
