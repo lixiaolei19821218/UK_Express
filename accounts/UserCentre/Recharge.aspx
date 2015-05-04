@@ -12,7 +12,7 @@
             账户充值
         </h3>
         <div class="form">
-            <form id="chargeForm" action="/index.php?c=charge&a=user_submit" method="post" autocomplete="on">
+            <form id="chargeForm" runat="server" method="post" autocomplete="on">
                 <table class="table-form">
                     <tr>
                         <th><em>*</em>方式：</th>
@@ -120,9 +120,10 @@
                             <div id="mnyRMB"></div>
                         </td>
                     </tr>
-                    <tr id="image" style="display: none;">
+                    <tr id="image">
                         <th>凭证：</th>
                         <td>
+                            <asp:FileUpload ID="fu" runat="server" /><asp:Button ID="Button1" runat="server" Text="Button" OnClick="Button1_Click" />
                             <link rel="stylesheet" type="text/css" href="http://express-xc.co.uk/statics/js/uploadify/uploadify.css" />
                             <script type="text/javascript" src="http://express-xc.co.uk/statics/js/uploadify/jquery.uploadify.min.js?v=3503"></script>
                             <script>
