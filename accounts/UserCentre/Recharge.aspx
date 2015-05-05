@@ -2,38 +2,33 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <title>用户中心</title>
-    <link rel="stylesheet" type="text/css" href="../../static/uploadify/uploadify.css" />
-    <script type="text/javascript" src="../../static/uploadify/jquery.uploadify.min.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $('#uploadify-819778242100').uploadify({
-                swf: '/statics/js/uploadify/uploadify.swf',
-                formData: { 'api': 'uploadify|pic|single', 'token': '6b79a77180e9ec3a7ca351ebe54641a2' },
-                uploader: '/index.php',
-                method: 'get',
-                buttonText: '选择图片',
-                queueID: 'fileQueue-1',
-                fileTypeDesc: '支持的格式：',
-                fileTypeExts: '*.jpg;*.gif;*.jpeg;*.png',
-                multi: false,
-                fileSizeLimit: '3MB',
-                queueSizeLimit: 1,
-                uploadLimit: 99,
-                removeTimeout: 1,
-                fileObjName: 'Filedata',
-                'onUploadStart': function (file) {
-                    if ($('#upload-file-819778242100').html() != '') {
-                        alert('请先删除上传的文件');
-                        $('#uploadify-819778242100').uploadify('cancel');
-                    }
-                },
-                onUploadSuccess: function (file, data, response) {
-                    $('#upload-file-819778242100').html(data);
-                }
-            });
-        });
-        $('#removeUploadFile').live('click', function () {
-            $(this).parents('span').remove()
+
+    <link href="/static/uploadify/example/css/default.css" rel="stylesheet" type="text/css" />
+    <link href="/static/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+
+
+    <script type="text/javascript" src="/static/uploadify/swfobject.js"></script>
+    <script type="text/javascript" src="/static/uploadify/jquery.uploadify.v2.1.0.min.js"></script>
+    
+   <script type="text/javascript">
+       $(document).ready(function () {
+           $("#uploadify").uploadify({
+               uploader: '/static/uploadify/uploadify.swf',
+               script: '/accounts/UserCentre/UploadHandler.ashx',
+               cancelImg: '/static/uploadify/example/cancel.png',
+               method: 'get',
+               folder: 'UploadFile',              
+               auto: false,          
+               queueID: 'fileQueue-1',
+               fileTypeDesc: '支持的格式：',
+               fileTypeExts: '*.jpg;*.gif;*.jpeg;*.png',
+               multi: false,
+               fileSizeLimit: '3MB',
+               queueSizeLimit: 1,
+               uploadLimit: 99,
+               removeTimeout: 1,          
+           });
+       });
     </script>
 </asp:Content>
 
@@ -119,28 +114,28 @@
                         <th>卡类型：</th>
                         <td>
                             <label class="ib">
-                                <input type="radio" name="paymentType" value="VISA" checked="checked">
-                                <img src="/tpl/t4/image/visa.gif">
+                                <input type="radio" name="paymentType" value="VISA" checked="checked"/>
+                                <img src="/tpl/t4/image/visa.gif"/>
                             </label>
                             <label class="ib">
-                                <input type="radio" name="paymentType" value="MSCD">
-                                <img src="/tpl/t4/image/mastercard.gif">
+                                <input type="radio" name="paymentType" value="MSCD"/>
+                                <img src="/tpl/t4/image/mastercard.gif"/>
                             </label>
                             <label class="ib">
-                                <input type="radio" name="paymentType" value="VIED">
+                                <input type="radio" name="paymentType" value="VIED"/>
                                 <img src="/tpl/t4/image/visa_electron.gif">
                             </label>
                             <label class="ib">
-                                <input type="radio" name="paymentType" value="VISD">
+                                <input type="radio" name="paymentType" value="VISD"/>
                                 <img src="/tpl/t4/image/visa_debit.gif">
                             </label>
                             <label class="ib">
-                                <input type="radio" name="paymentType" value="MAES">
+                                <input type="radio" name="paymentType" value="MAES"/>
                                 <img src="/tpl/t4/image/maestro.gif">
                             </label>
                             <label class="ib">
-                                <input type="radio" name="paymentType" value="JCB">
-                                <img src="/tpl/t4/image/jcb.gif">
+                                <input type="radio" name="paymentType" value="JCB"/>
+                                <img src="/tpl/t4/image/jcb.gif"/>
                             </label>
                         </td>
                     </tr>
@@ -155,14 +150,14 @@
                     <tr id="image">
                         <th>凭证：</th>
                         <td>
-                            <input type="file" id="uploadify-257072931300" />
+                            <input type="file" id="uploadify" />
                             <div id="fileQueue-1"></div>
-                            <div class="upload-file" id="upload-file-257072931300"></div>
+                            <div class="upload-file" id="upload-file"></div>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2" class="text-c">
-                            <input type="submit" value="提交" id="dosubmit" class="btn btn-1" />
+                            <input type="submit" value="提交" id="dosubmit" class="btn btn-1" onclick="javascript: $('#uploadify').uploadifyUpload()" runat="server" />                            
                         </td>
                     </tr>
                 </table>
