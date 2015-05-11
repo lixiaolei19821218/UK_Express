@@ -18,7 +18,7 @@
                cancelImg: '/static/uploadify/example/cancel.png',
                method: 'get',
                folder: 'UploadFile',              
-               auto: false,          
+               auto: true,          
                queueID: 'fileQueue-1',
                fileTypeDesc: '支持的格式：',
                fileTypeExts: '*.jpg;*.gif;*.jpeg;*.png',
@@ -26,9 +26,53 @@
                fileSizeLimit: '3MB',
                queueSizeLimit: 1,
                uploadLimit: 99,
-               removeTimeout: 1,          
+               removeTimeout: 1,
+               removeCompleted: true,
+               'buttonText': 'Select Image',
+               'onComplete': function (event, queueID, fileObj, response, data) {                   
+                   var html = "";
+                   html += "    <li class=\'myli\'>";
+                   html += "    <img src=\"" + response + "\" class=\'myimg\'/>";
+                   html += "    <div style=\" position:absolute; right:8px; bottom:5px\">";
+                   html += "        <img title=\"点击删除\" src=\"Images/delete.gif\" onclick=\"delImage(\'" + response + "\');\" />";
+                   html += "    </div>";
+                   html += "    </li>";
+                   $("#pics")[0].append(html);
+                   $("#pics")[0].fadeIn(); 
+               },
            });
        });
+
+       function delImage(picurl) {
+           jsonAjax("UploadHandler.ashx", "type=del&picurl=" + picurl, "text", callBackTxt);
+       }
+
+       function jsonAjax(url, param, datat, callback) {
+           $.ajax({
+               type: "post",
+               url: url,
+               data: param,
+               dataType: datat,
+               success: callback,
+               error: function () {
+                   jQuery.fn.mBox({
+                       message: '恢复失败'
+                   });
+               }
+           });
+       }
+
+       function callBackTxt(data) {
+           var o = data;
+           if (o != "") {
+               var e = $(".myli img[src='" + data + "']");
+               e.each(function () {
+                   $(this).parent().remove();
+               })
+           } else {
+               alert("删除失败");
+           }
+       };
     </script>
 </asp:Content>
 
@@ -153,11 +197,12 @@
                             <input type="file" id="uploadify" />
                             <div id="fileQueue-1"></div>
                             <div class="upload-file" id="upload-file"></div>
+                            <div id="pics">  </div>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2" class="text-c">
-                            <input type="submit" value="提交" id="dosubmit" class="btn btn-1" onclick="javascript: $('#uploadify').uploadifyUpload()" runat="server" />                            
+                            <input type="submit" value="提交" id="dosubmit" class="btn btn-1" runat="server" />                            
                         </td>
                     </tr>
                 </table>
