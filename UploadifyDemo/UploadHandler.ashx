@@ -3,7 +3,6 @@
 using System;
 using System.Web;
 using System.IO;
-using System.Web.Security;
 
 public class UploadHandler : IHttpHandler {
 
@@ -26,7 +25,7 @@ public class UploadHandler : IHttpHandler {
                     Directory.CreateDirectory(uploadPath);
                 }
                 file.SaveAs(Path.Combine(uploadPath, file.FileName));
-                context.Response.Write(@context.Request["folder"] + "/" + file.FileName);
+                context.Response.Write(@context.Request["folder"] + file.FileName);
             }
             else
             {
@@ -57,5 +56,4 @@ public class UploadHandler : IHttpHandler {
             return false;
         }
     }
-
 }

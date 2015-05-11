@@ -5,74 +5,105 @@
 
     <link href="/static/uploadify/example/css/default.css" rel="stylesheet" type="text/css" />
     <link href="/static/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
-
+    <style type="text/css">  
+    .myul  
+    {  
+      margin:5px 5px 5px 5px;  
+      padding:0px;  
+    }  
+    .myli  
+    {  
+        list-style-type:none;  
+        width:150px;  
+        height:150px;  
+        display:inline;   
+        position:relative;  
+    }  
+    .myimg  
+    {  
+        width:120px;  
+        height:120px;  
+    }  
+    </style>  
 
     <script type="text/javascript" src="/static/uploadify/swfobject.js"></script>
     <script type="text/javascript" src="/static/uploadify/jquery.uploadify.v2.1.0.min.js"></script>
-    
-   <script type="text/javascript">
-       $(document).ready(function () {
-           $("#uploadify").uploadify({
-               uploader: '/static/uploadify/uploadify.swf',
-               script: '/accounts/UserCentre/UploadHandler.ashx',
-               cancelImg: '/static/uploadify/example/cancel.png',
-               method: 'get',
-               folder: 'UploadFile',              
-               auto: true,          
-               queueID: 'fileQueue-1',
-               fileTypeDesc: '支持的格式：',
-               fileTypeExts: '*.jpg;*.gif;*.jpeg;*.png',
-               multi: false,
-               fileSizeLimit: '3MB',
-               queueSizeLimit: 1,
-               uploadLimit: 99,
-               removeTimeout: 1,
-               removeCompleted: true,
-               'buttonText': 'Select Image',
-               'onComplete': function (event, queueID, fileObj, response, data) {                   
-                   var html = "";
-                   html += "    <li class=\'myli\'>";
-                   html += "    <img src=\"" + response + "\" class=\'myimg\'/>";
-                   html += "    <div style=\" position:absolute; right:8px; bottom:5px\">";
-                   html += "        <img title=\"点击删除\" src=\"Images/delete.gif\" onclick=\"delImage(\'" + response + "\');\" />";
-                   html += "    </div>";
-                   html += "    </li>";
-                   $("#pics")[0].append(html);
-                   $("#pics")[0].fadeIn(); 
-               },
-           });
-       });
 
-       function delImage(picurl) {
-           jsonAjax("UploadHandler.ashx", "type=del&picurl=" + picurl, "text", callBackTxt);
-       }
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#pics").hide();
 
-       function jsonAjax(url, param, datat, callback) {
-           $.ajax({
-               type: "post",
-               url: url,
-               data: param,
-               dataType: datat,
-               success: callback,
-               error: function () {
-                   jQuery.fn.mBox({
-                       message: '恢复失败'
-                   });
-               }
-           });
-       }
+            $("#uploadify").uploadify({
+                uploader: '/static/uploadify/uploadify.swf',
+                script: '/accounts/UserCentre/UploadHandler.ashx?type=add',
+                cancelImg: '/static/uploadify/example/cancel.png',
+                //method: 'get',
+                folder: 'UploadFile',
+                auto: true,
+                queueID: 'fileQueue-1',
+                fileTypeDesc: '支持的格式：',
+                fileTypeExts: '*.jpg;*.gif;*.jpeg;*.png',
+                multi: false,
+                fileSizeLimit: '3MB',
+                queueSizeLimit: 1,
+                uploadLimit: 99,
+                removeTimeout: 1,
 
-       function callBackTxt(data) {
-           var o = data;
-           if (o != "") {
-               var e = $(".myli img[src='" + data + "']");
-               e.each(function () {
-                   $(this).parent().remove();
-               })
-           } else {
-               alert("删除失败");
-           }
-       };
+                'buttonText': 'Select Image',
+                'onComplete': function (event, queueID, fileObj, response, data) {
+                    var html = "";
+                    html += "    <li class=\'myli\'>";
+                    html += "    <img src=\"" + response + "\" class=\'myimg\'/>";
+                    html += "    <div style=\" position:absolute; right:8px; bottom:-46px\">";
+                    html += "        <img title=\"点击删除\" src=\"/static/uploadify/example/cancel.png\" style=\"cursor: pointer\" title=\"点击删除凭证\" onclick=\"delImage(\'" + response + "\');\" />";
+
+                    html += "    </div>";
+                    html += "    </li>";
+                    $("#pics").append(html)
+                },
+                'onAllComplete': function (event, data) { //当上传队列中的所有文件都完成上传时触发  
+                    //alert(data.filesUploaded + ' 个文件上传成功!');  
+                    $("#pics").fadeIn();
+                }
+            });
+        });
+
+        function uploadpara() {
+            //自定义传递参数  
+            $('#uploadify').uploadifySettings('scriptData', { 'name': $('#txtName').val(), 'albums': $('#txtAlbums').val() });
+            $('#uploadify').uploadifyUpload();
+        }
+
+        function delImage(picurl) {
+            jsonAjax("UploadHandler.ashx", "type=del&picurl=" + picurl, "text", callBackTxt);
+        }
+
+        function jsonAjax(url, param, datat, callback) {
+            $.ajax({
+                type: "post",
+                url: url,
+                data: param,
+                dataType: datat,
+                success: callback,
+                error: function () {
+                    jQuery.fn.mBox({
+                        message: '恢复失败'
+                    });
+                }
+            });
+        }
+
+        function callBackTxt(data) {
+            var o = data;
+            if (o != "") {
+                var e = $(".myli img[src='" + data + "']");
+                e.each(function () {
+                    $(this).parent().remove();
+                })
+            } else {
+                alert("删除失败");
+            }
+        };
     </script>
 </asp:Content>
 
@@ -158,28 +189,28 @@
                         <th>卡类型：</th>
                         <td>
                             <label class="ib">
-                                <input type="radio" name="paymentType" value="VISA" checked="checked"/>
-                                <img src="/tpl/t4/image/visa.gif"/>
+                                <input type="radio" name="paymentType" value="VISA" checked="checked" />
+                                <img src="/tpl/t4/image/visa.gif" />
                             </label>
                             <label class="ib">
-                                <input type="radio" name="paymentType" value="MSCD"/>
-                                <img src="/tpl/t4/image/mastercard.gif"/>
+                                <input type="radio" name="paymentType" value="MSCD" />
+                                <img src="/tpl/t4/image/mastercard.gif" />
                             </label>
                             <label class="ib">
-                                <input type="radio" name="paymentType" value="VIED"/>
+                                <input type="radio" name="paymentType" value="VIED" />
                                 <img src="/tpl/t4/image/visa_electron.gif">
                             </label>
                             <label class="ib">
-                                <input type="radio" name="paymentType" value="VISD"/>
+                                <input type="radio" name="paymentType" value="VISD" />
                                 <img src="/tpl/t4/image/visa_debit.gif">
                             </label>
                             <label class="ib">
-                                <input type="radio" name="paymentType" value="MAES"/>
+                                <input type="radio" name="paymentType" value="MAES" />
                                 <img src="/tpl/t4/image/maestro.gif">
                             </label>
                             <label class="ib">
-                                <input type="radio" name="paymentType" value="JCB"/>
-                                <img src="/tpl/t4/image/jcb.gif"/>
+                                <input type="radio" name="paymentType" value="JCB" />
+                                <img src="/tpl/t4/image/jcb.gif" />
                             </label>
                         </td>
                     </tr>
@@ -192,17 +223,26 @@
                         </td>
                     </tr>
                     <tr id="image">
-                        <th>凭证：</th>
+                        <th valign="top">凭证：</th>
                         <td>
                             <input type="file" id="uploadify" />
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <th />
+                        <td>
                             <div id="fileQueue-1"></div>
-                            <div class="upload-file" id="upload-file"></div>
-                            <div id="pics">  </div>
+                            
+                            <div id="pics">
+                                <ul class="myul">
+                                </ul>
+                            </div>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2" class="text-c">
-                            <input type="submit" value="提交" id="dosubmit" class="btn btn-1" runat="server" />                            
+                            <input type="submit" value="提交" id="dosubmit" class="btn btn-1" runat="server" />
                         </td>
                     </tr>
                 </table>
