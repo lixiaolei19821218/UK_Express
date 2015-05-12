@@ -119,6 +119,32 @@ public partial class PriceList
     public virtual ICollection<Order> Orders { get; set; }
 }
 
+public partial class RechargeApply
+{
+    public int Id { get; set; }
+    public int ChannelID { get; set; }
+    public decimal ApplyAmount { get; set; }
+    public string Evidence { get; set; }
+    public Nullable<decimal> ApprovedAmount { get; set; }
+    public Nullable<bool> IsApproved { get; set; }
+    public string User { get; set; }
+
+    public virtual RechargeChannel RechargeChannel { get; set; }
+}
+
+public partial class RechargeChannel
+{
+    public RechargeChannel()
+    {
+        this.RechargeApplys = new HashSet<RechargeApply>();
+    }
+
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public virtual ICollection<RechargeApply> RechargeApplys { get; set; }
+}
+
 public partial class Recipient
 {
     public Recipient()

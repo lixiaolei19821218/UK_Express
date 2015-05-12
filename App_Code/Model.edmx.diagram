@@ -28,6 +28,9 @@
         <AssociationConnector Association="UK_ExpressModel.FK_SheffieldServiceID" />
         <AssociationConnector Association="UK_ExpressModel.FK_PriceListID_Orders" />
         <EntityTypeShape EntityType="UK_ExpressModel.aspnet_Users" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="UK_ExpressModel.RechargeApply" Width="1.5" PointX="12.625" PointY="6" />
+        <EntityTypeShape EntityType="UK_ExpressModel.RechargeChannel" Width="1.5" PointX="10.375" PointY="6.375" />
+        <AssociationConnector Association="UK_ExpressModel.FK_ChannelID" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

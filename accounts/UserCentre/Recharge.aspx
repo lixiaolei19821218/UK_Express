@@ -120,7 +120,7 @@
                         <th><em>*</em>方式：</th>
                         <td>
                             <span class="f14">
-                                <input type="radio" name="type" id="type_1" value="1" checked="checked" />
+                                <input type="radio" name="type" id="channelid" value="1" checked="checked" />
                                 英镑支付(转帐或存现)&nbsp;
                                 <input type="radio" name="type" id="type_2" value="2" />
                                 人民币支付(淘宝拍)&nbsp;
@@ -217,7 +217,7 @@
                     <tr>
                         <th><em>*</em>金额：</th>
                         <td>
-                            <input type="text" name="mny" id="mny" value="" size="10" class="input-text" />£
+                            <input type="text" name="mny" id="applyAmount" value="" size="10" class="input-text" />£
 				<span id="mnyTip"></span>
                             <div id="mnyRMB"></div>
                         </td>
@@ -261,11 +261,11 @@
                         $.dialog({ icon: 'warning', time: 3, content: '淘宝充值请填写旺旺号' });
                         return false;
                     } else if ($("input[name='type']:checked").val() == 5) {
-                        $('#amount').val($('#mny').val());
+                        $('#amount').val($('#applyAmount').val());
                     }
                 }
             });
-            $('#mny').formValidator({
+            $('#applyAmount').formValidator({
                 onShow: "",
                 onFocus: "正数，每次充值金额：0 - 5000镑"
             }).regexValidator({
@@ -300,7 +300,7 @@
             }
         });
         // 金额换算
-        $("#mny").bind('input propertychange', function () {
+        $("#applyAmount").bind('input propertychange', function () {
             var val = parseFloat($(this).val());
             if (isNaN(val)) {
                 $(this).val('');

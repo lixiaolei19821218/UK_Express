@@ -16,7 +16,7 @@ public class UploadHandler : IHttpHandler {
         if (type == "add")
         {
             HttpPostedFile file = context.Request.Files["Filedata"];
-            string uploadPath = HttpContext.Current.Server.MapPath(@context.Request["folder"]);
+            string uploadPath = HttpContext.Current.Server.MapPath(@context.Request["folder"]) + "\\" + Membership.GetUser().UserName;
             string name = context.Request.Params["name"]; //获取传递的参数  
             string albums = context.Request.Params["albums"];
             if (file != null)
@@ -25,8 +25,9 @@ public class UploadHandler : IHttpHandler {
                 {
                     Directory.CreateDirectory(uploadPath);
                 }
-                file.SaveAs(Path.Combine(uploadPath, file.FileName));
-                context.Response.Write(@context.Request["folder"] + "/" + file.FileName);
+                string fileName = DateTime.Now.Ticks + "_" + file.FileName;
+                file.SaveAs(Path.Combine(uploadPath, fileName));
+                context.Response.Write(@context.Request["folder"] + "/" + Membership.GetUser().UserName + "/" + fileName);
             }
             else
             {
