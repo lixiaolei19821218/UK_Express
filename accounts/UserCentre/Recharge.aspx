@@ -120,11 +120,11 @@
                         <th><em>*</em>方式：</th>
                         <td>
                             <span class="f14">
-                                <input type="radio" name="type" id="channelid" value="1" checked="checked" />
+                                <input type="radio" name="channelid" value="1" checked="checked" />
                                 英镑支付(转帐或存现)&nbsp;
-                                <input type="radio" name="type" id="type_2" value="2" />
+                                <input type="radio" name="channelid" value="2" />
                                 人民币支付(淘宝拍)&nbsp;
-                                <input type="radio" name="type" id="type_4" value="4" />
+                                <input type="radio" name="channelid" value="4" />
                                 支付宝&nbsp;                                
                             </span>
                             <span id="typeTip"></span>
@@ -217,7 +217,7 @@
                     <tr>
                         <th><em>*</em>金额：</th>
                         <td>
-                            <input type="text" name="mny" id="applyAmount" value="" size="10" class="input-text" />£
+                            <input type="text" name="applyAmount" id="applyAmount" value="" size="10" class="input-text" />£
 				<span id="mnyTip"></span>
                             <div id="mnyRMB"></div>
                         </td>
@@ -226,23 +226,21 @@
                         <th valign="top">凭证：</th>
                         <td>
                             <input type="file" id="uploadify" />
-
                         </td>
                     </tr>
                     <tr>
                         <th />
                         <td>
-                            <div id="fileQueue-1"></div>
-                            
+                            <div id="fileQueue-1"></div>                            
                             <div id="pics">
                                 <ul class="myul">
                                 </ul>
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr>                        
                         <td colspan="2" class="text-c">
-                            <input type="submit" value="提交" id="dosubmit" class="btn btn-1" runat="server" />
+                            <input type="submit" value="提交" id="dosubmit" class="btn btn-1"/>
                         </td>
                     </tr>
                 </table>
@@ -274,6 +272,7 @@
             });
         });
         // 切换旺旺
+        /*
         $("[id^='type_']").click(function () {
             var v = $(this).val();
             if (v == 1) {
@@ -298,7 +297,7 @@
             } else {
                 $('#chargeForm').attr("action", "/index.php?c=charge&a=user_submit");
             }
-        });
+        });*/
         // 金额换算
         $("#applyAmount").bind('input propertychange', function () {
             var val = parseFloat($(this).val());
