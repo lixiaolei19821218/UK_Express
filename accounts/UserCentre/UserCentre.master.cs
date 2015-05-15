@@ -11,4 +11,9 @@ public partial class accounts_UserCentre_UserCentre : System.Web.UI.MasterPage
     {
 
     }
+
+    protected string GetGreeting()
+    {
+        return Context.User.Identity.Name;
+    }
 }

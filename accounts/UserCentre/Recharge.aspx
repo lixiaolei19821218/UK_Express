@@ -48,15 +48,15 @@
                 queueSizeLimit: 1,
                 uploadLimit: 99,
                 removeTimeout: 1,
-
+                
                 'buttonText': 'Select Image',
                 'onComplete': function (event, queueID, fileObj, response, data) {
                     var html = "";
                     html += "    <li class=\'myli\'>";
+                    html += "    <input type=\"hidden\" name=\"evidence\" value=\"" + response + "\" />"
                     html += "    <img src=\"" + response + "\" class=\'myimg\'/>";
                     html += "    <div style=\" position:absolute; right:8px; bottom:-46px\">";
                     html += "        <img title=\"点击删除\" src=\"/static/uploadify/example/cancel.png\" style=\"cursor: pointer\" title=\"点击删除凭证\" onclick=\"delImage(\'" + response + "\');\" />";
-
                     html += "    </div>";
                     html += "    </li>";
                     $("#pics").append(html)
@@ -124,7 +124,7 @@
                                 英镑支付(转帐或存现)&nbsp;
                                 <input type="radio" name="channelid" value="2" />
                                 人民币支付(淘宝拍)&nbsp;
-                                <input type="radio" name="channelid" value="4" />
+                                <input type="radio" name="channelid" value="3" />
                                 支付宝&nbsp;                                
                             </span>
                             <span id="typeTip"></span>
@@ -153,7 +153,7 @@
                                         <tr>
                                             <th style="width: 60px;"><em>*</em>旺旺：</th>
                                             <td>
-                                                <input type="text" name="ww" id="ww" value="" size="20" class="input-text" /></td>
+                                                <input type="text" name="wangwang" id="wangwang" value="" size="20" class="input-text" /></td>
                                         </tr>
                                     </table>
                                 </div>
@@ -174,14 +174,7 @@
                                     <li><em>·</em>所有客户使用worldpay冲值时均无需支付手续费。</li>
                                     <li><em>·</em>星弛允许客户退回星弛余额里的款项，只需支付退款手续费3%（手续费不足3镑的按3镑收），如享受过奖励活动的，需扣除活动奖励金额。</li>
                                     <li><em>·</em>此活动的最终解释权属星弛快递公司(XC LINK LTD)</li>
-                                </ul>
-                                <input type="hidden" name="testMode" value="100">
-                                <input type="hidden" name="instId" value="1019582">
-                                <input type="hidden" name="cartId" value="13570_735534185@qq.com_1430208747">
-                                <input type="hidden" name="currency" value="GBP">
-                                <input type="hidden" id="amount" name="amount" value="">
-                                <input type="hidden" name="desc" value="">
-                                <input type="hidden" name="name" value="">
+                                </ul>                                
                             </div>
                         </td>
                     </tr>
@@ -217,7 +210,7 @@
                     <tr>
                         <th><em>*</em>金额：</th>
                         <td>
-                            <input type="text" name="applyAmount" id="applyAmount" value="" size="10" class="input-text" />£
+                            <input type="text" name="applyAmount" id="applyAmount" value="" size="10" class="input-text" runat="server" />£
 				<span id="mnyTip"></span>
                             <div id="mnyRMB"></div>
                         </td>
@@ -225,7 +218,7 @@
                     <tr id="image">
                         <th valign="top">凭证：</th>
                         <td>
-                            <input type="file" id="uploadify" />
+                            <input type="file" id="uploadify"/>
                         </td>
                     </tr>
                     <tr>
@@ -239,11 +232,17 @@
                         </td>
                     </tr>
                     <tr>                        
-                        <td colspan="2" class="text-c">
-                            <input type="submit" value="提交" id="dosubmit" class="btn btn-1"/>
+                        <td colspan="2" class="text-c">                            
+                            <input type="submit" value="提交" id="dosubmit" class="btn btn-1" runat="server"/>
                         </td>
-                    </tr>
+                    </tr>      
+                    <tr>                        
+                        <td colspan="2" align="left">
+                             您有正在审核的充值申请，请等待审核后再进行下次充值。<a href="Defaulct.aspx">查看</a>正在审核的申请。                                 
+                        </td>
+                    </tr>              
                 </table>
+                <span></span>
             </form>
         </div>
     </div>
@@ -272,8 +271,8 @@
             });
         });
         // 切换旺旺
-        /*
-        $("[id^='type_']").click(function () {
+        
+        $("input[name='channelid']").click(function () {
             var v = $(this).val();
             if (v == 1) {
                 $('#taobaopay,#paypalpay,#alipay,#worldpay,#car_type').hide();
@@ -282,22 +281,17 @@
                 $('#bankpay,#paypalpay,#alipay,#worldpay,#car_type').hide();
                 $('#taobaopay,#image').show();
             } else if (v == 3) {
-                $('#bankpay,#taobaopay,#image,#alipay,#worldpay,#car_type').hide();
-                $('#paypalpay').show();
-            } else if (v == 4) {
                 $('#bankpay,#taobaopay,#image,#paypalpay,#worldpay,#car_type').hide();
-                $('#alipay').show();
-            } else if (v == 5) {
-                $('#bankpay,#taobaopay,#image,#paypalpay,#alipay').hide();
-                $('#worldpay,#car_type').show();
+                $('#alipay,#image').show();
             }
+            /*
             if (v == 5) {
                 // worldpay
                 $('#chargeForm').attr("action", "https://secure-test.worldpay.com/wcc/purchase");
             } else {
                 $('#chargeForm').attr("action", "/index.php?c=charge&a=user_submit");
-            }
-        });*/
+            }*/
+        });
         // 金额换算
         $("#applyAmount").bind('input propertychange', function () {
             var val = parseFloat($(this).val());

@@ -26,7 +26,7 @@
                     <li><a href="/index.php?c=home&a=q">帮助中心</a></li>
                 </ul>
                 <ul>
-                    <li>欢迎来到999parcel，<font class="col-f60">735534185@qq.com</font><span class="gap">|</span></li>
+                    <li>欢迎来到999parcel，<font class="col-f60"><%:GetGreeting() %></font><span class="gap">|</span></li>
                     <li><a href="/index.php?c=member&a=logout">退出</a></li>
                 </ul>
             </div>
