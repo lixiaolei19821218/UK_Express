@@ -12,7 +12,7 @@
       padding:0px;  
     }  
     .myli  
-    {  
+    {   
         list-style-type:none;  
         width:150px;  
         height:150px;  
@@ -113,7 +113,7 @@
             <span class="rt"><a href="/index.php?c=bank&a=user_list" class="back">返回</a></span>
             账户充值
         </h3>
-        <div class="form">
+        <div class="form" runat="server" id="form">
             <form id="chargeForm" runat="server" method="post" autocomplete="on">
                 <table class="table-form">
                     <tr>
@@ -210,7 +210,7 @@
                     <tr>
                         <th><em>*</em>金额：</th>
                         <td>
-                            <input type="text" name="applyAmount" id="applyAmount" value="" size="10" class="input-text" runat="server" />£
+                            <input type="text" name="applyAmount" id="applyAmount" value="" size="10" class="input-text"/>£
 				<span id="mnyTip"></span>
                             <div id="mnyRMB"></div>
                         </td>
@@ -235,16 +235,11 @@
                         <td colspan="2" class="text-c">                            
                             <input type="submit" value="提交" id="dosubmit" class="btn btn-1" runat="server"/>
                         </td>
-                    </tr>      
-                    <tr>                        
-                        <td colspan="2" align="left">
-                             您有正在审核的充值申请，请等待审核后再进行下次充值。<a href="Defaulct.aspx">查看</a>正在审核的申请。                                 
-                        </td>
-                    </tr>              
-                </table>
-                <span></span>
+                    </tr>                            
+                </table>                
             </form>
         </div>
+        <span runat="server" id="message">您有正在审核的充值申请，请等待审核后再进行下次充值。<a href="Defaulct.aspx">查看</a>正在审核的申请。</span>
     </div>
 
     <script type="text/javascript">

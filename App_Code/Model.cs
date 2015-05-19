@@ -129,6 +129,7 @@ public partial class RechargeApply
     public Nullable<bool> IsApproved { get; set; }
     public string User { get; set; }
     public string Wangwang { get; set; }
+    public Nullable<System.DateTime> Time { get; set; }
 
     public virtual RechargeChannel RechargeChannel { get; set; }
 }

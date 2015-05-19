@@ -15,11 +15,16 @@ public partial class accounts_UserCentre_Recharge : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         string user = Membership.GetUser().UserName;
-
+        
         if (repo.Context.RechargeApplys.Where(r => r.User == user && !r.IsApproved.HasValue).Count() != 0)
         {
-            applyAmount.Disabled = true;
-            dosubmit.Disabled = true;
+            form.Visible = false;
+            message.Visible = true;
+        }
+        else
+        {
+            form.Visible = true;
+            message.Visible = false;
         }
 
         if (IsPostBack)
@@ -28,6 +33,7 @@ public partial class accounts_UserCentre_Recharge : System.Web.UI.Page
             if (TryUpdateModel(apply, new FormValueProvider(ModelBindingExecutionContext)))
             {
                 apply.User = user;
+                apply.Time = DateTime.Now;
                 repo.Context.RechargeApplys.Add(apply);
                 repo.Context.SaveChanges();
             }
