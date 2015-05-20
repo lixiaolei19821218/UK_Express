@@ -92,7 +92,7 @@
                             <div class="fr clrb2">|</div>
                             <a class="fr pd2 clrb2" href="/cart/cart.aspx">直邮购物车</a>
                             <div class="fr clrb2">|</div>
-                            <a class="fr pd2 clrb2" href="/account/orders/">我的帐户</a>
+                            <a class="fr pd2 clrb2" href="/accounts/UserCentre">我的帐户</a>
                             <div class="fr clrb2">|</div>
                             <div class="fr pd2">欢迎你 <%: GetGreeting() %></div>
                         </div>

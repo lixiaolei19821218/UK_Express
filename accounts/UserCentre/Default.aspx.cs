@@ -3,28 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.ModelBinding;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class accounts_UserCentre_Default : System.Web.UI.Page
 {
-    protected void Page_Load(object sender, EventArgs e)
+    [Ninject.Inject]
+    public IRepository repo { get; set; }
+
+    private MembershipUser user;
+    private aspnet_User apUser;
+
+    public MembershipUser User
     {
-        if (IsPostBack)
+        get
         {
-            GuestResponse1 rsvp = new GuestResponse1();
-            if (TryUpdateModel(rsvp, new FormValueProvider(ModelBindingExecutionContext)))
-            {
-                
-            }
+            return user;
         }
     }
-}
 
-public class GuestResponse1
-{
-    public string Name { get; set; }
-    public string Email { get; set; }
-    public string Phone { get; set; }
-    public bool? WillAttend { get; set; }
+    public aspnet_User APUser
+    {
+        get
+        {
+
+            return apUser;
+        }
+    }
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        user = Membership.GetUser();
+        apUser = repo.Context.aspnet_User.First(u => u.UserName == user.UserName);
+    }
+
+    
 }

@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Recharge.aspx.cs" Inherits="accounts_UserCentre_Recharge" MasterPageFile="~/accounts/UserCentre/UserCentre.master" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    <title>用户中心</title>
+    <title>账户充值</title>
 
     <link href="/static/uploadify/example/css/default.css" rel="stylesheet" type="text/css" />
     <link href="/static/uploadify/uploadify.css" rel="stylesheet" type="text/css" />

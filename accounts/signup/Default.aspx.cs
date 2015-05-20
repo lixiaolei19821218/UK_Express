@@ -8,6 +8,9 @@ using System.Web.UI.WebControls;
 
 public partial class Default2 : System.Web.UI.Page
 {
+    [Ninject.Inject]
+    public IRepository repo { get; set; }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (IsPostBack)
@@ -34,7 +37,7 @@ public partial class Default2 : System.Web.UI.Page
             }
             else
             {
-                MembershipCreateStatus status;                
+                MembershipCreateStatus status;
                 MembershipUser user = Membership.CreateUser(username, password1, email, "question", "answer", true, out status);
 
                 if (status == MembershipCreateStatus.Success)
@@ -42,6 +45,13 @@ public partial class Default2 : System.Web.UI.Page
                     Roles.AddUserToRole(username, "users");
                     user.Comment = string.Format("{0}|{1}|{2}", firstname, lastname, phone);
                     Membership.UpdateUser(user);
+
+                    aspnet_User apUser = repo.Context.aspnet_User.First(u => u.UserName == user.UserName);
+                    apUser.FirstName = firstname;
+                    apUser.LastName = lastname;
+                    apUser.CellPhone = phone;
+                    repo.Context.SaveChanges();
+
                     FormsAuthentication.SetAuthCookie(username, false);
                     Response.Redirect("/");
                 }

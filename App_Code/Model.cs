@@ -10,7 +10,7 @@
 using System;
 using System.Collections.Generic;
 
-public partial class aspnet_Users
+public partial class aspnet_User
 {
     public System.Guid ApplicationId { get; set; }
     public System.Guid UserId { get; set; }
@@ -20,6 +20,9 @@ public partial class aspnet_Users
     public bool IsAnonymous { get; set; }
     public System.DateTime LastActivityDate { get; set; }
     public decimal Balance { get; set; }
+    public string FirstName { get; set; }
+    public string LastName { get; set; }
+    public string CellPhone { get; set; }
 }
 
 public partial class Order
