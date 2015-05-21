@@ -42,13 +42,13 @@
             <div class="uitopb uitopb-border">
                 <h3>我的账户</h3>
                 <ul class="link-list">
-                    <li><a href="/index.php?c=bank&a=user_list" class="">账户金额</a></li>
-                    <li><a href="/index.php?c=charge&a=user_form" class="on">我要充值</a></li>
-                    <li><a href="/index.php?c=bill_clear&a=user_list" class="">补款记录</a></li>
-                    <li><a href="/index.php?c=spke&a=user_list" class="">星弛箱子</a></li>
-                    <li><a href="http://express-xc.co.uk/oa/index.php?c=claim&a=form&ek=ek" target="_blank">索赔中心</a></li>
-                    <li><a href="/index.php?c=member&a=user_profile" class="">个人资料</a></li>
-                    <li><a href="/index.php?c=member&a=user_reset" class="">重置密码</a></li>
+                    <li><a href="/index.php?c=bank&a=user_list" class="" runat="server" id="total">账户金额</a></li>
+                    <li><a href="Recharge.aspx" class="" runat="server" id="rechange">我要充值</a></li>
+                    <li><a href="/index.php?c=bill_clear&a=user_list" class="" runat="server" id="rechane">补款记录</a></li>
+                    <li><a href="/index.php?c=spke&a=user_list" class="" runat="server" id="parcel">999箱子</a></li>
+                    <li><a href="s" target="_blank" class="" runat="server" id="rec">索赔中心</a></li>
+                    <li><a href="Default.aspx" class="on" runat="server" id="default">个人资料</a></li>
+                    <li><a href="n" class="">重置密码</a></li>
                 </ul>
             </div>
         </div>

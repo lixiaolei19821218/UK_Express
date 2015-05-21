@@ -239,7 +239,7 @@
                 </table>                
             </form>
         </div>
-        <span runat="server" id="message">您有正在审核的充值申请，请等待审核后再进行下次充值。<a href="Defaulct.aspx">查看</a>正在审核的申请。</span>
+        <span runat="server" id="message">您有正在审核的充值申请，请等待审核后再进行下次充值。<a href="RechargeList.aspx">查看</a>正在审核的申请。</span>
     </div>
 
     <script type="text/javascript">

@@ -1,19 +1,15 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="RechargeList.aspx.cs" Inherits="accounts_UserCentre_RechargeList" MasterPageFile="~/accounts/UserCentre/UserCentre.master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CheckApply.aspx.cs" Inherits="Admin_CheckApply" MasterPageFile="~/Admin/Admin.master" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    <title>充值记录</title>
+    <title>充值审核</title>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="body" runat="Server">
-    <h2>充值明细</h2>
-    <div class="sub-nav">
-        <span class="rt">充值<em>£0</em>，剩余<em>£0</em>(赠送<em>£0</em>)</span>
-        <a href="/index.php?c=bank&a=user_list" class="back">返回</a>
-    </div>
     <div class="uitopb uitopb-border mt10">
         <div class="table-div">
             <table class="table-list">
                 <tr>
+                    <th>账号</th>
                     <th>方式</th>
                     <th>金额(£)</th>
                     <th>凭证</th>
@@ -23,18 +19,18 @@
                 <asp:Repeater runat="server" SelectMethod="GetRechargeApplys" ItemType="RechargeApply">
                     <ItemTemplate>
                         <tr>
+                            <td><%#Item.User %></td>
                             <td><%#Item.RechargeChannel.Name %></td>                            
                             <td><%#Item.ApprovedAmount.HasValue? Item.ApprovedAmount.Value.ToString() : "－" %></td>
                             <td>
                                 <a href="<%#Item.Evidence %>" target="_blank" title="付款凭证"><%#string.IsNullOrEmpty(Item.Evidence) ? string.Empty: "付款凭证" %></a><br />
                             </td>
                             <td><%#Item.Time %></td>
-                            <td><%#Item.IsApproved.HasValue ? (Item.IsApproved.Value ? "<span style=\"color:green\">审核通过</span>" : "<span style=\"color:red\">审核失败</span>") : "审核中" %></td>
+                            <td><input type="submit" value="通过" class="btn btn-1" /><input type="submit" value="不通过" class="btn btn-1"/></td>
                         </tr>
                     </ItemTemplate>
                 </asp:Repeater>
             </table>
         </div>
     </div>
-    <div class="pager"><font style="color: red;">1</font>&nbsp;</div>
 </asp:Content>
