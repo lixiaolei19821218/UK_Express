@@ -11,4 +11,9 @@ public partial class Admin_Admin : System.Web.UI.MasterPage
     {
 
     }
+
+    protected string GetGreeting()
+    {
+        return Context.User.Identity.Name;
+    }
 }

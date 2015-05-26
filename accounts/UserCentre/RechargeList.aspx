@@ -7,8 +7,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="body" runat="Server">
     <h2>充值明细</h2>
     <div class="sub-nav">
-        <span class="rt">充值<em>£0</em>，剩余<em>£0</em>(赠送<em>£0</em>)</span>
-        <a href="/index.php?c=bank&a=user_list" class="back">返回</a>
+        <span class="rt">充值<em>£<%:GetTotalApplyMoney() %></em>，剩余<em>£0</em>(赠送<em>£0</em>)</span>
+        <a href="OrderRecords.aspx" class="back">返回</a>
     </div>
     <div class="uitopb uitopb-border mt10">
         <div class="table-div">
@@ -20,10 +20,10 @@
                     <th>时间</th>
                     <th>处理</th>
                 </tr>
-                <asp:Repeater runat="server" SelectMethod="GetRechargeApplys" ItemType="RechargeApply">
+                <asp:Repeater runat="server" SelectMethod="GetPageApplys" ItemType="RechargeApply">
                     <ItemTemplate>
                         <tr>
-                            <td><%#Item.RechargeChannel.Name %></td>                            
+                            <td><%#Item.RechargeChannel.Name %></td>
                             <td><%#Item.ApprovedAmount.HasValue? Item.ApprovedAmount.Value.ToString() : "－" %></td>
                             <td>
                                 <a href="<%#Item.Evidence %>" target="_blank" title="付款凭证"><%#string.IsNullOrEmpty(Item.Evidence) ? string.Empty: "付款凭证" %></a><br />
@@ -36,5 +36,11 @@
             </table>
         </div>
     </div>
-    <div class="pager"><font style="color: red;">1</font>&nbsp;</div>
+    <div class="pager">
+        <% for (int i = 1; i <= MaxPage; i++)
+           {
+               Response.Write(
+               string.Format("<a href='/accounts/UserCentre/RechargeList.aspx?page={0}' {1}>{2}</a>", i, i == CurrentPage ? "class='selected'" : "", i));
+           }%>
+    </div>
 </asp:Content>

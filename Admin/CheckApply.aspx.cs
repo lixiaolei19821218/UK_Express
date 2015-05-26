@@ -7,6 +7,8 @@ using System.Web.UI.WebControls;
 
 public partial class Admin_CheckApply : System.Web.UI.Page
 {
+    private int pageSize = 10;
+
     [Ninject.Inject]
     public IRepository repo { get; set; }
 
@@ -15,9 +17,47 @@ public partial class Admin_CheckApply : System.Web.UI.Page
 
     }
 
-    public IEnumerable<RechargeApply> GetRechargeApplys()
+    protected void ButtonPass_Click(object sender, EventArgs e)
     {
-        var v = repo.Context.RechargeApplys.Where(r => !r.IsApproved.HasValue);
-        return repo.Context.RechargeApplys.Where(r => !r.IsApproved.HasValue);
+        int id;
+        if (int.TryParse((sender as Button).Attributes["data-id"], out id))
+        {
+            RechargeApply apply = repo.Context.RechargeApplys.FirstOrDefault(r => r.Id == id);
+            apply.IsApproved = true;
+            repo.Context.SaveChanges();
+            Response.Redirect(Request.Path);
+        }
+    }
+    protected void ButtonRefuse_Click(object sender, EventArgs e)
+    {
+        int id;
+        if (int.TryParse((sender as Button).Attributes["data-id"], out id))
+        {
+            RechargeApply apply = repo.Context.RechargeApplys.FirstOrDefault(r => r.Id == id);
+            apply.IsApproved = false;
+            repo.Context.SaveChanges();
+            Response.Redirect(Request.Path);
+        }
+    }
+
+    public IEnumerable<RechargeApply> GetPageApplys()
+    {
+        return repo.Context.RechargeApplys.Where(r => !r.IsApproved.HasValue).OrderBy(p => p.Id).Skip((CurrentPage - 1) * pageSize).Take(pageSize);
+    }
+    protected int CurrentPage
+    {
+        get
+        {
+            int page;
+            page = int.TryParse(Request.QueryString["page"], out page) ? page : 1;
+            return page > MaxPage ? MaxPage : page;
+        }
+    }
+    protected int MaxPage
+    {
+        get
+        {
+            return (int)Math.Ceiling((decimal)repo.Context.RechargeApplys.Where(r => !r.IsApproved.HasValue).Count() / pageSize);
+        }
     }
 }

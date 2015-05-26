@@ -35,7 +35,7 @@ public partial class accounts_UserCentre_Default : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        (Master.FindControl("rechange") as HtmlAnchor).Attributes["class"] = "";
+        //(Master.FindControl("rechange") as HtmlAnchor).Attributes["class"] = "";
         (Master.FindControl("default") as HtmlAnchor).Attributes["class"] = "on";
 
         user = Membership.GetUser();

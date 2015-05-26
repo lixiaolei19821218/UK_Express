@@ -12,23 +12,22 @@ public partial class accounts_UserCentre_RechargeList : System.Web.UI.Page
     [Ninject.Inject]
     public IRepository repo { get; set; }
 
-    private int pageSize = 4;
+    private int pageSize = 10;
 
     protected void Page_Load(object sender, EventArgs e)
     {
         (Master.FindControl("rechange") as HtmlAnchor).Attributes["class"] = "on";
-        (Master.FindControl("default") as HtmlAnchor).Attributes["class"] = "";
     }
 
-    public IEnumerable<RechargeApply> GetRechargeApplys()
+    public decimal GetTotalApplyMoney()
+    {
+        return repo.Context.RechargeApplys.Sum(r => r.ApplyAmount);
+    }
+
+    public IEnumerable<RechargeApply> GetPageApplys()
     {
         string user = Membership.GetUser().UserName;
-        return repo.Context.RechargeApplys.Where(r => r.User == user);
-    }
-
-    protected IEnumerable<RechargeApply> GetProducts()
-    {
-        return repo.Context.RechargeApplys.OrderBy(p => p.Id).Skip((CurrentPage - 1) * pageSize).Take(pageSize);
+        return repo.Context.RechargeApplys.Where(r => r.User == user).OrderBy(p => p.Id).Skip((CurrentPage - 1) * pageSize).Take(pageSize);
     }
     protected int CurrentPage
     {
@@ -43,7 +42,8 @@ public partial class accounts_UserCentre_RechargeList : System.Web.UI.Page
     {
         get
         {
-            return (int)Math.Ceiling((decimal)repo.Context.RechargeApplys.Count() / pageSize);
+            string user = Membership.GetUser().UserName;
+            return (int)Math.Ceiling((decimal)repo.Context.RechargeApplys.Where(r => r.User == user).Count() / pageSize);
         }
     }
 }

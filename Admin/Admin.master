@@ -8,7 +8,8 @@
     <link href="../../static/css/reset.css" rel="stylesheet" type="text/css" />
     <link href="../../static/css/global_v2.0.css" rel="stylesheet" type="text/css" />
     <link href="../../static/css/tpl/t4/style.css" rel="stylesheet" type="text/css" />
-    <link href="../../static/css/artDialog/skins/default.css" rel="stylesheet" type="text/css" />    
+    <link href="../../static/css/artDialog/skins/default.css" rel="stylesheet" type="text/css" />  
+    <link href="../static/css/pager.css" rel="stylesheet" type="text/css" />  
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>    
     
@@ -22,7 +23,7 @@
                     <li><a href="/index.php?c=home&a=q">帮助中心</a></li>
                 </ul>
                 <ul>
-                    <li>欢迎来到999parcel，<font class="col-f60">735534185@qq.com</font><span class="gap">|</span></li>
+                    <li>欢迎来到999parcel管理系统，<font class="col-f60"><%:GetGreeting() %></font><span class="gap">|</span></li>
                     <li><a href="/index.php?c=member&a=logout">退出</a></li>
                 </ul>
             </div>
@@ -38,9 +39,9 @@
                 <h3>网站管理</h3>
                 <ul class="link-list">
                     <li><a href="/index.php?c=bank&a=user_list" class="">用户管理</a></li>
-                    <li><a href="/index.php?c=charge&a=user_form" class="on">充值审核</a></li>
+                    <li><a href="CheckApply.aspx" class="on">充值审核</a></li>
                     <li><a href="/index.php?c=bill_clear&a=user_list" class="">订单管理</a></li>
-                    <li><a href="/index.php?c=spke&a=user_list" class="">XX管理</a></li>
+                    <li><a href="ProcessedApplys.aspx" class="">已处理订单</a></li>
                     <li><a href="http://express-xc.co.uk/oa/index.php?c=claim&a=form&ek=ek" target="_blank">XX管理</a></li>
                     <li><a href="/index.php?c=member&a=user_profile" class="">XX管理</a></li>
                     <li><a href="/index.php?c=member&a=user_reset" class="">XX管理</a></li>

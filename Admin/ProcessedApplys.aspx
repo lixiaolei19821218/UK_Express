@@ -1,7 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CheckApply.aspx.cs" Inherits="Admin_CheckApply" MasterPageFile="~/Admin/Admin.master" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="ProcessedApplys.aspx.cs" Inherits="Admin_ProcessedApplys" MasterPageFile="~/Admin/Admin.master" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    <title>充值审核</title>
+    <title>已处理申请</title>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="body" runat="Server">
@@ -28,8 +28,7 @@
                                 </td>
                                 <td><%#Item.Time %></td>
                                 <td>
-                                    <asp:Button ID="ButtonPass" runat="server" Text="通过" CssClass="btn btn-1" OnClick="ButtonPass_Click" data-id="<%#Item.Id %>" />
-                                    <asp:Button ID="ButtonRefuse" runat="server" Text="拒绝" CssClass="btn btn-1" OnClick="ButtonRefuse_Click" data-id="<%#Item.Id %>" />
+                                    <%#Item.IsApproved.Value ? "<span style=\"color:green\">审核通过</span>" : "<span style=\"color:red\">已拒绝</span>" %>
                                 </td>
                             </tr>
                         </ItemTemplate>
@@ -41,7 +40,7 @@
             <% for (int i = 1; i <= MaxPage; i++)
                {
                    Response.Write(
-                   string.Format("<a href='/Admin/CheckApply.aspx?page={0}' {1}>{2}</a>", i, i == CurrentPage ? "class='selected'" : "", i));
+                   string.Format("<a href='/Admin/ProcessedApplys.aspx?page={0}' {1}>{2}</a>", i, i == CurrentPage ? "class='selected'" : "", i));
                }%>
         </div>
     </form>

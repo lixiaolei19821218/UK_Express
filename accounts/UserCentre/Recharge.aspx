@@ -110,7 +110,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="body" runat="Server">
     <div class="uitopg">
         <h3 class="uitopg-title mt10">
-            <span class="rt"><a href="/index.php?c=bank&a=user_list" class="back">返回</a></span>
+            <span class="rt"><a href="OrderRecords.aspx" class="back">返回</a></span>
             账户充值
         </h3>
         <div class="form" runat="server" id="form">
