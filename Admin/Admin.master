@@ -24,7 +24,7 @@
                 </ul>
                 <ul>
                     <li>欢迎来到999parcel管理系统，<font class="col-f60"><%:GetGreeting() %></font><span class="gap">|</span></li>
-                    <li><a href="/index.php?c=member&a=logout">退出</a></li>
+                    <li><a href="/accounts/logout/?next=<%: Request.Path %>">退出</a></li>
                 </ul>
             </div>
         </div>

@@ -21,7 +21,8 @@ public partial class accounts_UserCentre_RechargeList : System.Web.UI.Page
 
     public decimal GetTotalApplyMoney()
     {
-        return repo.Context.RechargeApplys.Sum(r => r.ApplyAmount);
+        string user = Membership.GetUser().UserName;
+        return repo.Context.RechargeApplys.Where(r => r.User == user).Sum(r => r.ApplyAmount);
     }
 
     public IEnumerable<RechargeApply> GetPageApplys()

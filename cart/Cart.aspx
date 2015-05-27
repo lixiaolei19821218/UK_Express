@@ -26,8 +26,8 @@
 
     <div class="sz16 bold colorb2" style="margin-top: 20px">
         请确认订单
-        <div style="float: right; margin-left: 10px"><a href="/deposit/" class="btn btn-danger" style="line-height: 1; padding: 5px 15px">立即充值</a></div>
-        <div style="float: right">帐户余额:<strong style="color: #f00">£0.00</strong></div>
+        <div style="float: right; margin-left: 10px"><a href="../accounts/UserCentre/Recharge.aspx" class="btn btn-danger" style="line-height: 1; padding: 5px 15px">立即充值</a></div>
+        <div style="float: right">帐户余额:<strong style="color: #f00">£<%:GetAmount() %></strong></div>
     </div>
 
     <div style="margin-top: 15px; background-color: #fff; padding: 15px">
@@ -117,29 +117,19 @@
 
             </fieldset>
             <div>
-                <a href="/" class="btn btn-info" style="line-height: 1">继续下单</a>
+                
                 <div style="float: right">总金额: <strong class="total-price" style="color: #f00"><%:GetTotalPrice().ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></strong></div>
             </div>
 
+            <div style="margin-top: 50px;">
+                
+                <legend></legend>
+                <div style="padding: 0px; margin: 0px">
 
-            <div style="margin-top: 10px;">
-                <div style="font-size: 18px; color: #002060">请选择支付方法：</div>
-                <div style="padding: 10px; margin: 10px 0 20px">
-
-                    <button type="submit" name="payment" value="inhouse" style="float: left; min-height: 120px" disabled>
-                        <img src="/static/img/inhouse-gray.png" style="height: 120px" />
-                    </button>
+                   <a href="/" class="btn btn-info" style="line-height: 1">继续下单</a>
 
 
-                    <button type="submit" name="payment" value="debit" style="float: left; margin-left: 20px; min-height: 120px" disabled>
-                        <img src="/static/img/debit-gray.png" style="height: 120px" />
-                    </button>
-                    <button type="submit" name="payment" value="credit" style="float: left; margin-left: 20px; min-height: 120px" disabled>
-                        <img src="/static/img/credit-gray.png" style="height: 120px" />
-                    </button>
-
-
-
+                    <a href="/" class="btn btn-info" style="line-height: 1">支付定单</a>
 
                     <div style="clear: both"></div>
                 </div>

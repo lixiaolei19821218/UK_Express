@@ -26,4 +26,5 @@
             </table>
         </div>
     </div>
-    <div class="pager"></div></asp:Content>
+    <div class="pager"></div>
+</asp:Content>

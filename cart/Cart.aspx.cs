@@ -161,4 +161,10 @@ public partial class cart_Cart : System.Web.UI.Page
         }
         Response.Redirect(Request.Path);
     }
+
+    public decimal GetAmount()
+    {
+        string user = Membership.GetUser().UserName;
+        return repo.Context.RechargeApplys.Where(r => r.User == user).Sum(r => r.ApplyAmount);
+    }
 }
