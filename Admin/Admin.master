@@ -31,7 +31,7 @@
     </div>
     <div class="logo-box">
         <a href="javascript:;">
-            <img src="../../static/img/999parcel_usercentre.jpg" width="228" height="50" alt="管理中心" /></a>
+            <img src="../static/img/999parcel.png" width="228" height="50" alt="管理中心" /></a>
     </div>
     <div id="container">
         <div id="sidebar">
@@ -40,7 +40,7 @@
                 <ul class="link-list">
                     <li><a href="/index.php?c=bank&a=user_list" class="">用户管理</a></li>
                     <li><a href="CheckApply.aspx" class="on">充值审核</a></li>
-                    <li><a href="/index.php?c=bill_clear&a=user_list" class="">订单管理</a></li>
+                    <li><a href="/index.php?c=bill_clear&a=user_list" class="">订单审核</a></li>
                     <li><a href="ProcessedApplys.aspx" class="">已处理订单</a></li>
                     <li><a href="http://express-xc.co.uk/oa/index.php?c=claim&a=form&ek=ek" target="_blank">XX管理</a></li>
                     <li><a href="/index.php?c=member&a=user_profile" class="">XX管理</a></li>

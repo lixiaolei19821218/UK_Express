@@ -32,7 +32,8 @@ public partial class product_Default : System.Web.UI.Page
     {
         List<ServiceView> svs = new List<ServiceView>();
 
-        foreach (Service s in repo.Services)
+        //先去掉bPost
+        foreach (Service s in repo.Services.Where(s => !s.Name.Contains("Bpost")))
         {            
             svs.Add(new ServiceView(s));
         }

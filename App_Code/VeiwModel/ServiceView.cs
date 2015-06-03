@@ -72,13 +72,16 @@ public class ServiceView
         switch (Id)
         {
             case 1://Bpost免费取件
-            case 11://TPG免费取件
-            case 15://Parcelforce Economy
-            case 17://Parcelforce Prioity
+            case 11://post nl免费取件
+            case 15://Parcelforce
+            case 17://Parcelforce
+            case 23://Parcelforce
+            case 25://Parcelforce
+            case 27://Parcelforce
                 price = 0m;
                 break;
             case 6://Bpost UKMail取件
-            case 12://TPG UKMail取件
+            case 12://post nl免 UKMail取件
                 //ukmail取件费用，单箱5镑，2-3箱7镑，4箱以上每箱2镑的
                 int packageCount = order.Recipients.Sum(r => r.Packages.Count);
                 if (packageCount == 1)
@@ -93,6 +96,9 @@ public class ServiceView
                 {
                     price = 2m * packageCount;
                 }                
+                break;
+            default:
+                price = 0m;
                 break;
         }
 

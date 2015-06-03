@@ -30,7 +30,7 @@ public partial class cart_Cart : System.Web.UI.Page
         return from o in repo.Orders where o.User == user select o;
     }
 
-    public IEnumerable<Order> GetNoSheffieldOrders()
+    public IEnumerable<Order> GetNoneSheffieldOrders()
     {
         string user = Membership.GetUser().UserName;
         return from o in repo.Orders where o.User == user && !(o.IsSheffieldOrder.HasValue && o.IsSheffieldOrder.Value) select o;
@@ -166,5 +166,13 @@ public partial class cart_Cart : System.Web.UI.Page
     {
         string user = Membership.GetUser().UserName;
         return repo.Context.RechargeApplys.Where(r => r.User == user).Sum(r => r.ApplyAmount);
+    }
+    protected void pay_Click(object sender, EventArgs e)
+    {
+        var noneSheffieldOrders = GetNoneSheffieldOrders();
+        foreach (Order o in noneSheffieldOrders)
+        {
+           
+        }
     }
 }

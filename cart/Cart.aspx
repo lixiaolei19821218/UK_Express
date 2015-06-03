@@ -49,7 +49,7 @@
             <fieldset>
                 <legend>直邮订单</legend>
                 <table class="table table-orders">
-                    <asp:Repeater runat="server" ItemType="Order" SelectMethod="GetNoSheffieldOrders">
+                    <asp:Repeater runat="server" ItemType="Order" SelectMethod="GetNoneSheffieldOrders">
                         <HeaderTemplate>
                             <tr>
                                 <th class="tac">订单号</th>
@@ -128,8 +128,8 @@
 
                    <a href="/" class="btn btn-info" style="line-height: 1">继续下单</a>
 
-
-                    <a href="/" class="btn btn-info" style="line-height: 1">支付定单</a>
+                    <asp:Button ID="pay" runat="server" CssClass="btn btn-info" Text="支付定单" style="line-height: 1" OnClick="pay_Click" />
+                    
 
                     <div style="clear: both"></div>
                 </div>

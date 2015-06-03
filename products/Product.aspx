@@ -404,7 +404,7 @@
                                                         <div>
                                                             <div class="ib pd7 bold">包裹明细</div>
                                                             <div class="ib pd7 bold" style="margin-left: 40px">
-                                                                总额(£):<span class="mx_total"></span>
+                                                                总额(£):<span class="mx_total"><input type="number" min="0" max="10000" required="required" class="cn_fields cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px"/></span>
                                                             </div>
                                                         </div>
 
@@ -458,14 +458,7 @@
                                                                     <option value="个人行李 - 旧衣物">个人行李 - 旧衣物</option>
                                                                 </select>
                                                             </div>
-                                                            <div class="ib mx_quantity mx_cal">
-                                                                数量:                                                       
-                                                                <input id="id_parcel-0-content-0-quantity" name="parcel-0-content-0-quantity" style="width: 40px" type="text" />
-                                                            </div>
-                                                            <div class="ib mx_cost mx_cal">
-                                                                单价(£):                                                       
-                                                                <input id="id_parcel-0-content-0-cost" name="parcel-0-content-0-cost" style="width: 40px" type="text" />
-                                                            </div>
+                                                            
                                                             <div class="ib">
                                                                 <button style="border: 1px solid #ddd; background: none" class="btn add_mx btn_mx" type="button" title="添加包裹明细"><i class="icon-plus icon-white"></i></button>
                                                             </div>
