@@ -88,6 +88,8 @@
 
                         <div runat="server" id="welcomeDiv" visible="false">
                             <a class="fr pd2 clrb2" href="/accounts/logout/?next=<%: Request.Path %>">退出</a>
+                            <a class="fr pd2 clrb2" href="Admin/CheckApply.aspx">管理入口</a>
+                            <div class="fr clrb2">|</div>
                             <a class="fr pd2 clrb2" href="/sudi/shop/cart/">商城购物车</a>
                             <div class="fr clrb2">|</div>
                             <a class="fr pd2 clrb2" href="/cart/cart.aspx">直邮购物车</a>

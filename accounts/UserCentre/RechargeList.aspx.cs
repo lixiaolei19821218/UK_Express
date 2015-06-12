@@ -22,7 +22,15 @@ public partial class accounts_UserCentre_RechargeList : System.Web.UI.Page
     public decimal GetTotalApplyMoney()
     {
         string user = Membership.GetUser().UserName;
-        return repo.Context.RechargeApplys.Where(r => r.User == user).Sum(r => r.ApplyAmount);
+        var applys = repo.Context.RechargeApplys.Where(r => r.User == user);
+        if (applys.Count() == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return applys.Sum(r => r.ApplyAmount);
+        }
     }
 
     public IEnumerable<RechargeApply> GetPageApplys()
@@ -44,7 +52,15 @@ public partial class accounts_UserCentre_RechargeList : System.Web.UI.Page
         get
         {
             string user = Membership.GetUser().UserName;
-            return (int)Math.Ceiling((decimal)repo.Context.RechargeApplys.Where(r => r.User == user).Count() / pageSize);
+            var applys = repo.Context.RechargeApplys.Where(r => r.User == user);
+            if (applys.Count() == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return (int)Math.Ceiling((decimal)applys.Count() / pageSize);
+            }
         }
     }
 }

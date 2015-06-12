@@ -57,7 +57,15 @@ public partial class Admin_CheckApply : System.Web.UI.Page
     {
         get
         {
-            return (int)Math.Ceiling((decimal)repo.Context.RechargeApplys.Where(r => !r.IsApproved.HasValue).Count() / pageSize);
+            var applys = repo.Context.RechargeApplys.Where(r => !r.IsApproved.HasValue);
+            if (applys.Count() == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return (int)Math.Ceiling((decimal)applys.Count() / pageSize);
+            };
         }
     }
 }

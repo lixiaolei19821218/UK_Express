@@ -165,7 +165,15 @@ public partial class cart_Cart : System.Web.UI.Page
     public decimal GetAmount()
     {
         string user = Membership.GetUser().UserName;
-        return repo.Context.RechargeApplys.Where(r => r.User == user).Sum(r => r.ApplyAmount);
+        var applys = repo.Context.RechargeApplys.Where(r => r.User == user);
+        if (applys.Count() == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return applys.Sum(r => r.ApplyAmount);
+        }
     }
     protected void pay_Click(object sender, EventArgs e)
     {
