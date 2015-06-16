@@ -24,16 +24,16 @@
             
             <!-- main --> 
             <div class="col-sm-10 col-xs-12" style="padding-left: 0">
-                <div style="border: 0px solid #ccc; padding: 0px; margin-top: 0px">
-                    <img width="750" src="<%:Reinforce1.PictureLink %>" style="cursor: pointer" title="<%:Reinforce1.Type %>" />
+                <div style="border: 0px solid #ccc; padding: 0px; margin: 0px 0px 0px 100px">
+                    <img width="550" src="<%:Reinforce1.PictureLink %>" style="cursor: pointer" title="<%:Reinforce1.Type %>" />
                 </div>
-                <div style="border: 0px solid #ccc; padding: 0px; margin-top: 0px">                    
+                <div style="border: 0px solid #ccc; padding: 0px;margin: 0px 0px 0px 100px">                    
                     <input type="radio" name="reinforce" id="reinforce1" checked="checked" value="<%:Reinforce1.Id %>"/><%:Reinforce1.Describe %>    
                 </div>
-                <div style="border: 0px solid #ccc; padding: 0px; margin-top: 30px">
-                    <img width="750" src="<%:Reinforce2.PictureLink %>" style="cursor: pointer" title="<%:Reinforce2.Type %>" />
+                <div style="border: 0px solid #ccc; padding: 0px; margin: 30px 0px 0px 100px">
+                    <img width="550" src="<%:Reinforce2.PictureLink %>" style="cursor: pointer" title="<%:Reinforce2.Type %>" />
                 </div>
-                <div style="border: 0px solid #ccc; padding: 0px; margin-top: 0px">
+                <div style="border: 0px solid #ccc; padding: 0px; margin: 0px 0px 0px 100px">
                     <input type="radio" name="reinforce" id="reinforce2" value="<%:Reinforce2.Id %>"/><%:Reinforce2.Describe %> 
                 </div>
             </div>

@@ -21,6 +21,7 @@
                     inputElem.setCustomValidity("");
                 }
             });
+
         });
     </script>
 
@@ -162,14 +163,14 @@
 
                             </div>
                             <div style="float: left; margin: 5px" class="control-group ">
-                                <input class="input-medium" id="id_billing_detail_street2" maxlength="24" name="billing_detail_street2" style="width: 180px" type="text" value="<%:Order.SenderAddress2 %>" required="required"/>
+                                <input class="input-medium" id="id_billing_detail_street2" maxlength="24" name="billing_detail_street2" style="width: 180px" type="text" value="<%:Order.SenderAddress2 %>" />
 
 
 
 
                             </div>
                             <div style="float: left; margin: 5px" class="control-group ">
-                                <input class="input-medium" id="id_billing_detail_street3" maxlength="24" name="billing_detail_street3" style="width: 173px" type="text" value="<%:Order.SenderAddress3 %>" required="required"/>
+                                <input class="input-medium" id="id_billing_detail_street3" maxlength="24" name="billing_detail_street3" style="width: 173px" type="text" value="<%:Order.SenderAddress3 %>" />
 
 
 
@@ -240,14 +241,19 @@
                                     时间
 
                     
-                        <span style="background-color: #BFBFBF; padding: 2px 4px; font-size: 12px; font-weight: normal">9:00-18:00</span>
+                        <span style="  font-size: 12px; font-weight: normal">
+                            <select >
+                                <option value="am" id="am" disabled="disabled" >9:00-11:00</option>
+                                <option value="pm" id="pm" >13:00-15:00</option>
+                            </select>
+                        </span>
 
 
                                 </div>
 
                                 <div style="float: left; margin: 5px" class="control-group ">
                                     <label for="id_additional_instructions">备注</label>
-                                    <input class="input-xxlarge" id="id_additional_instructions" maxlength="50" name="additional_instructions" style="width: 290px" type="text" />
+                                    <input class="input-xxlarge" id="id_additional_instructions" maxlength="50" name="additional_instructions" style="width: 270px" type="text" />
 
 
 
@@ -404,7 +410,7 @@
                                                         <div>
                                                             <div class="ib pd7 bold">包裹明细</div>
                                                             <div class="ib pd7 bold" style="margin-left: 40px">
-                                                                总额(£):<span class="mx_total"><input type="number" min="0" max="10000" required="required" class="cn_fields cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px"/></span>
+                                                                总额(£):<span class="mx_total"><input type="number" min="0" max="10000" required="required" class="" maxlength="24" style="width: 60px"/></span>
                                                             </div>
                                                         </div>
 
@@ -1008,6 +1014,16 @@
 
         var myStartDate = new Date();
         var myEndDate = new Date();
+
+        if (myStartDate.getHours() > 12)
+        {
+            $('#am')[0].disabled = 'disable';
+        }
+        else
+        {
+            $('#am')[0].disabled = '';
+        }
+
         if ($('#pickUpCompany')[0].innerText == 'UK Mail') {
             myStartDate.setDate(myStartDate.getDate() + 1);
         }
@@ -1019,7 +1035,7 @@
             startDate: myStartDate,
             endDate: myEndDate,
             weekStart: 0,
-            daysOfWeekDisabled: [0, 6],
+            daysOfWeekDisabled: [6],
             autoclose: true,
             startView: 2,
             minView: 2,
@@ -1031,8 +1047,16 @@
             showMeridian: false,
             clearBtn: false,
             language: 'en',
+            
             //initialDate: '2015-04-1',
             daysDisabled: ['2014-04-18', '2014-04-21', '2014-05-05', '2014-05-26', '2014-08-25', '2014-12-24', '2014-12-25', '2014-12-26', '2015-01-01', '2015-04-03', '2015-04-06', '2015-05-04', '2015-05-25', '2015-08-31', '2015-12-25', '2015-12-28']
+        });
+
+        $('.form_datetime').datetimepicker().on('changeDate', function (ev) {
+            alert('cj')
+            if (ev.date.valueOf() < date - start - display.valueOf()) {
+
+            }
         });
 
         var toPinyin = function(zh, pinyin)
