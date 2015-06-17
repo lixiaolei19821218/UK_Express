@@ -22,9 +22,21 @@ public partial class products_Product : System.Web.UI.Page
         sv = new ServiceView(service);
 
         //ParcelForce
-        if (sv.Id == 15 || sv.Id == 17)
+        if (sv.Name.Contains("Parcelforce"))
         {
             add2cart.Text = "添加到购物车";
+        }
+
+        //根据用户选取的服务，确定不同的取件时间
+        if (sv.Name.Contains("Parcelforce") || sv.Name.Contains("UKMail"))
+        {
+            pfuk.Visible = true;
+            _999parcel.Visible = false;
+        }
+        else
+        {
+            pfuk.Visible = false;
+            _999parcel.Visible = true;
         }
     }
 
@@ -79,7 +91,7 @@ public partial class products_Product : System.Web.UI.Page
             repo.Context.SaveChanges();
 
             //ParcelForce
-            if (sv.Id == 15 || sv.Id == 17)
+            if (sv.Name.Contains("Parcelforce"))
             {
                 Response.Redirect("/cart/cart.aspx");
             }

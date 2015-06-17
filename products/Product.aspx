@@ -241,9 +241,10 @@
                                     时间
 
                     
-                        <span style="  font-size: 12px; font-weight: normal">
-                            <select >
-                                <option value="am" id="am" disabled="disabled" >9:00-11:00</option>
+                        <span style="font-size: 12px; font-weight: normal">
+                            <span runat="server" id="pfuk">9:00-18:30</span>
+                            <select runat="server" id="_999parcel">
+                                <option value="am" id="am" >9:00-11:00</option>
                                 <option value="pm" id="pm" >13:00-15:00</option>
                             </select>
                         </span>
@@ -1015,20 +1016,24 @@
         var myStartDate = new Date();
         var myEndDate = new Date();
 
-        if (myStartDate.getHours() > 12)
-        {
-            $('#am')[0].disabled = 'disable';
+        //12点之后,999parcel只能第二天取件
+        if (myStartDate.getHours() > 12) {
+            $('#am')[0].setAttribute('disable', 'disable');
+        }
+        else {
+            $('#am')[0].setAttribute('disable', '');
+        }
+
+        if ($('#pickUpCompany')[0].innerText == 'UK Mail' || $('#pickUpCompany')[0].innerText == 'Parcelforce') {
+            myStartDate.setDate(myStartDate.getDate() + 1);
+            myEndDate.setDate(myEndDate.getDate() + 2);
         }
         else
         {
-            $('#am')[0].disabled = '';
+            //myStartDate.setDate(myStartDate.getDate() + 0);
+            myEndDate.setDate(myEndDate.getDate() + 7);
         }
-
-        if ($('#pickUpCompany')[0].innerText == 'UK Mail') {
-            myStartDate.setDate(myStartDate.getDate() + 1);
-        }
-
-        myEndDate.setDate(myEndDate.getDate() + 7);
+        
 
         $('.form_datetime').datetimepicker({
             format: 'yyyy/mm/dd',
@@ -1053,10 +1058,7 @@
         });
 
         $('.form_datetime').datetimepicker().on('changeDate', function (ev) {
-            alert('cj')
-            if (ev.date.valueOf() < date - start - display.valueOf()) {
-
-            }
+            
         });
 
         var toPinyin = function(zh, pinyin)
