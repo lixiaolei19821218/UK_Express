@@ -18,6 +18,11 @@ public partial class products_Product : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         order = (Order)Session["Order"];
+        if (order == null)
+        {
+            Response.Redirect("/");
+        }
+
         Service service = repo.Services.FirstOrDefault(s => s.Id == order.ServiceID);
         sv = new ServiceView(service);
 
@@ -37,6 +42,7 @@ public partial class products_Product : System.Web.UI.Page
         {
             pfuk.Visible = false;
             _999parcel.Visible = true;
+            
         }
     }
 

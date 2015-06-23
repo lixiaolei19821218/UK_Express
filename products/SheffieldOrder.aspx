@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SheffieldOrder.aspx.cs" Inherits="products_SheffiledOrder" MasterPageFile="~/MasterPage.master" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    <title>谢菲尔德地区服务订单信息 | 速递中国-可靠,快捷,实惠</title>
+    <title>谢菲尔德地区服务订单信息 | 诚信物流-可靠,快捷,实惠</title>
 
     <%: System.Web.Optimization.Scripts.Render("~/bundle/jquery") %>
     <script type="text/javascript" src="../Scripts/jquery-1.8.0.min.js"></script>
@@ -368,8 +368,8 @@
         的保险赔偿条款。
                     </p>
                     <p>
-                        １、我已经阅读并同意<a href="/conditions_terms/" target="_blank" style="color: #f00; float: none">速递中国服务条款</a>，<a href="/privacy_policy/" target="_blank" style="color: #f00; float: none">个人隐私保护条款</a>，并且确认所快递物品符合相应国家出口及违禁品控制条例。<br />
-                        ２、<span style="color: #f00; float: none">我同意若因本人提供的包裹尺寸或重量与运营商的测量不符，而导致额外费用，速递中国有权从我所提供的银行卡信息对应的银行账户内扣除相应费用。</span><br />
+                        １、我已经阅读并同意<a href="/conditions_terms/" target="_blank" style="color: #f00; float: none">诚信物流服务条款</a>，<a href="/privacy_policy/" target="_blank" style="color: #f00; float: none">个人隐私保护条款</a>，并且确认所快递物品符合相应国家出口及违禁品控制条例。<br />
+                        ２、<span style="color: #f00; float: none">我同意若因本人提供的包裹尺寸或重量与运营商的测量不符，而导致额外费用，诚信物流有权从我所提供的银行卡信息对应的银行账户内扣除相应费用。</span><br />
                         ３、我同意由本人或相应收件人承担支付取货国家所产生的所有额外关税。（<a href="http://www.customs.gov.cn/publish/portal0/tab3889/module1188/info362458.htm" target="_blank" style="color: #f00; float: none">详见中国入境个人邮寄物品完税价格表</a>）<br />
                         ４、我确认所提供的包裹内物品信息（种类，数量，价格）与实际包裹内物品相符。
                     </p>

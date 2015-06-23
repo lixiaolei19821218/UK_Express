@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Sheffield.aspx.cs" Inherits="products_Sheffield" MasterPageFile="~/MasterPage.master" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    <title>谢菲尔德地区服务 | 速递中国-可靠,快捷,实惠</title>
+    <title>谢菲尔德地区服务 | 诚信物流-可靠,快捷,实惠</title>
     <script src="../Scripts/jquery-1.8.0.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {

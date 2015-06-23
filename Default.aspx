@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Default2" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" Runat="Server">
-    <title>首页 | 速递中国-可靠,快捷,实惠</title>
+    <title>首页 | 诚信物流-可靠,快捷,实惠</title>
     <%: System.Web.Optimization.Scripts.Render("~/bundle/jquery") %>
     <script src="/static/bootstrap3/js/jquery-1.11.1.min.js"></script>
     <script>
@@ -179,7 +179,7 @@
 
                                 <a href="/news/%E5%85%B3%E4%BA%8E%E9%80%9F%E9%80%92%E4%B8%AD%E5%9B%BD%E7%AE%B1%E5%AD%90%E8%B4%AD%E4%B9%B0%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%9B%B4%E6%96%B0/" class="mg2 bg2" style="background-position: -356px 1px; background-repeat: no-repeat">
                                     <span class="clrb5 bold">2014/12/19 15:26:00</span>&nbsp;
-                <span class="clrb4">关于速递中国箱子购买的服务更新</span>
+                <span class="clrb4">关于诚信物流箱子购买的服务更新</span>
 
                                 </a>
 

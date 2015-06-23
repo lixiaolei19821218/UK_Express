@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Default2" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" Runat="Server">
-    <title>速递服务 | 速递中国-可靠,快捷,实惠</title>
+    <title>速递服务 | 诚信物流-可靠,快捷,实惠</title>
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <ul class="breadcrumb" style="background: none; margin-top: 15px"></ul>
@@ -10,7 +10,7 @@
     <div style="background-color: #fff; padding: 30px 50px; margin-top: 30px; margin-bottom: 30px">
         <h1>速递服务</h1>
 
-        <p>速递中国 (Send2China)是一家英国独资综合性质的国际物流公司。总部设在英国的苏塞克斯郡，配有大面积的仓贮仓库，可容纳大批量货物仓储。我们的业务覆盖全英国，主营英国直邮中国的货物运输和海淘的代购及转运业务。 此外，我们对于婴幼儿食品的直邮空运，代购，转运都可以提供免费的咨询服务。</p>
+        <p>诚信物流 (Send2China)是一家英国独资综合性质的国际物流公司。总部设在英国的苏塞克斯郡，配有大面积的仓贮仓库，可容纳大批量货物仓储。我们的业务覆盖全英国，主营英国直邮中国的货物运输和海淘的代购及转运业务。 此外，我们对于婴幼儿食品的直邮空运，代购，转运都可以提供免费的咨询服务。</p>
 
 
         <div style="background-color: #EBF4FA">

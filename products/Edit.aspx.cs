@@ -17,6 +17,11 @@ public partial class products_Edit : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         order = (Order)Session["Order"];
+        if (order == null)
+        {
+            Response.Redirect("/");
+        }
+
         Service service = repo.Services.FirstOrDefault(s => s.Id == order.ServiceID);
         sv = new ServiceView(service);
     }

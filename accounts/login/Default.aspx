@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Default2" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-    <title>登录 | 速递中国-可靠,快捷,实惠</title>
+    <title>登录 | 诚信物流-可靠,快捷,实惠</title>
 
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/bootstrap-responsive.min.css">

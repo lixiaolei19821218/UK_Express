@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Default2" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" Runat="Server">
-    <title>新闻资讯 | 速递中国-可靠,快捷,实惠</title>
+    <title>新闻资讯 | 诚信物流-可靠,快捷,实惠</title>
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <ul class="breadcrumb" style="background:none;margin-top:15px">
@@ -30,7 +30,7 @@
         
             <a href="/news/%E5%85%B3%E4%BA%8E%E9%80%9F%E9%80%92%E4%B8%AD%E5%9B%BD%E7%AE%B1%E5%AD%90%E8%B4%AD%E4%B9%B0%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%9B%B4%E6%96%B0/" class="mg2 bg2" style="background-position:-356px 1px;background-repeat:no-repeat">
                 <span class="clrb5 bold">2014/12/19 15:26:00</span>&nbsp;
-                <span class="clrb4">关于速递中国箱子购买的服务更新</span>
+                <span class="clrb4">关于诚信物流箱子购买的服务更新</span>
             </a>
         
             <a href="/news/141219-01/" class="mg2 bg2" style="background-position:-356px 1px;background-repeat:no-repeat">
@@ -75,7 +75,7 @@
         
             <a href="/news/%E9%80%9F%E9%80%92%E4%B8%AD%E5%9B%BD%E5%8F%8C11%E5%A4%A7%E5%A5%89%E9%80%81/" class="mg2 bg2" style="background-position:-356px 1px;background-repeat:no-repeat">
                 <span class="clrb5 bold">2014/11/10 18:35:59</span>&nbsp;
-                <span class="clrb4">速递中国双11大奉送！</span>
+                <span class="clrb4">诚信物流双11大奉送！</span>
             </a>
         
             <a href="/news/onlineshop_launch/" class="mg2 bg2" style="background-position:-356px 1px;background-repeat:no-repeat">
@@ -135,7 +135,7 @@
         
             <a href="/news/%E9%80%9F%E9%80%92%E4%B8%AD%E5%9B%BD%E6%96%B0%E7%BD%91%E7%AB%99%E4%B8%8A%E7%BA%BF/" class="mg2 bg2" style="background-position:-356px 1px;background-repeat:no-repeat">
                 <span class="clrb5 bold">2014/7/14 18:52:34</span>&nbsp;
-                <span class="clrb4">速递中国新网站上线！</span>
+                <span class="clrb4">诚信物流新网站上线！</span>
             </a>
         
             <a href="/news/parcelforce%E7%BB%8F%E6%B5%8E%E5%8C%85%E8%A3%B9%E4%BC%98%E6%83%A0%E6%B4%BB%E5%8A%A8%E5%8D%B3%E5%B0%86%E7%BB%93%E6%9D%9F/" class="mg2 bg2" style="background-position:-356px 1px;background-repeat:no-repeat">

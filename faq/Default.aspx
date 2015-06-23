@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Default2" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" Runat="Server">
-    <title>常见问题 | 速递中国-可靠,快捷,实惠</title>
+    <title>常见问题 | 诚信物流-可靠,快捷,实惠</title>
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
            <ul class="breadcrumb" style="background:none;margin-top:15px">
@@ -32,10 +32,10 @@
 </div>
 </div>
 <div style="margin: 10px 0; border: 1px solid #ccc;">
-<h1 style="padding: 0 15px; margin: 0; line-height: 40px; background-color: #0082c9; border-bottom: 5px solid #E8E8E8; font-size: 20px; color: #fff;"><span style="color: #ffffff;"><span style="color: #ffffff;">速递中国</span></span></h1>
+<h1 style="padding: 0 15px; margin: 0; line-height: 40px; background-color: #0082c9; border-bottom: 5px solid #E8E8E8; font-size: 20px; color: #fff;"><span style="color: #ffffff;"><span style="color: #ffffff;">诚信物流</span></span></h1>
 <div style="padding: 5px 20px;">
-<div class="collapsibleContainer" collapsiblecontainer="true" title="关于速递中国">
-<p>速递中国 (Send2China)是一家英国独资综合性质的国际物流公司。总部设在英国的苏塞克斯郡，配有大面积的仓贮仓库，可容纳大批量货物仓储。我们的业务覆盖全英国，主营英国直邮中国的货物运输和海淘的代购及转运业务。 此外，我们对于婴幼儿食品的直邮空运，代购，转运都可以提供免费的咨询服务。</p>
+<div class="collapsibleContainer" collapsiblecontainer="true" title="关于诚信物流">
+<p>诚信物流 (Send2China)是一家英国独资综合性质的国际物流公司。总部设在英国的苏塞克斯郡，配有大面积的仓贮仓库，可容纳大批量货物仓储。我们的业务覆盖全英国，主营英国直邮中国的货物运输和海淘的代购及转运业务。 此外，我们对于婴幼儿食品的直邮空运，代购，转运都可以提供免费的咨询服务。</p>
 <p><img src="/static/media/uploads/service.png" height="209" width="789" /></p>
 <p><span style="font-size: medium;"><strong><br /></strong></span></p>
 <p><strong style="font-size: medium; text-decoration: underline;">我们的核心价值</strong></p>
@@ -49,12 +49,12 @@
 </ul>
 <p><img src="/static/media/uploads/banner2.png" height="234" width="815" /></p>
 </div>
-<div class="collapsibleContainer" collapsiblecontainer="true" title="速递中国的运营商是谁">
-<p>&nbsp;速递中国的承运商是英国皇家邮政Royal Mail旗下的ParcelForce (PF)和比利时邮政BPost，都是英国到中国的邮政系统绿色通道。</p>
+<div class="collapsibleContainer" collapsiblecontainer="true" title="诚信物流的运营商是谁">
+<p>&nbsp;诚信物流的承运商是英国皇家邮政Royal Mail旗下的ParcelForce (PF)和比利时邮政BPost，都是英国到中国的邮政系统绿色通道。</p>
 <p></p>
 <div style="padding: 5px 20px;"><a href="/courier/bpost/"><img src="/static/media/uploads/bpost.png" height="122" width="171" /></a>　 <a href="/courier/parcelforce_priority/"><img src="/static/media/uploads/pf_priority.png" height="122" width="171" />&nbsp; &nbsp;&nbsp;<img src="/static/media/uploads/pf_economy_02.png" height="122" width="171" /></a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;<img src="/static/media/uploads/anpost.png" width="126" height="76" /></div>
 </div>
-<div class="collapsibleContainer" collapsiblecontainer="true" title="速递中国的竞争优势是什么">
+<div class="collapsibleContainer" collapsiblecontainer="true" title="诚信物流的竞争优势是什么">
 <p><strong>价格最优</strong>：</p>
 <ul>
 <li>全英国最低的零售价格，切身让每一个旅居英国的个人受惠。对于广大学生和从事教育的工作者，我们还会提供一定的折扣。</li>
@@ -88,7 +88,7 @@
 <p>（1）包裹大小限制： 根据国际航空快件标准及承运公司规定：您所邮递的单箱包裹不得超过30公斤，如果您的包裹超过了30kg , parcelforce 会把您的包裹退回到您的发件地址。 同时收取您一定数量的手续费。</p>
 <p>（2）包裹的尺寸规定： A.最长单边不能超过1.05米 B.长+2（宽+高）不能大于2m 如果您的包裹超出这个尺寸，您需要多支付40镑的超标费用。所以，建议您尽量将一个大箱的东西分装成2个或多个小箱</p>
 </div>
-<div class="collapsibleContainer" collapsiblecontainer="true" title="速递中国提供的服务包清关吗">
+<div class="collapsibleContainer" collapsiblecontainer="true" title="诚信物流提供的服务包清关吗">
 <p>Bpost和ParcelForce 都与中国邮政EMS 同属万国邮政联盟，有合作协议，走邮政绿色通道，所运货物不经海关直接发往当地邮局由邮局内部抽检，抽查率不过10%。但是这也和您运的物品，数量和地方的政策有关，例如奶粉有些城市例如江浙一带可以寄3-4箱（21-28罐），但有些城市比较严12罐也有很大可能收税。 例如奶粉，厦门，南宁，长沙，深圳建议一单只寄6桶。其他城市最多12桶为宜。 海关抽到就交18元一桶的税，海关会通知国内收件人，国内的收件人到邮局或是银行汇税金到指定的海关帐户即可，海关收到税金后，就会放行包裹了，然后邮局EMS 就会投到您的门上。 价值达到海关认为的标准就可能会被要求上税，什么东西都有可能被抽到，不过走我们邮政渠道，抽检率比其他的低很多。 我们会提供包装和邮寄数量的建议来规避交税风险，但是一旦产生关税需要客户（收件人）缴纳。</p>
 </div>
 <div class="collapsibleContainer" title="哪些物品禁运，后果是什么">
@@ -204,14 +204,14 @@
 <p><a href="/static/media/uploads/send2china_how_to_place_order.pdf">请点击此处下载下单说明</a></p>
 <p></p>
 </div>
-<div class="collapsibleContainer" title="速递中国对订单的定义">
-<p>和其他公司不同，速递中国对订单的定义为用某个运营服务的一次发件。区别在于，速递中国一次下单允许多个包裹发往不同的地址。</p>
+<div class="collapsibleContainer" title="诚信物流对订单的定义">
+<p>和其他公司不同，诚信物流对订单的定义为用某个运营服务的一次发件。区别在于，诚信物流一次下单允许多个包裹发往不同的地址。</p>
 <p>情况1：10个包裹都是用Bpost 从2014年1月1日从A地址发出，算一单。<br /><br />情况2：5个包裹用Bpost从地址A发出, 5个包裹用Parcelforce Economy从地址A发出算两单。<br /><br />情况3:&nbsp;5个包裹用Bpost从地址A发出, 5个包裹用Bpost 从地址B发出算两单</p>
-<p>注：客户每次在系统中走一次下单流程即位我们速递中国定义的一单。</p>
+<p>注：客户每次在系统中走一次下单流程即位我们诚信物流定义的一单。</p>
 <p></p>
 <p></p>
 </div>
-<div class="collapsibleContainer" title="速递中国客服能帮我下单吗">
+<div class="collapsibleContainer" title="诚信物流客服能帮我下单吗">
 <p>我们的网站采取全自动自助下单模式。您只需要第一步在线注册，第二步转账充值，第三步在线下单，第四步打印文件，第五步等待取件或自送仓库。我们不提供帮助下单服务。</p>
 </div>
 <div class="collapsibleContainer" title="如何取消订单, 取消订单的费用是多少">
@@ -231,7 +231,7 @@
 <h1 style="padding: 0 15px; margin: 0; line-height: 40px; background-color: #0082c9; border-bottom: 5px solid #E8E8E8; font-size: 20px; color: #fff;">取件方式</h1>
 <div style="padding: 5px 20px;">
 <div class="collapsibleContainer" title="当日下单是否可以当日取件">
-<p>速递中国的自动下单系统是不能够预定当天取货，只能预定下三个工作日的取货。这也就是说如果您需要星期五上门取件，您必须星期四晚上12点之前下单预定时间。</p>
+<p>诚信物流的自动下单系统是不能够预定当天取货，只能预定下三个工作日的取货。这也就是说如果您需要星期五上门取件，您必须星期四晚上12点之前下单预定时间。</p>
 </div>
 <div class="collapsibleContainer" title="周末是否可以安排取件">
 <p>周末和公共节假日都没有取件公司上门取件。系统可以让您选择的时间都是运营商可以提供服务的时间，运营商不能上门取件的时间（周末和公共节假日）已经被排除在外。</p>
@@ -283,7 +283,7 @@
 <p></p>
 </div>
 <div class="collapsibleContainer" title="如果您觉得您所发的包裹不可能超重该怎么办">
-<p>当您购买的Parcelforce包裹发出后，Parcelforce 会在他们的仓库对包裹进行再次称重同时扫描包裹体积计算体积重量。Parcelforce的官方数据显示，包裹称重扫描的正确率在99%以上。 但是如果客户认为Parcelforce称重与其发出包裹实际重量有巨大差异的时候。Parcelforce提出的解决方式是，收件人提供包裹的照片，照片要清楚的显示箱子的长宽高，以及贴有其所属的parcelforce条形码。速递中国 enquiries@send2china.com邮箱在收到此照片后可以协助客人向Parcelforce申请索赔。每一次提起申请索赔，速递中国会向申请人收取5英镑的申请费，收费用于拨打Parcelforce 0844收费电话与其进行交涉。同时，申请是否成功由以Parcelforce调查结果为准，不得重复申请。</p>
+<p>当您购买的Parcelforce包裹发出后，Parcelforce 会在他们的仓库对包裹进行再次称重同时扫描包裹体积计算体积重量。Parcelforce的官方数据显示，包裹称重扫描的正确率在99%以上。 但是如果客户认为Parcelforce称重与其发出包裹实际重量有巨大差异的时候。Parcelforce提出的解决方式是，收件人提供包裹的照片，照片要清楚的显示箱子的长宽高，以及贴有其所属的parcelforce条形码。诚信物流 enquiries@send2china.com邮箱在收到此照片后可以协助客人向Parcelforce申请索赔。每一次提起申请索赔，诚信物流会向申请人收取5英镑的申请费，收费用于拨打Parcelforce 0844收费电话与其进行交涉。同时，申请是否成功由以Parcelforce调查结果为准，不得重复申请。</p>
 </div>
 <div class="collapsibleContainer" title="账户充值余额可否退款">
 <p><strong><span style="font-size: medium;">申明：客户如果在2014年6月19日之后充值帐户余额，将不能够申请余额退款。</span></strong></p>

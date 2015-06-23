@@ -28,7 +28,11 @@ public partial class products_SheffiledOrder : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        sOrder = (SheffieldOrder)Session["SheffieldOrder"];  
+        sOrder = (SheffieldOrder)Session["SheffieldOrder"];
+        if (sOrder == null)
+        {
+            Response.Redirect("/");
+        }
     }
 
     protected void add2cart_Click(object sender, EventArgs e)

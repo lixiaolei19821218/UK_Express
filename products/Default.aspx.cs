@@ -16,6 +16,10 @@ public partial class product_Default : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         order = (Order)Session["Order"];
+        if (order == null)
+        {
+            Response.Redirect("/");
+        }
 
         if (IsPostBack)
         {

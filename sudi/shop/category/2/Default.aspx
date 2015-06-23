@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Default2" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <title>速递商城 | 速递中国-可靠,快捷,实惠</title>
+    <title>速递商城 | 诚信物流-可靠,快捷,实惠</title>
     <style type="text/css">
 a.inc, a.dec {width:14px;height:14px;line-height:10px;display:block;font-size:16px;text-decoration:none;color:#bbb}
 a.inc {border-bottom:1px solid #ddd;margin-bottom:1px}

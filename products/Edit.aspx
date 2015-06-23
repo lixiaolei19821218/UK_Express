@@ -2,7 +2,7 @@
 
 <%@ Import Namespace="System.Globalization" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    <title>包裹信息 | 速递中国-可靠,快捷,实惠</title>
+    <title>包裹信息 | 诚信物流-可靠,快捷,实惠</title>
      <%: System.Web.Optimization.Scripts.Render("~/bundle/jquery") %>
     <link rel="stylesheet" href="/static/jquery-ui-1.11/jquery-ui.min.css">
     <link rel="stylesheet" href="/static/font-awesome/css/font-awesome.min.css">

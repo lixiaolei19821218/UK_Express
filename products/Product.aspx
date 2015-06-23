@@ -2,7 +2,7 @@
 
 <%@ Import Namespace="System.Globalization" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    <title>填写订单信息 | 速递中国-可靠,快捷,实惠</title>
+    <title>填写订单信息 | 诚信物流-可靠,快捷,实惠</title>
 
      <%: System.Web.Optimization.Scripts.Render("~/bundle/jquery") %>
     <script type="text/javascript" src="../Scripts/jquery-1.8.0.min.js"></script>
@@ -243,7 +243,7 @@
                     
                         <span style="font-size: 12px; font-weight: normal">
                             <span runat="server" id="pfuk">9:00-18:30</span>
-                            <select runat="server" id="_999parcel">
+                            <select runat="server" id="_999parcel" ClientIDMode="Static">
                                 <option value="am" id="am" >9:00-11:00</option>
                                 <option value="pm" id="pm" >13:00-15:00</option>
                             </select>
@@ -410,70 +410,42 @@
                                                     <div class="ib" style="margin-left: 20px">
                                                         <div>
                                                             <div class="ib pd7 bold">包裹明细</div>
-                                                            <div class="ib pd7 bold" style="margin-left: 40px">
-                                                                总额(£):<span class="mx_total"><input type="number" min="0" max="10000" required="required" class="" maxlength="24" style="width: 60px"/></span>
-                                                            </div>
+                                                            
                                                         </div>
 
                                                         <!-- parcel content details -->
 
                                                         <div class="mx">
-                                                            <div class="ib pd7">(<span class="mx_sq">1</span>)</div>
-                                                            <div class="ib mx_type">
-                                                                <select id="id_parcel-0-content-0-type" name="parcel-0-content-0-type" style="width: 100px">
-                                                                    <option value="婴儿奶粉" selected="selected">婴儿奶粉</option>
-                                                                    <option value="婴儿食品">婴儿食品</option>
-                                                                    <option value="成人奶粉">成人奶粉</option>
-                                                                    <option value="婴儿推车">婴儿推车</option>
-                                                                    <option value="安全座椅">安全座椅</option>
-                                                                    <option value="婴儿用品">婴儿用品</option>
-                                                                    <option value="食品">食品</option>
-                                                                    <option value="保健品">保健品</option>
-                                                                    <option value="服装服饰">服装服饰</option>
-                                                                    <option value="服饰配件">服饰配件</option>
-                                                                    <option value="箱包">箱包</option>
-                                                                    <option value="鞋靴">鞋靴</option>
-                                                                    <option value="钟表">钟表</option>
-                                                                    <option value="钟表配件">钟表配件</option>
-                                                                    <option value="化妆品">化妆品</option>
-                                                                    <option value="护肤品">护肤品</option>
-                                                                    <option value="洗漱用品">洗漱用品</option>
-                                                                    <option value="厨卫清洁用品">厨卫清洁用品</option>
-                                                                    <option value="小家电（含游戏机等）">小家电（含游戏机等）</option>
-                                                                    <option value="家用医疗用品">家用医疗用品</option>
-                                                                    <option value="美容保健器材">美容保健器材</option>
-                                                                    <option value="影音设备">影音设备</option>
-                                                                    <option value="手机和移动设备">手机和移动设备</option>
-                                                                    <option value="手机和移动设备配件">手机和移动设备配件</option>
-                                                                    <option value="计算机">计算机</option>
-                                                                    <option value="计算机外围设备">计算机外围设备</option>
-                                                                    <option value="书报、刊物">书报、刊物</option>
-                                                                    <option value="音响制品（唱片、影片等）">音响制品（唱片、影片等）</option>
-                                                                    <option value="文具">文具</option>
-                                                                    <option value="玩具">玩具</option>
-                                                                    <option value="教育用品">教育用品</option>
-                                                                    <option value="体育用品">体育用品</option>
-                                                                    <option value="户外用品">户外用品</option>
-                                                                    <option value="邮票">邮票</option>
-                                                                    <option value="乐器">乐器</option>
-                                                                    <option value="茶包">茶包</option>
-                                                                    <option value="个人行李 - 旧箱包">个人行李 - 旧箱包</option>
-                                                                    <option value="个人行李 - 旧文具">个人行李 - 旧文具</option>
-                                                                    <option value="个人行李 - 旧电子物品">个人行李 - 旧电子物品</option>
-                                                                    <option value="个人行李 - 旧护肤品">个人行李 - 旧护肤品</option>
-                                                                    <option value="个人行李 - 个人礼品">个人行李 - 个人礼品</option>
-                                                                    <option value="个人行李 - 旧衣物">个人行李 - 旧衣物</option>
-                                                                </select>
+                                                           
+                                                            <div style="margin-left: 5px">
+                                                                
+                                                                <input  style="width: 300px"/>
                                                             </div>
                                                             
-                                                            <div class="ib">
-                                                                <button style="border: 1px solid #ddd; background: none" class="btn add_mx btn_mx" type="button" title="添加包裹明细"><i class="icon-plus icon-white"></i></button>
-                                                            </div>
-                                                            <div class="ib">
-                                                                <button style="border: 1px solid #ddd; background: none" class="btn del_mx btn_mx" type="button" title="删除包裹明细"><i class="icon-minus"></i></button>
-                                                            </div>
+                                                            
                                                         </div>
-                                                        <input id="id_parcel-0-content-TOTAL_FORMS" name="parcel-0-content-TOTAL_FORMS" type="hidden" value="1" /><input id="id_parcel-0-content-INITIAL_FORMS" name="parcel-0-content-INITIAL_FORMS" type="hidden" value="0" /><input id="id_parcel-0-content-MAX_NUM_FORMS" name="parcel-0-content-MAX_NUM_FORMS" type="hidden" value="1000" />
+
+                                                        
+                                                    </div>
+                                                    <div class="ib" style="margin-left: 20px">
+                                                        <div>
+                                                            <div class="ib pd7 bold">总额(£):</div>
+                                                            
+                                                        </div>
+
+                                                        <!-- parcel content details -->
+
+                                                        <div class="mx">
+                                                           
+                                                            <div style="margin-left: 5px">
+                                                                
+                                                                <input type="number" style="width: 50px"/>
+                                                            </div>
+                                                            
+                                                            
+                                                        </div>
+
+                                                        
                                                     </div>
                                                 </div>
                                             </li>
@@ -498,8 +470,8 @@
         的保险赔偿条款。
                     </p>
                     <p>
-                        １、我已经阅读并同意<a href="/conditions_terms/" target="_blank" style="color: #f00; float: none">速递中国服务条款</a>，<a href="/privacy_policy/" target="_blank" style="color: #f00; float: none">个人隐私保护条款</a>，并且确认所快递物品符合相应国家出口及违禁品控制条例。<br />
-                        ２、<span style="color: #f00; float: none">我同意若因本人提供的包裹尺寸或重量与运营商的测量不符，而导致额外费用，速递中国有权从我所提供的银行卡信息对应的银行账户内扣除相应费用。</span><br />
+                        １、我已经阅读并同意<a href="/conditions_terms/" target="_blank" style="color: #f00; float: none">诚信物流服务条款</a>，<a href="/privacy_policy/" target="_blank" style="color: #f00; float: none">个人隐私保护条款</a>，并且确认所快递物品符合相应国家出口及违禁品控制条例。<br />
+                        ２、<span style="color: #f00; float: none">我同意若因本人提供的包裹尺寸或重量与运营商的测量不符，而导致额外费用，诚信物流有权从我所提供的银行卡信息对应的银行账户内扣除相应费用。</span><br />
                         ３、我同意由本人或相应收件人承担支付取货国家所产生的所有额外关税。（<a href="http://www.customs.gov.cn/publish/portal0/tab3889/module1188/info362458.htm" target="_blank" style="color: #f00; float: none">详见中国入境个人邮寄物品完税价格表</a>）<br />
                         ４、我确认所提供的包裹内物品信息（种类，数量，价格）与实际包裹内物品相符。
                     </p>
@@ -1012,26 +984,25 @@
             });
         });
 
-
+        var today = new Date();
         var myStartDate = new Date();
         var myEndDate = new Date();
 
-        //12点之后,999parcel只能第二天取件
-        if (myStartDate.getHours() > 12) {
-            $('#am')[0].setAttribute('disable', 'disable');
-        }
-        else {
-            $('#am')[0].setAttribute('disable', '');
-        }
+       
 
         if ($('#pickUpCompany')[0].innerText == 'UK Mail' || $('#pickUpCompany')[0].innerText == 'Parcelforce') {
-            myStartDate.setDate(myStartDate.getDate() + 1);
-            myEndDate.setDate(myEndDate.getDate() + 2);
+            myStartDate.setDate(today.getDate() + 1);
+            myEndDate.setDate(today.getDate() + 2);
         }
         else
         {
-            //myStartDate.setDate(myStartDate.getDate() + 0);
+            if (today.getHours() > 15)
+            {
+                myStartDate.setDate(today.getDate() + 1);
+            }
+            
             myEndDate.setDate(myEndDate.getDate() + 7);
+            
         }
         
 
@@ -1052,13 +1023,28 @@
             showMeridian: false,
             clearBtn: false,
             language: 'en',
+            initialDate: myStartDate,
             
-            //initialDate: '2015-04-1',
             daysDisabled: ['2014-04-18', '2014-04-21', '2014-05-05', '2014-05-26', '2014-08-25', '2014-12-24', '2014-12-25', '2014-12-26', '2015-01-01', '2015-04-03', '2015-04-06', '2015-05-04', '2015-05-25', '2015-08-31', '2015-12-25', '2015-12-28']
         });
 
         $('.form_datetime').datetimepicker().on('changeDate', function (ev) {
-            
+            if ($('#pickUpCompany')[0].innerText == '999Parcel') {
+
+
+                var selected = new Date($('#id_pickup_time_0')[0].value);
+                if (selected.getDate() == today.getDate()) {
+                    if (today.getHours() > 9)
+                    {
+                        $('#am')[0].hidden = true;
+                        $('#_999parcel')[0].selectedIndex = 1;
+                    }
+                    
+                }
+                else {
+                    $('#am')[0].hidden = false;
+                }
+            }
         });
 
         var toPinyin = function(zh, pinyin)

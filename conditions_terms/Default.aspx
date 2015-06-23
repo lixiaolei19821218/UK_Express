@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Default2" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" Runat="Server">
-    <title>Conditions and Terms | 速递中国-可靠,快捷,实惠</title>
+    <title>Conditions and Terms | 诚信物流-可靠,快捷,实惠</title>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">

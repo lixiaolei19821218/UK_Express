@@ -3,7 +3,7 @@
 <%@ Import Namespace="System.Globalization" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    <title>包裹加固 | 速递中国-可靠,快捷,实惠</title>
+    <title>包裹加固 | 诚信物流-可靠,快捷,实惠</title>
     <script src="../Scripts/jquery-1.8.0.min.js"></script>
 </asp:Content>
 

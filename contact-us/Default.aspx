@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Default2" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" Runat="Server">
-    <title>联系我们 | 速递中国-可靠,快捷,实惠</title>
+    <title>联系我们 | 诚信物流-可靠,快捷,实惠</title>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -18,7 +18,7 @@
         <div>
             <img src="/static/img/static/home.png" style="float:left;margin-right:5px;margin-top:-7px" />
             <div style="float:left;width:163px;margin-right:5px">官方网站<br><a href="http://www.send2china.co.uk">www.send2china.co.uk</a></div>
-            <div style="float:left;width:140px">官方微博<br><span style="color:#428BCA">Send2China速递中国</span></div>
+            <div style="float:left;width:140px">官方微博<br><span style="color:#428BCA">Send2China诚信物流</span></div>
             <div style="float:left;width:163px;margin-right:5px">淘宝店<br><a href="http://send2china.taobao.com">send2china.taobao.com</a></div>
             <div style="float:left;width:140px">官方微信<br><span style="color:#428BCA">JackieSend2China<br />Send2ChinaUK</span></div>
             <div style="clear:both"></div>
