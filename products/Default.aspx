@@ -27,7 +27,7 @@
         <form runat="server">
             <table class="table table-products">
                 <tr>
-                    <th style="min-width: 180px">服务</th>
+                    <th style="min-width: 240px">服务</th>
                     <th>描述</th>
                     <th style="min-width: 73px; text-align: center">上门取件</th>
                     <th style="min-width: 60px; text-align: center">打印</th>
@@ -71,7 +71,7 @@
 
     <div style="border: 1px solid #ccc; padding: 10px; margin-top: 30px; background: white">
 
-        <div class="sz16 bold" style="padding: 10px 0">谢菲尔德地区免费取件注意事项及说明</div>
+        <div class="sz16 bold" style="padding: 10px 0">诚信物流谢菲尔德地区取件说明</div>
         <p>
             邮编为S1,S2,S3,S4,S5,S6,S7,S8,S9,S10,S11,S12,S13,S14的区域为诚信物流免费取件区域。区域S35,S36, S17,S20,S21,S26,S25,S26收取3镑每次的上面取件费。其他没有标注的区域我们无法取件，请选择UKMail上门取件。
 

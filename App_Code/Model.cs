@@ -25,6 +25,13 @@ public partial class aspnet_User
     public string CellPhone { get; set; }
 }
 
+public partial class C999ParcelPickupPrices
+{
+    public int Id { get; set; }
+    public decimal Price { get; set; }
+    public string Areas { get; set; }
+}
+
 public partial class Order
 {
     public Order()

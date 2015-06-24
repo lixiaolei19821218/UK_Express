@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="UK_ExpressModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="999ParcelPickupPrices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="Areas" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="aspnet_Users">
           <Key>
             <PropertyRef Name="UserId" />
@@ -640,6 +648,7 @@
           <Parameter Name="Details" Type="ntext" Mode="In" />
         </Function>
         <EntityContainer Name="UK_ExpressModelStoreContainer">
+          <EntitySet Name="999ParcelPickupPrices" EntityType="Self.999ParcelPickupPrices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aspnet_Users" EntityType="Self.aspnet_Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PackageDetails" EntityType="Self.PackageDetails" Schema="dbo" store:Type="Tables" />
@@ -1099,6 +1108,7 @@
             <End Role="RechargeApply" EntitySet="RechargeApplys" />
           </AssociationSet>
           <EntitySet Name="aspnet_User" EntityType="UK_ExpressModel.aspnet_User" />
+          <EntitySet Name="C999ParcelPickupPrices" EntityType="UK_ExpressModel.C999ParcelPickupPrices" />
         </EntityContainer>
         <ComplexType Name="aspnet_Membership_GetPassword_Result">
           <Property Type="String" Name="Column1" Nullable="true" MaxLength="128" />
@@ -1476,6 +1486,14 @@
           <Property Name="LastName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="CellPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="C999ParcelPickupPrices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Areas" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1773,6 +1791,15 @@
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="C999ParcelPickupPrices">
+            <EntityTypeMapping TypeName="UK_ExpressModel.C999ParcelPickupPrices">
+              <MappingFragment StoreEntitySet="999ParcelPickupPrices">
+                <ScalarProperty Name="Areas" ColumnName="Areas" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

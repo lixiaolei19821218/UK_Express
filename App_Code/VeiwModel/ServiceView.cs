@@ -8,6 +8,13 @@ using System.Web;
 /// </summary>
 public class ServiceView
 {
+    [Ninject.Inject]
+    public IRepository repo
+    {
+        get;
+        set;
+    }
+
     public int Id { get; set; }
     public string Name { get; set; }
     public string PictureLink { get; set; }
@@ -34,7 +41,7 @@ public class ServiceView
         this.DiscribePictureLink = service.DiscribePictureLink;
         this.PriceListID = service.PriceListID;
         this.PickUpCompany = service.PickUpCompany;
-        this.PriceList = service.PriceList;        
+        this.PriceList = service.PriceList;         
     }    
 
     public decimal GetPrice(Order order)
@@ -68,11 +75,43 @@ public class ServiceView
     public decimal GetPickupPrice(Order order)
     {
         decimal price = 0m;
-
+        
         switch (Id)
         {
             case 1://Bpost免费取件
             case 11://post nl免费取件
+                if (string.IsNullOrEmpty(order.SenderZipCode))
+                {
+                    price = 0m;
+                }
+                else
+                {
+                    //zip code should like S9 2Hr
+                    string[] temp = order.SenderZipCode.Split(new char[]{' ', '\t'}, StringSplitOptions.RemoveEmptyEntries);
+                    if (temp.Length == 2)
+                    {
+                        string head = temp[0];
+                        string freeAreas = repo.Context.C999ParcelPickupPrices.Where(p => p.Price == 0.0m).Select(p => p.Areas).First();
+                        if (freeAreas.Contains(head))
+                        {
+                            price = 0.0m;
+                        }
+                        else
+                        {
+                            string chargedAreas = repo.Context.C999ParcelPickupPrices.Where(p => p.Price != 0.0m).Select(p => p.Areas).First();
+                            decimal chargedPrice = repo.Context.C999ParcelPickupPrices.Where(p => p.Price != 0.0m).Select(p => p.Price).First();
+                            if (chargedAreas.Contains(head))
+                            {
+                                price = chargedPrice;
+                            }
+                            else
+                            {
+                                throw new Exception("非诚信物流取件的邮政编码");
+                            }
+                        }
+                    }
+                }
+                break;
             case 15://Parcelforce
             case 17://Parcelforce
             case 23://Parcelforce

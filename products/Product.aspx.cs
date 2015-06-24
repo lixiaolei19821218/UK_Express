@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 using System.Web.Security;
+using System.Web.Services;
 
 public partial class products_Product : System.Web.UI.Page
 {
@@ -158,7 +159,7 @@ public partial class products_Product : System.Web.UI.Page
         Response.Redirect("/products/edit.aspx");
     }
 
-    private string FillOrder()
+    public string FillOrder()
     {
         order.SenderName = Request.Form.Get("billing_detail_name");
         order.SenderCity = Request.Form.Get("billing_detail_city");
@@ -236,5 +237,36 @@ public partial class products_Product : System.Web.UI.Page
         }
 
         return "pass";
+    }
+
+    public string Test(string s)
+    {
+        //FillOrder();
+        //order.SenderZipCode = ajax_postcode.Value;
+        return order.SenderZipCode;
+    }
+    
+    public string FreeAreas
+    {
+        get
+        {
+            return repo.Context.C999ParcelPickupPrices.Where(p => p.Price == 0.0m).Select(p => p.Areas).First();
+        }
+    }
+
+    public string ChargedAreas
+    {
+        get
+        {
+            return repo.Context.C999ParcelPickupPrices.Where(p => p.Price != 0.0m).Select(p => p.Areas).First();
+        }
+    }
+
+    public decimal ChargePrice
+    {
+        get
+        {
+            return repo.Context.C999ParcelPickupPrices.Where(p => p.Price != 0.0m).Select(p => p.Price).First();
+        }
     }
 }

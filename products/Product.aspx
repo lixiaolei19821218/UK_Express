@@ -196,16 +196,12 @@
                             </div>
                             <div style="float: left; margin: 5px" class="control-group ">
                                 <label for="id_billing_detail_postcode">邮编</label>
-                                <input class="input-medium" id="id_billing_detail_postcode" maxlength="8" name="billing_detail_postcode" style="width: 100px" type="text" value="<%:Order.SenderZipCode %>" required="required"/>
-
-
-
+                                <input class="input-medium" id="id_billing_detail_postcode" maxlength="8" name="billing_detail_postcode" style="width: 100px" type="text" value="<%:Order.SenderZipCode %>" required="required" onchange="zip_code_change()" />
+                                
 
                             </div>
 
-                            <div style="float: left; margin: 5px">
-                                <button type="button" onclick="cp_obj_1.doLookup()">查找地址</button>
-                            </div>
+                            
 
                             <div id="crafty_postcode_result_display_1" style="float: left; margin: 5px"></div>
 
@@ -213,7 +209,7 @@
                                 <div style="float: left; margin: 5px" class="control-group ">
                                     <label for="id_billing_detail_email">Email</label>
                                     <input class="input-medium" id="id_billing_detail_email" maxlength="50" name="billing_detail_email" style="width: 180px" type="text" value="<%:Order.SenderZipCode %>" />
-
+                                    
 
 
 
@@ -419,7 +415,7 @@
                                                            
                                                             <div style="margin-left: 5px">
                                                                 
-                                                                <input  style="width: 300px"/>
+                                                                <input class="input-medium"  style="width: 300px"/>
                                                             </div>
                                                             
                                                             
@@ -439,7 +435,7 @@
                                                            
                                                             <div style="margin-left: 5px">
                                                                 
-                                                                <input type="number" style="width: 50px"/>
+                                                                <input class="input-medium"  type="number" style="width: 50px"/>
                                                             </div>
                                                             
                                                             
@@ -503,7 +499,7 @@
                                 <br />
                                 <%:ServiceView.PickUpCompany %>:
                                 <br />
-                                <%:ServiceView.GetPickupPrice(Order).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %>
+                                <span id="pickup_price"><%:ServiceView.GetPickupPrice(Order).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></span>
                                 <br />
                                
                                 <asp:Repeater runat="server" ItemType="Package" SelectMethod="GetAllPackages">
@@ -512,10 +508,10 @@
                                         包裹 <%#Container.ItemIndex + 1 %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%#GetPackagePrice(Item).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %><br />-----------------
                                     </ItemTemplate>
                                 </asp:Repeater>                                
-                                
+                               
                             </div>
                             <br />
-                            <p>总额: <span id="total" class="sz16 bold clrr1" runat="server"><%:GetSendPrice().ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></span></p>
+                            <p>总额: <span id="total" class="sz16 bold clrr1"><%:GetSendPrice().ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></span></p>
                             <div style="margin-bottom: 5px">
                                 <label style="font-weight: bold">
                                     <input type="checkbox" class="agreed" style="margin-top: -3px" />
@@ -1005,6 +1001,16 @@
             
         }
         
+        if ($('#pickUpCompany')[0].innerText == '999Parcel')
+        {
+            $('#id_billing_detail_postcode')[0].pattern = "[Ss](1|2|3|4|5|6||8|9|10|11|12|13|14|17|20|21|25|26|35|36)\\s\\w+";
+            $('#id_billing_detail_postcode')[0].title = "请输入诚信物流取件地区的邮编";
+        }
+        else
+        {
+            $('#id_billing_detail_postcode')[0].pattern = '[Ss]\\d{1,2}\\s\\w+';
+            $('#id_billing_detail_postcode')[0].title = "请输入谢菲尔德地区的邮编";
+        }
 
         $('.form_datetime').datetimepicker({
             format: 'yyyy/mm/dd',
@@ -1051,6 +1057,32 @@
         {
             pinyin.innerText = ($('#' + pinyin).toPinyin());
         }
+
+        //$('#billing_detail_postcode')[0].
+        var areas_free = "<%=FreeAreas%>".split(',');        
+        var areas_3pounds = "<%=ChargedAreas%>".split(',');  
+        var price = parseFloat("<%=ChargePrice%>");
+        var tempTotal = parseFloat($('#total')[0].innerText.replace('£', ''));
+
+        function zip_code_change()
+        {            
+            if ($('#pickUpCompany')[0].innerText == '999Parcel') {
+                var zip_code = new String();
+                zip_code = $('#id_billing_detail_postcode')[0].value;                      
+                
+                var head = zip_code.split(' ')[0];
+                if ($.inArray(head, areas_free) != -1) {
+                    $('#pickup_price')[0].innerText = '£0.00';
+                    $('#total')[0].innerText = '£' + tempTotal.toFixed(2);
+                }
+                else if ($.inArray(head, areas_3pounds) != -1) {
+                    $('#pickup_price')[0].innerText = '£' + price.toFixed(2);
+                    $('#total')[0].innerText = '£' + (price + tempTotal).toFixed(2);
+                }                
+            }
+        }
+        
+
     </script>
 
 
