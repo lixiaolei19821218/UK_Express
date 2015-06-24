@@ -310,10 +310,15 @@
                                         </div>
                                     </div>
                                     <div style="float: left; margin: 5px; margin-left: 20px" class="control-group">
-                                        <label>
+                                        <label runat="server" id="label">
                                             额外保险
                                                     <select name="addr_0_insurance" class="addr_insurance" id="addr_0_insurance">
                                                         <option value="0">无</option>
+                                                        <option value="0">5镑</option>
+                                                        <option value="0">10镑</option>
+                                                        <option value="0">15镑</option>
+                                                        <option value="0">20镑</option>
+                                                        <option value="0">25镑</option>
                                                     </select>
                                         </label>
                                     </div>
@@ -1062,7 +1067,10 @@
         var areas_free = "<%=FreeAreas%>".split(',');        
         var areas_3pounds = "<%=ChargedAreas%>".split(',');  
         var price = parseFloat("<%=ChargePrice%>");
-        var tempTotal = parseFloat($('#total')[0].innerText.replace('£', ''));
+        var free = 0.0;
+
+        var oldPickup = parseFloat($('#pickup_price')[0].innerText.replace('£', ''));
+        var sendPrice = parseFloat($('#total')[0].innerText.replace('£', '')) - oldPickup;
 
         function zip_code_change()
         {            
@@ -1072,13 +1080,14 @@
                 
                 var head = zip_code.split(' ')[0];
                 if ($.inArray(head, areas_free) != -1) {
-                    $('#pickup_price')[0].innerText = '£0.00';
-                    $('#total')[0].innerText = '£' + tempTotal.toFixed(2);
+                    $('#pickup_price')[0].innerText = '£' + free.toFixed(2);
+                    $('#total')[0].innerText = '£' + (free + sendPrice).toFixed(2);
                 }
                 else if ($.inArray(head, areas_3pounds) != -1) {
                     $('#pickup_price')[0].innerText = '£' + price.toFixed(2);
-                    $('#total')[0].innerText = '£' + (price + tempTotal).toFixed(2);
-                }                
+                    $('#total')[0].innerText = '£' + (price + sendPrice).toFixed(2);
+                }
+                
             }
         }
         

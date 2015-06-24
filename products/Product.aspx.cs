@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 using System.Web.Security;
 using System.Web.Services;
+using System.Configuration;
 
 public partial class products_Product : System.Web.UI.Page
 {
@@ -42,7 +43,11 @@ public partial class products_Product : System.Web.UI.Page
         else
         {
             pfuk.Visible = false;
-            _999parcel.Visible = true;
+            _999parcel.Visible = true;            
+        }
+
+        if (order.Service.Name.Contains("Parcelforce Priority"))
+        {
             
         }
     }
@@ -198,7 +203,7 @@ public partial class products_Product : System.Web.UI.Page
         {
             return "请输入发件人的城市";
         }
-        else if (string.IsNullOrEmpty(order.SenderAddress1) || string.IsNullOrEmpty(order.SenderAddress2) || string.IsNullOrEmpty(order.SenderAddress3))
+        else if (string.IsNullOrEmpty(order.SenderAddress1))
         {
             return "请输入发件人的地址";
         }
@@ -250,15 +255,15 @@ public partial class products_Product : System.Web.UI.Page
     {
         get
         {
-            return repo.Context.C999ParcelPickupPrices.Where(p => p.Price == 0.0m).Select(p => p.Areas).First();
+            return ConfigurationManager.AppSettings["_999ParcelFreeAreas"];
         }
     }
 
     public string ChargedAreas
     {
         get
-        {
-            return repo.Context.C999ParcelPickupPrices.Where(p => p.Price != 0.0m).Select(p => p.Areas).First();
+        {            
+            return ConfigurationManager.AppSettings["_999ParcelChargeAreas"];
         }
     }
 
@@ -266,7 +271,7 @@ public partial class products_Product : System.Web.UI.Page
     {
         get
         {
-            return repo.Context.C999ParcelPickupPrices.Where(p => p.Price != 0.0m).Select(p => p.Price).First();
+            return decimal.Parse(ConfigurationManager.AppSettings["_999ParcelChargePrice"]);
         }
     }
 }

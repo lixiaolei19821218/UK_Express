@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using WMOrderService;
 
 public partial class cart_Cart : System.Web.UI.Page
 {
@@ -80,6 +81,7 @@ public partial class cart_Cart : System.Web.UI.Page
         orderCopy.SenderPhone = order.SenderPhone;
         orderCopy.SenderZipCode = order.SenderZipCode;
         orderCopy.ServiceID = order.ServiceID;
+        orderCopy.Service = order.Service;
         orderCopy.User = order.User;
         orderCopy.Id = order.Id;
 
@@ -180,7 +182,11 @@ public partial class cart_Cart : System.Web.UI.Page
         var noneSheffieldOrders = GetNoneSheffieldOrders();
         foreach (Order o in noneSheffieldOrders)
         {
-           
+            foreach (Recipient r in o.Recipients)
+            {
+                OrderServiceClient client = new OrderServiceClient();
+                //OrderResponse response = client.OrderPlace();
+            }
         }
     }
 }

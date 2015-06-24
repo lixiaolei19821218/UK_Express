@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web;
 
@@ -91,15 +92,15 @@ public class ServiceView
                     if (temp.Length == 2)
                     {
                         string head = temp[0];
-                        string freeAreas = repo.Context.C999ParcelPickupPrices.Where(p => p.Price == 0.0m).Select(p => p.Areas).First();
+                        string freeAreas = ConfigurationManager.AppSettings["_999ParcelFreeAreas"];
                         if (freeAreas.Contains(head))
                         {
                             price = 0.0m;
                         }
                         else
                         {
-                            string chargedAreas = repo.Context.C999ParcelPickupPrices.Where(p => p.Price != 0.0m).Select(p => p.Areas).First();
-                            decimal chargedPrice = repo.Context.C999ParcelPickupPrices.Where(p => p.Price != 0.0m).Select(p => p.Price).First();
+                            string chargedAreas = ConfigurationManager.AppSettings["_999ParcelChargeAreas"]; ;
+                            decimal chargedPrice = decimal.Parse(ConfigurationManager.AppSettings["_999ParcelChargePrice"]);
                             if (chargedAreas.Contains(head))
                             {
                                 price = chargedPrice;
