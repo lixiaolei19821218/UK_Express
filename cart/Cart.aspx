@@ -55,7 +55,7 @@
                                 <th class="tac">订单号</th>
                                 <th class="left">下单日期</th>
                                 <th class="tac">价格</th>
-                                <th class="tac">包裹数量</th>
+                                <th class="tac" >包裹数</th>
                                 <th class="tac">发件人</th>
                                 <th>服务</th>
                                 <th colspan="2"></th>

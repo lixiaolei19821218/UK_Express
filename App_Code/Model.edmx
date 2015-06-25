@@ -5,14 +5,6 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="UK_ExpressModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="999ParcelPickupPrices">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="Areas" Type="nvarchar(max)" Nullable="false" />
-        </EntityType>
         <EntityType Name="aspnet_Users">
           <Key>
             <PropertyRef Name="UserId" />
@@ -54,16 +46,6 @@
           <Property Name="PriceListID" Type="int" />
           <Property Name="Cost" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
-        <EntityType Name="PackageDetails">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="UnitPrice" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="PackageID" Type="int" Nullable="false" />
-        </EntityType>
         <EntityType Name="Packages">
           <Key>
             <PropertyRef Name="Id" />
@@ -75,6 +57,8 @@
           <Property Name="Weight" Type="decimal" Precision="18" Scale="1" Nullable="false" />
           <Property Name="WaybillNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="RecipientID" Type="int" Nullable="false" />
+          <Property Name="Detail" Type="nvarchar(max)" />
+          <Property Name="Value" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="PriceItems">
           <Key>
@@ -196,18 +180,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PackageID">
-          <End Role="Packages" Type="Self.Packages" Multiplicity="1" />
-          <End Role="PackageDetails" Type="Self.PackageDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Packages">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PackageDetails">
-              <PropertyRef Name="PackageID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PriceListID">
           <End Role="PriceLists" Type="Self.PriceLists" Multiplicity="1" />
           <End Role="PriceItems" Type="Self.PriceItems" Multiplicity="*" />
@@ -301,18 +273,6 @@
             </Principal>
             <Dependent Role="Orders">
               <PropertyRef Name="SheffieldServiceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PackageID">
-          <End Role="Packages" Type="Self.Packages" Multiplicity="1" />
-          <End Role="PackageDetails" Type="Self.PackageDetails" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Packages">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PackageDetails">
-              <PropertyRef Name="PackageID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -648,10 +608,8 @@
           <Parameter Name="Details" Type="ntext" Mode="In" />
         </Function>
         <EntityContainer Name="UK_ExpressModelStoreContainer">
-          <EntitySet Name="999ParcelPickupPrices" EntityType="Self.999ParcelPickupPrices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="aspnet_Users" EntityType="Self.aspnet_Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PackageDetails" EntityType="Self.PackageDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Packages" EntityType="Self.Packages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PriceItems" EntityType="Self.PriceItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PriceLists" EntityType="Self.PriceLists" Schema="dbo" store:Type="Tables" />
@@ -669,10 +627,6 @@
           <AssociationSet Name="FK_OrderID" Association="Self.FK_OrderID">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="Recipients" EntitySet="Recipients" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PackageID" Association="Self.FK_PackageID">
-            <End Role="Packages" EntitySet="Packages" />
-            <End Role="PackageDetails" EntitySet="PackageDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_PriceListID" Association="Self.FK_PriceListID">
             <End Role="PriceLists" EntitySet="PriceLists" />
@@ -705,10 +659,6 @@
           <AssociationSet Name="FK_SheffieldServiceID" Association="Self.FK_SheffieldServiceID">
             <End Role="SheffieldServices" EntitySet="SheffieldServices" />
             <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="PackageID" Association="Self.PackageID">
-            <End Role="Packages" EntitySet="Packages" />
-            <End Role="PackageDetails" EntitySet="PackageDetails" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1048,7 +998,6 @@
             <Parameter Name="Details" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="Orders" EntityType="UK_ExpressModel.Order" />
-          <EntitySet Name="PackageDetails" EntityType="UK_ExpressModel.PackageDetail" />
           <EntitySet Name="Packages" EntityType="UK_ExpressModel.Package" />
           <EntitySet Name="PriceItems" EntityType="UK_ExpressModel.PriceItem" />
           <EntitySet Name="PriceLists" EntityType="UK_ExpressModel.PriceList" />
@@ -1066,14 +1015,6 @@
           <AssociationSet Name="FK_ServiceID" Association="UK_ExpressModel.FK_ServiceID">
             <End Role="Service" EntitySet="Services" />
             <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PackageID" Association="UK_ExpressModel.FK_PackageID">
-            <End Role="Package" EntitySet="Packages" />
-            <End Role="PackageDetail" EntitySet="PackageDetails" />
-          </AssociationSet>
-          <AssociationSet Name="PackageID" Association="UK_ExpressModel.PackageID">
-            <End Role="Package" EntitySet="Packages" />
-            <End Role="PackageDetail" EntitySet="PackageDetails" />
           </AssociationSet>
           <AssociationSet Name="FK_RecipientID" Association="UK_ExpressModel.FK_RecipientID">
             <End Role="Recipient" EntitySet="Recipients" />
@@ -1108,7 +1049,6 @@
             <End Role="RechargeApply" EntitySet="RechargeApplys" />
           </AssociationSet>
           <EntitySet Name="aspnet_User" EntityType="UK_ExpressModel.aspnet_User" />
-          <EntitySet Name="C999ParcelPickupPrices" EntityType="UK_ExpressModel.C999ParcelPickupPrices" />
         </EntityContainer>
         <ComplexType Name="aspnet_Membership_GetPassword_Result">
           <Property Type="String" Name="Column1" Nullable="true" MaxLength="128" />
@@ -1190,18 +1130,6 @@
           <NavigationProperty Name="PriceList" Relationship="UK_ExpressModel.FK_PriceListID_Orders" FromRole="Order" ToRole="PriceList" />
           <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
-        <EntityType Name="PackageDetail">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="UnitPrice" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="PackageID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Package" Relationship="UK_ExpressModel.FK_PackageID" FromRole="PackageDetail" ToRole="Package" />
-          <NavigationProperty Name="Package1" Relationship="UK_ExpressModel.PackageID" FromRole="PackageDetail" ToRole="Package" />
-        </EntityType>
         <EntityType Name="Package">
           <Key>
             <PropertyRef Name="Id" />
@@ -1213,9 +1141,9 @@
           <Property Name="Weight" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
           <Property Name="WaybillNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="RecipientID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="PackageDetails" Relationship="UK_ExpressModel.FK_PackageID" FromRole="Package" ToRole="PackageDetail" />
-          <NavigationProperty Name="PackageDetails1" Relationship="UK_ExpressModel.PackageID" FromRole="Package" ToRole="PackageDetail" />
           <NavigationProperty Name="Recipient" Relationship="UK_ExpressModel.FK_RecipientID" FromRole="Package" ToRole="Recipient" />
+          <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Value" Type="Decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="PriceItem">
           <Key>
@@ -1311,30 +1239,6 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="ServiceID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PackageID">
-          <End Type="UK_ExpressModel.Package" Role="Package" Multiplicity="1" />
-          <End Type="UK_ExpressModel.PackageDetail" Role="PackageDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Package">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PackageDetail">
-              <PropertyRef Name="PackageID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="PackageID">
-          <End Type="UK_ExpressModel.Package" Role="Package" Multiplicity="1" />
-          <End Type="UK_ExpressModel.PackageDetail" Role="PackageDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Package">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="PackageDetail">
-              <PropertyRef Name="PackageID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1485,14 +1389,6 @@
           <Property Name="FirstName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="LastName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="CellPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="C999ParcelPickupPrices">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Areas" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1648,20 +1544,11 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PackageDetails">
-            <EntityTypeMapping TypeName="UK_ExpressModel.PackageDetail">
-              <MappingFragment StoreEntitySet="PackageDetails">
-                <ScalarProperty Name="PackageID" ColumnName="PackageID" />
-                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Packages">
             <EntityTypeMapping TypeName="UK_ExpressModel.Package">
               <MappingFragment StoreEntitySet="Packages">
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
                 <ScalarProperty Name="RecipientID" ColumnName="RecipientID" />
                 <ScalarProperty Name="WaybillNumber" ColumnName="WaybillNumber" />
                 <ScalarProperty Name="Weight" ColumnName="Weight" />
@@ -1791,15 +1678,6 @@
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="C999ParcelPickupPrices">
-            <EntityTypeMapping TypeName="UK_ExpressModel.C999ParcelPickupPrices">
-              <MappingFragment StoreEntitySet="999ParcelPickupPrices">
-                <ScalarProperty Name="Areas" ColumnName="Areas" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

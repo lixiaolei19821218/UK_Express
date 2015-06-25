@@ -33,6 +33,21 @@ public partial class products_Edit : System.Web.UI.Page
   
     protected void ButtonToOrder_Click(object sender, EventArgs e)
     {
+        //cache detail and value
+        Order cacheOrder = new Order();
+        foreach (Recipient r in order.Recipients)
+        {
+            Recipient cacheRecipient = new Recipient();
+            cacheOrder.Recipients.Add(cacheRecipient);
+            foreach (Package p in r.Packages)
+            {
+                Package cachePackage = new Package();
+                cachePackage.Detail = p.Detail;
+                cachePackage.Value = p.Value;
+                cacheRecipient.Packages.Add(cachePackage);
+            }
+        }
+
         //addr-x-cn_name       
         var rptKeys = from k in Request.Form.AllKeys where Regex.Match(k, @"addr-\d-cn_name|addr-\d-cn_city|addr-\d-cn_street|addr-\d-postcode|addr-\d-phone").Success select k;
         var groups = rptKeys.GroupBy(k => k[5]);
@@ -148,7 +163,21 @@ public partial class products_Edit : System.Web.UI.Page
 
                 r.Packages.Add(package);
             }            
-        }        
+        }
+
+        //restore detail and value
+        int rCount = order.Recipients.Count < cacheOrder.Recipients.Count ? order.Recipients.Count : cacheOrder.Recipients.Count;
+        for (int i = 0; i < rCount; i++)
+        {
+            Recipient r = order.Recipients.ElementAt(i);
+            Recipient cacheR = cacheOrder.Recipients.ElementAt(i);
+            int pCount = r.Packages.Count < cacheR.Packages.Count ? r.Packages.Count : cacheR.Packages.Count; 
+            for (int j = 0; j < pCount; j++)
+            {
+                order.Recipients.ElementAt(i).Packages.ElementAt(j).Detail = cacheOrder.Recipients.ElementAt(i).Packages.ElementAt(j).Detail;
+                order.Recipients.ElementAt(i).Packages.ElementAt(j).Value = cacheOrder.Recipients.ElementAt(i).Packages.ElementAt(j).Value;
+            }
+        }
 
         if (pass)
         {

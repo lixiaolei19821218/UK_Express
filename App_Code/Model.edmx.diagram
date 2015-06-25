@@ -7,7 +7,6 @@
       <Diagram DiagramId="914f643574f44fc69d626da314bb1769" Name="Diagram1" ZoomLevel="93">
         <EntityTypeShape EntityType="UK_ExpressModel.Table" Width="1.5" PointX="3.375" PointY="0.75" />
         <EntityTypeShape EntityType="UK_ExpressModel.Order" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="UK_ExpressModel.PackageDetail" Width="1.5" PointX="9.75" PointY="2.125" />
         <EntityTypeShape EntityType="UK_ExpressModel.Package" Width="1.5" PointX="7.5" PointY="1.75" />
         <EntityTypeShape EntityType="UK_ExpressModel.PriceItem" Width="1.5" PointX="5.75" PointY="5.75" />
         <EntityTypeShape EntityType="UK_ExpressModel.PriceList" Width="1.5" PointX="5.75" PointY="9" />
@@ -17,8 +16,6 @@
         <AssociationConnector Association="UK_ExpressModel.FK_OrderID" />
         <AssociationConnector Association="UK_ExpressModel.FK_ReinforceID" />
         <AssociationConnector Association="UK_ExpressModel.FK_ServiceID" />
-        <AssociationConnector Association="UK_ExpressModel.FK_PackageID" />
-        <AssociationConnector Association="UK_ExpressModel.PackageID" />
         <AssociationConnector Association="UK_ExpressModel.FK_RecipientID" />
         <AssociationConnector Association="UK_ExpressModel.FK_PriceListID" />
         <AssociationConnector Association="UK_ExpressModel.FK_PriceListID_Service" />
@@ -31,7 +28,6 @@
         <EntityTypeShape EntityType="UK_ExpressModel.RechargeChannel" Width="1.5" PointX="10.375" PointY="6.375" />
         <AssociationConnector Association="UK_ExpressModel.FK_ChannelID" />
         <EntityTypeShape EntityType="UK_ExpressModel.aspnet_User" Width="1.5" PointX="0.75" PointY="10.75" />
-        <EntityTypeShape EntityType="UK_ExpressModel.C999ParcelPickupPrices" Width="1.5" PointX="10.375" PointY="9.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

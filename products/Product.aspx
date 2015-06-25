@@ -188,7 +188,7 @@
                             </div>
                             <div style="float: left; margin: 5px" class="control-group ">
                                 <label for="id_billing_detail_phone">电话</label>
-                                <input class="input-medium" id="id_billing_detail_phone" maxlength="15" name="billing_detail_phone" style="width: 180px" type="text" value="<%:Order.SenderPhone %>" required="required"/>
+                                <input class="input-medium" id="id_billing_detail_phone" maxlength="15" name="billing_detail_phone" style="width: 180px" type="text" value="<%:Order.SenderPhone %>" required="required" title="请输入数字" pattern="\d+"/>
 
 
 
@@ -260,7 +260,7 @@
                             </div>
                         </div>
                     </li>
-
+                    
                     <asp:Repeater runat="server" ItemType="Recipient" SelectMethod="GetRecipients">
                         <ItemTemplate>
                             
@@ -308,17 +308,17 @@
                                             <label for="id_addr-0-phone">电话</label>
                                             <input id="id_addr-0-phone" maxlength="11" name="addr-0-phone" style="width: 100px" type="text" value="<%#Item.PhoneNumber %>"  required="required"/>
                                         </div>
-                                    </div>
-                                    <div style="float: left; margin: 5px; margin-left: 20px" class="control-group">
+                                    </div>                                   
+                                    <div style="float: left; margin: 5px; margin-left: 20px;" class="control-group" <%:ServiceView.Name.Contains("Parcelforce Priority") ? "" : "hidden=\"hidden\"" %> >
                                         <label runat="server" id="label">
                                             额外保险
                                                     <select name="addr_0_insurance" class="addr_insurance" id="addr_0_insurance">
                                                         <option value="0">无</option>
-                                                        <option value="0">5镑</option>
-                                                        <option value="0">10镑</option>
-                                                        <option value="0">15镑</option>
-                                                        <option value="0">20镑</option>
-                                                        <option value="0">25镑</option>
+                                                        <option value="0">£5</option>
+                                                        <option value="0">£10</option>
+                                                        <option value="0">£15</option>
+                                                        <option value="0">£20</option>
+                                                        <option value="0">£25</option>
                                                     </select>
                                         </label>
                                     </div>
@@ -410,43 +410,24 @@
                                                     </div>
                                                     <div class="ib" style="margin-left: 20px">
                                                         <div>
-                                                            <div class="ib pd7 bold">包裹明细</div>
-                                                            
+                                                            <div class="ib pd7 bold">包裹明细</div>                                                            
                                                         </div>
-
                                                         <!-- parcel content details -->
-
-                                                        <div class="mx">
-                                                           
-                                                            <div style="margin-left: 5px">
-                                                                
-                                                                <input class="input-medium"  style="width: 300px"/>
-                                                            </div>
-                                                            
-                                                            
-                                                        </div>
-
-                                                        
+                                                        <div class="mx">                                                           
+                                                            <div style="margin-left: 5px">                                                                
+                                                                <input class="input-medium" value="<%# Item.Detail %>" name="deteil_<%#(Container.Parent.Parent as RepeaterItem).ItemIndex %>_<%#Container.ItemIndex %>" style="width: 300px" required="required" title="请输入英文" pattern="(\w|\d|\s)+"/>                                                               
+                                                            </div>                                                 
+                                                        </div>                                            
                                                     </div>
                                                     <div class="ib" style="margin-left: 20px">
                                                         <div>
-                                                            <div class="ib pd7 bold">总额(£):</div>
-                                                            
-                                                        </div>
-
-                                                        <!-- parcel content details -->
-
-                                                        <div class="mx">
-                                                           
-                                                            <div style="margin-left: 5px">
-                                                                
-                                                                <input class="input-medium"  type="number" style="width: 50px"/>
-                                                            </div>
-                                                            
-                                                            
-                                                        </div>
-
-                                                        
+                                                            <div class="ib pd7 bold">总额(£):</div>                                                            
+                                                        </div>                                                       
+                                                        <div class="mx">                                                           
+                                                            <div style="margin-left: 5px">                                                                
+                                                                <input class="input-medium" value="<%# Item.Value %>" name="value_<%#(Container.Parent.Parent as RepeaterItem).ItemIndex %>_<%#Container.ItemIndex %>" type="number" style="width: 50px" required="required"/>
+                                                            </div>                                                 
+                                                        </div>                                                        
                                                     </div>
                                                 </div>
                                             </li>
@@ -527,7 +508,7 @@
                
                                            <div style="margin:10px">
 
-                                               <asp:LinkButton ID="LinkButtonEdit" runat="server" OnClick="LinkButtonEdit_Click">添加/修改包裹</asp:LinkButton>
+                                               <asp:Button ID="LinkButtonEdit" runat="server" style="width: 100px; height: 23px; border: none; background-color:transparent; font-size: 12px; color:steelblue" OnClick="LinkButtonEdit_Click" Text="添加/修改包裹"></asp:Button>
                                            </div>
                         </div>
                         <!-- .panel -->

@@ -27,6 +27,7 @@ public partial class products_Product : System.Web.UI.Page
 
         Service service = repo.Services.FirstOrDefault(s => s.Id == order.ServiceID);
         sv = new ServiceView(service);
+        //order.Service = service;
 
         //ParcelForce
         if (sv.Name.Contains("Parcelforce"))
@@ -44,12 +45,7 @@ public partial class products_Product : System.Web.UI.Page
         {
             pfuk.Visible = false;
             _999parcel.Visible = true;            
-        }
-
-        if (order.Service.Name.Contains("Parcelforce Priority"))
-        {
-            
-        }
+        }       
     }
 
     public IEnumerable<Recipient> GetRecipients()
@@ -183,6 +179,14 @@ public partial class products_Product : System.Web.UI.Page
             recipient.Address = Request.Form.Get(string.Format("addr-{0}-cn_street", i));
             recipient.PhoneNumber = Request.Form.Get(string.Format("addr-{0}-phone", i));
             recipient.ZipCode = Request.Form.Get(string.Format("addr-{0}-postcode", i));
+
+            for (int j = 0; j < recipient.Packages.Count; j++)
+            {
+                Package p = recipient.Packages.ElementAt(j);
+                //deteil_0_0
+                p.Detail = Request.Form.Get(string.Format("deteil_{0}_{1}", i, j));
+                p.Value = decimal.Parse(Request.Form.Get(string.Format("value_{0}_{1}", i, j)));
+            }
         }
 
         DateTime date;
@@ -242,14 +246,7 @@ public partial class products_Product : System.Web.UI.Page
         }
 
         return "pass";
-    }
-
-    public string Test(string s)
-    {
-        //FillOrder();
-        //order.SenderZipCode = ajax_postcode.Value;
-        return order.SenderZipCode;
-    }
+    }    
     
     public string FreeAreas
     {

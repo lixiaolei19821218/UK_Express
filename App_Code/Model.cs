@@ -25,13 +25,6 @@ public partial class aspnet_User
     public string CellPhone { get; set; }
 }
 
-public partial class C999ParcelPickupPrices
-{
-    public int Id { get; set; }
-    public decimal Price { get; set; }
-    public string Areas { get; set; }
-}
-
 public partial class Order
 {
     public Order()
@@ -70,12 +63,6 @@ public partial class Order
 
 public partial class Package
 {
-    public Package()
-    {
-        this.PackageDetails = new HashSet<PackageDetail>();
-        this.PackageDetails1 = new HashSet<PackageDetail>();
-    }
-
     public int Id { get; set; }
     public decimal Length { get; set; }
     public decimal Width { get; set; }
@@ -83,22 +70,10 @@ public partial class Package
     public decimal Weight { get; set; }
     public string WaybillNumber { get; set; }
     public int RecipientID { get; set; }
+    public string Detail { get; set; }
+    public Nullable<decimal> Value { get; set; }
 
-    public virtual ICollection<PackageDetail> PackageDetails { get; set; }
-    public virtual ICollection<PackageDetail> PackageDetails1 { get; set; }
     public virtual Recipient Recipient { get; set; }
-}
-
-public partial class PackageDetail
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public int Quantity { get; set; }
-    public decimal UnitPrice { get; set; }
-    public int PackageID { get; set; }
-
-    public virtual Package Package { get; set; }
-    public virtual Package Package1 { get; set; }
 }
 
 public partial class PriceItem

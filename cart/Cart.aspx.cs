@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Web;
@@ -22,7 +23,7 @@ public partial class cart_Cart : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        
     }
 
     public IEnumerable<Order> GetOrders()
@@ -81,7 +82,7 @@ public partial class cart_Cart : System.Web.UI.Page
         orderCopy.SenderPhone = order.SenderPhone;
         orderCopy.SenderZipCode = order.SenderZipCode;
         orderCopy.ServiceID = order.ServiceID;
-        orderCopy.Service = order.Service;
+        //orderCopy.Service = order.Service;
         orderCopy.User = order.User;
         orderCopy.Id = order.Id;
 
@@ -102,6 +103,8 @@ public partial class cart_Cart : System.Web.UI.Page
                 pc.Width = p.Width;
                 pc.Weight = p.Weight;
                 pc.WaybillNumber = p.WaybillNumber;
+                pc.Detail = p.Detail;
+                pc.Value = p.Value;
 
                 rc.Packages.Add(pc);
             }
@@ -178,15 +181,118 @@ public partial class cart_Cart : System.Web.UI.Page
         }
     }
     protected void pay_Click(object sender, EventArgs e)
-    {
-        var noneSheffieldOrders = GetNoneSheffieldOrders();
-        foreach (Order o in noneSheffieldOrders)
+    {        
+        decimal balance = GetAmount();
+        decimal cost = GetTotalPrice();
+
+        if (balance >= cost)
         {
-            foreach (Recipient r in o.Recipients)
+            string username = "api_test";
+            string password = "api_password";
+
+            var noneSheffieldOrders = GetNoneSheffieldOrders();
+            foreach (Order o in noneSheffieldOrders)
             {
-                OrderServiceClient client = new OrderServiceClient();
-                //OrderResponse response = client.OrderPlace();
+                foreach (Recipient r in o.Recipients)
+                {
+                    OrderServiceClient client = new OrderServiceClient();
+                    int parcelCount = r.Packages.Count;
+                    string[] purposeOfShipment = new string[parcelCount];
+                    for (int i = 0; i < purposeOfShipment.Length; i++)
+                    {
+                        purposeOfShipment[i] = "Gift";
+                    }
+
+                    OrderResponse response = client.OrderPlace(
+                        r.Packages.Select(p => p.Detail).ToArray(),
+                        purposeOfShipment,
+                        r.Packages.Select(p => (float)p.Height).ToArray(),
+                        r.Packages.Select(p => (float)p.Length).ToArray(),
+                        r.Packages.Select(p => (float)p.Width).ToArray(),
+                        r.Packages.Select(p => (float)p.Weight).ToArray(),
+                        r.Packages.Select(p => (float)p.Value).ToArray(),
+                        parcelCount,
+                        password,
+                        username,
+                        r.ZipCode,
+                        r.Address,
+                        r.City,
+                        "Personal",
+                        r.Name,
+                        "China",
+                        r.PhoneNumber,
+                        r.Order.SenderAddress1 + " " + r.Order.SenderAddress2 + " " + r.Order.SenderAddress3,
+                        r.Order.SenderCity,
+                        "Personal",
+                        r.Order.SenderName,
+                        "UK",
+                        r.Order.SenderPhone,//"B29 7sn",
+                        r.Order.SenderZipCode,
+                        "pf-ipe-pol",
+                        DateTime.Now.ToString()
+                        );
+
+                    if (response.Errors == null)
+                    {
+                        //国际追踪号
+                        string tracknumber = response.TrackNumber;
+                        //WM的订单号，主订单号
+                        string wm_leadernumber = response.LeaderOrderNumber;
+                        //WM的包裹号，用逗号分隔
+                        string wm_ordernumber = response.OrderNumber;
+                        //返回的pdf信息，
+                        LabelResponse labelResponse_leader = client.GetLabelByWMLeaderNumber(username, password, wm_leadernumber);
+                        //订单合并成的一个pdf，输入为主订单号
+                        if (labelResponse_leader.Errors == null)
+                        {
+                            byte[] byt = labelResponse_leader.Label;
+                            File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + "\\pdf\\" + wm_leadernumber + ".pdf", byt);
+                        }
+                        else
+                        {
+                            //错误保存在Errors里面
+                        }
+                        //根据包裹号下载pdf
+                        string[] packagenumbers = wm_ordernumber.Split(',');
+                        LabelResponse labelResponse_package = client.GetLabelByPackgeNumber(username, password, packagenumbers[0]);
+                        if (labelResponse_package.Errors == null)
+                        {
+                            byte[] byt = labelResponse_package.Label;
+                            File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + "\\pdf\\" + packagenumbers[0] + ".pdf", byt);
+
+                        }
+                        else
+                        {
+                            //错误保存在Errors里面
+                        }
+                        //根据国际单号下载pdf
+                        string[] tracknumbers = tracknumber.Split(',');
+                        LabelResponse labelResponse_track = client.GetLabelByTrackNumber(username, password, tracknumbers[0]);
+                        if (labelResponse_track.Errors == null)
+                        {
+                            byte[] byt = labelResponse_track.Label;
+                            File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + "\\pdf\\" + tracknumbers[0] + ".pdf", byt);
+
+                        }
+                        else
+                        {
+                            //错误保存在Errors里面
+                        }
+                    }
+                    //如果出现错误
+                    else
+                    {
+                        for (int i = 0; i < response.Errors.Length; i++)
+                        {//错误列表
+                            string error = response.Errors[i].ToString();
+                        }
+                    }
+                }
             }
+        }
+        else
+        {
+            Response.Redirect("RedirectToRecharge.aspx");
         }
     }
 }

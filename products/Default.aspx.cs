@@ -27,6 +27,7 @@ public partial class product_Default : System.Web.UI.Page
             if (int.TryParse(Request.Form["order"], out serviceID))
             {
                 order.ServiceID = serviceID;
+                
                 Response.Redirect("product.aspx");
             }
         }

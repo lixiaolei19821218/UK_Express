@@ -26,7 +26,6 @@ public partial class UK_ExpressEntities : DbContext
     }
 
     public virtual DbSet<Order> Orders { get; set; }
-    public virtual DbSet<PackageDetail> PackageDetails { get; set; }
     public virtual DbSet<Package> Packages { get; set; }
     public virtual DbSet<PriceItem> PriceItems { get; set; }
     public virtual DbSet<PriceList> PriceLists { get; set; }
@@ -38,7 +37,6 @@ public partial class UK_ExpressEntities : DbContext
     public virtual DbSet<RechargeApply> RechargeApplys { get; set; }
     public virtual DbSet<RechargeChannel> RechargeChannels { get; set; }
     public virtual DbSet<aspnet_User> aspnet_User { get; set; }
-    public virtual DbSet<C999ParcelPickupPrices> C999ParcelPickupPrices { get; set; }
 
     public virtual ObjectResult<string> aspnet_AnyDataInTables(Nullable<int> tablesToCheck)
     {

@@ -232,7 +232,7 @@
 
                     <div class="mg1 login-form" id="loginDiv" runat="server">
                         <div class="bg1 rds1 clrw1 sz16" style="height: 38px; background-position: 0 -129px; background-repeat: repeat-x; padding: 10px 20px">
-                            登陆
+                            登录
                         </div>
                         <div class="rds2" style="background-color: #fff; padding: 10px 20px 0">
                             <form method="post" style="margin: 0">
