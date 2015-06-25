@@ -35,13 +35,14 @@ public partial class cart_Cart : System.Web.UI.Page
     public IEnumerable<Order> GetNoneSheffieldOrders()
     {
         string user = Membership.GetUser().UserName;
-        return from o in repo.Orders where o.User == user && !(o.IsSheffieldOrder.HasValue && o.IsSheffieldOrder.Value) select o;
+       
+        return from o in repo.Orders where o.User == user && !(o.IsSheffieldOrder ?? false) && !(o.HasPaid ?? false) select o;
     }
 
     public IEnumerable<SheffieldOrder> GetSheffieldOrders()
     {
         string user = Membership.GetUser().UserName;
-        var r = from o in repo.Context.SheffieldOrders where o.User == user  select o;
+        var r = from o in repo.Context.SheffieldOrders where o.User == user select o;
         return r;
     }
 
@@ -169,16 +170,9 @@ public partial class cart_Cart : System.Web.UI.Page
 
     public decimal GetAmount()
     {
-        string user = Membership.GetUser().UserName;
-        var applys = repo.Context.RechargeApplys.Where(r => r.User == user);
-        if (applys.Count() == 0)
-        {
-            return 0;
-        }
-        else
-        {
-            return applys.Sum(r => r.ApplyAmount);
-        }
+        string username = Membership.GetUser().UserName;
+        aspnet_User apUser = repo.Context.aspnet_User.First(u => u.UserName == username);
+        return apUser.Balance;
     }
     protected void pay_Click(object sender, EventArgs e)
     {        
@@ -246,12 +240,19 @@ public partial class cart_Cart : System.Web.UI.Page
                         if (labelResponse_leader.Errors == null)
                         {
                             byte[] byt = labelResponse_leader.Label;
-                            File.WriteAllBytes(AppDomain.CurrentDomain.BaseDirectory + "\\pdf\\" + wm_leadernumber + ".pdf", byt);
+                            string folderPath = AppDomain.CurrentDomain.BaseDirectory + "\\pdf\\" + Membership.GetUser().UserName;
+                            if (!Directory.Exists(folderPath))
+                            {
+                                Directory.CreateDirectory(folderPath);
+                            }
+                            File.WriteAllBytes(folderPath + "\\" + wm_leadernumber + ".pdf", byt);
                         }
                         else
                         {
                             //错误保存在Errors里面
                         }
+
+                        /*
                         //根据包裹号下载pdf
                         string[] packagenumbers = wm_ordernumber.Split(',');
                         LabelResponse labelResponse_package = client.GetLabelByPackgeNumber(username, password, packagenumbers[0]);
@@ -278,6 +279,9 @@ public partial class cart_Cart : System.Web.UI.Page
                         {
                             //错误保存在Errors里面
                         }
+                         * */
+
+
                     }
                     //如果出现错误
                     else
@@ -287,8 +291,20 @@ public partial class cart_Cart : System.Web.UI.Page
                             string error = response.Errors[i].ToString();
                         }
                     }
+                    
                 }
+
+                string userName = Membership.GetUser().UserName;
+                aspnet_User apUser = repo.Context.aspnet_User.First(u => u.UserName == userName);
+
+                
+
+                apUser.Balance -= cost;
+                o.HasPaid = true;
+                repo.Context.SaveChanges();
+                Response.Redirect("Paid.aspx");
             }
+            
         }
         else
         {

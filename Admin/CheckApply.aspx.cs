@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -23,7 +24,12 @@ public partial class Admin_CheckApply : System.Web.UI.Page
         if (int.TryParse((sender as Button).Attributes["data-id"], out id))
         {
             RechargeApply apply = repo.Context.RechargeApplys.FirstOrDefault(r => r.Id == id);
+            
+            aspnet_User apUser = repo.Context.aspnet_User.First(u => u.UserName == apply.User);
+
             apply.IsApproved = true;
+            
+            apUser.Balance += apply.ApplyAmount;
             repo.Context.SaveChanges();
             Response.Redirect(Request.Path);
         }
