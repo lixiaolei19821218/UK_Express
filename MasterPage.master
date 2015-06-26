@@ -134,6 +134,9 @@
                                             <li class="divider"></li>
                                             <li><a href="/news/">新闻资询</a></li>
                                             <li><a href="/products/Sheffield.aspx">谢菲尔德地区服务</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="/cart/Paid.aspx">已完成订单</a></li>
+                                            <li><a href="/cart/Parcel.aspx">已完成包裹</a></li>
                                         </ul>
                                     </li>
 

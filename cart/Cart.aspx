@@ -39,14 +39,10 @@
 
 
 
-        <form method="post" id="delOrderForm" style="display: none">
-            <input type='hidden' name='csrfmiddlewaretoken' value='8WyFROe9ydu80zMt8DIf6Vje0yzvE4Tm' />
-            <input type='hidden' name='delOrder' id='delOrder' />
-        </form>
+        
 
-        <form runat="server" method="post" id="placeOrder" style="padding-top: 0px">
-            <input type='hidden' name='csrfmiddlewaretoken' value='8WyFROe9ydu80zMt8DIf6Vje0yzvE4Tm' />
-            <fieldset>
+        <form runat="server" method="post" id="placeOrder" style="padding-top: 0px">           
+            <fieldset runat="server" id="normalField">
                 <legend>直邮订单</legend>
                 <table class="table table-orders">
                     <asp:Repeater runat="server" ItemType="Order" SelectMethod="GetNoneSheffieldOrders">
@@ -55,7 +51,7 @@
                                 <th class="tac">订单号</th>
                                 <th class="left">下单日期</th>
                                 <th class="tac">价格</th>
-                                <th class="tac" >包裹数</th>
+                                <th class="tac">包裹数</th>
                                 <th class="tac">发件人</th>
                                 <th>服务</th>
                                 <th colspan="2"></th>
@@ -71,20 +67,18 @@
                                 <td class="tac"><%#Item.SenderName %></td>
                                 <td class="right"><%#Item.Service.Name %></td>
                                 <td colspan="2">
-                                    <asp:Button ID="ButtonEdit" class="btn btn-info btn-small edit" runat="server" Text="修改" ToolTip="<%#Item.Id %>" OnClick="ButtonEdit_Click" />
-                                    <asp:Button ID="ButtonDel" class="btn btn-danger btn-small del" runat="server" Text="删除" ToolTip="<%#Item.Id %>" OnClick="ButtonDel_Click" />
+                                    <asp:Button ID="ButtonEdit" class="btn btn-info btn-small edit" runat="server" Text="修改" data-id="<%#Item.Id %>" OnClick="ButtonEdit_Click" />
+                                    <asp:Button ID="ButtonDel" class="btn btn-danger btn-small del" runat="server" Text="删除" data-id="<%#Item.Id %>" OnClick="ButtonDel_Click" />
                                 </td>
                             </tr>
                         </ItemTemplate>
                     </asp:Repeater>
                 </table>
-
             </fieldset>
             <br />
-            <fieldset>
+            <fieldset runat="server" id="sheffieldField">
                 <legend>谢菲尔德地区订单</legend>
                 <table class="table table-orders">
-
                     <asp:Repeater runat="server" ItemType="SheffieldOrder" SelectMethod="GetSheffieldOrders">
                         <HeaderTemplate>
                             <tr>
@@ -107,8 +101,8 @@
                                 <td class="tac"><%#Item.Orders.First().SenderName %></td>
                                 <td class="right">谢菲尔德地区服务</td>
                                 <td colspan="2">
-                                    <asp:Button ID="ButtonSheffieldEdit" class="btn btn-info btn-small edit" runat="server" Text="修改" data-id="<%#Item.Id %>" ToolTip="<%#Item.Id %>" OnClick="ButtonSheffieldEdit_Click" />
-                                    <asp:Button ID="ButtonSheffieldDel" class="btn btn-danger btn-small del" runat="server" Text="删除" data-id="<%#Item.Id %>" ToolTip="<%#Item.Id %>" OnClick="ButtonSheffieldDel_Click" />
+                                    <asp:Button ID="ButtonSheffieldEdit" class="btn btn-info btn-small edit" runat="server" Text="修改" data-id="<%#Item.Id %>" OnClick="ButtonSheffieldEdit_Click" />
+                                    <asp:Button ID="ButtonSheffieldDel" class="btn btn-danger btn-small del" runat="server" Text="删除" data-id="<%#Item.Id %>" OnClick="ButtonSheffieldDel_Click" />
                                 </td>
                             </tr>
                         </ItemTemplate>

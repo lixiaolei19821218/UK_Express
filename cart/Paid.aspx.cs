@@ -10,37 +10,44 @@ using System.Web.UI.WebControls;
 
 public partial class cart_Paid : System.Web.UI.Page
 {
+    private IEnumerable<Order> normalOrders;
+    private IEnumerable<SheffieldOrder> sheffieldOrders;
+    private decimal balance;
+    private decimal totalPrice;
+    private string username;
+    private aspnet_User apUser;
+
     [Ninject.Inject]
     public IRepository repo
     {
         get;
         set;
     }
-    private decimal totalPrice = 0m;
+   
     protected void Page_Load(object sender, EventArgs e)
     {
+        username = Membership.GetUser().UserName;
+        apUser = repo.Context.aspnet_User.First(u => u.UserName == username);
 
+        normalOrders = from o in repo.Orders where o.User == username && !(o.IsSheffieldOrder ?? false) && (o.HasPaid ?? false) select o;
+        sheffieldOrders = from o in repo.Context.SheffieldOrders where o.User == username select o;
+
+        balance = apUser.Balance;
+        totalPrice = normalOrders.Sum(o => o.Cost.Value);
+        //totalPrice = normalOrders.Sum(o => o.Cost.Value) + sheffieldOrders.Sum(so => so.Orders.Sum(o => o.Cost.Value));
+
+        normalField.Visible = normalOrders.Count() != 0 ? true : false;
+        sheffieldField.Visible = sheffieldOrders.Count() != 0 ? true : false;
     }
 
     public IEnumerable<Order> GetNoneSheffieldOrders()
-    {
-        string user = Membership.GetUser().UserName;
-        return from o in repo.Orders where o.User == user && !(o.IsSheffieldOrder ?? false) && (o.HasPaid ?? false) select o;
+    {        
+        return normalOrders;
     }
 
     public IEnumerable<SheffieldOrder> GetSheffieldOrders()
-    {
-        string user = Membership.GetUser().UserName;
-        var r = from o in repo.Context.SheffieldOrders where o.User == user select o;
-        return r;
-    }
-
-    public decimal GetOrderPrice(Order order)
-    {
-        ServiceView sv = new ServiceView(order.Service);
-        decimal orderPrice = sv.GetPrice(order);
-        totalPrice += orderPrice;
-        return orderPrice;
+    {        
+        return sheffieldOrders;
     }
 
     public string GetOrderTip(Order order)
@@ -48,5 +55,14 @@ public partial class cart_Paid : System.Web.UI.Page
         ServiceView sv = new ServiceView(order.Service);
         Thread.CurrentThread.CurrentCulture = new CultureInfo("en-gb");
         return string.Format("取件费：{0:c2}，加固费：{1:c2}，快递费：{2:c2}", sv.GetPickupPrice(order), sv.GetReinforcePrice(order), sv.GetDeliverPrice(order));
+    }
+    protected void NormalDetail_Click(object sender, EventArgs e)
+    {
+        int id;
+        if (int.TryParse((sender as LinkButton).Attributes["data-id"], out id))
+        {           
+            Session.Add("id", id);
+            Response.Redirect("/cart/OrderDetail.aspx");
+        }        
     }
 }

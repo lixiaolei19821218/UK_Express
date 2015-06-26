@@ -68,10 +68,10 @@ public partial class Package
     public decimal Width { get; set; }
     public decimal Height { get; set; }
     public decimal Weight { get; set; }
-    public string WaybillNumber { get; set; }
     public int RecipientID { get; set; }
     public string Detail { get; set; }
     public Nullable<decimal> Value { get; set; }
+    public string TrackNumber { get; set; }
 
     public virtual Recipient Recipient { get; set; }
 }
@@ -148,6 +148,8 @@ public partial class Recipient
     public Nullable<int> OrderId { get; set; }
     public Nullable<bool> SuccessPaid { get; set; }
     public string Errors { get; set; }
+    public string WMLeaderNumber { get; set; }
+    public string WMLeaderPdf { get; set; }
 
     public virtual Order Order { get; set; }
     public virtual ICollection<Package> Packages { get; set; }

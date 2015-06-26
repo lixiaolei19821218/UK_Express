@@ -425,7 +425,7 @@
                                                         </div>                                                       
                                                         <div class="mx">                                                           
                                                             <div style="margin-left: 5px">                                                                
-                                                                <input class="input-medium" value="<%# Item.Value %>" name="value_<%#(Container.Parent.Parent as RepeaterItem).ItemIndex %>_<%#Container.ItemIndex %>" type="number" style="width: 50px" required="required"/>
+                                                                <input class="input-medium" value="<%# Item.Value %>" name="value_<%#(Container.Parent.Parent as RepeaterItem).ItemIndex %>_<%#Container.ItemIndex %>" type="number" style="width: 50px" required="required" min="0"/>
                                                             </div>                                                 
                                                         </div>                                                        
                                                     </div>

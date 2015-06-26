@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Text;
 using System.Threading;
 using System.Web;
@@ -36,7 +37,11 @@ public partial class cart_Cart : System.Web.UI.Page
         sheffieldOrders = from o in repo.Context.SheffieldOrders where o.User == username select o;
 
         balance = apUser.Balance;
-        totalPrice = normalOrders.Sum(o => o.Cost.Value) + sheffieldOrders.Sum(so => so.Orders.Sum(o => o.Cost.Value));
+        totalPrice = normalOrders.Sum(o => o.Cost.Value);
+        //totalPrice = normalOrders.Sum(o => o.Cost.Value) + sheffieldOrders.Sum(so => so.Orders.Sum(o => o.Cost.Value));
+
+        normalField.Visible = normalOrders.Count() != 0 ? true : false;
+        sheffieldField.Visible = sheffieldOrders.Count() != 0 ? true : false;
     }
 
     public IEnumerable<Order> GetNoneSheffieldOrders()
@@ -68,61 +73,64 @@ public partial class cart_Cart : System.Web.UI.Page
     }
     protected void ButtonEdit_Click(object sender, EventArgs e)
     {
-        int id = int.Parse((sender as Button).ToolTip);
-        Order order = repo.Context.Orders.Find(id);
-
-        Order orderCopy = new Order();
-        orderCopy.IsValid = order.IsValid;
-        orderCopy.HasPaid = order.HasPaid;
-        orderCopy.OrderTime = order.OrderTime;
-        orderCopy.PickupTime = order.PickupTime;
-        orderCopy.SenderAddress1 = order.SenderAddress1;
-        orderCopy.SenderAddress2 = order.SenderAddress2;
-        orderCopy.SenderAddress3 = order.SenderAddress3;
-        orderCopy.SenderCity = order.SenderCity;
-        orderCopy.SenderName = order.SenderName;
-        orderCopy.SenderPhone = order.SenderPhone;
-        orderCopy.SenderZipCode = order.SenderZipCode;
-        orderCopy.ServiceID = order.ServiceID;
-        //orderCopy.Service = order.Service;
-        orderCopy.User = order.User;
-        orderCopy.Id = order.Id;
-        orderCopy.ReinforceID = order.ReinforceID;
-
-        foreach (Recipient r in order.Recipients)
+        int id;
+        if (int.TryParse((sender as Button).Attributes["data-id"], out id))
         {
-            Recipient rc = new Recipient();
-            rc.Name = r.Name;
-            rc.PhoneNumber = r.PhoneNumber;
-            rc.ZipCode = r.ZipCode;
-            rc.Address = r.Address;
-            rc.City = r.City;
+            Order order = repo.Context.Orders.Find(id);
 
-            foreach (Package p in r.Packages)
+            Order orderCopy = new Order();
+            orderCopy.IsValid = order.IsValid;
+            orderCopy.HasPaid = order.HasPaid;
+            orderCopy.OrderTime = order.OrderTime;
+            orderCopy.PickupTime = order.PickupTime;
+            orderCopy.SenderAddress1 = order.SenderAddress1;
+            orderCopy.SenderAddress2 = order.SenderAddress2;
+            orderCopy.SenderAddress3 = order.SenderAddress3;
+            orderCopy.SenderCity = order.SenderCity;
+            orderCopy.SenderName = order.SenderName;
+            orderCopy.SenderPhone = order.SenderPhone;
+            orderCopy.SenderZipCode = order.SenderZipCode;
+            orderCopy.ServiceID = order.ServiceID;
+            //orderCopy.Service = order.Service;
+            orderCopy.User = order.User;
+            orderCopy.Id = order.Id;
+            orderCopy.ReinforceID = order.ReinforceID;
+
+            foreach (Recipient r in order.Recipients)
             {
-                Package pc = new Package();
-                pc.Height = p.Height;
-                pc.Length = p.Length;
-                pc.Width = p.Width;
-                pc.Weight = p.Weight;
-                pc.WaybillNumber = p.WaybillNumber;
-                pc.Detail = p.Detail;
-                pc.Value = p.Value;
+                Recipient rc = new Recipient();
+                rc.Name = r.Name;
+                rc.PhoneNumber = r.PhoneNumber;
+                rc.ZipCode = r.ZipCode;
+                rc.Address = r.Address;
+                rc.City = r.City;
 
-                rc.Packages.Add(pc);
+                foreach (Package p in r.Packages)
+                {
+                    Package pc = new Package();
+                    pc.Height = p.Height;
+                    pc.Length = p.Length;
+                    pc.Width = p.Width;
+                    pc.Weight = p.Weight;
+                    pc.TrackNumber = p.TrackNumber;
+                    pc.Detail = p.Detail;
+                    pc.Value = p.Value;
+
+                    rc.Packages.Add(pc);
+                }
+
+                orderCopy.Recipients.Add(rc);
             }
 
-            orderCopy.Recipients.Add(rc);
+            Session["Order"] = orderCopy;
+            Response.Redirect("/products/product.aspx");
         }
-
-        Session["Order"] = orderCopy;
-        Response.Redirect("/products/product.aspx");
     }
 
     protected void ButtonDel_Click(object sender, EventArgs e)
     {
         int id;
-        if (int.TryParse((sender as Button).ToolTip, out id))
+        if (int.TryParse((sender as Button).Attributes["data-id"], out id))
         {
             Order myOrder = repo.Orders.Where(o => o.Id == id).FirstOrDefault();
             if (myOrder != null)
@@ -177,7 +185,7 @@ public partial class cart_Cart : System.Web.UI.Page
             string wmUsername = "api_test";
             string wmPassword = "api_password";
 
-            
+            List<string> attachmentPaths = new List<string>();
             foreach (Order o in normalOrders)
             {
                 //ServiceView sv = new ServiceView(o.Service);
@@ -245,7 +253,7 @@ public partial class cart_Cart : System.Web.UI.Page
                         r.Order.SenderPhone,//"B29 7sn",
                         r.Order.SenderZipCode,
                         wmService,
-                        DateTime.Now.ToString()
+                        r.Order.PickupTime.ToString()
                         );
 
                     if (response.Errors == null)
@@ -262,14 +270,23 @@ public partial class cart_Cart : System.Web.UI.Page
                         if (labelResponse_leader.Errors == null)
                         {
                             byte[] byt = labelResponse_leader.Label;
-                            string folderPath = AppDomain.CurrentDomain.BaseDirectory + "\\pdf\\" + Membership.GetUser().UserName;
+                            string folderPath = AppDomain.CurrentDomain.BaseDirectory + "pdf\\" + Membership.GetUser().UserName;
                             if (!Directory.Exists(folderPath))
                             {
                                 Directory.CreateDirectory(folderPath);
                             }
-                            File.WriteAllBytes(folderPath + "\\" + wm_leadernumber + ".pdf", byt);
-
+                            string attachment = folderPath + "\\" + wm_leadernumber + ".pdf";
+                            File.WriteAllBytes(attachment, byt);
+                           
+                            r.WMLeaderNumber = wm_leadernumber;
+                            r.WMLeaderPdf = wm_leadernumber + ".pdf"; 
+                            string[] tracknumbers = tracknumber.Split(',');
+                            for (int i = 0; i < r.Packages.Count; i++)
+                            {
+                                r.Packages.ElementAt(i).TrackNumber = tracknumbers[i];
+                            }
                             r.SuccessPaid = true;
+                            attachmentPaths.Add(attachment);
                         }
                         else
                         {
@@ -338,11 +355,58 @@ public partial class cart_Cart : System.Web.UI.Page
 
             apUser.Balance -= totalPrice;            
             repo.Context.SaveChanges();
+
+            //改成异步
+            SendEmail(Membership.GetUser().Email, "您在999Parcel的订单", "请查收您在999Parcel的订单。", attachmentPaths.ToArray());
             Response.Redirect("Paid.aspx");            
         }
         else
         {
             Response.Redirect("RedirectToRecharge.aspx");
+        }
+    }
+
+    /// <summary>
+    /// 发送邮件
+    /// </summary>
+    /// <param name="mailTo">要发送的邮箱</param>
+    /// <param name="mailSubject">邮箱主题</param>
+    /// <param name="mailContent">邮箱内容</param>
+    /// <returns>返回发送邮箱的结果</returns>
+    public bool SendEmail(string mailTo, string mailSubject, string mailContent, params string[] attachmentPaths)
+    {
+        // 设置发送方的邮件信息,例如使用网易的smtp
+        string smtpServer = "smtp.163.com"; //SMTP服务器
+        string mailFrom = "iir_lee@163.com"; //登陆用户名
+        string userPassword = "llc^181925";//登陆密码
+
+        // 邮件服务设置
+        SmtpClient smtpClient = new SmtpClient();
+        smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;//指定电子邮件发送方式
+        smtpClient.Host = smtpServer; //指定SMTP服务器
+        smtpClient.Credentials = new System.Net.NetworkCredential(mailFrom, userPassword);//用户名和密码
+
+        // 发送邮件设置        
+        MailMessage mailMessage = new MailMessage(mailFrom, mailTo); // 发送人和收件人
+        mailMessage.Subject = mailSubject;//主题
+        mailMessage.Body = mailContent;//内容
+        mailMessage.BodyEncoding = Encoding.UTF8;//正文编码
+        mailMessage.IsBodyHtml = true;//设置为HTML格式
+        mailMessage.Priority = MailPriority.Low;//优先级
+
+        foreach (string path in attachmentPaths)
+        {
+            mailMessage.Attachments.Add(new Attachment(path));
+        }
+
+        try
+        {
+            smtpClient.Send(mailMessage); // 发送邮件
+            return true;
+        }
+        catch (SmtpException ex)
+        {
+            return false;
         }
     }
 }
