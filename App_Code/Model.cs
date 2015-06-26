@@ -146,6 +146,8 @@ public partial class Recipient
     public string ZipCode { get; set; }
     public string PhoneNumber { get; set; }
     public Nullable<int> OrderId { get; set; }
+    public Nullable<bool> SuccessPaid { get; set; }
+    public string Errors { get; set; }
 
     public virtual Order Order { get; set; }
     public virtual ICollection<Package> Packages { get; set; }

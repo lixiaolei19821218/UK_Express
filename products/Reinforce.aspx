@@ -39,7 +39,7 @@
             </div>
 
             <!-- right column -->
-            <input hidden="hidden" value="<%:GetTotalPrice() %>" id="sendPrice" />
+            <input hidden="hidden" value="<%:GetSendPrice() %>" id="sendPrice" />
             <input hidden="hidden" value="<%:Reinforce1.Price * Order.Recipients.Sum(r => r.Packages.Count) %>" id="reforce1" />
             <input hidden="hidden" value="<%:Reinforce2.Price * Order.Recipients.Sum(r => r.Packages.Count) %>" id="reforce2" />
             <div class="col-sm-2 col-xs-12" style="border: 1px solid #69ADDB">

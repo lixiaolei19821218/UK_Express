@@ -55,7 +55,7 @@ public partial class products_Product : System.Web.UI.Page
 
     public decimal GetSendPrice()
     {
-        return sv.GetPrice(order);
+        return sv.GetSendPrice(order);
     }
     protected void add2cart_Click(object sender, EventArgs e)
     {
@@ -66,7 +66,8 @@ public partial class products_Product : System.Web.UI.Page
             {
                 order.User = Membership.GetUser().UserName;
                 order.OrderTime = DateTime.Now;
-                repo.Context.Orders.Add(order);
+                order.Cost = sv.GetSendPrice(order);
+                repo.Context.Orders.Add(order);             
             }
             else
             {
@@ -88,12 +89,12 @@ public partial class products_Product : System.Web.UI.Page
                 old.SenderCity = order.SenderCity;
                 old.SenderName = order.SenderName;
                 old.SenderPhone = order.SenderPhone;
-                old.SenderZipCode = order.SenderZipCode;                
-
+                old.SenderZipCode = order.SenderZipCode;
                 foreach (Recipient r in order.Recipients)
                 {
                     old.Recipients.Add(r);
                 }
+                old.Cost = sv.GetSendPrice(old);
             }
 
             repo.Context.SaveChanges();
@@ -101,6 +102,7 @@ public partial class products_Product : System.Web.UI.Page
             //ParcelForce
             if (sv.Name.Contains("Parcelforce"))
             {
+
                 Response.Redirect("/cart/cart.aspx");
             }
             else

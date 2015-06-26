@@ -109,6 +109,8 @@
           <Property Name="ZipCode" Type="nvarchar" MaxLength="50" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="OrderId" Type="int" />
+          <Property Name="SuccessPaid" Type="bit" />
+          <Property Name="Errors" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Reinforces">
           <Key>
@@ -1179,6 +1181,8 @@
           <Property Name="OrderId" Type="Int32" />
           <NavigationProperty Name="Order" Relationship="UK_ExpressModel.FK_OrderID" FromRole="Recipient" ToRole="Order" />
           <NavigationProperty Name="Packages" Relationship="UK_ExpressModel.FK_RecipientID" FromRole="Recipient" ToRole="Package" />
+          <Property Name="SuccessPaid" Type="Boolean" />
+          <Property Name="Errors" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Reinforce">
           <Key>
@@ -1581,6 +1585,8 @@
           <EntitySetMapping Name="Recipients">
             <EntityTypeMapping TypeName="UK_ExpressModel.Recipient">
               <MappingFragment StoreEntitySet="Recipients">
+                <ScalarProperty Name="Errors" ColumnName="Errors" />
+                <ScalarProperty Name="SuccessPaid" ColumnName="SuccessPaid" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />

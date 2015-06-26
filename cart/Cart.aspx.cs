@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Web;
 using System.Web.Security;
@@ -12,46 +13,40 @@ using WMOrderService;
 
 public partial class cart_Cart : System.Web.UI.Page
 {
+    private IEnumerable<Order> normalOrders;    
+    private IEnumerable<SheffieldOrder> sheffieldOrders;
+    private decimal balance;
+    private decimal totalPrice;
+    private string username;
+    private aspnet_User apUser;
+
     [Ninject.Inject]
     public IRepository repo
     {
         get;
         set;
     }
-
-    private decimal totalPrice = 0m;
-
+  
     protected void Page_Load(object sender, EventArgs e)
     {
-        
-    }
+        username = Membership.GetUser().UserName;
+        apUser = repo.Context.aspnet_User.First(u => u.UserName == username);
 
-    public IEnumerable<Order> GetOrders()
-    {
-        string user = Membership.GetUser().UserName;
-        return from o in repo.Orders where o.User == user select o;
+        normalOrders = from o in repo.Orders where o.User == username && !(o.IsSheffieldOrder ?? false) && !(o.HasPaid ?? false) select o;
+        sheffieldOrders = from o in repo.Context.SheffieldOrders where o.User == username select o;
+
+        balance = apUser.Balance;
+        totalPrice = normalOrders.Sum(o => o.Cost.Value) + sheffieldOrders.Sum(so => so.Orders.Sum(o => o.Cost.Value));
     }
 
     public IEnumerable<Order> GetNoneSheffieldOrders()
-    {
-        string user = Membership.GetUser().UserName;
-       
-        return from o in repo.Orders where o.User == user && !(o.IsSheffieldOrder ?? false) && !(o.HasPaid ?? false) select o;
+    {               
+        return normalOrders;
     }
 
     public IEnumerable<SheffieldOrder> GetSheffieldOrders()
-    {
-        string user = Membership.GetUser().UserName;
-        var r = from o in repo.Context.SheffieldOrders where o.User == user select o;
-        return r;
-    }
-
-    public decimal GetOrderPrice(Order order)
-    {
-        ServiceView sv = new ServiceView(order.Service);
-        decimal orderPrice = sv.GetPrice(order);
-        totalPrice += orderPrice;
-        return orderPrice;
+    {        
+        return sheffieldOrders;
     }
 
     public string GetOrderTip(Order order)
@@ -61,9 +56,15 @@ public partial class cart_Cart : System.Web.UI.Page
         return string.Format("取件费：{0:c2}，加固费：{1:c2}，快递费：{2:c2}", sv.GetPickupPrice(order), sv.GetReinforcePrice(order), sv.GetDeliverPrice(order));
     }
 
-    public decimal GetTotalPrice()
+    public decimal GetAmount()
     {
-        return totalPrice + GetSheffieldOrders().Sum(so => so.Orders.Sum(o => o.Cost.Value));
+        
+        return balance;
+    }
+
+    public decimal GetTotalPrice()
+    {       
+        return totalPrice;
     }
     protected void ButtonEdit_Click(object sender, EventArgs e)
     {
@@ -86,6 +87,7 @@ public partial class cart_Cart : System.Web.UI.Page
         //orderCopy.Service = order.Service;
         orderCopy.User = order.User;
         orderCopy.Id = order.Id;
+        orderCopy.ReinforceID = order.ReinforceID;
 
         foreach (Recipient r in order.Recipients)
         {
@@ -167,26 +169,46 @@ public partial class cart_Cart : System.Web.UI.Page
         }
         Response.Redirect(Request.Path);
     }
-
-    public decimal GetAmount()
-    {
-        string username = Membership.GetUser().UserName;
-        aspnet_User apUser = repo.Context.aspnet_User.First(u => u.UserName == username);
-        return apUser.Balance;
-    }
+    
     protected void pay_Click(object sender, EventArgs e)
-    {        
-        decimal balance = GetAmount();
-        decimal cost = GetTotalPrice();
-
-        if (balance >= cost)
+    { 
+        if (balance >= totalPrice)
         {
-            string username = "api_test";
-            string password = "api_password";
+            string wmUsername = "api_test";
+            string wmPassword = "api_password";
 
-            var noneSheffieldOrders = GetNoneSheffieldOrders();
-            foreach (Order o in noneSheffieldOrders)
+            
+            foreach (Order o in normalOrders)
             {
+                //ServiceView sv = new ServiceView(o.Service);
+
+                string wmService;
+                switch (o.Service.Name.Trim())
+                {
+                    case "荷兰邮政 - 免费取件":
+                    case "荷兰邮政 - UKMail 取件":
+                        wmService = "postnl";
+                        break;
+                    case "Parcelforce Economy - 上门取件":
+                        wmService = "pf-ipe-collection";
+                        break;
+                    case "Parcelforce Priority - 上门取件":
+                        wmService = "pf-gpr-collection";
+                        break;
+                    case "Parcelforce Economy - 自送仓库":
+                        wmService = "pf-ipe-depot";
+                        break;
+                    case "Parcelforce Economy - 自送邮局":
+                        wmService = "pf-ipe-pol";
+                        break;
+                    case "Parcelforce Priority - 自送邮局":
+                        wmService = "pf-gpr-delivery";
+                        break;
+                    default:
+                        wmService = "postnl";
+                        break;
+                }
+
                 foreach (Recipient r in o.Recipients)
                 {
                     OrderServiceClient client = new OrderServiceClient();
@@ -206,8 +228,8 @@ public partial class cart_Cart : System.Web.UI.Page
                         r.Packages.Select(p => (float)p.Weight).ToArray(),
                         r.Packages.Select(p => (float)p.Value).ToArray(),
                         parcelCount,
-                        password,
-                        username,
+                        wmPassword,
+                        wmUsername,
                         r.ZipCode,
                         r.Address,
                         r.City,
@@ -222,7 +244,7 @@ public partial class cart_Cart : System.Web.UI.Page
                         "UK",
                         r.Order.SenderPhone,//"B29 7sn",
                         r.Order.SenderZipCode,
-                        "pf-ipe-pol",
+                        wmService,
                         DateTime.Now.ToString()
                         );
 
@@ -235,7 +257,7 @@ public partial class cart_Cart : System.Web.UI.Page
                         //WM的包裹号，用逗号分隔
                         string wm_ordernumber = response.OrderNumber;
                         //返回的pdf信息，
-                        LabelResponse labelResponse_leader = client.GetLabelByWMLeaderNumber(username, password, wm_leadernumber);
+                        LabelResponse labelResponse_leader = client.GetLabelByWMLeaderNumber(wmUsername, wmPassword, wm_leadernumber);
                         //订单合并成的一个pdf，输入为主订单号
                         if (labelResponse_leader.Errors == null)
                         {
@@ -246,10 +268,20 @@ public partial class cart_Cart : System.Web.UI.Page
                                 Directory.CreateDirectory(folderPath);
                             }
                             File.WriteAllBytes(folderPath + "\\" + wm_leadernumber + ".pdf", byt);
+
+                            r.SuccessPaid = true;
                         }
                         else
                         {
                             //错误保存在Errors里面
+                            r.SuccessPaid = false;
+                            StringBuilder errors = new StringBuilder();
+                            foreach (string error in labelResponse_leader.Errors)
+                            {
+                                errors.Append(error + ";");
+                            }
+
+                            r.Errors = errors.ToString();
                         }
 
                         /*
@@ -290,21 +322,23 @@ public partial class cart_Cart : System.Web.UI.Page
                         {//错误列表
                             string error = response.Errors[i].ToString();
                         }
-                    }
-                    
+                        r.SuccessPaid = false;
+
+                        StringBuilder errors = new StringBuilder();
+                        foreach (string error in response.Errors)
+                        {
+                            errors.Append(error + ";");
+                        }
+
+                        r.Errors = errors.ToString();
+                    }                    
                 }
-
-                string userName = Membership.GetUser().UserName;
-                aspnet_User apUser = repo.Context.aspnet_User.First(u => u.UserName == userName);
-
-                
-
-                apUser.Balance -= cost;
                 o.HasPaid = true;
-                repo.Context.SaveChanges();
-                Response.Redirect("Paid.aspx");
             }
-            
+
+            apUser.Balance -= totalPrice;            
+            repo.Context.SaveChanges();
+            Response.Redirect("Paid.aspx");            
         }
         else
         {

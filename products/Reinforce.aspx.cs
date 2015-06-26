@@ -69,9 +69,9 @@ public partial class products_Reinforce : System.Web.UI.Page
         return sv.GetPackageDeliverPrice(package);
     }
 
-    public decimal GetTotalPrice()
+    public decimal GetSendPrice()
     {
-        return sv.GetPrice(order);
+        return sv.GetSendPrice(order);
     }
 
     public IEnumerable<Package> GetAllPackages()
@@ -95,6 +95,8 @@ public partial class products_Reinforce : System.Web.UI.Page
         else
         {
             old.ReinforceID = int.Parse(Request.Form["reinforce"]);
+            old.Reinforce = repo.Context.Reinforces.Find(old.ReinforceID);
+            old.Cost = sv.GetPrice(old);
         }
         
         repo.Context.SaveChanges();

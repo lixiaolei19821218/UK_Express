@@ -66,7 +66,7 @@
                             <tr id="<%#Item.Id %>" title="<%#GetOrderTip(Item) %>">
                                 <td class="tac"><%#string.Format("{0:d9}", Item.Id) %></td>
                                 <td class="left"><%#Item.OrderTime.Value.ToShortDateString() %></td>
-                                <td class="tac"><%#GetOrderPrice(Item).ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></td>
+                                <td class="tac"><%#Item.Cost.Value.ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></td>
                                 <td class="tac"><%#Item.Recipients.Sum(r => r.Packages.Count) %></td>
                                 <td class="tac"><%#Item.SenderName %></td>
                                 <td class="right"><%#Item.Service.Name %></td>

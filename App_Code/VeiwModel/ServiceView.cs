@@ -45,11 +45,21 @@ public class ServiceView
         this.PriceList = service.PriceList;         
     }    
 
+    /// <summary>
+    /// 上门取件费 + 快递费 + 加固费
+    /// </summary>
+    /// <param name="order"></param>
+    /// <returns></returns>
     public decimal GetPrice(Order order)
     {
         return GetReinforcePrice(order) + GetPickupPrice(order) + GetDeliverPrice(order);
     }
 
+    /// <summary>
+    /// 上门取件费 + 快递费
+    /// </summary>
+    /// <param name="order"></param>
+    /// <returns></returns>
     public decimal GetSendPrice(Order order)
     {
         return GetPickupPrice(order) + GetDeliverPrice(order);
