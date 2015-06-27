@@ -10,9 +10,6 @@
     <ul class="breadcrumb" style="background: none; margin-top: 15px">
     </ul>
 
-
-
-
     <div style="margin-top: 30px">
         <div style="margin-left: auto; margin-right: auto; width: 713px; padding-left: 12px; background: url(/static/img/buzou.png) 1px 0 no-repeat;">
             <a href="/" class="fl buzou" style="padding-left: 25px">快速询价</a>
