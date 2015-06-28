@@ -34,11 +34,10 @@ public class PriceListView
 
     public decimal GetPackageDeliverPrice(Package package)
     {
-        decimal priceByWeight = PriceItems.OrderBy(i => i.Weight).First(i => i.Weight >= package.Weight).Price;
-        decimal priceBySize = package.Length * package.Width * package.Height / 5000m;
-
-        decimal price = priceByWeight > priceBySize ? priceByWeight : priceBySize;
-
+        decimal weightBySize = package.Length * package.Width * package.Height / 5000m;
+        decimal weight = package.Weight > weightBySize ? package.Weight : weightBySize; 
+        
+        decimal price = PriceItems.OrderBy(i => i.Weight).First(i => i.Weight >= weight).Price;  
         return Math.Round(price, 2);
     }
 

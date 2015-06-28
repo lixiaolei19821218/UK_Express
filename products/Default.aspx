@@ -56,7 +56,7 @@
                                     <i class="glyphicon glyphicon-print"></i>
                                 </td>
                                 <td style="vertical-align: middle">
-                                    <%# Item.GetPrice(Order).ToString("C", CultureInfo.CreateSpecificCulture("en-GB")) %>
+                                    <%# Item.GetSendPrice(Order).ToString("C", CultureInfo.CreateSpecificCulture("en-GB")) %>
                                     <br />
                                     <br />
                                     <button class="btn btn-warning" name="order" value="<%#Item.Id %>" type="submit">购买</button>

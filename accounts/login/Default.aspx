@@ -74,7 +74,7 @@
     </div>
 
 
-    <p>没有账户？立即<a href="/account/signup/?next=">注册</a></p>
+    <p>没有账户？立即<a href="/accounts/signup/">注册</a></p>
 
 
     <p>如果忘记密码，您也可以 <a href="/account/password/reset/?next=/account/update/">重置您的密码</a>。</p>

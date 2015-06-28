@@ -994,8 +994,8 @@
         }
         else
         {
-            $('#id_billing_detail_postcode')[0].pattern = '[Ss]\\d{1,2}\\s\\w+';
-            $('#id_billing_detail_postcode')[0].title = "请输入谢菲尔德地区的邮编";
+            //$('#id_billing_detail_postcode')[0].pattern = '[Ss]\\d{1,2}\\s\\w+';
+            //$('#id_billing_detail_postcode')[0].title = "请输入谢菲尔德地区的邮编";
         }
 
         $('.form_datetime').datetimepicker({

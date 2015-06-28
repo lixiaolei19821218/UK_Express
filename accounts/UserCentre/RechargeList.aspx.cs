@@ -23,7 +23,7 @@ public partial class accounts_UserCentre_RechargeList : System.Web.UI.Page
     {
         string user = Membership.GetUser().UserName;
         var applys = repo.Context.RechargeApplys.Where(r => r.User == user);
-        if (applys.Count() == 0)
+        if (applys == null || applys.Count() == 0)
         {
             return 0;
         }
@@ -53,7 +53,7 @@ public partial class accounts_UserCentre_RechargeList : System.Web.UI.Page
         {
             string user = Membership.GetUser().UserName;
             var applys = repo.Context.RechargeApplys.Where(r => r.User == user);
-            if (applys.Count() == 0)
+            if (applys == null || applys.Count() == 0)
             {
                 return 1;
             }

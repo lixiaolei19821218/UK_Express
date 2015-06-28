@@ -40,8 +40,8 @@ public partial class cart_Cart : System.Web.UI.Page
         totalPrice = normalOrders.Sum(o => o.Cost.Value);
         //totalPrice = normalOrders.Sum(o => o.Cost.Value) + sheffieldOrders.Sum(so => so.Orders.Sum(o => o.Cost.Value));
 
-        normalField.Visible = normalOrders.Count() != 0 ? true : false;
-        sheffieldField.Visible = sheffieldOrders.Count() != 0 ? true : false;
+        normalField.Visible = normalOrders == null || normalOrders.Count() != 0 ? true : false;
+        sheffieldField.Visible = sheffieldOrders == null || sheffieldOrders.Count() != 0 ? true : false;
     }
 
     public IEnumerable<Order> GetNoneSheffieldOrders()
@@ -50,7 +50,8 @@ public partial class cart_Cart : System.Web.UI.Page
     }
 
     public IEnumerable<SheffieldOrder> GetSheffieldOrders()
-    {        
+    {
+        //return new List<SheffieldOrder>();
         return sheffieldOrders;
     }
 
@@ -356,14 +357,28 @@ public partial class cart_Cart : System.Web.UI.Page
             apUser.Balance -= totalPrice;            
             repo.Context.SaveChanges();
 
+            Thread sendThread = new Thread(SendThreadMethod);
+            object[] mail = new object[] { Membership.GetUser().Email, "您在999Parcel的订单", "请查收您在999Parcel的订单。", attachmentPaths.ToArray() };
+            sendThread.Start(mail);
+
             //改成异步
-            SendEmail(Membership.GetUser().Email, "您在999Parcel的订单", "请查收您在999Parcel的订单。", attachmentPaths.ToArray());
+            //SendEmail(Membership.GetUser().Email, "您在999Parcel的订单", "请查收您在999Parcel的订单。", attachmentPaths.ToArray());
             Response.Redirect("Paid.aspx");            
         }
         else
         {
             Response.Redirect("RedirectToRecharge.aspx");
         }
+    }
+
+    public void SendThreadMethod(object obj)
+    {
+        object[] contents = obj as object[];
+        string address = contents[0] as string;
+        string title = contents[1] as string;
+        string content = contents[2] as string;
+        string[] attachments = contents[3] as string[];
+        SendEmail(address, title, content, attachments);
     }
 
     /// <summary>
