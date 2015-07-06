@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -65,7 +66,35 @@ public partial class Default2 : System.Web.UI.Page
 
     protected void ReportError(string errorMsg)
     {
-        //message.InnerText = "Error: " + errorMsg;
-        //error.Visible = true;
+        message.InnerText = "Error: " + errorMsg;
+        message.Visible = true;
+    }
+
+    [WebMethod]
+    public static bool CheckEmail(string email)  //带参数的方法
+    {
+        string user = Membership.GetUserNameByEmail(email);
+        if (string.IsNullOrEmpty(user))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }        
+    }
+
+    [WebMethod]
+    public static bool CheckUsername(string username)  //带参数的方法
+    {
+        MembershipUser user = Membership.GetUser(username);
+        if (user == null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 }

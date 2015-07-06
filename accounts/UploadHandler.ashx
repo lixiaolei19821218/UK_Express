@@ -5,7 +5,8 @@ using System.Web;
 using System.IO;
 using System.Web.Security;
 
-public class UploadHandler : IHttpHandler {
+public class UploadHandler : IHttpHandler
+{
 
     public void ProcessRequest(HttpContext context)
     {
@@ -16,7 +17,7 @@ public class UploadHandler : IHttpHandler {
         if (type == "add")
         {
             HttpPostedFile file = context.Request.Files["Filedata"];
-            string uploadPath = HttpContext.Current.Server.MapPath(@context.Request["folder"]) + "\\" + Membership.GetUser().UserName;
+            string uploadPath = HttpContext.Current.Server.MapPath(@context.Request["folder"]) + "\\UserCentre\\UploadFile\\" + context.Request["username"];
             string name = context.Request.Params["name"]; //获取传递的参数  
             string albums = context.Request.Params["albums"];
             if (file != null)
@@ -26,8 +27,9 @@ public class UploadHandler : IHttpHandler {
                     Directory.CreateDirectory(uploadPath);
                 }
                 string fileName = DateTime.Now.Ticks + "_" + file.FileName;
-                file.SaveAs(Path.Combine(uploadPath, fileName));
-                context.Response.Write(@context.Request["folder"] + "/" + Membership.GetUser().UserName + "/" + fileName);
+                string fullpath = Path.Combine(uploadPath, fileName);
+                file.SaveAs(fullpath);
+                context.Response.Write("/accounts/UserCentre/UploadFile/" + context.Request["username"] + "/" + fileName);
             }
             else
             {

@@ -3,8 +3,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <title>账户充值</title>
 
-    <link href="/static/uploadify/example/css/default.css" rel="stylesheet" type="text/css" />
-    <link href="/static/uploadify/uploadify.css" rel="stylesheet" type="text/css" />
+    
     <style type="text/css">  
     .myul  
     {  
@@ -26,13 +25,54 @@
     }  
     </style>  
 
-    <script type="text/javascript" src="/static/uploadify/swfobject.js"></script>
-    <script type="text/javascript" src="/static/uploadify/jquery.uploadify.v2.1.0.min.js"></script>
+    <link href="/scripts/uploadify/uploadify.css" type="text/css" rel="Stylesheet" />
+    <script type="text/javascript" src="/scripts/jquery-1.8.0.min.js"></script>   
+    <script type="text/javascript" src="/scripts/uploadify/jquery.uploadify.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function () {
             $("#pics").hide();
 
+            var auth = "<% = Request.Cookies[FormsAuthentication.FormsCookieName]==null ? string.Empty : Request.Cookies[FormsAuthentication.FormsCookieName].Value %>";
+            var ASPSESSID = "<%= Session.SessionID %>";
+            var username = "<%= Membership.GetUser().UserName %>";
+            $('#fileupload').uploadify({
+                'swf': '/scripts/uploadify/uploadify.swf',
+                'uploader': '/accounts/UploadHandler.ashx?type=add',
+                'multi': false,      //是否允许多选   
+                'auto': true,       //是否允许自动上传   
+                'fileTypeExts': '*.jpg;*.gif;*.png;',
+                'fileTypeDesc': 'Image Files (.JPG, .GIF, .PNG, )',
+                'queueID': 'queue',
+                'queueSizeLimit': 300,      //同时上传数量   
+                'uploadLimit': 10000,        //一次浏览器课上成总数量   
+                'fileSizeLimit': '10MB',   //单个文件大小设置   
+                'buttonText': '选择文件',
+                'formData': { 'ASPSESSID': ASPSESSID, 'AUTHID': auth, 'Username': username },
+                'onSelect': function (file) {
+                    $('#fileupload').uploadifySettings('formData', { 'ASPSESSID': ASPSESSID, 'AUTHID': auth, 'Username':username });
+                    alert(formDate);
+                },
+                'width': 100,//文件选择按钮大小   
+                'height': 32,
+                'removeCompleted': true,
+                'removeTimeout': 0.1,    //上传完成后自动消失时间/秒   
+                'onUploadSuccess': function (file, data, response) {                    
+                    var html = "";
+                    html += "    <li class=\'myli\'>";
+                    html += "    <input type=\"hidden\" name=\"evidence\" value=\"" + data+ "\" />"
+                    html += "    <img src=\"" + data + "\" class=\'myimg\'/>";
+                    html += "    <div style=\" position:absolute; right:8px; bottom:-46px\">";
+                    html += "        <img title=\"点击删除\" src=\"/static/uploadify/example/cancel.png\" style=\"cursor: pointer\" title=\"点击删除凭证\" onclick=\"delImage(\'" + data + "\');\" />";
+                    html += "    </div>";
+                    html += "    </li>";
+                    $("#pics").append(html)
+                },
+                'onQueueComplete': function (file) {         //所有文件上传完成时触发此事件   
+                    $("#pics").fadeIn();
+                }
+            });
+            /*
             $("#uploadify").uploadify({
                 uploader: '/static/uploadify/uploadify.swf',
                 script: '/accounts/UserCentre/UploadHandler.ashx?type=add',
@@ -44,11 +84,15 @@
                 fileTypeDesc: '支持的格式：',
                 fileTypeExts: '*.jpg;*.gif;*.jpeg;*.png',
                 multi: false,
-                fileSizeLimit: '3MB',
+                fileSizeLimit: '10MB',
                 queueSizeLimit: 1,
                 uploadLimit: 99,
                 removeTimeout: 1,
-                
+                'scriptData': { 'ASPSESSID': ASPSESSID, 'AUTHID': auth },
+                'onSelect': function (file) {
+                    $('#uploadify').uploadifySettings('scriptData', { 'ASPSESSID': ASPSESSID, 'AUTHID': auth });
+                    alert(formDate);
+                },
                 'buttonText': 'Select Image',
                 'onComplete': function (event, queueID, fileObj, response, data) {
                     var html = "";
@@ -65,17 +109,13 @@
                     //alert(data.filesUploaded + ' 个文件上传成功!');  
                     $("#pics").fadeIn();
                 }
-            });
-        });
+            });*/
 
-        function uploadpara() {
-            //自定义传递参数  
-            $('#uploadify').uploadifySettings('scriptData', { 'name': $('#txtName').val(), 'albums': $('#txtAlbums').val() });
-            $('#uploadify').uploadifyUpload();
-        }
+        });
+        
 
         function delImage(picurl) {
-            jsonAjax("UploadHandler.ashx", "type=del&picurl=" + picurl, "text", callBackTxt);
+            jsonAjax("/accounts/UploadHandler.ashx", "type=del&picurl=" + picurl, "text", callBackTxt);
         }
 
         function jsonAjax(url, param, datat, callback) {
@@ -218,7 +258,7 @@
                     <tr id="image">
                         <th valign="top">凭证：</th>
                         <td>
-                            <input type="file" id="uploadify"/>
+                            <input type="file" id="fileupload"/>
                         </td>
                     </tr>
                     <tr>
