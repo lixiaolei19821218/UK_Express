@@ -114,7 +114,7 @@
                         电子邮件地址
                     </label>
                     <div class="controls">
-                        <input id="id_email" maxlength="75" name="email" required="required" type="text" />
+                        <input id="id_email" maxlength="75" name="email" required="required" type="email" style="height:inherit;"/>
 
                         <span class="help-inline" id="email_msg" hidden="hidden">该邮件地址已注册</span>
 
