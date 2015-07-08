@@ -8,13 +8,7 @@
             </ul>
             
      
-        <link rel="stylesheet" href="/static/css/bootstrap.min.css"/>
-        <link rel="stylesheet" href="/static/css/bootstrap-responsive.min.css"/>
-        <link rel="stylesheet" href="/static/css/mezzanine.css"/>
-        
-            <link rel="stylesheet" href="/static/css/cartridge.css"/>
-        
-        <link rel="stylesheet" href="/static/css/theme.css"/>       
+           
             
 
 <div style="background-color:#fff;padding:30px;margin-top:15px;margin-bottom:30px">

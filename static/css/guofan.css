@@ -251,13 +251,13 @@ i.dl {
 }
 
 .s-maximize {
-    background-position: -17px 0;
+    background-position: 0px -15px;
     width: 17px;
     height: 12px;
 }
 
 .s-minimize {
-    background-position: 0px 0;
+    background-position: -24px 0px;
     width: 17px;
     height: 12px;
 }

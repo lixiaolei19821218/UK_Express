@@ -1,6 +1,13 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Default2" %>
 <asp:Content ID="Content2" ContentPlaceHolderID="head" Runat="Server">
     <title>速递服务 | 诚信物流-可靠,快捷,实惠</title>
+    <script>
+        $(document).ready(function () {
+           
+
+            $('#service')[0].setAttribute('class', 'active');
+        });
+    </script>
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
     <ul class="breadcrumb" style="background: none; margin-top: 15px"></ul>

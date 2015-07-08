@@ -17,6 +17,8 @@
                     inputElem.setCustomValidity("");
                 }
             });
+
+            //$('#mainPage')[0].setAttribute('class','active');
         });
     </script>
 </asp:Content>
