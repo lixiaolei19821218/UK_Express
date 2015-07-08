@@ -122,11 +122,11 @@
                             <div class="navbar-collapse collapse">
                                 <ul class="nav navbar-nav">
                                     <li class="active">
-                                        <a href="/" class="hv1 pd3 clrb2 sz16 bold">首页</a>
+                                        <a href="/" class="hv1 pd3 clrb2 sz16 bold" style="padding-left:8.5px;padding-right:8.5px">首页</a>
                                     </li>
 
                                     <li class="dropdown our-services">
-                                        <a aria-expanded="false" role="button" class="dropdown-toggle hv1 pd3 clrb2 sz16 bold" href="/our-services/" data-hover="dropdown">速递服务 <span class="caret"></span></a>
+                                        <a aria-expanded="false" role="button" class="dropdown-toggle hv1 pd3 clrb2 sz16 bold" href="/our-services/" data-hover="dropdown" style="padding-left:8.5px;padding-right:8.5px">速递服务 <span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="/our-services/zy/">国际快递</a></li>
                                             <li><a href="/our-services/yun/">海外仓储</a></li>
@@ -141,12 +141,12 @@
                                     </li>
 
                                     <li class="dropdown our-services">
-                                        <a aria-expanded="false" role="button" class="hv1 pd3 clrb2 sz16 bold" href="/products/Sheffield.aspx" >谢菲服务 <span class="caret"></span></a>
+                                        <a aria-expanded="false" role="button" class="hv1 pd3 clrb2 sz16 bold" href="/products/Sheffield.aspx" style="padding-left:8.5px;padding-right:8.5px;" >谢菲服务</span></a>
                                         
                                     </li>
 
                                     <li class="dropdown zy">
-                                        <a aria-expanded="false" role="button" class="dropdown-toggle hv1 pd3 clrb2 sz16 bold" href="/our-services/zy/" data-hover="dropdown">国际快递 <span class="caret"></span></a>
+                                        <a aria-expanded="false" role="button" class="dropdown-toggle hv1 pd3 clrb2 sz16 bold" href="/our-services/zy/" data-hover="dropdown" style="padding-left:8.5px;padding-right:8.5px">国际快递 <span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="/ju-hua-suan/">巨划算</a></li>
                                             <li><a href="/xing-li/">行李专线</a></li>
@@ -161,7 +161,7 @@
                                     </li>
 
                                     <li class="dropdown shop">
-                                        <a aria-expanded="false" role="button" class="dropdown-toggle hv1 pd3 clrb2 sz16 bold" href="/sudi/shop/" data-hover="dropdown">速递商城 <span class="caret"></span></a>
+                                        <a aria-expanded="false" role="button" class="dropdown-toggle hv1 pd3 clrb2 sz16 bold" href="/sudi/shop/" data-hover="dropdown" style="padding-left:8.5px;padding-right:8.5px">速递商城 <span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
 
                                             <li><a href="/sudi/shop/category/2/">空气净化器</a></li>
@@ -175,7 +175,7 @@
                                     </li>
 
                                     <li class="dropdown hitao">
-                                        <a aria-expanded="false" role="button" class="dropdown-toggle hv1 pd3 clrb2 sz16 bold" href="/hitao/" data-hover="dropdown">海淘转运  <span class="caret"></span></a>
+                                        <a aria-expanded="false" role="button" class="dropdown-toggle hv1 pd3 clrb2 sz16 bold" href="/hitao/" data-hover="dropdown" style="padding-left:8.5px;padding-right:8.5px">海淘转运  <span class="caret"></span></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li role="presentation"><a href="/workflow/">海淘流程</a></li>
                                             <li role="presentation"><a href="/hitao/netprice">海淘国际运费</a></li>
@@ -193,11 +193,11 @@
                                     </li>
 
                                     <li class="faq">
-                                        <a href="/faq/" class="hv1 pd3 clrb2 sz16 bold">常见问题</a>
+                                        <a href="/faq/" class="hv1 pd3 clrb2 sz16 bold" style="padding-left:8.5px;padding-right:8.5px">常见问题</a>
                                     </li>
 
                                     <li class="contact-us">
-                                        <a href="/contact-us/" class="hv1 pd3 clrb2 sz16 bold">联系我们</a>
+                                        <a href="/contact-us/" class="hv1 pd3 clrb2 sz16 bold" style="padding-left:8.5px;padding-right:8.5px">联系我们</a>
                                     </li>
 
                                 </ul>
