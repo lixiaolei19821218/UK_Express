@@ -252,7 +252,7 @@
                                     </tr>
                                 </table>
                                 <div style="margin: 5px 6px">
-                                    <a href="/account/password/reset/">忘记密码？</a>
+                                    <a href="accounts/Recover.aspx">忘记密码？</a>
                                     或
             <a href="/accounts/signup/">注册</a>
                                 </div>

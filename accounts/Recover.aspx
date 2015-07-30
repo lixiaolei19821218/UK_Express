@@ -40,7 +40,7 @@
                 <div class="control-group input_id_username 
     ">
                     <label class="control-label" for="id_username">
-                        用户名或电子邮件地址
+                        用户名
                     </label>
                     <div class="controls">
                         <input autofocus="" id="id_username" name="username" required="required" type="text" />
@@ -50,6 +50,12 @@
                     </div>
                 </div>
 
+                <div class="control-group">
+                    <label class="control-label" id="message" runat="server">
+                        
+                    </label>
+                    
+                </div>
 
 
                 <div class="form-actions">
@@ -59,5 +65,5 @@
         </fieldset>
     </div>
 
-    <p>输入您的用户名或邮件地址，您将收到一封包含可点击的链接的邮件，在您的邮箱里点击该链接后可登录并修改密码。</p>
+    <p>输入您的用户名，您将收到一封包含可点击的链接的邮件，在您的邮箱里点击该链接后可登录并修改密码。</p>
 </asp:Content>

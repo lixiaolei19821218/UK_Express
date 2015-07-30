@@ -19,9 +19,16 @@ public partial class accounts_Recover : System.Web.UI.Page
     {
         MembershipUser mUser;
         mUser = Membership.GetUser(Request["username"]);
+        string newPassword;
+        while ((newPassword = mUser.ResetPassword("answer")).Contains('&'))
+        {
+            
+        }
         
-        string newPassword = mUser.ResetPassword("answer");
-        string mailContent = "";
+        string requestString = Request.ServerVariables["SERVER_NAME"] + ":" + Request.ServerVariables["SERVER_PORT"] + "/accounts/ResetPassword.aspx?user=" + mUser.UserName + "&password=" + newPassword;
+        string mailContent = "点击<a herf=\"" + requestString + "\">找回密码</a>\r\n或复制链接以下链接到浏览器：\r\n" + requestString;
+        SendEmail(mUser.Email, "设置新密码", mailContent);
+        message.InnerText = string.Format("一封找回密码的邮件已经发送到您邮箱：{0}。", mUser.Email);
     }
 
     public bool SendEmail(string mailTo, string mailSubject, string mailContent, params string[] attachmentPaths)
