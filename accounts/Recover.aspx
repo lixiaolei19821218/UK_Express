@@ -30,15 +30,9 @@
     <div style="background-color: #fff; padding: 30px">
         <fieldset>
             <form method="post" runat="server">
+               
 
-
-
-
-
-
-
-                <div class="control-group input_id_username 
-    ">
+                <div class="control-group input_id_username">
                     <label class="control-label" for="id_username">
                         用户名
                     </label>

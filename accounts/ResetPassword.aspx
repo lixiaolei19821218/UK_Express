@@ -83,10 +83,7 @@
     <div style="background-color: #fff; padding: 30px">
         <fieldset>
             <form id="form1" runat="server">
-                
-                
-
-
+               
 
 
                 <div class="control-group input_id_password1">
