@@ -217,6 +217,10 @@ public partial class cart_Cart : System.Web.UI.Page
                     case "Parcelforce Priority - 自送邮局":
                         wmService = "pf-gpr-delivery";
                         break;
+                    case "Bpost - 免费取件":
+                    case "Bpost - UKMail 取件":
+                        Bpost(o);
+                        return;
                     default:
                         wmService = "postnl";
                         break;
@@ -426,6 +430,224 @@ public partial class cart_Cart : System.Web.UI.Page
         catch (SmtpException ex)
         {
             return false;
+        }
+    }
+
+    private void Bpost(Order o)
+    {
+        foreach (Recipient r in o.Recipients)
+        {
+            using (StringWriter sw = new StringWriter())
+            {
+                XmlTextWriter xtw = new XmlTextWriter(sw);
+                xtw.WriteStartElement("?xml version=\"1.0\" encoding=\"utf-8\" ?");
+
+                xtw.WriteStartElement("ImportRequest");
+                xtw.WriteStartElement("Login");
+                xtw.WriteStartElement("Username");
+                xtw.WriteString("demoapi");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Password");
+                xtw.WriteString("demo123");
+                xtw.WriteEndElement();
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Test");
+                xtw.WriteString("true");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("ClientID");
+                xtw.WriteString("218");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Reference");
+                xtw.WriteString("3245325");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("ShipTo");
+                xtw.WriteStartElement("Name");
+                xtw.WriteString("Test Company");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Attention");
+                xtw.WriteString(r.Name);
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Address1");
+                xtw.WriteString(r.Address);
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Address2");
+                xtw.WriteString(string.Empty);
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Address3");
+                xtw.WriteString(string.Empty);
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("City");
+                xtw.WriteString(r.City);
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("State");
+                xtw.WriteString("ON");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("PostalCode");
+                xtw.WriteString(r.ZipCode);
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Country");
+                xtw.WriteString("CN");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Phone");
+                xtw.WriteString(r.PhoneNumber);
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Email");
+                xtw.WriteString(string.Empty);
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Region");
+                xtw.WriteString("Canada");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Residential");
+                xtw.WriteString("true");
+                xtw.WriteEndElement();
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("ShipMethod");
+                xtw.WriteString("LGINTSTD");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("ItemsCurrency");
+                xtw.WriteString("USD");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("ProduceLabel");
+                xtw.WriteString("true");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("LabelFormat");
+                xtw.WriteString("PDF");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("LabelEncoding");
+                xtw.WriteString("LINKS");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("ShipOptions");
+                xtw.WriteStartElement("Option");
+                xtw.WriteStartElement("Name");
+                xtw.WriteString("dummy_option");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Value");
+                xtw.WriteString("true");
+                xtw.WriteEndElement();
+                xtw.WriteEndElement();
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("VendorInformation");
+                xtw.WriteStartElement("VendorName");
+                xtw.WriteString("Test Company Legal Name");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("VendorAddress1");
+                xtw.WriteString("Sample Company Street");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("VendorAddress2");
+                xtw.WriteString("Suite 135");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("VendorCity");
+                xtw.WriteString("Santa Barbara");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("VendorState");
+                xtw.WriteString("CA");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("VendorPostalCode");
+                xtw.WriteString("93101");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("VendorCountry");
+                xtw.WriteString("US");
+                xtw.WriteEndElement();
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("AdditionalFields");
+                xtw.WriteStartElement("Field1");
+                xtw.WriteString("Any type of data");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Field2");
+                xtw.WriteString("Purchased with Credit Card");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Field3");
+                xtw.WriteString("99000029327172321");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Field4");
+                xtw.WriteString("123198012");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Field5");
+                xtw.WriteString("Stored information");
+                xtw.WriteEndElement();
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("PickSlipAdditions");
+                xtw.WriteStartElement("Charges");
+                xtw.WriteStartElement("Charge");
+                xtw.WriteStartElement("Description");
+                xtw.WriteString("Gift Card Code: DISCOUNTHOUND");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Value");
+                xtw.WriteString("-7.25");
+                xtw.WriteEndElement();
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Charge");
+                xtw.WriteStartElement("Description");
+                xtw.WriteString("Sales Tax");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Value");
+                xtw.WriteString("1.59");
+                xtw.WriteEndElement();
+                xtw.WriteEndElement();
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Memos");
+                xtw.WriteStartElement("Memo");
+                xtw.WriteString("You will receive 15% off your next order with coupon code SAVE15");
+                xtw.WriteEndElement();
+                xtw.WriteEndElement();
+                xtw.WriteEndElement();               
+
+                foreach (Package p in r.Packages)
+                {
+                    xtw.WriteStartElement("Package");
+                    xtw.WriteStartElement("Weight");
+                    xtw.WriteString(p.Weight.ToString());
+                    xtw.WriteEndElement();
+                    xtw.WriteStartElement("Length");
+                    xtw.WriteString(p.Length.ToString());
+                    xtw.WriteEndElement();
+                    xtw.WriteStartElement("Width");
+                    xtw.WriteString(p.Width.ToString());
+                    xtw.WriteEndElement();
+                    xtw.WriteStartElement("Height");
+                    xtw.WriteString(p.Height.ToString());
+                    xtw.WriteEndElement(); ;
+                    xtw.WriteStartElement("PackageReference");
+                    xtw.WriteString("98233312");
+                    xtw.WriteEndElement();
+                    xtw.WriteEndElement();
+                }
+               
+                xtw.WriteStartElement("Items");
+                xtw.WriteStartElement("Item");
+                xtw.WriteStartElement("Sku");
+                xtw.WriteString("7224059");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Quantity");
+                xtw.WriteString("2");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("UnitPrice");
+                xtw.WriteString("93.99");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("Description");
+                xtw.WriteString("Women's Shoes");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("HSCode");
+                xtw.WriteString("640399.30.00");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("CountryOfOrigin");
+                xtw.WriteString("CN");
+                xtw.WriteEndElement();
+                xtw.WriteStartElement("CIFValue");
+                xtw.WriteString("23.00");
+                xtw.WriteEndElement();
+                xtw.WriteEndElement();
+                xtw.WriteEndElement();
+
+                xtw.WriteEndElement();
+
+                PostHelp ph = new PostHelp();
+                string result = ph.PostXml("https://mercury.landmarkglobal.com/api/api.php", sw.ToString());
+
+                StreamWriter w = new StreamWriter(AppDomain.CurrentDomain.BaseDirectory + "\\result.xml");
+                w.Write(result);
+                w.Close();
+            }
         }
     }
 }
