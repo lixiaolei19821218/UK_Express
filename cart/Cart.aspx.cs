@@ -219,7 +219,7 @@ public partial class cart_Cart : System.Web.UI.Page
                         break;
                     case "Bpost - 免费取件":
                     case "Bpost - UKMail 取件":
-                        Bpost(o);
+                        SendBpostLciFile(o);
                         return;
                     default:
                         wmService = "postnl";
@@ -433,7 +433,18 @@ public partial class cart_Cart : System.Web.UI.Page
         }
     }
 
-    private void Bpost(Order o)
+    private void SendBpostLciFile(Order o)
+    {
+        foreach (Recipient r in o.Recipients)
+        {
+            foreach (Package p in r.Packages)
+            {
+                Bpost.GenerateLciFile("BPI/2015/9320", p.Id.ToString(), o);
+            }
+        }        
+    }
+
+    private void SendBpost(Order o)
     {
         foreach (Recipient r in o.Recipients)
         {
