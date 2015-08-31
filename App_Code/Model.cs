@@ -25,6 +25,18 @@ public partial class aspnet_User
     public string CellPhone { get; set; }
 }
 
+public partial class Item
+{
+    public int Id { get; set; }
+    public Nullable<decimal> Value { get; set; }
+    public string Description { get; set; }
+    public Nullable<decimal> NettoWeight { get; set; }
+    public string TariffCode { get; set; }
+    public Nullable<int> PackageID { get; set; }
+
+    public virtual Package Package { get; set; }
+}
+
 public partial class Order
 {
     public Order()
@@ -63,6 +75,11 @@ public partial class Order
 
 public partial class Package
 {
+    public Package()
+    {
+        this.Items = new HashSet<Item>();
+    }
+
     public int Id { get; set; }
     public decimal Length { get; set; }
     public decimal Width { get; set; }
@@ -74,6 +91,7 @@ public partial class Package
     public string TrackNumber { get; set; }
 
     public virtual Recipient Recipient { get; set; }
+    public virtual ICollection<Item> Items { get; set; }
 }
 
 public partial class PriceItem

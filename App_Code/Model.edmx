@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="UK_ExpressModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="UK_ExpressModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="aspnet_Users">
           <Key>
             <PropertyRef Name="UserId" />
@@ -20,6 +20,17 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="256" />
           <Property Name="LastName" Type="nvarchar" MaxLength="256" />
           <Property Name="CellPhone" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="NettoWeight" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="TariffCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="PackageID" Type="int" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -55,7 +66,7 @@
           <Property Name="Width" Type="decimal" Precision="18" Scale="1" Nullable="false" />
           <Property Name="Height" Type="decimal" Precision="18" Scale="1" Nullable="false" />
           <Property Name="Weight" Type="decimal" Precision="18" Scale="1" Nullable="false" />
-          <Property Name="TrackNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="TrackNumber" Type="nvarchar(max)" />
           <Property Name="RecipientID" Type="int" Nullable="false" />
           <Property Name="Detail" Type="nvarchar(max)" />
           <Property Name="Value" Type="decimal" Precision="18" Scale="2" />
@@ -105,14 +116,14 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="City" Type="nvarchar" MaxLength="50" />
-          <Property Name="Address" Type="nvarchar" MaxLength="50" />
+          <Property Name="Address" Type="nvarchar(max)" />
           <Property Name="ZipCode" Type="nvarchar" MaxLength="50" />
           <Property Name="PhoneNumber" Type="nvarchar" MaxLength="50" />
           <Property Name="OrderId" Type="int" />
           <Property Name="SuccessPaid" Type="bit" />
           <Property Name="Errors" Type="nvarchar(max)" />
-          <Property Name="WMLeaderNumber" Type="nvarchar" MaxLength="50" />
-          <Property Name="WMLeaderPdf" Type="nvarchar" MaxLength="50" />
+          <Property Name="WMLeaderNumber" Type="nvarchar(max)" />
+          <Property Name="WMLeaderPdf" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Reinforces">
           <Key>
@@ -181,6 +192,18 @@
             </Principal>
             <Dependent Role="Recipients">
               <PropertyRef Name="OrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PackageID">
+          <End Role="Packages" Type="Self.Packages" Multiplicity="0..1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Packages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="PackageID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -613,6 +636,7 @@
         </Function>
         <EntityContainer Name="UK_ExpressModelStoreContainer">
           <EntitySet Name="aspnet_Users" EntityType="Self.aspnet_Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Packages" EntityType="Self.Packages" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PriceItems" EntityType="Self.PriceItems" Schema="dbo" store:Type="Tables" />
@@ -631,6 +655,10 @@
           <AssociationSet Name="FK_OrderID" Association="Self.FK_OrderID">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="Recipients" EntitySet="Recipients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PackageID" Association="Self.FK_PackageID">
+            <End Role="Packages" EntitySet="Packages" />
+            <End Role="Items" EntitySet="Items" />
           </AssociationSet>
           <AssociationSet Name="FK_PriceListID" Association="Self.FK_PriceListID">
             <End Role="PriceLists" EntitySet="PriceLists" />
@@ -1053,6 +1081,11 @@
             <End Role="RechargeApply" EntitySet="RechargeApplys" />
           </AssociationSet>
           <EntitySet Name="aspnet_User" EntityType="UK_ExpressModel.aspnet_User" />
+          <EntitySet Name="Items" EntityType="UK_ExpressModel.Item" />
+          <AssociationSet Name="FK_PackageID" Association="UK_ExpressModel.FK_PackageID">
+            <End Role="Package" EntitySet="Packages" />
+            <End Role="Item" EntitySet="Items" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="aspnet_Membership_GetPassword_Result">
           <Property Type="String" Name="Column1" Nullable="true" MaxLength="128" />
@@ -1147,7 +1180,8 @@
           <NavigationProperty Name="Recipient" Relationship="UK_ExpressModel.FK_RecipientID" FromRole="Package" ToRole="Recipient" />
           <Property Name="Detail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Value" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="TrackNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TrackNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Items" Relationship="UK_ExpressModel.FK_PackageID" FromRole="Package" ToRole="Item" />
         </EntityType>
         <EntityType Name="PriceItem">
           <Key>
@@ -1177,7 +1211,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="OrderId" Type="Int32" />
@@ -1185,8 +1219,8 @@
           <NavigationProperty Name="Packages" Relationship="UK_ExpressModel.FK_RecipientID" FromRole="Recipient" ToRole="Package" />
           <Property Name="SuccessPaid" Type="Boolean" />
           <Property Name="Errors" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="WMLeaderNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="WMLeaderPdf" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WMLeaderNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="WMLeaderPdf" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Reinforce">
           <Key>
@@ -1398,6 +1432,30 @@
           <Property Name="LastName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
           <Property Name="CellPhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Value" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NettoWeight" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="TariffCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PackageID" Type="Int32" />
+          <NavigationProperty Name="Package" Relationship="UK_ExpressModel.FK_PackageID" FromRole="Item" ToRole="Package" />
+        </EntityType>
+        <Association Name="FK_PackageID">
+          <End Type="UK_ExpressModel.Package" Role="Package" Multiplicity="0..1" />
+          <End Type="UK_ExpressModel.Item" Role="Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Package">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Item">
+              <PropertyRef Name="PackageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1690,6 +1748,18 @@
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ApplicationId" ColumnName="ApplicationId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="UK_ExpressModel.Item">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="PackageID" ColumnName="PackageID" />
+                <ScalarProperty Name="TariffCode" ColumnName="TariffCode" />
+                <ScalarProperty Name="NettoWeight" ColumnName="NettoWeight" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
