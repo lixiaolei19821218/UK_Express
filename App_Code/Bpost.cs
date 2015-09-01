@@ -19,7 +19,7 @@ public class Bpost
         string header = string.Format("*BPI_IN*            {0}*V 3.1 *{1}", senderId, sequenceId);
 
         string barcode = GenerateBarcode(contactNumber, subContactNumber, parcelNumber);
-        string a01 = string.Format("{0}{1}{2}{3}{4}{5}{6}",            
+        string a01 = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}{13}{14}{15}{16}{17}{18}{19}{20}{21}{22}{23}{24}{25}{26}{27}{28}{29}{30}{31}{32}",            
             "A01",
             "01",
             barcode,
@@ -52,7 +52,7 @@ public class Bpost
             string.Empty.PadRight(50),//Addressee – E-mail
             p.Recipient.PhoneNumber.PadRight(20),
             p.Weight.ToString().PadRight(7),
-            "  3"
+            "  1"
             );
         string d01_0 = string.Format("D01461EA953400375BE");
         string d01_1 = string.Format("D01900GOODS");
@@ -67,6 +67,15 @@ public class Bpost
         sw.WriteLine(header);
         sw.WriteLine(a01);
         sw.WriteLine(d01_0);
+        sw.WriteLine(d01_1);
+        sw.WriteLine(d01_2);
+        sw.WriteLine(d02_0);
+        sw.WriteLine(d02_1);
+        sw.WriteLine(d02_2);
+        sw.WriteLine(d02_3);
+        sw.WriteLine(d02_4);
+        sw.WriteLine(d02_5);
+        sw.WriteLine(d02_6);
         sw.Close();
     }
 
