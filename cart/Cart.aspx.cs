@@ -439,7 +439,7 @@ public partial class cart_Cart : System.Web.UI.Page
         {
             foreach (Package p in r.Packages)
             {
-                Bpost.GenerateLciFile("BPI/2015/9320", p.Id.ToString(), o);
+                Bpost.GenerateLciFile("BPI/2015/9320", p.Id.ToString(), p);
             }
         }        
     }

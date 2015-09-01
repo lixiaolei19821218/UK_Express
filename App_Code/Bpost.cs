@@ -57,8 +57,13 @@ public class Bpost
         string d01_0 = string.Format("D01461EA953400375BE");
         string d01_1 = string.Format("D01900GOODS");
         string d01_2 = string.Format("D01901RTS");
-        string d02_0 = string.Format("D01900GOODS");
-        string d02_1 = string.Format("D02960001000002");
+        string d02_0 = string.Format("D02960001000001");
+        string d02_1 = string.Format("D02961001{0}", p.Value.ToString().PadLeft(12, '0'));
+        string d02_2 = string.Format("D02962001GBP");
+        string d02_3 = string.Format("D02963001{0}", p.Detail);
+        string d02_4 = string.Format("D029640014840");
+        string d02_5 = string.Format("D02965001999999");
+        string d02_6 = string.Format("D02966001UK");
         sw.WriteLine(header);
         sw.WriteLine(a01);
         sw.WriteLine(d01_0);

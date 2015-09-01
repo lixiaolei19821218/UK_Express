@@ -408,27 +408,29 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="ib" style="margin-left: 20px">
-                                                        <div>
-                                                            <div class="ib pd7 bold">包裹明细</div>                                                            
+                                                    
+                                                        <div class="ib" style="margin-left: 20px">
+                                                            <div>
+                                                                <div class="ib pd7 bold">包裹明细</div>
+                                                            </div>
+                                                            <!-- parcel content details -->
+                                                            <div class="mx">
+                                                                <div style="margin-left: 5px">
+                                                                    <input class="input-medium" value="<%# Item.Detail %>" name="deteil_<%#(Container.Parent.Parent as RepeaterItem).ItemIndex %>_<%#Container.ItemIndex %>" style="width: 300px" required="required" title="请输入英文" pattern="(\w|\d|\s)+" />
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <!-- parcel content details -->
-                                                        <div class="mx">                                                           
-                                                            <div style="margin-left: 5px">                                                                
-                                                                <input class="input-medium" value="<%# Item.Detail %>" name="deteil_<%#(Container.Parent.Parent as RepeaterItem).ItemIndex %>_<%#Container.ItemIndex %>" style="width: 300px" required="required" title="请输入英文" pattern="(\w|\d|\s)+"/>                                                               
-                                                            </div>                                                 
-                                                        </div>                                            
-                                                    </div>
-                                                    <div class="ib" style="margin-left: 20px">
-                                                        <div>
-                                                            <div class="ib pd7 bold">总额(£):</div>                                                            
-                                                        </div>                                                       
-                                                        <div class="mx">                                                           
-                                                            <div style="margin-left: 5px">                                                                
-                                                                <input class="input-medium" value="<%# Item.Value %>" name="value_<%#(Container.Parent.Parent as RepeaterItem).ItemIndex %>_<%#Container.ItemIndex %>" type="number" style="width: 50px" required="required" min="0"/>
-                                                            </div>                                                 
-                                                        </div>                                                        
-                                                    </div>
+                                                        <div class="ib" style="margin-left: 20px">
+                                                            <div>
+                                                                <div class="ib pd7 bold">总额(£):</div>
+                                                            </div>
+                                                            <div class="mx">
+                                                                <div style="margin-left: 5px">
+                                                                    <input class="input-medium" value="<%# Item.Value %>" name="value_<%#(Container.Parent.Parent as RepeaterItem).ItemIndex %>_<%#Container.ItemIndex %>" type="number" style="width: 50px" required="required" min="0" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    
                                                 </div>
                                             </li>
                                         </ItemTemplate>
