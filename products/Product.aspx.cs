@@ -181,14 +181,23 @@ public partial class products_Product : System.Web.UI.Page
             recipient.Address = Request.Form.Get(string.Format("addr-{0}-cn_street", i));
             recipient.PhoneNumber = Request.Form.Get(string.Format("addr-{0}-phone", i));
             recipient.ZipCode = Request.Form.Get(string.Format("addr-{0}-postcode", i));
-
+            
             for (int j = 0; j < recipient.Packages.Count; j++)
             {
                 Package p = recipient.Packages.ElementAt(j);
-                //deteil_0_0
-                p.Detail = Request.Form.Get(string.Format("deteil_{0}_{1}", i, j));
-                p.Value = decimal.Parse(Request.Form.Get(string.Format("value_{0}_{1}", i, j)));
+                //parcel-0-content-0-type
+                //parcel-0-content-1-type
+                //parcel-0-content-0-cost
+                //parcel-0-content-1-cost
+                //p.Detail = Request.Form.Get(string.Format("deteil_{0}_{1}", i, j));
+                //p.Value = decimal.Parse(Request.Form.Get(string.Format("value_{0}_{1}", i, j)));
             }
+            
+        }
+        var pacakges = order.Recipients.Select(r => r.Packages);
+        for (int i = 0; i < pacakges.Count(); i++)
+        {
+            //pacakges.ElementAt(i)
         }
 
         DateTime date;
