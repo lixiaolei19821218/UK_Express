@@ -185,6 +185,7 @@ public partial class products_Product : System.Web.UI.Page
             for (int j = 0; j < recipient.Packages.Count; j++)
             {
                 Package p = recipient.Packages.ElementAt(j);
+                //int itemsCount = int.Parse(Request.Form.Get("parcel-0-content-TOTAL_FORMS"));
                 //parcel-0-content-0-type
                 //parcel-0-content-1-type
                 //parcel-0-content-0-cost

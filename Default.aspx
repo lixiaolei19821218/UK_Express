@@ -3,24 +3,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="head" Runat="Server">
     <title>首页 | 诚信物流-可靠,快捷,实惠</title>
     <%: System.Web.Optimization.Scripts.Render("~/bundle/jquery") %>
-    <script src="/static/bootstrap3/js/jquery-1.11.1.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            $("button").click(function (e) {
-                var inputElem = $("#Name")[0];
-                if (inputElem.checkValidity() && !inputElem.validity.customError) {
-                    var length = inputElem.value.length;
-                    if (length < 5 || length > 20) {
-                        inputElem.setCustomValidity("Name must be 5-20 characters");
-                    }
-                } else {
-                    inputElem.setCustomValidity("");
-                }
-            });
-
-            //$('#mainPage')[0].setAttribute('class','active');
-        });
-    </script>
+    <script src="/static/bootstrap3/js/jquery-1.11.1.min.js"></script>   
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
