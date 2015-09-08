@@ -201,17 +201,17 @@ public partial class products_Product : System.Web.UI.Page
             packages.AddRange(r.Packages);
         }
         for (int i = 0; i < packages.Count; i++)
-        {
-            
+        {            
             int itemsCount = int.Parse(Request.Form.Get(string.Format("parcel-{0}-content-TOTAL_FORMS", i)));
             decimal weight = packages[i].Weight / itemsCount;
             for (int j = 0; j < itemsCount; j++)
             {
                 Item item = new Item();
-                item.Description = string.Format("parcel-{0}-content-{1}-type", i, j);
+                item.Description = Request.Form.Get(string.Format("parcel-{0}-content-{1}-type", i, j));
                 item.TariffCode = "999999";
-                item.Value = decimal.Parse(string.Format("parcel-{0}-content-{1}-cost", i, j));
+                item.Value = decimal.Parse(Request.Form.Get(string.Format("parcel-{0}-content-{1}-cost", i, j)));
                 item.NettoWeight = weight;
+                item.Count = int.Parse(Request.Form.Get(string.Format("parcel-{0}-content-{1}-quantity", i, j)));
                 packages[i].Items.Add(item);
             }
         }

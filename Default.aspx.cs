@@ -80,6 +80,7 @@ public partial class Default2 : System.Web.UI.Page
             foreach (var pkg in pkgs)
             {
                 Package package = new Package();
+                package.Items.Add(new Item());
                 r.Packages.Add(package);
                 
                 foreach (string pkgAttr in pkg)

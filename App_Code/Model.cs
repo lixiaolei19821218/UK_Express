@@ -33,6 +33,7 @@ public partial class Item
     public Nullable<decimal> NettoWeight { get; set; }
     public string TariffCode { get; set; }
     public Nullable<int> PackageID { get; set; }
+    public Nullable<int> Count { get; set; }
 
     public virtual Package Package { get; set; }
 }

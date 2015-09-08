@@ -408,94 +408,94 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
-                                                   <div class="ib" style="margin-left:10px">
-                                <div>
-                                    <div class="ib pd7 bold">包裹明细</div>
-                                    
-                                    <div class="ib pd7 bold" style="margin-left:128px">总额(£):
+
+                                                    <div class="ib" style="margin-left: 10px">
+                                                        <div>
+                                                            <div class="ib pd7 bold">包裹明细</div>
+
+                                                            <div class="ib pd7 bold" style="margin-left: 128px">
+                                                                总额(£):
                                         <span class="mx_total"></span>
-                                    </div>
-                                    
-                                </div>
+                                                            </div>
 
-                                <!-- parcel content details -->
+                                                        </div>
 
-                                                       <div class="mx">
-                                                           <div class="ib">(<span class="mx_sq">1</span>)</div>
-
-
-
-                                                           <div class="ib mx_type">
-                                                               <select id="id_parcel-0-content-0-type" name="parcel-0-content-0-type" style="width: 100px">
-                                                                   <option value="婴儿奶粉" selected="selected">婴儿奶粉</option>
-                                                                   <option value="婴儿食品">婴儿食品</option>
-                                                                   <option value="成人奶粉">成人奶粉</option>
-                                                                   <option value="婴儿推车">婴儿推车</option>
-                                                                   <option value="安全座椅">安全座椅</option>
-                                                                   <option value="婴儿用品">婴儿用品</option>
-                                                                   <option value="食品">食品</option>
-                                                                   <option value="保健品">保健品</option>
-                                                                   <option value="服装服饰">服装服饰</option>
-                                                                   <option value="服饰配件">服饰配件</option>
-                                                                   <option value="箱包">箱包</option>
-                                                                   <option value="鞋靴">鞋靴</option>
-                                                                   <option value="钟表">钟表</option>
-                                                                   <option value="钟表配件">钟表配件</option>
-                                                                   <option value="化妆品">化妆品</option>
-                                                                   <option value="护肤品">护肤品</option>
-                                                                   <option value="洗漱用品">洗漱用品</option>
-                                                                   <option value="厨卫清洁用品">厨卫清洁用品</option>
-                                                                   <option value="小家电（含游戏机等）">小家电（含游戏机等）</option>
-                                                                   <option value="家用医疗用品">家用医疗用品</option>
-                                                                   <option value="美容保健器材">美容保健器材</option>
-                                                                   <option value="影音设备">影音设备</option>
-                                                                   <option value="手机和移动设备">手机和移动设备</option>
-                                                                   <option value="手机和移动设备配件">手机和移动设备配件</option>
-                                                                   <option value="计算机">计算机</option>
-                                                                   <option value="计算机外围设备">计算机外围设备</option>
-                                                                   <option value="书报、刊物">书报、刊物</option>
-                                                                   <option value="音响制品（唱片、影片等）">音响制品（唱片、影片等）</option>
-                                                                   <option value="文具">文具</option>
-                                                                   <option value="玩具">玩具</option>
-                                                                   <option value="教育用品">教育用品</option>
-                                                                   <option value="体育用品">体育用品</option>
-                                                                   <option value="户外用品">户外用品</option>
-                                                                   <option value="邮票">邮票</option>
-                                                                   <option value="乐器">乐器</option>
-                                                                   <option value="茶包">茶包</option>
-                                                                   <option value="汽车配件">汽车配件</option>
-                                                                   <option value="个人行李 - 旧箱包">个人行李 - 旧箱包</option>
-                                                                   <option value="个人行李 - 旧文具">个人行李 - 旧文具</option>
-                                                                   <option value="个人行李 - 旧电子物品">个人行李 - 旧电子物品</option>
-                                                                   <option value="个人行李 - 旧护肤品">个人行李 - 旧护肤品</option>
-                                                                   <option value="个人行李 - 个人礼品">个人行李 - 个人礼品</option>
-                                                                   <option value="个人行李 - 旧衣物">个人行李 - 旧衣物</option>
-                                                               </select>
-                                                           </div>
+                                                        <!-- parcel content details -->
+                                                        <asp:Repeater runat="server" DataSource="<%#Item.Items %>">
+                                                            <ItemTemplate>
+                                                                <div class="mx">
+                                                                    <div class="ib">(<span class="mx_sq">1</span>)</div>
+                                                                    <div class="ib mx_type">
+                                                                        <select id="id_parcel-0-content-0-type" name="parcel-0-content-0-type" style="width: 100px">
+                                                                            <option value="婴儿奶粉" selected="selected">婴儿奶粉</option>
+                                                                            <option value="婴儿食品">婴儿食品</option>
+                                                                            <option value="成人奶粉">成人奶粉</option>
+                                                                            <option value="婴儿推车">婴儿推车</option>
+                                                                            <option value="安全座椅">安全座椅</option>
+                                                                            <option value="婴儿用品">婴儿用品</option>
+                                                                            <option value="食品">食品</option>
+                                                                            <option value="保健品">保健品</option>
+                                                                            <option value="服装服饰">服装服饰</option>
+                                                                            <option value="服饰配件">服饰配件</option>
+                                                                            <option value="箱包">箱包</option>
+                                                                            <option value="鞋靴">鞋靴</option>
+                                                                            <option value="钟表">钟表</option>
+                                                                            <option value="钟表配件">钟表配件</option>
+                                                                            <option value="化妆品">化妆品</option>
+                                                                            <option value="护肤品">护肤品</option>
+                                                                            <option value="洗漱用品">洗漱用品</option>
+                                                                            <option value="厨卫清洁用品">厨卫清洁用品</option>
+                                                                            <option value="小家电（含游戏机等）">小家电（含游戏机等）</option>
+                                                                            <option value="家用医疗用品">家用医疗用品</option>
+                                                                            <option value="美容保健器材">美容保健器材</option>
+                                                                            <option value="影音设备">影音设备</option>
+                                                                            <option value="手机和移动设备">手机和移动设备</option>
+                                                                            <option value="手机和移动设备配件">手机和移动设备配件</option>
+                                                                            <option value="计算机">计算机</option>
+                                                                            <option value="计算机外围设备">计算机外围设备</option>
+                                                                            <option value="书报、刊物">书报、刊物</option>
+                                                                            <option value="音响制品（唱片、影片等）">音响制品（唱片、影片等）</option>
+                                                                            <option value="文具">文具</option>
+                                                                            <option value="玩具">玩具</option>
+                                                                            <option value="教育用品">教育用品</option>
+                                                                            <option value="体育用品">体育用品</option>
+                                                                            <option value="户外用品">户外用品</option>
+                                                                            <option value="邮票">邮票</option>
+                                                                            <option value="乐器">乐器</option>
+                                                                            <option value="茶包">茶包</option>
+                                                                            <option value="汽车配件">汽车配件</option>
+                                                                            <option value="个人行李 - 旧箱包">个人行李 - 旧箱包</option>
+                                                                            <option value="个人行李 - 旧文具">个人行李 - 旧文具</option>
+                                                                            <option value="个人行李 - 旧电子物品">个人行李 - 旧电子物品</option>
+                                                                            <option value="个人行李 - 旧护肤品">个人行李 - 旧护肤品</option>
+                                                                            <option value="个人行李 - 个人礼品">个人行李 - 个人礼品</option>
+                                                                            <option value="个人行李 - 旧衣物">个人行李 - 旧衣物</option>
+                                                                        </select>
+                                                                    </div>
 
 
-                                                           <div class="ib mx_quantity mx_cal">
-                                                               数量:
+                                                                    <div class="ib mx_quantity mx_cal">
+                                                                        数量:
                                                                <input id="id_parcel-0-content-0-quantity" name="parcel-0-content-0-quantity" style="width: 30px" type="text" value="1" />
-                                                           </div>
+                                                                    </div>
 
-                                                           <div class="ib mx_cost mx_cal">
-                                                               单价(£):
+                                                                    <div class="ib mx_cost mx_cal">
+                                                                        单价(£):
                                                                <input id="id_parcel-0-content-0-cost" name="parcel-0-content-0-cost" style="width: 30px" type="text" value="1.00" />
-                                                           </div>
+                                                                    </div>
 
-                                                           <div class="ib">
-                                                               <button style="border: 1px solid #ddd; background: none" class="btn add_mx btn_mx" type="button" title="添加包裹明细"><i class="icon-plus icon-white"></i></button>
-                                                           </div>
-                                                           <div class="ib">
-                                                               <button style="border: 1px solid #ddd; background: none" class="btn del_mx btn_mx" type="button" title="删除包裹明细"><i class="icon-minus"></i></button>
-                                                           </div>
-                                                       </div>
+                                                                    <div class="ib">
+                                                                        <button style="border: 1px solid #ddd; background: none" class="btn add_mx btn_mx" type="button" title="添加包裹明细"><i class="icon-plus icon-white"></i></button>
+                                                                    </div>
+                                                                    <div class="ib">
+                                                                        <button style="border: 1px solid #ddd; background: none" class="btn del_mx btn_mx" type="button" title="删除包裹明细"><i class="icon-minus"></i></button>
+                                                                    </div>
+                                                                </div>
+                                                            </ItemTemplate>
+                                                        </asp:Repeater>
 
-
-                                                       <input id="id_parcel-0-content-TOTAL_FORMS" name="parcel-0-content-TOTAL_FORMS" type="hidden" value="1" /><input id="id_parcel-0-content-INITIAL_FORMS" name="parcel-0-content-INITIAL_FORMS" type="hidden" value="0" /><input id="id_parcel-0-content-MAX_NUM_FORMS" name="parcel-0-content-MAX_NUM_FORMS" type="hidden" value="1000" />
-                            </div>
+                                                        <input id="id_parcel-0-content-TOTAL_FORMS" name="parcel-0-content-TOTAL_FORMS" type="hidden" value="1" /><input id="id_parcel-0-content-INITIAL_FORMS" name="parcel-0-content-INITIAL_FORMS" type="hidden" value="0" /><input id="id_parcel-0-content-MAX_NUM_FORMS" name="parcel-0-content-MAX_NUM_FORMS" type="hidden" value="1000" />
+                                                    </div>
                                             </li>
                                         </ItemTemplate>
                                     </asp:Repeater>
