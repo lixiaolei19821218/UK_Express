@@ -476,13 +476,13 @@
 
                                                                     <div class="ib mx_quantity mx_cal">
                                                                         数量:
-                                                               <input id="id_parcel-0-content-0-quantity" name="parcel-0-content-0-quantity" style="width: 30px" type="text" value="<%#Item.Count %>" />
+                                                               <input id="id_parcel-0--content-<%#Container.ItemIndex %>-quantity" name="parcel-0-content-<%#Container.ItemIndex %>-quantity" style="width: 30px" type="text" value="<%#Item.Count %>" />
 
                                                                     </div>
 
                                                                     <div class="ib mx_cost mx_cal">
                                                                         单价(£):
-                                                               <input id="id_parcel-0-content-0-cost" name="parcel-0-content-0-cost" style="width: 30px" type="text" value="<%#Item.Value %>" />
+                                                               <input id="id_parcel-0-content-<%#Container.ItemIndex %>-cost" name="parcel-0--content-<%#Container.ItemIndex %>-cost" style="width: 30px" type="text" value="<%#Item.Value %>" />
                                                                     </div>
 
                                                                     <div class="ib">
@@ -495,7 +495,7 @@
                                                             </ItemTemplate>
                                                         </asp:Repeater>
 
-                                                        <input id="id_parcel-0-content-TOTAL_FORMS" name="parcel-0-content-TOTAL_FORMS" type="hidden" value="1" /><input id="id_parcel-0-content-INITIAL_FORMS" name="parcel-0-content-INITIAL_FORMS" type="hidden" value="0" /><input id="id_parcel-0-content-MAX_NUM_FORMS" name="parcel-0-content-MAX_NUM_FORMS" type="hidden" value="1000" />
+                                                        <input id="id_parcel-<%#Container.ItemIndex %>-content-TOTAL_FORMS" name="parcel-<%#Container.ItemIndex %>-content-TOTAL_FORMS" type="hidden" value="<%#Item.PackageItems.Count %>" /><input id="id_parcel-0-content-INITIAL_FORMS" name="parcel-0-content-INITIAL_FORMS" type="hidden" value="0" /><input id="id_parcel-0-content-MAX_NUM_FORMS" name="parcel-0-content-MAX_NUM_FORMS" type="hidden" value="1000" />
                                                     </div>
                                             </li>
                                         </ItemTemplate>
