@@ -37,7 +37,7 @@ public partial class UK_ExpressEntities : DbContext
     public virtual DbSet<RechargeApply> RechargeApplys { get; set; }
     public virtual DbSet<RechargeChannel> RechargeChannels { get; set; }
     public virtual DbSet<aspnet_User> aspnet_User { get; set; }
-    public virtual DbSet<Item> Items { get; set; }
+    public virtual DbSet<PackageItem> PackageItems { get; set; }
 
     public virtual ObjectResult<string> aspnet_AnyDataInTables(Nullable<int> tablesToCheck)
     {

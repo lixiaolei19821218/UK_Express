@@ -120,7 +120,16 @@ public partial class cart_Cart : System.Web.UI.Page
                     pc.TrackNumber = p.TrackNumber;
                     pc.Detail = p.Detail;
                     pc.Value = p.Value;
-
+                    foreach (PackageItem item in p.PackageItems)
+                    {
+                        PackageItem ic = new PackageItem();
+                        ic.Count = item.Count;
+                        ic.Description = item.Description;
+                        ic.NettoWeight = item.NettoWeight;
+                        ic.TariffCode = item.TariffCode;
+                        ic.Value = item.Value;
+                        pc.PackageItems.Add(ic);
+                    }
                     rc.Packages.Add(pc);
                 }
 

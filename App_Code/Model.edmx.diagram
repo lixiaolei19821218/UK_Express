@@ -28,7 +28,7 @@
         <EntityTypeShape EntityType="UK_ExpressModel.RechargeChannel" Width="1.5" PointX="10.375" PointY="6.375" />
         <AssociationConnector Association="UK_ExpressModel.FK_ChannelID" />
         <EntityTypeShape EntityType="UK_ExpressModel.aspnet_User" Width="1.5" PointX="0.75" PointY="10.75" />
-        <EntityTypeShape EntityType="UK_ExpressModel.Item" Width="1.5" PointX="9.75" PointY="2.125" />
+        <EntityTypeShape EntityType="UK_ExpressModel.PackageItem" Width="1.5" PointX="9.75" PointY="2" />
         <AssociationConnector Association="UK_ExpressModel.FK_PackageID" />
         </Diagram>
     </edmx:Diagrams>

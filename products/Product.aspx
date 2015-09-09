@@ -421,10 +421,10 @@
                                                         </div>
 
                                                         <!-- parcel content details -->
-                                                        <asp:Repeater runat="server" DataSource="<%#Item.Items %>">
+                                                        <asp:Repeater runat="server" DataSource="<%#Item.PackageItems %>" ItemType="PackageItem">
                                                             <ItemTemplate>
                                                                 <div class="mx">
-                                                                    <div class="ib">(<span class="mx_sq">1</span>)</div>
+                                                                    <div class="ib">(<span class="mx_sq"><%#Container.ItemIndex + 1%></span>)</div>
                                                                     <div class="ib mx_type">
                                                                         <select id="id_parcel-0-content-0-type" name="parcel-0-content-0-type" style="width: 100px">
                                                                             <option value="婴儿奶粉" selected="selected">婴儿奶粉</option>
@@ -476,12 +476,13 @@
 
                                                                     <div class="ib mx_quantity mx_cal">
                                                                         数量:
-                                                               <input id="id_parcel-0-content-0-quantity" name="parcel-0-content-0-quantity" style="width: 30px" type="text" value="1" />
+                                                               <input id="id_parcel-0-content-0-quantity" name="parcel-0-content-0-quantity" style="width: 30px" type="text" value="<%#Item.Count %>" />
+
                                                                     </div>
 
                                                                     <div class="ib mx_cost mx_cal">
                                                                         单价(£):
-                                                               <input id="id_parcel-0-content-0-cost" name="parcel-0-content-0-cost" style="width: 30px" type="text" value="1.00" />
+                                                               <input id="id_parcel-0-content-0-cost" name="parcel-0-content-0-cost" style="width: 30px" type="text" value="<%#Item.Value %>" />
                                                                     </div>
 
                                                                     <div class="ib">

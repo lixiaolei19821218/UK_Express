@@ -204,15 +204,16 @@ public partial class products_Product : System.Web.UI.Page
         {            
             int itemsCount = int.Parse(Request.Form.Get(string.Format("parcel-{0}-content-TOTAL_FORMS", i)));
             decimal weight = packages[i].Weight / itemsCount;
+            packages[i].PackageItems.Clear();
             for (int j = 0; j < itemsCount; j++)
             {
-                Item item = new Item();
+                PackageItem item = new PackageItem();
                 item.Description = Request.Form.Get(string.Format("parcel-{0}-content-{1}-type", i, j));
                 item.TariffCode = "999999";
                 item.Value = decimal.Parse(Request.Form.Get(string.Format("parcel-{0}-content-{1}-cost", i, j)));
                 item.NettoWeight = weight;
                 item.Count = int.Parse(Request.Form.Get(string.Format("parcel-{0}-content-{1}-quantity", i, j)));
-                packages[i].Items.Add(item);
+                packages[i].PackageItems.Add(item);
             }
         }
 
