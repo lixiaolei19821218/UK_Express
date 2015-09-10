@@ -274,24 +274,33 @@
                                 <!-- recipient address -->
                                 <div style="padding-top: 10px">
                                     <div class="py_fields" style="position: relative; background-color: #e1e1e1; min-height: 24px; display:normal; margin-left: 5px; margin-right: 5px; font-size: 13px">
-                                        <div class="py_name" style="float: left; width: 162px; padding-left: 60px" id="py_name<%#Container.ItemIndex %>"><%#Item.PyName %></div>
-                                        <div class="py_city" style="float: left; width: 162px; padding-left: 28px" id="py_city<%#Container.ItemIndex %>"><%#Item.City %></div>
-                                        <div class="py_street" style="margin-left: 324px; margin-right: 38px" id="py_street<%#Container.ItemIndex %>"><%#Item.Address %></div>
+                                        <div class="py_name" style="float: left; width: 162px; padding-left: 60px" id="py_name<%#Container.ItemIndex %>"><%#Item.PyName %></div><input type="hidden" name="hd_name<%#Container.ItemIndex %>" id="hd_name<%#Container.ItemIndex %>"></input>
+                                        <div class="py_city" style="float: left; width: 162px; padding-left: 28px" id="py_city<%#Container.ItemIndex %>"><%#Item.PyCity %></div><input type="hidden" name="hd_city<%#Container.ItemIndex %>" id="hd_city<%#Container.ItemIndex %>"></input>
+                                        <div class="py_street" style="margin-left: 324px; margin-right: 38px" id="py_street<%#Container.ItemIndex %>"><%#Item.PyAddress %></div><input type="hidden" name="hd_street<%#Container.ItemIndex %>" id="hd_street<%#Container.ItemIndex %>"></input>
                                         <button class="display_hidden btn btn-small" type="button" style="position: absolute; right: 0; top: 0; background-color: #BFBFBF" title="修改转换">编辑</button>
                                         <div style="clear: both"></div>
                                     </div>
                                     
                                     <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_name">中文姓名</label>                                 
-                                        <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" value="<%#Item.Name %>"  required="required" onblur="py_name<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_name').toPinyin());" onchange="py_name<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_name').toPinyin());" onkeydown="py_name<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_name').toPinyin());"/>
+                                        <input class="cn_fields cn_name" id="id_addr-0-cn_name" maxlength="24" name="addr-0-cn_name" style="width: 60px" type="text" value="<%#Item.Name %>"  required="required" 
+                                            onblur="var py=($('#id_addr-<%#Container.ItemIndex %>-cn_name').toPinyin());py_name<%#Container.ItemIndex %>.innerText=py;hd_name<%#Container.ItemIndex %>.value=py;" 
+                                            onchange="var py=($('#id_addr-<%#Container.ItemIndex %>-cn_name').toPinyin());py_name<%#Container.ItemIndex %>.innerText=py;hd_name<%#Container.ItemIndex %>.value=py;" 
+                                            onkeydown="var py=($('#id_addr-<%#Container.ItemIndex %>-cn_name').toPinyin());py_name<%#Container.ItemIndex %>.innerText=py;hd_name<%#Container.ItemIndex %>.value=py;"/>
                                     </div>
                                     <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_city">中文城市</label>
-                                        <input class="cn_fields cn_city" id="id_addr-0-cn_city" maxlength="24" name="addr-0-cn_city" style="width: 60px" type="text" value="<%#Item.City %>" required="required" onblur="py_city<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_city').toPinyin());" onchange="py_city<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_city').toPinyin());" onkeydown="py_city<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_city').toPinyin());"/>
+                                        <input class="cn_fields cn_city" id="id_addr-0-cn_city" maxlength="24" name="addr-0-cn_city" style="width: 60px" type="text" value="<%#Item.City %>" required="required" 
+                                            onblur="var py=($('#id_addr-<%#Container.ItemIndex %>-cn_city').toPinyin());py_city<%#Container.ItemIndex %>.innerText=py;hd_city<%#Container.ItemIndex %>.value=py;"
+                                            onchange="var py=($('#id_addr-<%#Container.ItemIndex %>-cn_city').toPinyin());py_city<%#Container.ItemIndex %>.innerText=py;hd_city<%#Container.ItemIndex %>.value=py;" 
+                                            onkeydown="var py=($('#id_addr-<%#Container.ItemIndex %>-cn_city').toPinyin());py_city<%#Container.ItemIndex %>.innerText=py;hd_city<%#Container.ItemIndex %>.value=py;"/>
                                     </div>
                                     <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_street">中文地址</label>
-                                        <input class="cn_fields cn_street" id="id_addr-0-cn_street" maxlength="72" name="addr-0-cn_street" style="width: 415px" type="text" value="<%#Item.Address %>" required="required" onblur="py_street<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_street').toPinyin());" onchange="py_street<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_street').toPinyin());" onkeydown="py_street<%#Container.ItemIndex %>.innerText=($('#id_addr-<%#Container.ItemIndex %>-cn_street').toPinyin());"/>
+                                        <input class="cn_fields cn_street" id="id_addr-0-cn_street" maxlength="72" name="addr-0-cn_street" style="width: 415px" type="text" value="<%#Item.Address %>" required="required" 
+                                            onblur="var py=($('#id_addr-<%#Container.ItemIndex %>-cn_street').toPinyin());py_street<%#Container.ItemIndex %>.innerText=py;hd_street<%#Container.ItemIndex %>.value=py;" 
+                                            onchange="var py=($('#id_addr-<%#Container.ItemIndex %>-cn_street').toPinyin());py_street<%#Container.ItemIndex %>.innerText=py;hd_street<%#Container.ItemIndex %>.value=py;" 
+                                            onkeydown="var py=($('#id_addr-<%#Container.ItemIndex %>-cn_street').toPinyin());py_street<%#Container.ItemIndex %>.innerText=py;hd_street<%#Container.ItemIndex %>.value=py;"/>
                                     </div>
                                     <div style="clear: both"></div>
                                     <div style="float: left; margin: 5px; margin-left: 17px; font-weight: bold">
@@ -483,7 +492,7 @@
 
                                                                     <div class="ib mx_cost mx_cal">
                                                                         单价(£):
-                                                               <input id="id_parcel-0-content-<%#Container.ItemIndex %>-cost" name="parcel-0-content-<%#Container.ItemIndex %>-cost" style="width: 50px" type="number" min="0.01" max="999999" value="<%#Item.Value %>" required="required"/>
+                                                               <input id="id_parcel-0-content-<%#Container.ItemIndex %>-cost" name="parcel-0-content-<%#Container.ItemIndex %>-cost" style="width: 50px" type="number" min="0" max="999999" value="<%#Item.Value %>" required="required"/>
                                                                     </div>
 
                                                                     <div class="ib">

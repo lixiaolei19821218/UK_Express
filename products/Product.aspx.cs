@@ -185,7 +185,9 @@ public partial class products_Product : System.Web.UI.Page
             recipient.Address = Request.Form.Get(string.Format("addr-{0}-cn_street", i));
             recipient.PhoneNumber = Request.Form.Get(string.Format("addr-{0}-phone", i));
             recipient.ZipCode = Request.Form.Get(string.Format("addr-{0}-postcode", i));
-            //recipient.PyName = Request.Form.Get(string.Format("py_name{0}", i));
+            recipient.PyName = Request.Form.Get(string.Format("hd_name{0}", i));
+            recipient.PyCity = Request.Form.Get(string.Format("hd_city{0}", i));
+            recipient.PyAddress = Request.Form.Get(string.Format("hd_street{0}", i));
         }
         List<Package> packages = new List<Package>();
         foreach (Recipient r in order.Recipients)
