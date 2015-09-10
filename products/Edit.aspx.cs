@@ -33,7 +33,7 @@ public partial class products_Edit : System.Web.UI.Page
   
     protected void ButtonToOrder_Click(object sender, EventArgs e)
     {
-        //cache detail and value
+        //cache detail and value        
         Order cacheOrder = new Order();
         foreach (Recipient r in order.Recipients)
         {
@@ -42,12 +42,15 @@ public partial class products_Edit : System.Web.UI.Page
             foreach (Package p in r.Packages)
             {
                 Package cachePackage = new Package();
-                cachePackage.Detail = p.Detail;
-                cachePackage.Value = p.Value;
+                foreach (PackageItem item in p.PackageItems)
+                {
+                    cachePackage.PackageItems.Add(item);
+                }
+
                 cacheRecipient.Packages.Add(cachePackage);
             }
         }
-
+        
         //addr-x-cn_name       
         var rptKeys = from k in Request.Form.AllKeys where Regex.Match(k, @"addr-\d-cn_name|addr-\d-cn_city|addr-\d-cn_street|addr-\d-postcode|addr-\d-phone").Success select k;
         var groups = rptKeys.GroupBy(k => k[5]);
@@ -174,8 +177,7 @@ public partial class products_Edit : System.Web.UI.Page
             int pCount = r.Packages.Count < cacheR.Packages.Count ? r.Packages.Count : cacheR.Packages.Count; 
             for (int j = 0; j < pCount; j++)
             {
-                order.Recipients.ElementAt(i).Packages.ElementAt(j).Detail = cacheOrder.Recipients.ElementAt(i).Packages.ElementAt(j).Detail;
-                order.Recipients.ElementAt(i).Packages.ElementAt(j).Value = cacheOrder.Recipients.ElementAt(i).Packages.ElementAt(j).Value;
+                order.Recipients.ElementAt(i).Packages.ElementAt(j).PackageItems = cacheOrder.Recipients.ElementAt(i).Packages.ElementAt(j).PackageItems;                
             }
         }
 

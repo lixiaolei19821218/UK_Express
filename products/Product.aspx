@@ -273,10 +273,10 @@
                                 <input id="id_addr-0-id" name="addr-0-id" type="hidden" />
                                 <!-- recipient address -->
                                 <div style="padding-top: 10px">
-                                    <div class="py_fields" style="position: relative; background-color: #e1e1e1; min-height: 24px; display: none; margin-left: 5px; margin-right: 5px; font-size: 13px">
-                                        <div class="py_name" style="float: left; width: 162px; padding-left: 60px" id="py_name<%#Container.ItemIndex %>">&nbsp;</div>
-                                        <div class="py_city" style="float: left; width: 162px; padding-left: 28px" id="py_city<%#Container.ItemIndex %>"></div>
-                                        <div class="py_street" style="margin-left: 324px; margin-right: 38px" id="py_street<%#Container.ItemIndex %>"></div>
+                                    <div class="py_fields" style="position: relative; background-color: #e1e1e1; min-height: 24px; display:normal; margin-left: 5px; margin-right: 5px; font-size: 13px">
+                                        <div class="py_name" style="float: left; width: 162px; padding-left: 60px" id="py_name<%#Container.ItemIndex %>"><%#Item.PyName %></div>
+                                        <div class="py_city" style="float: left; width: 162px; padding-left: 28px" id="py_city<%#Container.ItemIndex %>"><%#Item.City %></div>
+                                        <div class="py_street" style="margin-left: 324px; margin-right: 38px" id="py_street<%#Container.ItemIndex %>"><%#Item.Address %></div>
                                         <button class="display_hidden btn btn-small" type="button" style="position: absolute; right: 0; top: 0; background-color: #BFBFBF" title="修改转换">编辑</button>
                                         <div style="clear: both"></div>
                                     </div>
@@ -426,14 +426,14 @@
                                                                 <div class="mx">
                                                                     <div class="ib">(<span class="mx_sq"><%#Container.ItemIndex + 1%></span>)</div>
                                                                     <div class="ib mx_type">
-                                                                        <select id="id_parcel-0-content-0-type" name="parcel-0-content-0-type" style="width: 100px">
-                                                                            <option value="婴儿奶粉" selected="selected">婴儿奶粉</option>
+                                                                        <select id="id_parcel-0-content-<%#Container.ItemIndex %>-type" name="parcel-0-content-<%#Container.ItemIndex %>-type" style="width: 100px">
+                                                                            <option value="Boby Milk Powder" selected="selected">婴儿奶粉</option>
                                                                             <option value="婴儿食品">婴儿食品</option>
                                                                             <option value="成人奶粉">成人奶粉</option>
                                                                             <option value="婴儿推车">婴儿推车</option>
                                                                             <option value="安全座椅">安全座椅</option>
                                                                             <option value="婴儿用品">婴儿用品</option>
-                                                                            <option value="食品">食品</option>
+                                                                            <option value="Food">食品</option>
                                                                             <option value="保健品">保健品</option>
                                                                             <option value="服装服饰">服装服饰</option>
                                                                             <option value="服饰配件">服饰配件</option>
@@ -471,18 +471,19 @@
                                                                             <option value="个人行李 - 个人礼品">个人行李 - 个人礼品</option>
                                                                             <option value="个人行李 - 旧衣物">个人行李 - 旧衣物</option>
                                                                         </select>
+                                                                       
                                                                     </div>
 
 
                                                                     <div class="ib mx_quantity mx_cal">
                                                                         数量:
-                                                               <input id="id_parcel-0--content-<%#Container.ItemIndex %>-quantity" name="parcel-0-content-<%#Container.ItemIndex %>-quantity" style="width: 30px" type="text" value="<%#Item.Count %>" />
+                                                               <input id="id_parcel-0--content-<%#Container.ItemIndex %>-quantity" name="parcel-0-content-<%#Container.ItemIndex %>-quantity" style="width: 50px" type="number" min="1" max="999999" value="<%#Item.Count %>" required="required"/>
 
                                                                     </div>
 
                                                                     <div class="ib mx_cost mx_cal">
                                                                         单价(£):
-                                                               <input id="id_parcel-0-content-<%#Container.ItemIndex %>-cost" name="parcel-0--content-<%#Container.ItemIndex %>-cost" style="width: 30px" type="text" value="<%#Item.Value %>" />
+                                                               <input id="id_parcel-0-content-<%#Container.ItemIndex %>-cost" name="parcel-0-content-<%#Container.ItemIndex %>-cost" style="width: 50px" type="number" min="0.01" max="999999" value="<%#Item.Value %>" required="required"/>
                                                                     </div>
 
                                                                     <div class="ib">

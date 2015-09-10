@@ -125,6 +125,9 @@
           <Property Name="Errors" Type="nvarchar(max)" />
           <Property Name="WMLeaderNumber" Type="nvarchar(max)" />
           <Property Name="WMLeaderPdf" Type="nvarchar(max)" />
+          <Property Name="PyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="PyCity" Type="nvarchar" MaxLength="50" />
+          <Property Name="PyAddress" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Reinforces">
           <Key>
@@ -1222,6 +1225,9 @@
           <Property Name="Errors" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WMLeaderNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="WMLeaderPdf" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PyCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PyAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Reinforce">
           <Key>
@@ -1649,6 +1655,9 @@
           <EntitySetMapping Name="Recipients">
             <EntityTypeMapping TypeName="UK_ExpressModel.Recipient">
               <MappingFragment StoreEntitySet="Recipients">
+                <ScalarProperty Name="PyAddress" ColumnName="PyAddress" />
+                <ScalarProperty Name="PyCity" ColumnName="PyCity" />
+                <ScalarProperty Name="PyName" ColumnName="PyName" />
                 <ScalarProperty Name="WMLeaderPdf" ColumnName="WMLeaderPdf" />
                 <ScalarProperty Name="WMLeaderNumber" ColumnName="WMLeaderNumber" />
                 <ScalarProperty Name="Errors" ColumnName="Errors" />

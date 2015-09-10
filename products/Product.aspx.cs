@@ -75,6 +75,10 @@ public partial class products_Product : System.Web.UI.Page
 
                 foreach (Recipient r in old.Recipients)
                 {
+                    foreach (Package p in r.Packages)
+                    {
+                        repo.Context.PackageItems.RemoveRange(p.PackageItems);
+                    }
                     repo.Context.Packages.RemoveRange(r.Packages);
                 }
                 repo.Context.Recipients.RemoveRange(old.Recipients);
@@ -181,19 +185,7 @@ public partial class products_Product : System.Web.UI.Page
             recipient.Address = Request.Form.Get(string.Format("addr-{0}-cn_street", i));
             recipient.PhoneNumber = Request.Form.Get(string.Format("addr-{0}-phone", i));
             recipient.ZipCode = Request.Form.Get(string.Format("addr-{0}-postcode", i));
-            
-            for (int j = 0; j < recipient.Packages.Count; j++)
-            {
-                Package p = recipient.Packages.ElementAt(j);
-                //int itemsCount = int.Parse(Request.Form.Get("parcel-0-content-TOTAL_FORMS"));
-                //parcel-0-content-0-type
-                //parcel-0-content-1-type
-                //parcel-0-content-0-cost
-                //parcel-0-content-1-cost
-                //p.Detail = Request.Form.Get(string.Format("deteil_{0}_{1}", i, j));
-                //p.Value = decimal.Parse(Request.Form.Get(string.Format("value_{0}_{1}", i, j)));
-            }
-            
+            //recipient.PyName = Request.Form.Get(string.Format("py_name{0}", i));
         }
         List<Package> packages = new List<Package>();
         foreach (Recipient r in order.Recipients)

@@ -169,6 +169,9 @@ public partial class Recipient
     public string Errors { get; set; }
     public string WMLeaderNumber { get; set; }
     public string WMLeaderPdf { get; set; }
+    public string PyName { get; set; }
+    public string PyCity { get; set; }
+    public string PyAddress { get; set; }
 
     public virtual Order Order { get; set; }
     public virtual ICollection<Package> Packages { get; set; }
