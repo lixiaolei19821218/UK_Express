@@ -109,6 +109,9 @@ public partial class cart_Cart : System.Web.UI.Page
                 rc.ZipCode = r.ZipCode;
                 rc.Address = r.Address;
                 rc.City = r.City;
+                rc.PyAddress = r.PyAddress;
+                rc.PyCity = r.PyCity;
+                rc.PyName = r.PyName;
 
                 foreach (Package p in r.Packages)
                 {
@@ -151,6 +154,10 @@ public partial class cart_Cart : System.Web.UI.Page
             {
                 foreach (Recipient r in myOrder.Recipients)
                 {
+                    foreach (Package p in r.Packages)
+                    {
+                        repo.Context.PackageItems.RemoveRange(p.PackageItems);
+                    }
                     repo.Context.Packages.RemoveRange(r.Packages);
                 }
                 repo.Context.Recipients.RemoveRange(myOrder.Recipients);
@@ -444,13 +451,7 @@ public partial class cart_Cart : System.Web.UI.Page
 
     private void SendBpostLciFile(Order o)
     {
-        foreach (Recipient r in o.Recipients)
-        {
-            foreach (Package p in r.Packages)
-            {
-                Bpost.GenerateLciFile("BPI/2015/9320", p.Id.ToString(), p);
-            }
-        }        
+        Bpost.GenerateLciFile("BPI/2015/9320", o);
     }
 
     private void SendBpost(Order o)

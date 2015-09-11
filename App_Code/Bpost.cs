@@ -9,7 +9,7 @@ using System.Web;
 /// </summary>
 public class Bpost
 {	
-    public static void GenerateLciFile(string contact, string parcelNumber, Package p)
+    public static void GenerateLciFile(string contact, Order o)
     {
         string senderId, contactNumber, subContactNumber;
         ParseContact(contact, out senderId, out contactNumber, out subContactNumber);
@@ -17,65 +17,86 @@ public class Bpost
         string file = AppDomain.CurrentDomain.BaseDirectory + senderId + "_" + GenerateSequenceId() + ".txt";
         StreamWriter sw = new StreamWriter(file);
         string header = string.Format("*BPI_IN*            {0}*V 3.1 *{1}", senderId, sequenceId);
-
-        string barcode = GenerateBarcode(contactNumber, subContactNumber, parcelNumber);
-        string a01 = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}{13}{14}{15}{16}{17}{18}{19}{20}{21}{22}{23}{24}{25}{26}{27}{28}{29}{30}{31}{32}",            
-            "A01",
-            "01",
-            barcode,
-            contactNumber,
-            "139",
-            p.Recipient.Order.SenderName.PadRight(40),
-            string.Empty.PadRight(40),//Sender – Department
-            p.Recipient.Order.SenderName.PadRight(40),
-            string.Empty.PadRight(40),//Sender – Place
-            (p.Recipient.Order.SenderAddress1 + p.Recipient.Order.SenderAddress2 + p.Recipient.Order.SenderAddress3).PadRight(40),
-            p.Recipient.Order.SenderName.PadRight(8),//Sender – House number
-            string.Empty.PadRight(8),//Sender – Box number
-            p.Recipient.Order.SenderZipCode.PadRight(8),
-            p.Recipient.Order.SenderCity.PadRight(40),
-            "UK ",
-            p.Recipient.Order.SenderPhone.PadRight(20),
-            string.Empty.PadRight(50),//Sender – E-mail
-            string.Empty.PadRight(20),//Sender – Mobile
-            p.Recipient.Name.PadRight(40),
-            string.Empty.PadRight(40),//Addressee – Department
-            p.Recipient.Name.PadRight(40),
-            string.Empty.PadRight(40),//Addressee – Place
-            p.Recipient.Address.PadRight(40),
-            p.Recipient.Address.PadRight(8),
-            string.Empty.PadRight(8),//Addressee – Box number
-            p.Recipient.ZipCode.PadRight(8),
-            p.Recipient.City.PadRight(40),
-            "CN ",
-            p.Recipient.PhoneNumber.PadRight(20),
-            string.Empty.PadRight(50),//Addressee – E-mail
-            p.Recipient.PhoneNumber.PadRight(20),
-            p.Weight.ToString().PadRight(7),
-            "  1"
-            );
-        string d01_0 = string.Format("D01461EA953400375BE");
-        string d01_1 = string.Format("D01900GOODS");
-        string d01_2 = string.Format("D01901RTS");
-        string d02_0 = string.Format("D02960001000001");
-        string d02_1 = string.Format("D02961001{0}", p.Value.ToString().PadLeft(12, '0'));
-        string d02_2 = string.Format("D02962001GBP");
-        string d02_3 = string.Format("D02963001{0}", p.Detail);
-        string d02_4 = string.Format("D029640014840");
-        string d02_5 = string.Format("D02965001999999");
-        string d02_6 = string.Format("D02966001UK");
         sw.WriteLine(header);
-        sw.WriteLine(a01);
-        sw.WriteLine(d01_0);
-        sw.WriteLine(d01_1);
-        sw.WriteLine(d01_2);
-        sw.WriteLine(d02_0);
-        sw.WriteLine(d02_1);
-        sw.WriteLine(d02_2);
-        sw.WriteLine(d02_3);
-        sw.WriteLine(d02_4);
-        sw.WriteLine(d02_5);
-        sw.WriteLine(d02_6);
+
+        int lineCount = 0;
+        foreach (Recipient r in o.Recipients)
+        {
+            foreach (Package p in r.Packages)
+            {
+                string barcode = GenerateBarcode(contactNumber, subContactNumber, p.Id.ToString());
+                string a01 = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}{13}{14}{15}{16}{17}{18}{19}{20}{21}{22}{23}{24}{25}{26}{27}{28}{29}{30}{31}{32}",
+                    "A01",
+                    "01",
+                    barcode,
+                    contactNumber,
+                    "139",
+                    p.Recipient.Order.SenderName.PadRight(40),
+                    string.Empty.PadRight(40),//Sender – Department
+                    p.Recipient.Order.SenderName.PadRight(40),
+                    string.Empty.PadRight(40),//Sender – Place
+                    (p.Recipient.Order.SenderAddress1 + p.Recipient.Order.SenderAddress2 + p.Recipient.Order.SenderAddress3).PadRight(40),
+                    p.Recipient.Order.SenderName.PadRight(8),//Sender – House number
+                    string.Empty.PadRight(8),//Sender – Box number
+                    p.Recipient.Order.SenderZipCode.PadRight(8),
+                    p.Recipient.Order.SenderCity.PadRight(40),
+                    "UK ",
+                    p.Recipient.Order.SenderPhone.PadRight(20),
+                    string.Empty.PadRight(50),//Sender – E-mail
+                    string.Empty.PadRight(20),//Sender – Mobile
+                    p.Recipient.PyName.PadRight(40),
+                    string.Empty.PadRight(40),//Addressee – Department
+                    p.Recipient.PyName.PadRight(40),
+                    string.Empty.PadRight(40),//Addressee – Place
+                    p.Recipient.PyAddress.PadRight(40),
+                    p.Recipient.PyAddress.PadRight(8),
+                    string.Empty.PadRight(8),//Addressee – Box number
+                    p.Recipient.ZipCode.PadRight(8),
+                    p.Recipient.PyCity.PadRight(40),
+                    "CN ",
+                    p.Recipient.PhoneNumber.PadRight(20),
+                    string.Empty.PadRight(50),//Addressee – E-mail
+                    p.Recipient.PhoneNumber.PadRight(20),
+                    p.Weight.ToString().PadRight(7),
+                    (3 + 7 * p.PackageItems.Count).ToString().PadLeft(3, '0')
+                    );                
+
+                string d01_0 = string.Format("D01461EA953400375BE");
+                string d01_1 = string.Format("D01900GOODS");
+                string d01_2 = string.Format("D01901RTS");
+
+                sw.WriteLine(a01);
+                sw.WriteLine(d01_0);
+                sw.WriteLine(d01_1);
+                sw.WriteLine(d01_2);
+                lineCount += 4;
+
+                for (int i = 0; i < p.PackageItems.Count; i++)
+                {
+                    string number = (i + 1).ToString().PadLeft(3, '0');
+                    PackageItem item = p.PackageItems.ElementAt(i);
+                    string d02_0 = string.Format("D02960{0}{1}", number, item.Count.Value.ToString().PadLeft(6, '0'));
+                    string d02_1 = string.Format("D02961{0}{1}", number, item.Value.Value.ToString().PadLeft(12, '0'));
+                    string d02_2 = string.Format("D02962{0}GBP", number);
+                    string d02_3 = string.Format("D02963{0}{1}", number, item.Description);
+                    string d02_4 = string.Format("D02964{0}{1}", number, item.NettoWeight.Value.ToString().PadLeft(4, '0'));
+                    string d02_5 = string.Format("D02965001999999");
+                    string d02_6 = string.Format("D02966001GB");             
+                    
+                    sw.WriteLine(d02_0);
+                    sw.WriteLine(d02_1);
+                    sw.WriteLine(d02_2);
+                    sw.WriteLine(d02_3);
+                    sw.WriteLine(d02_4);
+                    sw.WriteLine(d02_5);
+                    sw.WriteLine(d02_6);
+                    lineCount += 7;
+                }
+            }
+        }        
+        
+        string footer = string.Format("*END*{0}", lineCount.ToString().PadLeft(8, '0'));
+        sw.Write(footer);
         sw.Close();
     }
 

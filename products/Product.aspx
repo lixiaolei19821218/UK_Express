@@ -263,7 +263,7 @@
                     
                     <asp:Repeater runat="server" ItemType="Recipient" SelectMethod="GetRecipients">
                         <ItemTemplate>
-                            
+                           
                             <li class="addrItem" style="list-style: none; margin-top: 20px; background-color: #ffffcd; border: 1px solid #ddd">
                                 <div class="clrw1" style="background-color: #FD7F23; padding: 5px 20px">
                                     <div class="pull-left" style="padding-top: 4px">收件人地址 <span class="addr_item_num"><%#Container.ItemIndex + 1 %></span></div>
@@ -272,13 +272,13 @@
                                 </div>
                                 <input id="id_addr-0-id" name="addr-0-id" type="hidden" />
                                 <!-- recipient address -->
-                                <div style="padding-top: 10px">
+                                <div style="padding-top: 10px"> 
                                     <div class="py_fields" style="position: relative; background-color: #e1e1e1; min-height: 24px; display:normal; margin-left: 5px; margin-right: 5px; font-size: 13px">
-                                        <div class="py_name" style="float: left; width: 162px; padding-left: 60px" id="py_name<%#Container.ItemIndex %>"><%#Item.PyName %></div><input type="hidden" name="hd_name<%#Container.ItemIndex %>" id="hd_name<%#Container.ItemIndex %>"></input>
-                                        <div class="py_city" style="float: left; width: 162px; padding-left: 28px" id="py_city<%#Container.ItemIndex %>"><%#Item.PyCity %></div><input type="hidden" name="hd_city<%#Container.ItemIndex %>" id="hd_city<%#Container.ItemIndex %>"></input>
-                                        <div class="py_street" style="margin-left: 324px; margin-right: 38px" id="py_street<%#Container.ItemIndex %>"><%#Item.PyAddress %></div><input type="hidden" name="hd_street<%#Container.ItemIndex %>" id="hd_street<%#Container.ItemIndex %>"></input>
+                                        <div style="float: left; width: 162px; padding-left: 60px" id="py_name<%#Container.ItemIndex %>"><%#Item.PyName %></div><input type="hidden" value="<%#Item.PyName %>" name="hd_name<%#Container.ItemIndex %>" id="hd_name<%#Container.ItemIndex %>"></input>
+                                        <div style="float: left; width: 162px; padding-left: 28px" id="py_city<%#Container.ItemIndex %>"><%#Item.PyCity %></div><input type="hidden" value="<%#Item.PyCity %>" name="hd_city<%#Container.ItemIndex %>" id="hd_city<%#Container.ItemIndex %>"></input>
+                                        <div style="margin-left: 324px; margin-right: 38px" id="py_street<%#Container.ItemIndex %>"><%#Item.PyAddress %></div><input type="hidden" value="<%#Item.PyAddress %>"  name="hd_street<%#Container.ItemIndex %>" id="hd_street<%#Container.ItemIndex %>"></input>
                                         <button class="display_hidden btn btn-small" type="button" style="position: absolute; right: 0; top: 0; background-color: #BFBFBF" title="修改转换">编辑</button>
-                                        <div style="clear: both"></div>
+                                       
                                     </div>
                                     
                                     <div style="float: left; margin: 5px" class="control-group ">
@@ -436,42 +436,42 @@
                                                                     <div class="ib">(<span class="mx_sq"><%#Container.ItemIndex + 1%></span>)</div>
                                                                     <div class="ib mx_type">
                                                                         <select id="id_parcel-0-content-<%#Container.ItemIndex %>-type" name="parcel-0-content-<%#Container.ItemIndex %>-type" style="width: 100px">
-                                                                            <option value="Boby Milk Powder" selected="selected">婴儿奶粉</option>
-                                                                            <option value="婴儿食品">婴儿食品</option>
-                                                                            <option value="成人奶粉">成人奶粉</option>
-                                                                            <option value="婴儿推车">婴儿推车</option>
-                                                                            <option value="安全座椅">安全座椅</option>
-                                                                            <option value="婴儿用品">婴儿用品</option>
+                                                                            <option value="Baby Milk Powder" selected="selected">婴儿奶粉</option>
+                                                                            <option value="Baby Food">婴儿食品</option>
+                                                                            <option value="Adult Milk Powder">成人奶粉</option>
+                                                                            <option value="Strollers">婴儿推车</option>
+                                                                            <option value="Baby Car Seats">安全座椅</option>
+                                                                            <option value="Baby Product">婴儿用品</option>
                                                                             <option value="Food">食品</option>
-                                                                            <option value="保健品">保健品</option>
-                                                                            <option value="服装服饰">服装服饰</option>
-                                                                            <option value="服饰配件">服饰配件</option>
-                                                                            <option value="箱包">箱包</option>
-                                                                            <option value="鞋靴">鞋靴</option>
-                                                                            <option value="钟表">钟表</option>
-                                                                            <option value="钟表配件">钟表配件</option>
-                                                                            <option value="化妆品">化妆品</option>
-                                                                            <option value="护肤品">护肤品</option>
-                                                                            <option value="洗漱用品">洗漱用品</option>
-                                                                            <option value="厨卫清洁用品">厨卫清洁用品</option>
-                                                                            <option value="小家电（含游戏机等）">小家电（含游戏机等）</option>
-                                                                            <option value="家用医疗用品">家用医疗用品</option>
-                                                                            <option value="美容保健器材">美容保健器材</option>
-                                                                            <option value="影音设备">影音设备</option>
-                                                                            <option value="手机和移动设备">手机和移动设备</option>
-                                                                            <option value="手机和移动设备配件">手机和移动设备配件</option>
-                                                                            <option value="计算机">计算机</option>
-                                                                            <option value="计算机外围设备">计算机外围设备</option>
-                                                                            <option value="书报、刊物">书报、刊物</option>
-                                                                            <option value="音响制品（唱片、影片等）">音响制品（唱片、影片等）</option>
-                                                                            <option value="文具">文具</option>
-                                                                            <option value="玩具">玩具</option>
-                                                                            <option value="教育用品">教育用品</option>
-                                                                            <option value="体育用品">体育用品</option>
-                                                                            <option value="户外用品">户外用品</option>
-                                                                            <option value="邮票">邮票</option>
-                                                                            <option value="乐器">乐器</option>
-                                                                            <option value="茶包">茶包</option>
+                                                                            <option value="Health Care">保健品</option>
+                                                                            <option value="Clothing">服装服饰</option>
+                                                                            <option value="Accessories">服饰配件</option>
+                                                                            <option value="Bag">箱包</option>
+                                                                            <option value="Shoes">鞋靴</option>
+                                                                            <option value="Watches">钟表</option>
+                                                                            <option value="Watch Accessories">钟表配件</option>
+                                                                            <option value="Cosmetic">化妆品</option>
+                                                                            <option value="Skincare">护肤品</option>
+                                                                            <option value="Toiletries">洗漱用品</option>
+                                                                            <option value="Kitchen Cleaning Supplies">厨卫清洁用品</option>
+                                                                            <option value="Electric Products">小家电（含游戏机等）</option>
+                                                                            <option value="Home Medical Equipment">家用医疗用品</option>
+                                                                            <option value="Beauty Apparatus">美容保健器材</option>
+                                                                            <option value="Visual Equipment">影音设备</option>
+                                                                            <option value="Mobile Phones and Devices">手机和移动设备</option>
+                                                                            <option value="Mobile Phones and Devices Accessories">手机和移动设备配件</option>
+                                                                            <option value="Computer">计算机</option>
+                                                                            <option value="Computer Peripherals">计算机外围设备</option>
+                                                                            <option value="Books and Newspapers">书报、刊物</option>
+                                                                            <option value="Impact products">音响制品（唱片、影片等）</option>
+                                                                            <option value="Stationary">文具</option>
+                                                                            <option value="Toys">玩具</option>
+                                                                            <option value="Educational Supplies">教育用品</option>
+                                                                            <option value="Sporting Goods">体育用品</option>
+                                                                            <option value="Outdoor Product">户外用品</option>
+                                                                            <option value="Stamp">邮票</option>
+                                                                            <option value="Musical Instruments">乐器</option>
+                                                                            <option value="Tea">茶包</option>
                                                                             <option value="汽车配件">汽车配件</option>
                                                                             <option value="个人行李 - 旧箱包">个人行李 - 旧箱包</option>
                                                                             <option value="个人行李 - 旧文具">个人行李 - 旧文具</option>
