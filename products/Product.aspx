@@ -435,7 +435,7 @@
                                                                 <div class="mx">
                                                                     <div class="ib">(<span class="mx_sq"><%#Container.ItemIndex + 1%></span>)</div>
                                                                     <div class="ib mx_type">
-                                                                        <select id="id_parcel-0-content-<%#Container.ItemIndex %>-type" name="parcel-0-content-<%#Container.ItemIndex %>-type" style="width: 100px">
+                                                                        <select class="item_detail" id="id_parcel-0-content-<%#Container.ItemIndex %>-type" name="parcel-0-content-<%#Container.ItemIndex %>-type" style="width: 100px">
                                                                             <option value="Baby Milk Powder" selected="selected">婴儿奶粉</option>
                                                                             <option value="Baby Food">婴儿食品</option>
                                                                             <option value="Adult Milk Powder">成人奶粉</option>
@@ -1046,6 +1046,13 @@
                     return !re.test($(this).find('.addr-name').html());
                 }).hide();
             });
+
+            var item_details = new Array(<%=GetS()%>);
+            
+            for (var i = 0; i < $('.item_detail').length; i++)
+            {
+                $('.item_detail')[i].value = item_details[i];
+            }
         });
 
         var today = new Date();

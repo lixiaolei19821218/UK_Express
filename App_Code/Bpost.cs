@@ -31,33 +31,33 @@ public class Bpost
                     barcode,
                     contactNumber,
                     "139",
-                    p.Recipient.Order.SenderName.PadRight(40),
-                    string.Empty.PadRight(40),//Sender – Department
-                    p.Recipient.Order.SenderName.PadRight(40),
-                    string.Empty.PadRight(40),//Sender – Place
-                    (p.Recipient.Order.SenderAddress1 + p.Recipient.Order.SenderAddress2 + p.Recipient.Order.SenderAddress3).PadRight(40),
-                    p.Recipient.Order.SenderName.PadRight(8),//Sender – House number
-                    string.Empty.PadRight(8),//Sender – Box number
-                    p.Recipient.Order.SenderZipCode.PadRight(8),
-                    p.Recipient.Order.SenderCity.PadRight(40),
-                    "UK ",
-                    p.Recipient.Order.SenderPhone.PadRight(20),
-                    string.Empty.PadRight(50),//Sender – E-mail
-                    string.Empty.PadRight(20),//Sender – Mobile
-                    p.Recipient.PyName.PadRight(40),
-                    string.Empty.PadRight(40),//Addressee – Department
-                    p.Recipient.PyName.PadRight(40),
-                    string.Empty.PadRight(40),//Addressee – Place
-                    p.Recipient.PyAddress.PadRight(40),
-                    p.Recipient.PyAddress.PadRight(8),
-                    string.Empty.PadRight(8),//Addressee – Box number
-                    p.Recipient.ZipCode.PadRight(8),
-                    p.Recipient.PyCity.PadRight(40),
-                    "CN ",
-                    p.Recipient.PhoneNumber.PadRight(20),
-                    string.Empty.PadRight(50),//Addressee – E-mail
-                    p.Recipient.PhoneNumber.PadRight(20),
-                    p.Weight.ToString().PadRight(7),
+                    p.Recipient.Order.SenderName.PadLeft(40),
+                    string.Empty.PadLeft(40),//Sender – Department
+                    p.Recipient.Order.SenderName.PadLeft(40),
+                    string.Empty.PadLeft(40),//Sender – Place
+                    (p.Recipient.Order.SenderAddress1 + p.Recipient.Order.SenderAddress2 + p.Recipient.Order.SenderAddress3).PadLeft(40),
+                    p.Recipient.Order.SenderName.PadLeft(8),//Sender – House number
+                    string.Empty.PadLeft(8),//Sender – Box number
+                    p.Recipient.Order.SenderZipCode.PadLeft(8),
+                    p.Recipient.Order.SenderCity.PadLeft(40),
+                    " GB",
+                    p.Recipient.Order.SenderPhone.PadLeft(20),
+                    string.Empty.PadLeft(50),//Sender – E-mail
+                    string.Empty.PadLeft(20),//Sender – Mobile
+                    p.Recipient.PyName.PadLeft(40),
+                    string.Empty.PadLeft(40),//Addressee – Department
+                    p.Recipient.PyName.PadLeft(40),
+                    string.Empty.PadLeft(40),//Addressee – Place
+                    p.Recipient.PyAddress.PadLeft(40),
+                    string.Empty.PadLeft(8),//Addressee – House number
+                    string.Empty.PadLeft(8),//Addressee – Box number
+                    p.Recipient.ZipCode.PadLeft(8),
+                    p.Recipient.PyCity.PadLeft(40),
+                    " CN",
+                    p.Recipient.PhoneNumber.PadLeft(20),
+                    string.Empty.PadLeft(50),//Addressee – E-mail
+                    p.Recipient.PhoneNumber.PadLeft(20),
+                    ((int)(p.Weight * 1000)).ToString().PadLeft(7),
                     (3 + 7 * p.PackageItems.Count).ToString().PadLeft(3, '0')
                     );                
 
@@ -76,12 +76,12 @@ public class Bpost
                     string number = (i + 1).ToString().PadLeft(3, '0');
                     PackageItem item = p.PackageItems.ElementAt(i);
                     string d02_0 = string.Format("D02960{0}{1}", number, item.Count.Value.ToString().PadLeft(6, '0'));
-                    string d02_1 = string.Format("D02961{0}{1}", number, item.Value.Value.ToString().PadLeft(12, '0'));
+                    string d02_1 = string.Format("D02961{0}{1}", number, item.Value.Value.ToString().PadLeft(12, '0')).Replace('.', ',');
                     string d02_2 = string.Format("D02962{0}GBP", number);
                     string d02_3 = string.Format("D02963{0}{1}", number, item.Description);
-                    string d02_4 = string.Format("D02964{0}{1}", number, item.NettoWeight.Value.ToString().PadLeft(4, '0'));
-                    string d02_5 = string.Format("D02965001999999");
-                    string d02_6 = string.Format("D02966001GB");             
+                    string d02_4 = string.Format("D02964{0}{1}", number, ((int)(item.NettoWeight * 1000)).ToString().PadLeft(4, '0'));
+                    string d02_5 = string.Format("D02965{0}999999", number);
+                    string d02_6 = string.Format("D02966{0}GB", number);             
                     
                     sw.WriteLine(d02_0);
                     sw.WriteLine(d02_1);

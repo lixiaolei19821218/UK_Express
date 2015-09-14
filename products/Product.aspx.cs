@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Web.Security;
 using System.Web.Services;
 using System.Configuration;
+using System.Text;
 
 public partial class products_Product : System.Web.UI.Page
 {
@@ -168,26 +169,26 @@ public partial class products_Product : System.Web.UI.Page
 
     public string FillOrder()
     {
-        order.SenderName = Request.Form.Get("billing_detail_name");
-        order.SenderCity = Request.Form.Get("billing_detail_city");
-        order.SenderPhone = Request.Form.Get("billing_detail_phone");
-        order.SenderAddress1 = Request.Form.Get("billing_detail_street");
-        order.SenderAddress2 = Request.Form.Get("billing_detail_street2");
-        order.SenderAddress3 = Request.Form.Get("billing_detail_street3");
-        order.SenderZipCode = Request.Form.Get("billing_detail_postcode");
+        order.SenderName = Request.Form.Get("billing_detail_name").Trim();
+        order.SenderCity = Request.Form.Get("billing_detail_city").Trim();
+        order.SenderPhone = Request.Form.Get("billing_detail_phone").Trim();
+        order.SenderAddress1 = Request.Form.Get("billing_detail_street").Trim();
+        order.SenderAddress2 = Request.Form.Get("billing_detail_street2").Trim();
+        order.SenderAddress3 = Request.Form.Get("billing_detail_street3").Trim();
+        order.SenderZipCode = Request.Form.Get("billing_detail_postcode").Trim();
 
         List<Recipient> recipientList = order.Recipients.ToList();
         for (int i = 0; i < recipientList.Count; i++)
         {
             Recipient recipient = recipientList[i];
-            recipient.Name = Request.Form.Get(string.Format("addr-{0}-cn_name", i));
-            recipient.City = Request.Form.Get(string.Format("addr-{0}-cn_city", i));
-            recipient.Address = Request.Form.Get(string.Format("addr-{0}-cn_street", i));
-            recipient.PhoneNumber = Request.Form.Get(string.Format("addr-{0}-phone", i));
-            recipient.ZipCode = Request.Form.Get(string.Format("addr-{0}-postcode", i));
-            recipient.PyName = Request.Form.Get(string.Format("hd_name{0}", i));
-            recipient.PyCity = Request.Form.Get(string.Format("hd_city{0}", i));
-            recipient.PyAddress = Request.Form.Get(string.Format("hd_street{0}", i));
+            recipient.Name = Request.Form.Get(string.Format("addr-{0}-cn_name", i)).Trim();
+            recipient.City = Request.Form.Get(string.Format("addr-{0}-cn_city", i)).Trim();
+            recipient.Address = Request.Form.Get(string.Format("addr-{0}-cn_street", i)).Trim();
+            recipient.PhoneNumber = Request.Form.Get(string.Format("addr-{0}-phone", i)).Trim();
+            recipient.ZipCode = Request.Form.Get(string.Format("addr-{0}-postcode", i)).Trim();
+            recipient.PyName = Request.Form.Get(string.Format("hd_name{0}", i)).Trim();
+            recipient.PyCity = Request.Form.Get(string.Format("hd_city{0}", i)).Trim();
+            recipient.PyAddress = Request.Form.Get(string.Format("hd_street{0}", i)).Trim();
         }
         List<Package> packages = new List<Package>();
         foreach (Recipient r in order.Recipients)
@@ -202,10 +203,10 @@ public partial class products_Product : System.Web.UI.Page
             for (int j = 0; j < itemsCount; j++)
             {
                 PackageItem item = new PackageItem();
-                item.Description = Request.Form.Get(string.Format("parcel-{0}-content-{1}-type", i, j));
+                item.Description = Request.Form.Get(string.Format("parcel-{0}-content-{1}-type", i, j)).Trim();
                 item.TariffCode = "999999";
                 item.Value = Math.Round(decimal.Parse(Request.Form.Get(string.Format("parcel-{0}-content-{1}-cost", i, j))), 2);
-                item.NettoWeight = weight;
+                item.NettoWeight = Math.Round(weight, 3);
                 item.Count = int.Parse(Request.Form.Get(string.Format("parcel-{0}-content-{1}-quantity", i, j)));
                 packages[i].PackageItems.Add(item);
             }
@@ -292,5 +293,22 @@ public partial class products_Product : System.Web.UI.Page
         {
             return decimal.Parse(ConfigurationManager.AppSettings["_999ParcelChargePrice"]);
         }
+    }
+
+    public string GetS()
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (Recipient r in order.Recipients)
+        {
+            foreach (Package p in r.Packages)
+            {
+                foreach (PackageItem i in p.PackageItems)
+                {
+                    sb.Append(string.Format("'{0}',", i.Description));
+                }
+            }
+        }
+        sb.Remove(sb.Length - 1, 1);
+        return sb.ToString();
     }
 }
