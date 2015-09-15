@@ -29,7 +29,7 @@ public class Bpost
                     "A01",
                     "01",
                     barcode,
-                    contactNumber,
+                    senderId,
                     "139",
                     p.Recipient.Order.SenderName.PadLeft(40),//
                     string.Empty.PadLeft(40),//Sender – Department
