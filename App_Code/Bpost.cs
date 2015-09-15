@@ -31,14 +31,14 @@ public class Bpost
                     barcode,
                     contactNumber,
                     "139",
-                    p.Recipient.Order.SenderName.PadLeft(40),
+                    p.Recipient.Order.SenderName.PadLeft(40),//
                     string.Empty.PadLeft(40),//Sender – Department
                     p.Recipient.Order.SenderName.PadLeft(40),
                     string.Empty.PadLeft(40),//Sender – Place
                     (p.Recipient.Order.SenderAddress1 + p.Recipient.Order.SenderAddress2 + p.Recipient.Order.SenderAddress3).PadLeft(40),
-                    p.Recipient.Order.SenderName.PadLeft(8),//Sender – House number
+                    ".".PadLeft(8),//Sender – House number
                     string.Empty.PadLeft(8),//Sender – Box number
-                    p.Recipient.Order.SenderZipCode.PadLeft(8),
+                    p.Recipient.Order.SenderZipCode.PadLeft(8),//Sender – Zip code
                     p.Recipient.Order.SenderCity.PadLeft(40),
                     " GB",
                     p.Recipient.Order.SenderPhone.PadLeft(20),
