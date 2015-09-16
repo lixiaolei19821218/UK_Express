@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SevenSeasAPIClient.YCShipmentService;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
@@ -219,6 +220,7 @@ public partial class cart_Cart : System.Web.UI.Page
                         wmService = "postnl";
                         break;
                     case "Parcelforce Economy - 上门取件":
+
                         wmService = "pf-ipe-collection";
                         break;
                     case "Parcelforce Priority - 上门取件":
@@ -452,6 +454,132 @@ public partial class cart_Cart : System.Web.UI.Page
     private void SendBpostLciFile(Order o)
     {
         Bpost.GenerateLciFile("BPI/2015/9320", o);
+    }
+
+    private List<List<string>> SendTo51Parcel(Order order, UKShipmentType shipType, ServiceProvider provider)
+    {
+        List<List<string>> responseList = new List<List<string>>();
+        foreach (Recipient r in order.Recipients)
+        {
+            List<string> responses = SendTo51Parcel(r, shipType, provider);
+            responseList.Add(responses);
+        }
+        return responseList;
+    }
+
+    private List<string> SendTo51Parcel(Recipient recipient, UKShipmentType shipType, ServiceProvider provider)
+    {
+        List<string> responses = new List<string>();
+        foreach (Package p in recipient.Packages)
+        {
+            string response = SendTo51Parcel(p, shipType, provider);
+            responses.Add(response);
+        }
+        return responses;
+    }
+
+    private string SendTo51Parcel(Package package, UKShipmentType shipType, ServiceProvider provider)
+    {
+        YCShipmentServiceClient objService = new YCShipmentServiceClient("BasicHttpBinding_IYCShipmentService");
+        ProcessShipmentRequestEx objRequest = new ProcessShipmentRequestEx();
+        AuthenticationDetails authDetails = new AuthenticationDetails();
+        authDetails.AccountNo = "yooboxsandbox";
+        authDetails.UserName = "yooboxsandbox";
+        authDetails.Password = "yooboxsandbox";
+        objRequest.UKShipmentType = shipType;
+        objRequest.AuthenticationDetails = authDetails;
+        objRequest.OrderTotalValue = (double)package.Value.Value;
+        objRequest.PackageType = PackageType.Package;
+        objRequest.ServiceProvider = provider;
+        objRequest.ShipFromAddress = package.Recipient.Order.SenderAddress1;
+        objRequest.ShipFromAddress2 = package.Recipient.Order.SenderAddress2;
+        objRequest.ShipFromAddress3 = package.Recipient.Order.SenderAddress3;
+        objRequest.ShipFromCellPhone = package.Recipient.Order.SenderPhone;
+        objRequest.ShipFromCity = package.Recipient.Order.SenderCity;
+        objRequest.ShipFromCountry = "GB";
+        objRequest.ShipFromEmail = "";
+        objRequest.ShipFromName = package.Recipient.Order.SenderName;
+        objRequest.ShipFromPostalCode = package.Recipient.Order.SenderZipCode;
+
+        DateTime shippingDate = DateTime.UtcNow.AddDays(1);
+        if (shippingDate.DayOfWeek == DayOfWeek.Saturday)
+            shippingDate = shippingDate.AddDays(2);
+        if (shippingDate.DayOfWeek == DayOfWeek.Sunday)
+            shippingDate = shippingDate.AddDays(1);
+        objRequest.ShippingDate = shippingDate.ToString("yyyy-MM-dd");
+
+        objRequest.ShipToChineseAddress = package.Recipient.Address;
+        objRequest.ShipToAddress = package.Recipient.PyAddress;
+        objRequest.ShipToAddress2 = "";
+        objRequest.ShipToAddress3 = "";
+        objRequest.ShipToCellPhone = package.Recipient.PhoneNumber;
+        objRequest.ShipToCity = package.Recipient.PyCity;
+        objRequest.ShipToCountry = "CN";
+        objRequest.ShipToChineseCity = package.Recipient.City;
+        objRequest.ShipToEmail = "";
+        objRequest.ShipToName = package.Recipient.PyName;
+        objRequest.ShipToChineseName = package.Recipient.Name;
+        objRequest.ShipToPostalCode = package.Recipient.ZipCode;
+        objRequest.ShipmentDetails = new ShipmentPackageDetails();
+        objRequest.ShipmentDetails.ContentDescription = "";
+        objRequest.ShipmentDetails.Height = package.Height;
+        objRequest.ShipmentDetails.Length = package.Length;
+        objRequest.ShipmentDetails.Width = package.Width;
+        objRequest.ShipmentDetails.Weight = package.Weight;
+        objRequest.ShipmentDetails.ItemDetails = new ProductDetails[package.PackageItems.Count];
+        for (int i = 0; i < package.PackageItems.Count; i++)
+        {
+            objRequest.ShipmentDetails.ItemDetails[i] = new ProductDetails();
+            objRequest.ShipmentDetails.ItemDetails[i].ProductName = package.PackageItems.ElementAt(i).Description;
+            objRequest.ShipmentDetails.ItemDetails[i].Quantity = package.PackageItems.ElementAt(i).Count.Value;
+            objRequest.ShipmentDetails.ItemDetails[i].UnitPrice = package.PackageItems.ElementAt(i).Value.Value;
+        }
+
+        string response;
+        try
+        {
+            ProcessShipmentResponse objResponse = objService.ProcessShipmentEx(objRequest);
+            if (objResponse.Status.StatusCode == ShipmentStatusCode.SUCCESS)
+            {
+                response = string.Format("PlaceOrder: StatusCode={0}; OrderRefrence={1}; TrackingNumber={2}", objResponse.Status.StatusCode, objResponse.OrderReference, objResponse.TrackingNumber);
+                if (objResponse.CustomerLabelImage != null)
+                {
+                    string strPathDoc2 = string.Format("{0}files\\CustomerLabel{1}.pdf", HttpRuntime.AppDomainAppPath, objResponse.OrderReference);
+                    FileStream file2 = new FileStream(strPathDoc2, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                    file2.Write(objResponse.CustomerLabelImage, 0, objResponse.CustomerLabelImage.Length);
+                    file2.Close();
+                }
+                if (objResponse.CustomerDocumentImage != null)
+                {
+                    string strPathDoc2 = string.Format("{0}files\\CustomerDocument{1}.pdf", HttpRuntime.AppDomainAppPath, objResponse.OrderReference);
+                    FileStream file2 = new FileStream(strPathDoc2, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                    file2.Write(objResponse.CustomerDocumentImage, 0, objResponse.CustomerDocumentImage.Length);
+                    file2.Close();
+                }
+                if (objResponse.CollectionReceiptImage != null)
+                {
+                    string strPathDoc2 = string.Format("{0}files\\CollectionReceipt{1}.pdf", HttpRuntime.AppDomainAppPath, objResponse.OrderReference);
+                    FileStream file2 = new FileStream(strPathDoc2, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                    file2.Write(objResponse.CollectionReceiptImage, 0, objResponse.CollectionReceiptImage.Length);
+                    file2.Close();
+                }
+                if (objResponse.UKLabelImage != null)
+                {
+                    string strPathDoc2 = string.Format("{0}files\\UKLabel{1}.pdf", HttpRuntime.AppDomainAppPath, objResponse.OrderReference);
+                    FileStream file2 = new FileStream(strPathDoc2, FileMode.OpenOrCreate, FileAccess.ReadWrite);
+                    file2.Write(objResponse.UKLabelImage, 0, objResponse.UKLabelImage.Length);
+                    file2.Close();
+                }
+            }
+            else
+                response = string.Format("PlaceOrder: StatusCode={0}; Message={1}", objResponse.Status.StatusCode, objResponse.Status.StatusMessage);
+        }
+        catch (Exception ex)
+        {
+            response = string.Format("PlaceOrder Exception Message:{0}", ex.Message);
+        }
+
+        return response;
     }
 
     private void SendBpost(Order o)
