@@ -51,6 +51,16 @@ public partial class products_Product : System.Web.UI.Page
 
     public IEnumerable<Recipient> GetRecipients()
     {
+        foreach (Recipient r in order.Recipients)
+        {
+            foreach (Package p in r.Packages)
+            {
+               if (p.PackageItems.Count == 0)
+               {
+                   p.PackageItems.Add(new PackageItem() { Description = "Baby Milk Powder" });
+               }
+            }
+        }
         return order.Recipients;
     }
 
@@ -210,6 +220,7 @@ public partial class products_Product : System.Web.UI.Page
                 item.Count = int.Parse(Request.Form.Get(string.Format("parcel-{0}-content-{1}-quantity", i, j)));
                 packages[i].PackageItems.Add(item);
             }
+            packages[i].Value = packages[i].PackageItems.Sum(pi => pi.Value);
         }
 
         DateTime date;
@@ -295,13 +306,13 @@ public partial class products_Product : System.Web.UI.Page
         }
     }
 
-    public string GetS()
+    public string GetDetails()
     {
         StringBuilder sb = new StringBuilder();
         foreach (Recipient r in order.Recipients)
         {
             foreach (Package p in r.Packages)
-            {
+            {               
                 foreach (PackageItem i in p.PackageItems)
                 {
                     sb.Append(string.Format("'{0}',", i.Description));

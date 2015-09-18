@@ -52,6 +52,7 @@ public partial class Order
     public Nullable<int> SheffieldServiceID { get; set; }
     public Nullable<int> PriceListID { get; set; }
     public Nullable<decimal> Cost { get; set; }
+    public string SenderEmail { get; set; }
 
     public virtual ICollection<Recipient> Recipients { get; set; }
     public virtual Reinforce Reinforce { get; set; }
@@ -77,6 +78,8 @@ public partial class Package
     public string Detail { get; set; }
     public Nullable<decimal> Value { get; set; }
     public string TrackNumber { get; set; }
+    public string Response { get; set; }
+    public string Status { get; set; }
 
     public virtual Recipient Recipient { get; set; }
     public virtual ICollection<PackageItem> PackageItems { get; set; }
@@ -172,6 +175,7 @@ public partial class Recipient
     public string PyName { get; set; }
     public string PyCity { get; set; }
     public string PyAddress { get; set; }
+    public string Email { get; set; }
 
     public virtual Order Order { get; set; }
     public virtual ICollection<Package> Packages { get; set; }

@@ -45,6 +45,7 @@
           <Property Name="SheffieldServiceID" Type="int" />
           <Property Name="PriceListID" Type="int" />
           <Property Name="Cost" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="SenderEmail" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PackageItems">
           <Key>
@@ -71,6 +72,8 @@
           <Property Name="RecipientID" Type="int" Nullable="false" />
           <Property Name="Detail" Type="nvarchar(max)" />
           <Property Name="Value" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Response" Type="nvarchar(max)" />
+          <Property Name="Status" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="PriceItems">
           <Key>
@@ -128,6 +131,7 @@
           <Property Name="PyName" Type="nvarchar" MaxLength="50" />
           <Property Name="PyCity" Type="nvarchar" MaxLength="50" />
           <Property Name="PyAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Reinforces">
           <Key>
@@ -1170,6 +1174,7 @@
           <Property Name="PriceListID" Type="Int32" />
           <NavigationProperty Name="PriceList" Relationship="UK_ExpressModel.FK_PriceListID_Orders" FromRole="Order" ToRole="PriceList" />
           <Property Name="Cost" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SenderEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Package">
           <Key>
@@ -1186,6 +1191,8 @@
           <Property Name="Value" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="TrackNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="PackageItems" Relationship="UK_ExpressModel.FK_PackageID" FromRole="Package" ToRole="PackageItem" />
+          <Property Name="Response" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="PriceItem">
           <Key>
@@ -1228,6 +1235,7 @@
           <Property Name="PyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PyCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="PyAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Reinforce">
           <Key>
@@ -1595,6 +1603,7 @@
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="UK_ExpressModel.Order">
               <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="SenderEmail" ColumnName="SenderEmail" />
                 <ScalarProperty Name="Cost" ColumnName="Cost" />
                 <ScalarProperty Name="PriceListID" ColumnName="PriceListID" />
                 <ScalarProperty Name="SheffieldServiceID" ColumnName="SheffieldServiceID" />
@@ -1621,6 +1630,8 @@
           <EntitySetMapping Name="Packages">
             <EntityTypeMapping TypeName="UK_ExpressModel.Package">
               <MappingFragment StoreEntitySet="Packages">
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Response" ColumnName="Response" />
                 <ScalarProperty Name="TrackNumber" ColumnName="TrackNumber" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Detail" ColumnName="Detail" />
@@ -1655,6 +1666,7 @@
           <EntitySetMapping Name="Recipients">
             <EntityTypeMapping TypeName="UK_ExpressModel.Recipient">
               <MappingFragment StoreEntitySet="Recipients">
+                <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="PyAddress" ColumnName="PyAddress" />
                 <ScalarProperty Name="PyCity" ColumnName="PyCity" />
                 <ScalarProperty Name="PyName" ColumnName="PyName" />

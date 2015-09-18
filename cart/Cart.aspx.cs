@@ -203,47 +203,41 @@ public partial class cart_Cart : System.Web.UI.Page
     protected void pay_Click(object sender, EventArgs e)
     { 
         if (balance >= totalPrice)
-        {
-            string wmUsername = "api_test";
-            string wmPassword = "api_password";
-
+        {            
             List<string> attachmentPaths = new List<string>();
             foreach (Order o in normalOrders)
-            {
-                //ServiceView sv = new ServiceView(o.Service);
-
-                string wmService;
+            {               
                 switch (o.Service.Name.Trim())
                 {
                     case "荷兰邮政 - 免费取件":
                     case "荷兰邮政 - UKMail 取件":
-                        wmService = "postnl";
+                       
                         break;
                     case "Parcelforce Economy - 上门取件":
-
-                        wmService = "pf-ipe-collection";
+                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyPickup);
                         break;
                     case "Parcelforce Priority - 上门取件":
-                        wmService = "pf-gpr-collection";
+                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForcePriority);
                         break;
                     case "Parcelforce Economy - 自送仓库":
-                        wmService = "pf-ipe-depot";
+                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyDropOff);
                         break;
                     case "Parcelforce Economy - 自送邮局":
-                        wmService = "pf-ipe-pol";
+                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyDropOff);
                         break;
                     case "Parcelforce Priority - 自送邮局":
-                        wmService = "pf-gpr-delivery";
+                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForcePriority);
                         break;
                     case "Bpost - 免费取件":
                     case "Bpost - UKMail 取件":
                         SendBpostLciFile(o);
-                        return;
-                    default:
-                        wmService = "postnl";
+                        break;
+                    default:                       
                         break;
                 }
 
+                #region 华盟
+                /*
                 foreach (Recipient r in o.Recipients)
                 {
                     OrderServiceClient client = new OrderServiceClient();
@@ -355,7 +349,7 @@ public partial class cart_Cart : System.Web.UI.Page
                         {
                             //错误保存在Errors里面
                         }
-                         * */
+                         
 
 
                     }
@@ -377,6 +371,8 @@ public partial class cart_Cart : System.Web.UI.Page
                         r.Errors = errors.ToString();
                     }                    
                 }
+        */
+                #endregion
                 o.HasPaid = true;
             }
 
@@ -387,8 +383,6 @@ public partial class cart_Cart : System.Web.UI.Page
             object[] mail = new object[] { Membership.GetUser().Email, "您在999Parcel的订单", "请查收您在999Parcel的订单。", attachmentPaths.ToArray() };
             sendThread.Start(mail);
 
-            //改成异步
-            //SendEmail(Membership.GetUser().Email, "您在999Parcel的订单", "请查收您在999Parcel的订单。", attachmentPaths.ToArray());
             Response.Redirect("Paid.aspx");            
         }
         else
@@ -497,7 +491,7 @@ public partial class cart_Cart : System.Web.UI.Page
         objRequest.ShipFromCellPhone = package.Recipient.Order.SenderPhone;
         objRequest.ShipFromCity = package.Recipient.Order.SenderCity;
         objRequest.ShipFromCountry = "GB";
-        objRequest.ShipFromEmail = "";
+        objRequest.ShipFromEmail = Membership.GetUser().Email;
         objRequest.ShipFromName = package.Recipient.Order.SenderName;
         objRequest.ShipFromPostalCode = package.Recipient.Order.SenderZipCode;
 
@@ -516,12 +510,12 @@ public partial class cart_Cart : System.Web.UI.Page
         objRequest.ShipToCity = package.Recipient.PyCity;
         objRequest.ShipToCountry = "CN";
         objRequest.ShipToChineseCity = package.Recipient.City;
-        objRequest.ShipToEmail = "";
+        objRequest.ShipToEmail = Membership.GetUser().Email;
         objRequest.ShipToName = package.Recipient.PyName;
         objRequest.ShipToChineseName = package.Recipient.Name;
         objRequest.ShipToPostalCode = package.Recipient.ZipCode;
         objRequest.ShipmentDetails = new ShipmentPackageDetails();
-        objRequest.ShipmentDetails.ContentDescription = "";
+        objRequest.ShipmentDetails.ContentDescription = "GOODS";
         objRequest.ShipmentDetails.Height = package.Height;
         objRequest.ShipmentDetails.Length = package.Length;
         objRequest.ShipmentDetails.Width = package.Width;
@@ -542,6 +536,7 @@ public partial class cart_Cart : System.Web.UI.Page
             if (objResponse.Status.StatusCode == ShipmentStatusCode.SUCCESS)
             {
                 response = string.Format("PlaceOrder: StatusCode={0}; OrderRefrence={1}; TrackingNumber={2}", objResponse.Status.StatusCode, objResponse.OrderReference, objResponse.TrackingNumber);
+                package.Status = "SUCCESS";                
                 if (objResponse.CustomerLabelImage != null)
                 {
                     string strPathDoc2 = string.Format("{0}files\\CustomerLabel{1}.pdf", HttpRuntime.AppDomainAppPath, objResponse.OrderReference);
@@ -572,13 +567,17 @@ public partial class cart_Cart : System.Web.UI.Page
                 }
             }
             else
+            {
                 response = string.Format("PlaceOrder: StatusCode={0}; Message={1}", objResponse.Status.StatusCode, objResponse.Status.StatusMessage);
+                package.Status = "FAIL";
+            }
         }
         catch (Exception ex)
         {
             response = string.Format("PlaceOrder Exception Message:{0}", ex.Message);
+            package.Status = "EXCEPTION";
         }
-
+        package.Response = response;
         return response;
     }
 

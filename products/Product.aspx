@@ -1047,7 +1047,7 @@
                 }).hide();
             });
 
-            var item_details = new Array(<%=GetS()%>);
+            var item_details = new Array(<%=GetDetails()%>);
             
             for (var i = 0; i < $('.item_detail').length; i++)
             {
