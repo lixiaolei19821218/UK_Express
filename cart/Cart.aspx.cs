@@ -214,19 +214,19 @@ public partial class cart_Cart : System.Web.UI.Page
                        
                         break;
                     case "Parcelforce Economy - 上门取件":
-                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyPickup);
+                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyPickup, attachmentPaths);
                         break;
                     case "Parcelforce Priority - 上门取件":
-                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForcePriority);
+                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForcePriority, attachmentPaths);
                         break;
                     case "Parcelforce Economy - 自送仓库":
-                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyDropOff);
+                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyDropOff, attachmentPaths);
                         break;
                     case "Parcelforce Economy - 自送邮局":
-                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyDropOff);
+                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyDropOff, attachmentPaths);
                         break;
                     case "Parcelforce Priority - 自送邮局":
-                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForcePriority);
+                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForcePriority, attachmentPaths);
                         break;
                     case "Bpost - 免费取件":
                     case "Bpost - UKMail 取件":
@@ -450,29 +450,31 @@ public partial class cart_Cart : System.Web.UI.Page
         Bpost.GenerateLciFile("BPI/2015/9320", o);
     }
 
-    private List<List<string>> SendTo51Parcel(Order order, UKShipmentType shipType, ServiceProvider provider)
+    private List<List<string>> SendTo51Parcel(Order order, UKShipmentType shipType, ServiceProvider provider, List<string> attachedFiles)
     {
         List<List<string>> responseList = new List<List<string>>();
         foreach (Recipient r in order.Recipients)
         {
-            List<string> responses = SendTo51Parcel(r, shipType, provider);
+            List<string> responses = SendTo51Parcel(r, shipType, provider, attachedFiles);
             responseList.Add(responses);
         }
+        order.SuccessPaid = order.Recipients.All(r => r.SuccessPaid.Value);
         return responseList;
     }
 
-    private List<string> SendTo51Parcel(Recipient recipient, UKShipmentType shipType, ServiceProvider provider)
+    private List<string> SendTo51Parcel(Recipient recipient, UKShipmentType shipType, ServiceProvider provider, List<string> attachedFiles)
     {
         List<string> responses = new List<string>();
         foreach (Package p in recipient.Packages)
         {
-            string response = SendTo51Parcel(p, shipType, provider);
+            string response = SendTo51Parcel(p, shipType, provider, attachedFiles);
             responses.Add(response);
         }
+        recipient.SuccessPaid = recipient.Packages.All(p => p.Status == "SUCCESS");
         return responses;
     }
 
-    private string SendTo51Parcel(Package package, UKShipmentType shipType, ServiceProvider provider)
+    private string SendTo51Parcel(Package package, UKShipmentType shipType, ServiceProvider provider, List<string> attachedFiles)
     {
         YCShipmentServiceClient objService = new YCShipmentServiceClient("BasicHttpBinding_IYCShipmentService");
         ProcessShipmentRequestEx objRequest = new ProcessShipmentRequestEx();
@@ -536,34 +538,45 @@ public partial class cart_Cart : System.Web.UI.Page
             if (objResponse.Status.StatusCode == ShipmentStatusCode.SUCCESS)
             {
                 response = string.Format("PlaceOrder: StatusCode={0}; OrderRefrence={1}; TrackingNumber={2}", objResponse.Status.StatusCode, objResponse.OrderReference, objResponse.TrackingNumber);
-                package.Status = "SUCCESS";                
+                package.Status = "SUCCESS";
+                package.TrackNumber = objResponse.OrderReference;
+                string folder = string.Format("{0}files\\51Parcel\\{1}", HttpRuntime.AppDomainAppPath, Membership.GetUser().UserName);
+                if (!Directory.Exists(folder))
+                {
+                    Directory.CreateDirectory(folder);
+                }
                 if (objResponse.CustomerLabelImage != null)
                 {
-                    string strPathDoc2 = string.Format("{0}files\\CustomerLabel{1}.pdf", HttpRuntime.AppDomainAppPath, objResponse.OrderReference);
+                    string strPathDoc2 = string.Format("{0}\\CustomerLabel{1}.pdf", folder, objResponse.OrderReference);
                     FileStream file2 = new FileStream(strPathDoc2, FileMode.OpenOrCreate, FileAccess.ReadWrite);
                     file2.Write(objResponse.CustomerLabelImage, 0, objResponse.CustomerLabelImage.Length);
                     file2.Close();
+                    attachedFiles.Add(strPathDoc2);
                 }
                 if (objResponse.CustomerDocumentImage != null)
                 {
-                    string strPathDoc2 = string.Format("{0}files\\CustomerDocument{1}.pdf", HttpRuntime.AppDomainAppPath, objResponse.OrderReference);
+                    string strPathDoc2 = string.Format("{0}\\CustomerDocument{1}.pdf", folder, objResponse.OrderReference);
                     FileStream file2 = new FileStream(strPathDoc2, FileMode.OpenOrCreate, FileAccess.ReadWrite);
                     file2.Write(objResponse.CustomerDocumentImage, 0, objResponse.CustomerDocumentImage.Length);
                     file2.Close();
+                    attachedFiles.Add(strPathDoc2);
+                    package.Pdf = strPathDoc2;
                 }
                 if (objResponse.CollectionReceiptImage != null)
                 {
-                    string strPathDoc2 = string.Format("{0}files\\CollectionReceipt{1}.pdf", HttpRuntime.AppDomainAppPath, objResponse.OrderReference);
+                    string strPathDoc2 = string.Format("{0}\\CollectionReceipt{1}.pdf", folder, objResponse.OrderReference);
                     FileStream file2 = new FileStream(strPathDoc2, FileMode.OpenOrCreate, FileAccess.ReadWrite);
                     file2.Write(objResponse.CollectionReceiptImage, 0, objResponse.CollectionReceiptImage.Length);
                     file2.Close();
+                    attachedFiles.Add(strPathDoc2);
                 }
                 if (objResponse.UKLabelImage != null)
                 {
-                    string strPathDoc2 = string.Format("{0}files\\UKLabel{1}.pdf", HttpRuntime.AppDomainAppPath, objResponse.OrderReference);
+                    string strPathDoc2 = string.Format("{0}\\UKLabel{1}.pdf", folder, objResponse.OrderReference);
                     FileStream file2 = new FileStream(strPathDoc2, FileMode.OpenOrCreate, FileAccess.ReadWrite);
                     file2.Write(objResponse.UKLabelImage, 0, objResponse.UKLabelImage.Length);
                     file2.Close();
+                    attachedFiles.Add(strPathDoc2);
                 }
             }
             else

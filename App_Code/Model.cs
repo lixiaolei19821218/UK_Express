@@ -53,6 +53,7 @@ public partial class Order
     public Nullable<int> PriceListID { get; set; }
     public Nullable<decimal> Cost { get; set; }
     public string SenderEmail { get; set; }
+    public Nullable<bool> SuccessPaid { get; set; }
 
     public virtual ICollection<Recipient> Recipients { get; set; }
     public virtual Reinforce Reinforce { get; set; }
@@ -80,6 +81,7 @@ public partial class Package
     public string TrackNumber { get; set; }
     public string Response { get; set; }
     public string Status { get; set; }
+    public string Pdf { get; set; }
 
     public virtual Recipient Recipient { get; set; }
     public virtual ICollection<PackageItem> PackageItems { get; set; }

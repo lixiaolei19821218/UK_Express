@@ -23,11 +23,34 @@
                             <li>手机：<%#Item.PhoneNumber %></li>
                             <li>邮编：<%#Item.ZipCode %></li>
                             <li><%#(Item.SuccessPaid ?? false) ? "单号：" + Item.WMLeaderNumber: "失败原因：" + Item.Errors %></li>  
-                           
-                               
-                            
+                            <asp:Repeater runat="server" ItemType="Package" DataSource="<%#Item.Packages %>">
+                                <HeaderTemplate>
+                                    <tr>
+                                        <th class="tac">订单号</th>
+                                        <th class="left">下单日期</th>
+                                        <th class="tac">价格</th>
+                                        <th class="tac">包裹数</th>
+                                        <th class="tac">发件人</th>
+                                        <th>服务</th>
+                                        <th>状态</th>
+                                        <th colspan="2"></th>
+                                    </tr>
+                                </HeaderTemplate>
+                                <ItemTemplate>
+                                   <tr>
+                                       <th class="tac"><%#Item.Weight %></th>
+                                        <th class="left"><%#Item.Length %></th>
+                                        <th class="tac"<%#Item.Width %></th>
+                                        <th class="tac"><%#Item.Height %></th>
+                                        <th class="tac"><%#Item.Status %></th>
+                                        <th><%#Item.TrackNumber %></th>
+                                        <th><%#Item.Length %></th>
+                                        <th colspan="2"></th>
+                                   </tr>
+                                </ItemTemplate>
+                            </asp:Repeater>                          
                         </ul>    
-                        <a <%#(Item.SuccessPaid ?? false) ? "" : "hidden=\"hiddne\"" %> href="<%#GetFolder() + Item.WMLeaderPdf %>">点击下载</a>                     
+                        <a <%#(Item.SuccessPaid ?? false) ? "" : "hidden=\"hidden\"" %> href="<%#GetFolder() + Item.WMLeaderPdf %>">点击下载</a>                     
                     </fieldset>
                     <br />
                 </ItemTemplate>
