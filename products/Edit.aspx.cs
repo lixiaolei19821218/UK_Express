@@ -38,6 +38,9 @@ public partial class products_Edit : System.Web.UI.Page
         foreach (Recipient r in order.Recipients)
         {
             Recipient cacheRecipient = new Recipient();
+            cacheRecipient.PyAddress = r.PyAddress;
+            cacheRecipient.PyCity = r.PyCity;
+            cacheRecipient.PyName = r.PyName;
             cacheOrder.Recipients.Add(cacheRecipient);
             foreach (Package p in r.Packages)
             {
@@ -174,6 +177,9 @@ public partial class products_Edit : System.Web.UI.Page
         {
             Recipient r = order.Recipients.ElementAt(i);
             Recipient cacheR = cacheOrder.Recipients.ElementAt(i);
+            r.PyName = cacheR.PyName;
+            r.PyCity = cacheR.PyCity;
+            r.PyAddress = cacheR.PyAddress;
             int pCount = r.Packages.Count < cacheR.Packages.Count ? r.Packages.Count : cacheR.Packages.Count; 
             for (int j = 0; j < pCount; j++)
             {

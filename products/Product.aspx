@@ -297,7 +297,7 @@
                                     </div>
                                     <div style="float: left; margin: 5px" class="control-group ">
                                         <label for="id_addr-0-cn_street">中文地址</label>
-                                        <input class="cn_fields cn_street" id="id_addr-0-cn_street" maxlength="72" name="addr-0-cn_street" style="width: 415px" type="text" value="<%#Item.Address %>" required="required" 
+                                        <input class="cn_fields cn_street" id="id_addr-0-cn_street" maxlength="30" name="addr-0-cn_street" style="width: 415px" type="text" value="<%#Item.Address %>" required="required" 
                                             onblur="var py=($('#id_addr-<%#Container.ItemIndex %>-cn_street').toPinyin());py_street<%#Container.ItemIndex %>.innerText=py;hd_street<%#Container.ItemIndex %>.value=py;" 
                                             onchange="var py=($('#id_addr-<%#Container.ItemIndex %>-cn_street').toPinyin());py_street<%#Container.ItemIndex %>.innerText=py;hd_street<%#Container.ItemIndex %>.value=py;" 
                                             onkeydown="var py=($('#id_addr-<%#Container.ItemIndex %>-cn_street').toPinyin());py_street<%#Container.ItemIndex %>.innerText=py;hd_street<%#Container.ItemIndex %>.value=py;"/>

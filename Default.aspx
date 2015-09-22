@@ -92,16 +92,16 @@
                                         <div style="margin-right: 50px; margin-left: 12px">
                                             <div class="row" style="display: inline-block; width: 100%; margin-top: -3px">
                                                 <div class="attr col-xs-3 input1">                                                    
-                                                    <input id="id_addr_0-0-weight" name="addr_0-0-weight" placeholder="重量" type="text" required="required"/>
+                                                    <input id="id_addr_0-0-weight" name="addr_0-0-weight" placeholder="重量" type="number" max="30" min="1" style="width:80px;" required="required"/>
                                                     (kg)</div>
                                                 <div class="attr col-xs-3 input1">
-                                                    <input id="id_addr_0-0-length" name="addr_0-0-length" placeholder="长度" type="text" required="required" />
+                                                    <input id="id_addr_0-0-length" name="addr_0-0-length" placeholder="长度" type="number" max="30" min="1" style="width:80px;" required="required" />
                                                     (cm)</div>
                                                 <div class="attr col-xs-3 input1">
-                                                    <input id="id_addr_0-0-width" name="addr_0-0-width" placeholder="宽度" type="text" required="required" />
+                                                    <input id="id_addr_0-0-width" name="addr_0-0-width" placeholder="宽度" type="number" max="30" min="1" style="width:80px;" required="required" />
                                                     (cm)</div>
                                                 <div class="attr col-xs-3 input1">
-                                                    <input id="id_addr_0-0-height" name="addr_0-0-height" placeholder="高度" type="text" required="required" />
+                                                    <input id="id_addr_0-0-height" name="addr_0-0-height" placeholder="高度" type="number" max="30" min="1" style="width:80px;" required="required" />
                                                     (cm)</div>
                                             </div>
                                         </div>
