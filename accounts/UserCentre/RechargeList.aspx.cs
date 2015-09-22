@@ -12,7 +12,7 @@ public partial class accounts_UserCentre_RechargeList : System.Web.UI.Page
     [Ninject.Inject]
     public IRepository repo { get; set; }
 
-    private int pageSize = 10;
+    private int pageSize = 20;
 
     protected void Page_Load(object sender, EventArgs e)
     {

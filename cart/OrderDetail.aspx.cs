@@ -8,8 +8,6 @@ using System.Web.UI.WebControls;
 
 public partial class cart_OrderDetail : System.Web.UI.Page
 {
-    private string folderPath;
-
     [Ninject.Inject]
     public IRepository repo
     {
@@ -19,11 +17,14 @@ public partial class cart_OrderDetail : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        folderPath = "/pdf/" + Membership.GetUser().UserName + "/";
+        if (Session["id"] == null)        
+        {
+            Response.Redirect("/");
+        }
     }
 
     public IEnumerable<Recipient> GetRecipients()
-    {
+    {        
         int id;
         if (int.TryParse(Session["id"].ToString(), out id))
         {
@@ -32,12 +33,7 @@ public partial class cart_OrderDetail : System.Web.UI.Page
             {
                 return order.Recipients;
             }
-        }
+        }       
         return new Recipient[0];
-    }
-
-    public string GetFolder()
-    {
-        return folderPath;
-    }
+    }   
 }

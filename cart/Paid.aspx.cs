@@ -10,6 +10,8 @@ using System.Web.UI.WebControls;
 
 public partial class cart_Paid : System.Web.UI.Page
 {
+    private int pageSize = 30;
+
     private IEnumerable<Order> normalOrders;
     private IEnumerable<SheffieldOrder> sheffieldOrders;
     private decimal balance;
@@ -64,5 +66,34 @@ public partial class cart_Paid : System.Web.UI.Page
             Session.Add("id", id);
             Response.Redirect("/cart/OrderDetail.aspx");
         }        
+    }
+
+    public IEnumerable<Order> GetPageApplys()
+    {
+        return normalOrders.OrderBy(p => p.Id).Skip((CurrentPage - 1) * pageSize).Take(pageSize);
+    }
+
+    protected int CurrentPage
+    {
+        get
+        {
+            int page;
+            page = int.TryParse(Request.QueryString["page"], out page) ? page : 1;
+            return page > MaxPage ? MaxPage : page;
+        }
+    }
+    protected int MaxPage
+    {
+        get
+        {
+            if (normalOrders.Count() == 0)
+            {
+                return 1;
+            }
+            else
+            {
+                return (int)Math.Ceiling((decimal)normalOrders.Count() / pageSize);
+            };
+        }
     }
 }

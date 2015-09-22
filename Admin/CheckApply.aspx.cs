@@ -4,18 +4,19 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 public partial class Admin_CheckApply : System.Web.UI.Page
 {
-    private int pageSize = 10;
+    private int pageSize = 20;
 
     [Ninject.Inject]
     public IRepository repo { get; set; }
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        
+        (Master.FindControl("checkApply") as HtmlAnchor).Attributes["class"] = "on";
     }
 
     protected void ButtonPass_Click(object sender, EventArgs e)

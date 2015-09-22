@@ -21,36 +21,36 @@
                             <li>城市：<%#Item.City %></li>
                             <li>地址：<%#Item.Address %></li>
                             <li>手机：<%#Item.PhoneNumber %></li>
-                            <li>邮编：<%#Item.ZipCode %></li>
-                            <li><%#(Item.SuccessPaid ?? false) ? "单号：" + Item.WMLeaderNumber: "失败原因：" + Item.Errors %></li>  
+                            <li>邮编：<%#Item.ZipCode %></li>    
+                             <table class="table table-orders" style="margin-top: 10px">                        
                             <asp:Repeater runat="server" ItemType="Package" DataSource="<%#Item.Packages %>">
                                 <HeaderTemplate>
                                     <tr>
-                                        <th class="tac">订单号</th>
-                                        <th class="left">下单日期</th>
-                                        <th class="tac">价格</th>
-                                        <th class="tac">包裹数</th>
-                                        <th class="tac">发件人</th>
-                                        <th>服务</th>
-                                        <th>状态</th>
-                                        <th colspan="2"></th>
+                                        <th class="tac">重量</th>
+                                        <th class="left">长度</th>
+                                        <th class="tac">宽度</th>
+                                        <th class="tac">高度</th>
+                                        <th class="tac">总额</th>
+                                        <th class="tac">状态</th>
+                                        <th>跟踪号</th>
+                                        <th colspan="2">详情</th>
                                     </tr>
                                 </HeaderTemplate>
                                 <ItemTemplate>
                                    <tr>
-                                       <th class="tac"><%#Item.Weight %></th>
-                                        <th class="left"><%#Item.Length %></th>
-                                        <th class="tac"<%#Item.Width %></th>
-                                        <th class="tac"><%#Item.Height %></th>
-                                        <th class="tac"><%#Item.Status %></th>
-                                        <th><%#Item.TrackNumber %></th>
-                                        <th><%#Item.Length %></th>
-                                        <th colspan="2"></th>
+                                       <td class="tac"><%#Item.Weight %></td>
+                                        <td class="left"><%#Item.Length %></td>
+                                        <td class="tac"><%#Item.Width %></td>
+                                        <td class="tac"><%#Item.Height %></td>
+                                        <td class="tac"><%#Item.Value %></td>
+                                        <td class="tac"><%#Item.Status %></td>
+                                        <td><%#Item.TrackNumber %></td>                                        
+                                        <td colspan="2"><a <%#(Item.Status == "SUCCESS") ? "" : "hidden=\"hidden\"" %> href="<%#"/" + Item.Pdf %>">点击下载</a></td>
                                    </tr>
                                 </ItemTemplate>
-                            </asp:Repeater>                          
-                        </ul>    
-                        <a <%#(Item.SuccessPaid ?? false) ? "" : "hidden=\"hidden\"" %> href="<%#GetFolder() + Item.WMLeaderPdf %>">点击下载</a>                     
+                            </asp:Repeater>    
+                                 </table>                      
+                        </ul>                                    
                     </fieldset>
                     <br />
                 </ItemTemplate>

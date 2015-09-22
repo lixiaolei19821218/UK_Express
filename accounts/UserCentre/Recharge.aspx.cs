@@ -16,8 +16,7 @@ public partial class accounts_UserCentre_Recharge : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         (Master.FindControl("rechange") as HtmlAnchor).Attributes["class"] = "on";
-        //(Master.FindControl("default") as HtmlAnchor).Attributes["class"] = "";
-
+        
         string user = Membership.GetUser().UserName;
         
         if (repo.Context.RechargeApplys.Where(r => r.User == user && !r.IsApproved.HasValue).Count() != 0)

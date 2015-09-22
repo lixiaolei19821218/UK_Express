@@ -4,6 +4,7 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
     <title>已付款订单 | 诚信物流-可靠,快捷,实惠</title>
+     <link href="../static/css/pager.css" rel="stylesheet" type="text/css" />  
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -19,7 +20,7 @@
             <fieldset runat="server" id="normalField">
                 <legend>直邮订单</legend>
                 <table class="table table-orders">
-                    <asp:Repeater runat="server" ItemType="Order" SelectMethod="GetNoneSheffieldOrders">
+                    <asp:Repeater runat="server" ItemType="Order" SelectMethod="GetPageApplys">
                         <HeaderTemplate>
                             <tr>
                                 <th class="tac">订单号</th>
@@ -49,6 +50,13 @@
                         </ItemTemplate>
                     </asp:Repeater>
                 </table>
+                <div class="pager">
+            <% for (int i = 1; i <= MaxPage; i++)
+               {
+                   Response.Write(
+                   string.Format("<a href='/cart/Paid.aspx?page={0}' {1}>{2}</a>", i, i == CurrentPage ? "class='selected'" : "", i));
+               }%>
+        </div>
             </fieldset>
             <br />
             <fieldset runat="server" id="sheffieldField">
@@ -84,5 +92,5 @@
                 </table>
             </fieldset>
         </form>
-    </div>
+    </div>    
 </asp:Content>

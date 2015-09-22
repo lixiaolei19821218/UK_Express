@@ -540,6 +540,7 @@ public partial class cart_Cart : System.Web.UI.Page
                 response = string.Format("PlaceOrder: StatusCode={0}; OrderRefrence={1}; TrackingNumber={2}", objResponse.Status.StatusCode, objResponse.OrderReference, objResponse.TrackingNumber);
                 package.Status = "SUCCESS";
                 package.TrackNumber = objResponse.OrderReference;
+                
                 string folder = string.Format("{0}files\\51Parcel\\{1}", HttpRuntime.AppDomainAppPath, Membership.GetUser().UserName);
                 if (!Directory.Exists(folder))
                 {
@@ -560,7 +561,7 @@ public partial class cart_Cart : System.Web.UI.Page
                     file2.Write(objResponse.CustomerDocumentImage, 0, objResponse.CustomerDocumentImage.Length);
                     file2.Close();
                     attachedFiles.Add(strPathDoc2);
-                    package.Pdf = strPathDoc2;
+                    package.Pdf = string.Format("files/51Parcel/{0}/{1}", Membership.GetUser().UserName, Path.GetFileName(strPathDoc2));
                 }
                 if (objResponse.CollectionReceiptImage != null)
                 {

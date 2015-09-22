@@ -43,13 +43,13 @@
             <div class="uitopb uitopb-border">
                 <h3>我的账户</h3>
                 <ul class="link-list">
-                    <li><a href="OrderRecords.aspx" class="" runat="server" id="total">账户金额</a></li>
-                    <li><a href="Recharge.aspx" class="" runat="server" id="rechange">我要充值</a></li>
-                    <li><a href="/index.php?c=bill_clear&a=user_list" class="" runat="server" id="addmoney">补款记录</a></li>
-                    <li><a href="/index.php?c=spke&a=user_list" class="" runat="server" id="parcel">999箱子</a></li>
-                    <li><a href="s" target="_blank" class="" runat="server" id="claim">索赔中心</a></li>
+                    <li><a href="OrderRecords.aspx" runat="server" id="total">账户金额</a></li>
+                    <li><a href="Recharge.aspx" runat="server" id="rechange">我要充值</a></li>
+                    <li><a href="~/cart/Paid.aspx" runat="server" id="parcel">我的订单</a></li>
+                    <li><a href="" runat="server" id="addmoney">补款记录</a></li>                    
+                    <li><a href="" runat="server" id="claim">索赔中心</a></li>
                     <li><a href="Default.aspx" class="" runat="server" id="default">个人资料</a></li>
-                    <li><a href="n" class="" runat="server" id="reset">重置密码</a></li>
+                    <li><a href="" runat="server" id="reset">重置密码</a></li>
                 </ul>
             </div>
         </div>

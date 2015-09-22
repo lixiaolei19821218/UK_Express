@@ -20,7 +20,7 @@
             <div class="top">
                 <ul class="rt">
                     <li><a href="../Default.aspx">首页</a><span class="gap">|</span></li>
-                    <li><a href="/index.php?c=home&a=q">帮助中心</a></li>
+                    <li><a href="">帮助中心</a></li>
                 </ul>
                 <ul>
                     <li>欢迎来到999parcel管理系统，<font class="col-f60"><%:GetGreeting() %></font><span class="gap">|</span></li>
@@ -30,21 +30,20 @@
         </div>
     </div>
     <div class="logo-box">
-        <a href="javascript:;">
-            <img src="../static/img/999parcel.png" width="228" height="50" alt="管理中心" /></a>
+        
     </div>
     <div id="container">
         <div id="sidebar">
             <div class="uitopb uitopb-border">
                 <h3>网站管理</h3>
                 <ul class="link-list">
-                    <li><a href="/index.php?c=bank&a=user_list" class="">用户管理</a></li>
-                    <li><a href="CheckApply.aspx" class="on">充值审核</a></li>
-                    <li><a href="/index.php?c=bill_clear&a=user_list" class="">订单审核</a></li>
-                    <li><a href="ProcessedApplys.aspx" class="">已处理订单</a></li>
-                    <li><a href="http://express-xc.co.uk/oa/index.php?c=claim&a=form&ek=ek" target="_blank">XX管理</a></li>
-                    <li><a href="/index.php?c=member&a=user_profile" class="">XX管理</a></li>
-                    <li><a href="/index.php?c=member&a=user_reset" class="">XX管理</a></li>
+                    <li><a href="" runat="server">用户管理</a></li>
+                    <li><a href="CheckApply.aspx" runat="server" id="checkApply">充值审核</a></li>
+                    <li><a href="ProcessedApplys.aspx" runat="server" id="processedApplys">已处理申请</a></li>
+                    <li><a href="" runat="server" >订单审核</a></li>                    
+                    <li><a href="">XX管理</a></li>
+                    <li><a href="">XX管理</a></li>
+                    <li><a href="">XX管理</a></li>
                 </ul>
             </div>
         </div>
