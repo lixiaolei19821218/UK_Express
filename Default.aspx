@@ -6,18 +6,27 @@
     <script src="/static/bootstrap3/js/jquery-1.11.1.min.js"></script>   
     <script type="text/javascript">
         function validateSize() {
-            var rNumber = 0;
-            while ($("#id_addr_" + rNumber.toString() + "- TOTAL_FORMS")[0] != null)
+            var rNumber = 0;          
+            while (true)
             {
-                var pCount = $("#id_addr_" + count.toString() + "- TOTAL_FORMS")[0].value;
+                var rid = "id_addr_" + rNumber + "-TOTAL_FORMS";
+                var r = $("#" + rid + "")[0];
+                if (r == null)
+                {
+                    break;
+                }
+                var pCount = r.value;
                 for (var pNumber = 0; pNumber < pCount; pNumber++)
-                {                    
-                    var length = $("#id_addr_" + rNumber + "- " + pNumber + " - length")[0].value;
-                    var width = $("#id_addr_" + rNumber + "- " + pNumber + " - width")[0].value;
-                    var height = $("#id_addr_" + rNumber + "- " + pNumber + " - height")[0].value;
+                {
+                    var lid = "id_addr_" + pNumber + "-" + pNumber + "-length";                    
+                    var length = $("#" + lid + "")[0].value;
+                    var wid = "id_addr_" + pNumber + "-" + pNumber + "-width";
+                    var width = $("#" + wid + "")[0].value;;
+                    var hid = "id_addr_" + pNumber + "-" + pNumber + "-height";
+                    var height = $("#" + hid + "")[0].value;
                     if (length * width * height / 5000 > 30)
                     {
-                        $("#id_addr_" + rNumber + "- " + pNumber + " - height")[0].setCustomValidity("体积重量不能大于30");
+                        $("#" + hid + "")[0].setCustomValidity("体积重量不能大于30");
                     }
                 }
                 rNumber++;
@@ -115,13 +124,13 @@
                                                     <input id="id_addr_0-0-weight" name="addr_0-0-weight" placeholder="重量" type="number" max="30" min="1" style="width:80px;" required="required"/>
                                                     (kg)</div>
                                                 <div class="attr col-xs-3 input1">
-                                                    <input id="id_addr_0-0-length" name="addr_0-0-length" placeholder="长度" type="number" max="30" min="1" style="width:80px;" required="required" />
+                                                    <input id="id_addr_0-0-length" name="addr_0-0-length" placeholder="长度" type="number" max="105" min="1" style="width:80px;" required="required" />
                                                     (cm)</div>
                                                 <div class="attr col-xs-3 input1">
-                                                    <input id="id_addr_0-0-width" name="addr_0-0-width" placeholder="宽度" type="number" max="30" min="1" style="width:80px;" required="required" />
+                                                    <input id="id_addr_0-0-width" name="addr_0-0-width" placeholder="宽度" type="number" max="105" min="1" style="width:80px;" required="required" />
                                                     (cm)</div>
                                                 <div class="attr col-xs-3 input1">
-                                                    <input id="id_addr_0-0-height" name="addr_0-0-height" placeholder="高度" type="number" max="30" min="1" style="width:80px;" required="required" />
+                                                    <input id="id_addr_0-0-height" name="addr_0-0-height" placeholder="高度" type="number" max="105" min="1" style="width:80px;" required="required" />
                                                     (cm)</div>
                                             </div>
                                         </div>
