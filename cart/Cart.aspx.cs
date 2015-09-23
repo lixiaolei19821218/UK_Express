@@ -214,16 +214,16 @@ public partial class cart_Cart : System.Web.UI.Page
                        
                         break;
                     case "Parcelforce Economy - 上门取件":
-                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyPickup, attachmentPaths);
+                        SendTo51Parcel(o, UKShipmentType.CitylinkPickup, ServiceProvider.ParcelForceEconomyPickup, attachmentPaths);
                         break;
                     case "Parcelforce Priority - 上门取件":
-                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForcePriority, attachmentPaths);
+                        SendTo51Parcel(o, UKShipmentType.CitylinkPickup, ServiceProvider.ParcelForcePriority, attachmentPaths);
                         break;
                     case "Parcelforce Economy - 自送仓库":
                         SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyDropOff, attachmentPaths);
                         break;
                     case "Parcelforce Economy - 自送邮局":
-                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyDropOff, attachmentPaths);
+                        SendTo51Parcel(o, UKShipmentType.CitylinkPickup, ServiceProvider.ParcelForceEconomyDropOff, attachmentPaths);
                         break;
                     case "Parcelforce Priority - 自送邮局":
                         SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForcePriority, attachmentPaths);

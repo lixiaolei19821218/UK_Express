@@ -4,6 +4,26 @@
     <title>首页 | 诚信物流-可靠,快捷,实惠</title>
     <%: System.Web.Optimization.Scripts.Render("~/bundle/jquery") %>
     <script src="/static/bootstrap3/js/jquery-1.11.1.min.js"></script>   
+    <script type="text/javascript">
+        function validateSize() {
+            var rNumber = 0;
+            while ($("#id_addr_" + rNumber.toString() + "- TOTAL_FORMS")[0] != null)
+            {
+                var pCount = $("#id_addr_" + count.toString() + "- TOTAL_FORMS")[0].value;
+                for (var pNumber = 0; pNumber < pCount; pNumber++)
+                {                    
+                    var length = $("#id_addr_" + rNumber + "- " + pNumber + " - length")[0].value;
+                    var width = $("#id_addr_" + rNumber + "- " + pNumber + " - width")[0].value;
+                    var height = $("#id_addr_" + rNumber + "- " + pNumber + " - height")[0].value;
+                    if (length * width * height / 5000 > 30)
+                    {
+                        $("#id_addr_" + rNumber + "- " + pNumber + " - height")[0].setCustomValidity("体积重量不能大于30");
+                    }
+                }
+                rNumber++;
+            }
+        }
+    </script>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
@@ -123,7 +143,7 @@
                                             <span style="font-weight: bold">温馨提示</span>：点击右侧"+"号添加多箱，<span style="font-weight: bold">有优惠</span>（取件费会随箱数减免）
                                         </a>
                                     </div>
-                                    <asp:Button ID="btnSubmit" runat="server" CssClass="bg2 clrw1" style="width: 83px; height: 23px; background-position: -100px -63px; border: none; background-color: #F2F8FC; font-size: 12px" Text="立即下单" OnClick="btnSubmit_Click" />                                    
+                                    <asp:Button ID="btnSubmit" runat="server" OnClientClick="validateSize()" CssClass="bg2 clrw1" style="width: 83px; height: 23px; background-position: -100px -63px; border: none; background-color: #F2F8FC; font-size: 12px" Text="立即下单" OnClick="btnSubmit_Click" />                                    
                                 </div>
                             </form>
                         </div>
