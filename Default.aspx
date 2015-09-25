@@ -21,7 +21,8 @@
                     }
                     else {
                         $("input[name='addr_" + i + "-" + j + "-height']")[0].setCustomValidity("");
-                    }
+                        break;
+                    }                    
                 }
             }            
         }
@@ -145,7 +146,7 @@
                                             <span style="font-weight: bold">温馨提示</span>：点击右侧"+"号添加多箱，<span style="font-weight: bold">有优惠</span>（取件费会随箱数减免）
                                         </a>
                                     </div>
-                                    <asp:Button ID="btnSubmit" runat="server" OnClientClick="validateSize()" CssClass="bg2 clrw1" style="width: 83px; height: 23px; background-position: -100px -63px; border: none; background-color: #F2F8FC; font-size: 12px" Text="立即下单" OnClick="btnSubmit_Click" />                                    
+                                    <asp:Button ID="btnSubmit" runat="server" OnClientClick="validateSize1()" CssClass="bg2 clrw1" style="width: 83px; height: 23px; background-position: -100px -63px; border: none; background-color: #F2F8FC; font-size: 12px" Text="立即下单" OnClick="btnSubmit_Click" />                                    
                                 </div>
                             </form>
                         </div>
