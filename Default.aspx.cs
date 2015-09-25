@@ -82,12 +82,13 @@ public partial class Default2 : System.Web.UI.Page
                 Package package = new Package();
                 package.PackageItems.Add(new PackageItem() { Description = "Baby Milk Powder" });
                 r.Packages.Add(package);
-                
+
+                decimal weight,length, width, height;
+                weight = length = width = height = 0m;
                 foreach (string pkgAttr in pkg)
                 {
                     if (pkgAttr.Contains("weight"))
-                    {
-                        decimal weight;
+                    {                        
                         if (decimal.TryParse(Request.Form.Get(pkgAttr), out weight) && weight > 0m && weight < 30)
                         {
                             package.Weight = weight;
@@ -100,9 +101,8 @@ public partial class Default2 : System.Web.UI.Page
                         }
                     }
                     else if (pkgAttr.Contains("length"))
-                    {
-                        decimal length;
-                        if (decimal.TryParse(Request.Form.Get(pkgAttr), out length) && length > 0m)
+                    {                        
+                        if (decimal.TryParse(Request.Form.Get(pkgAttr), out length) && length > 0m && length < 105m)
                         {
                             package.Length = length;
                         }
@@ -114,9 +114,8 @@ public partial class Default2 : System.Web.UI.Page
                         }
                     }
                     else if (pkgAttr.Contains("width"))
-                    {
-                        decimal width;
-                        if (decimal.TryParse(Request.Form.Get(pkgAttr), out width) && width > 0m)
+                    {                        
+                        if (decimal.TryParse(Request.Form.Get(pkgAttr), out width) && width > 0m && width < 105m)
                         {
                             package.Width = width;
                         }
@@ -128,9 +127,8 @@ public partial class Default2 : System.Web.UI.Page
                         }
                     }
                     else if (pkgAttr.Contains("height"))
-                    {
-                        decimal height;
-                        if (decimal.TryParse(Request.Form.Get(pkgAttr), out height) && height > 0m)
+                    {                        
+                        if (decimal.TryParse(Request.Form.Get(pkgAttr), out height) && height > 0m && height < 105m)
                         {
                             package.Height = height;
                         }
@@ -140,6 +138,13 @@ public partial class Default2 : System.Web.UI.Page
                             LabelError.Visible = true;
                             return;
                         }
+                    }
+                    
+                    if (length * width * height / 5000m > 30m)
+                    {
+                        LabelError.Text = "体积重量不能大于30";
+                        LabelError.Visible = true;
+                        return;
                     }
                 }               
             }  

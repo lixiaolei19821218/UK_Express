@@ -6,31 +6,24 @@
     <script src="/static/bootstrap3/js/jquery-1.11.1.min.js"></script>   
     <script type="text/javascript">
         function validateSize() {
-            var rNumber = 0;          
-            while (true)
+            var rCount = $("div[class='formset formset_1']").length;
+            for (var i = 0; i < rCount; i++)
             {
-                var rid = "id_addr_" + rNumber + "-TOTAL_FORMS";
-                var r = $("#" + rid + "")[0];
-                if (r == null)
+                var selector = "input[name='addr_" + i + "-TOTAL_FORMS']";
+                var pCount = $(selector)[0].value;
+                for (var j = 0; j < pCount; j++)
                 {
-                    break;
-                }
-                var pCount = r.value;
-                for (var pNumber = 0; pNumber < pCount; pNumber++)
-                {
-                    var lid = "id_addr_" + pNumber + "-" + pNumber + "-length";                    
-                    var length = $("#" + lid + "")[0].value;
-                    var wid = "id_addr_" + pNumber + "-" + pNumber + "-width";
-                    var width = $("#" + wid + "")[0].value;;
-                    var hid = "id_addr_" + pNumber + "-" + pNumber + "-height";
-                    var height = $("#" + hid + "")[0].value;
-                    if (length * width * height / 5000 > 30)
-                    {
-                        $("#" + hid + "")[0].setCustomValidity("体积重量不能大于30");
+                    var length = $("input[name='addr_" + i + "-" + j + "-length']")[0].value;
+                    var width = $("input[name='addr_" + i + "-" + j + "-width']")[0].value;
+                    var height = $("input[name='addr_" + i + "-" + j + "-height']")[0].value;
+                    if (length * width * height / 5000 > 30) {
+                        $("input[name='addr_" + i + "-" + j + "-height']")[0].setCustomValidity("体积重量不能大于30");
+                    }
+                    else {
+                        $("input[name='addr_" + i + "-" + j + "-height']")[0].setCustomValidity("");
                     }
                 }
-                rNumber++;
-            }
+            }            
         }
     </script>
 </asp:Content>
