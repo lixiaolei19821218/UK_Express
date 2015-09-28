@@ -276,7 +276,7 @@
                                     <div class="py_fields" style="position: relative; background-color: #e1e1e1; min-height: 24px; display:normal; margin-left: 5px; margin-right: 5px; font-size: 13px">
                                         <div style="float: left; width: 162px; padding-left: 60px" id="py_name<%#Container.ItemIndex %>"><%#Item.PyName %></div><input type="hidden" value="<%#Item.PyName %>" name="hd_name<%#Container.ItemIndex %>" id="hd_name<%#Container.ItemIndex %>"></input>
                                         <div style="float: left; width: 162px; padding-left: 28px" id="py_city<%#Container.ItemIndex %>"><%#Item.PyCity %></div><input type="hidden" value="<%#Item.PyCity %>" name="hd_city<%#Container.ItemIndex %>" id="hd_city<%#Container.ItemIndex %>"></input>
-                                        <div style="margin-left: 324px; margin-right: 38px" id="py_street<%#Container.ItemIndex %>"><%#Item.PyAddress %></div><input type="hidden" value="<%#Item.PyAddress %>"  name="hd_street<%#Container.ItemIndex %>" id="hd_street<%#Container.ItemIndex %>"></input>
+                                        <div style="margin-left: 324px; margin-right: 38px" id="py_street<%#Container.ItemIndex %>"><%#Item.PyAddress %></div><input type="hidden" value="<%#Item.PyAddress %>" name="hd_street<%#Container.ItemIndex %>" id="hd_street<%#Container.ItemIndex %>"></input>
                                         <button class="display_hidden btn btn-small" type="button" style="position: absolute; right: 0; top: 0; background-color: #BFBFBF" title="修改转换">编辑</button>
                                        
                                     </div>

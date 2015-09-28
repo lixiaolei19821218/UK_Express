@@ -199,6 +199,10 @@ public partial class products_Product : System.Web.UI.Page
             recipient.PyName = Request.Form.Get(string.Format("hd_name{0}", i)).Trim();
             recipient.PyCity = Request.Form.Get(string.Format("hd_city{0}", i)).Trim();
             recipient.PyAddress = Request.Form.Get(string.Format("hd_street{0}", i)).Trim();
+            if (recipient.PyAddress.Length > 72)
+            {
+                return string.Format("收件人{0}的拼音地址超出72个字符", recipient.Name);
+            }
         }
         List<Package> packages = new List<Package>();
         foreach (Recipient r in order.Recipients)

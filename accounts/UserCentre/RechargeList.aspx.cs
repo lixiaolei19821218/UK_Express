@@ -36,7 +36,7 @@ public partial class accounts_UserCentre_RechargeList : System.Web.UI.Page
     public IEnumerable<RechargeApply> GetPageApplys()
     {
         string user = Membership.GetUser().UserName;
-        return repo.Context.RechargeApplys.Where(r => r.User == user).OrderBy(p => p.Id).Skip((CurrentPage - 1) * pageSize).Take(pageSize);
+        return repo.Context.RechargeApplys.Where(r => r.User == user).OrderByDescending(p => p.Id).Skip((CurrentPage - 1) * pageSize).Take(pageSize);
     }
     protected int CurrentPage
     {

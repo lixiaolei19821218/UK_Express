@@ -214,16 +214,16 @@ public partial class cart_Cart : System.Web.UI.Page
                        
                         break;
                     case "Parcelforce Economy - 上门取件":
-                        SendTo51Parcel(o, UKShipmentType.CitylinkPickup, ServiceProvider.ParcelForceEconomyPickup, attachmentPaths);
+                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyPickup, attachmentPaths);
                         break;
                     case "Parcelforce Priority - 上门取件":
-                        SendTo51Parcel(o, UKShipmentType.CitylinkPickup, ServiceProvider.ParcelForcePriority, attachmentPaths);
+                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForcePriority, attachmentPaths);
                         break;
                     case "Parcelforce Economy - 自送仓库":
                         SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyDropOff, attachmentPaths);
                         break;
                     case "Parcelforce Economy - 自送邮局":
-                        SendTo51Parcel(o, UKShipmentType.CitylinkPickup, ServiceProvider.ParcelForceEconomyDropOff, attachmentPaths);
+                        SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForceEconomyDropOff, attachmentPaths);
                         break;
                     case "Parcelforce Priority - 自送邮局":
                         SendTo51Parcel(o, UKShipmentType.Send2Warehouse, ServiceProvider.ParcelForcePriority, attachmentPaths);
@@ -505,9 +505,26 @@ public partial class cart_Cart : System.Web.UI.Page
         objRequest.ShippingDate = shippingDate.ToString("yyyy-MM-dd");
 
         objRequest.ShipToChineseAddress = package.Recipient.Address;
-        objRequest.ShipToAddress = package.Recipient.PyAddress;
-        objRequest.ShipToAddress2 = "";
-        objRequest.ShipToAddress3 = "";
+        string pyAddress = package.Recipient.PyAddress;
+        if (pyAddress.Length <= 24)
+        {
+            objRequest.ShipToAddress = pyAddress;
+            objRequest.ShipToAddress2 = "";
+            objRequest.ShipToAddress3 = "";
+        }
+        else if (pyAddress.Length <= 48)
+        {
+            objRequest.ShipToAddress = pyAddress.Substring(0, 24);
+            objRequest.ShipToAddress2 = pyAddress.Substring(24);
+            objRequest.ShipToAddress3 = "";
+        }
+        else
+        {
+            objRequest.ShipToAddress = pyAddress.Substring(0, 24);
+            objRequest.ShipToAddress2 = pyAddress.Substring(24, 24);
+            objRequest.ShipToAddress3 = pyAddress.Substring(48);
+        }
+        
         objRequest.ShipToCellPhone = package.Recipient.PhoneNumber;
         objRequest.ShipToCity = package.Recipient.PyCity;
         objRequest.ShipToCountry = "CN";

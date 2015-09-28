@@ -70,7 +70,7 @@ public partial class cart_Paid : System.Web.UI.Page
 
     public IEnumerable<Order> GetPageApplys()
     {
-        return normalOrders.OrderBy(p => p.Id).Skip((CurrentPage - 1) * pageSize).Take(pageSize);
+        return normalOrders.OrderByDescending(p => p.Id).Skip((CurrentPage - 1) * pageSize).Take(pageSize);
     }
 
     protected int CurrentPage
