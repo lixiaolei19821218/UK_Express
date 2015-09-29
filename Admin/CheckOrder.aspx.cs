@@ -24,9 +24,27 @@ public partial class Admin_CheckOrder : System.Web.UI.Page
     }
 
     protected void Page_Load(object sender, EventArgs e)
-    {
-        normalOrders = from o in repo.Orders where !(o.IsSheffieldOrder ?? false) && (o.HasPaid ?? false) && !(o.SuccessPaid ?? false) select o;
-        sheffieldOrders = from o in repo.Context.SheffieldOrders select o;
+    {       
+        if (Session["Content"] == null)
+        {
+            normalOrders = from o in repo.Orders where !(o.IsSheffieldOrder ?? false) && (o.HasPaid ?? false) && !(o.SuccessPaid ?? false) select o;
+            sheffieldOrders = from o in repo.Context.SheffieldOrders select o;
+        }
+        else
+        {
+            string content = (string)Session["Content"];
+            int id;
+            if (int.TryParse(content, out id))
+            {
+                normalOrders = repo.Orders.Where(o => o.Id == id);
+                sheffieldOrders = from o in repo.Context.SheffieldOrders select o;
+            }
+            else
+            {
+                normalOrders = repo.Orders.Where(o => o.User == content);
+                sheffieldOrders = from o in repo.Context.SheffieldOrders select o;
+            }
+        }
 
         normalField.Visible = normalOrders.Count() != 0 ? true : false;
         sheffieldField.Visible = sheffieldOrders.Count() != 0 ? true : false;
@@ -85,5 +103,10 @@ public partial class Admin_CheckOrder : System.Web.UI.Page
                 return (int)Math.Ceiling((decimal)normalOrders.Count() / pageSize);
             };
         }
+    }
+    
+    protected void FindOrder_Click(object sender, EventArgs e)
+    {
+        Session.Add("Content", Request.Form.Get("content"));        
     }
 }
