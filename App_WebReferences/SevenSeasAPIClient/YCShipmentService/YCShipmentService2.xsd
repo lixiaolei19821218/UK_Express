@@ -265,13 +265,16 @@
           </xs:appinfo>
         </xs:annotation>
       </xs:enumeration>
-      <xs:enumeration value="CitylinkPickup">
+      <xs:enumeration value="ParcelForceUK">
         <xs:annotation>
           <xs:appinfo>
-            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">10</EnumerationValue>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">0</EnumerationValue>
           </xs:appinfo>
         </xs:annotation>
       </xs:enumeration>
+      <xs:enumeration value="CollectPlus" />
+      <xs:enumeration value="DHLUK" />
+      <xs:enumeration value="Yodel" />
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="UKShipmentType" nillable="true" type="tns:UKShipmentType" />

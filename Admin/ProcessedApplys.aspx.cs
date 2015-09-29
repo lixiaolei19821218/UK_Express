@@ -20,7 +20,7 @@ public partial class Admin_ProcessedApplys : System.Web.UI.Page
 
     public IEnumerable<RechargeApply> GetPageApplys()
     {
-        return repo.Context.RechargeApplys.Where(r => r.IsApproved.HasValue).OrderBy(p => p.Id).Skip((CurrentPage - 1) * pageSize).Take(pageSize);
+        return repo.Context.RechargeApplys.Where(r => r.IsApproved.HasValue).OrderByDescending(p => p.Id).Skip((CurrentPage - 1) * pageSize).Take(pageSize);
     }
     protected int CurrentPage
     {
