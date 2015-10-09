@@ -24,15 +24,15 @@ public partial class Admin_CheckOrder : System.Web.UI.Page
     }
 
     protected void Page_Load(object sender, EventArgs e)
-    {       
-        if (Session["Content"] == null)
+    {
+        string content = Request.QueryString["content"];
+        if (content == null)
         {
             normalOrders = from o in repo.Orders where !(o.IsSheffieldOrder ?? false) && (o.HasPaid ?? false) && !(o.SuccessPaid ?? false) select o;
             sheffieldOrders = from o in repo.Context.SheffieldOrders select o;
         }
         else
-        {
-            string content = (string)Session["Content"];
+        {           
             int id;
             if (int.TryParse(content, out id))
             {
@@ -107,6 +107,7 @@ public partial class Admin_CheckOrder : System.Web.UI.Page
     
     protected void FindOrder_Click(object sender, EventArgs e)
     {
-        Session.Add("Content", Request.Form.Get("content"));        
+        string content = Request.Form.Get("content");
+        Response.Redirect(string.Format("/admin/CheckOrder.aspx?content={0}", content));
     }
 }
