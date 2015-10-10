@@ -21,6 +21,18 @@
         </div>
     </div>
 
+    <div style="margin-top: 15px; background-color: #fff; padding: 15px;">
+        <fieldset>
+            <legend>发件人：<%:Order.SenderName %><div style="float:right;font-size:medium;">费用：<%:Order.Cost.Value.ToString("c", CultureInfo.CreateSpecificCulture("en-GB")) %></div></legend>
+            <ul>
+                <li>城市：<%:Order.SenderCity %></li>
+                <li>地址：<%:Order.SenderAddress1 + " " + Order.SenderAddress2 + " " + Order.SenderAddress3 %></li>
+                <li>手机：<%:Order.SenderPhone%></li>
+                <li>邮编：<%:Order.SenderZipCode%></li>
+            </ul>
+        </fieldset>
+    </div>
+
     <div style="margin-top: 15px; background-color: #fff; padding: 15px; min-height: 600px;">
         <form runat="server" method="post" id="placeOrder" style="padding-top: 0px">
             <asp:Repeater runat="server" ItemType="Recipient" SelectMethod="GetRecipients">
@@ -37,25 +49,29 @@
                                     <HeaderTemplate>
                                         <tr>
                                             <th class="tac">重量</th>
-                                            <th class="left">长度</th>
+                                            <th class="tac">长度</th>
                                             <th class="tac">宽度</th>
                                             <th class="tac">高度</th>
                                             <th class="tac">总额</th>
                                             <th class="tac">状态</th>
-                                            <th>跟踪号</th>
-                                            <th colspan="2">详情</th>
+                                            <th class="tac">跟踪号</th>
+                                            <th class="tac">费用</th>
+                                            <th class="tac">明细</th>
+                                            <th class="tac" colspan="2">详情</th>
                                         </tr>
                                     </HeaderTemplate>
                                     <ItemTemplate>
                                         <tr>
                                             <td class="tac"><%#Item.Weight %></td>
-                                            <td class="left"><%#Item.Length %></td>
+                                            <td class="tac"><%#Item.Length %></td>
                                             <td class="tac"><%#Item.Width %></td>
                                             <td class="tac"><%#Item.Height %></td>
                                             <td class="tac"><%#Item.Value %></td>
                                             <td class="tac"><%#Item.Status %></td>
-                                            <td><%#Item.TrackNumber %></td>
-                                            <td colspan="2">
+                                            <td class="tac"><%#Item.TrackNumber %></td>
+                                            <td class="tac"><%#GetPackagePrice(Item) %></td>
+                                            <td class="tac"><a title="明细" class="btn-link" data-container="body" data-toggle="popover" data-placement="right" data-content="幼儿奶粉    $10">包裹明细</a></td>
+                                            <td class="tac" colspan="2">
                                                 <%#(Item.Status == "SUCCESS") ? "<a href=\"/" + Item.Pdf +"\">点击下载</a>" : "<a title=\"错误信息\" class=\"btn-link\" data-container=\"body\" data-toggle=\"popover\" data-placement=\"right\" data-content=\"" + Item.Response + "\">错误详情</a>"%>
                                             </td>
                                         </tr>

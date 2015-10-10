@@ -15,12 +15,27 @@ public partial class cart_OrderDetail : System.Web.UI.Page
         set;
     }
 
+    private Order order;
+    private ServiceView sv;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (Session["id"] == null)        
         {
             Response.Redirect("/");
         }
+
+        int id;        
+        if (int.TryParse(Session["id"].ToString(), out id))
+        {
+            order = repo.Context.Orders.Find(id);
+        }
+        if (order == null)
+        {
+            Response.Redirect("/");
+        }
+        Service service = repo.Services.FirstOrDefault(s => s.Id == order.ServiceID);
+        sv = new ServiceView(service);
     }
 
     public IEnumerable<Recipient> GetRecipients()
@@ -41,17 +56,12 @@ public partial class cart_OrderDetail : System.Web.UI.Page
     {
         get
         {
-            int id;
-            Order order;
-            if (int.TryParse(Session["id"].ToString(), out id))
-            {
-                order = repo.Context.Orders.Find(id);
-            }
-            else
-            {
-                order = new Order();
-            }
             return order;
         }
+    }
+
+    public decimal GetPackagePrice(Package package)
+    {
+        return sv.GetPackageDeliverPrice(package);
     }
 }

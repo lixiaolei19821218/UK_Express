@@ -1,7 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="accounts_UserCentre_Default" MasterPageFile="~/accounts/UserCentre/UserCentre.master" %>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="head" runat="Server">
-    <title>个人资料</title>
+    <title>个人中心</title>
 </asp:Content>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="body" runat="Server">
