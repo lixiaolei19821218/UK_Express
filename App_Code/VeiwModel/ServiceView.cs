@@ -148,6 +148,10 @@ public class ServiceView
                     price = 0m;
                 }                
                 break;
+            case 32://Bpost - DPD 取件      
+                packageCount = order.Recipients.Sum(r => r.Packages.Count);
+                price = 5m * packageCount;
+                break;
             default:
                 price = 0m;
                 break;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -63,5 +64,16 @@ public partial class cart_OrderDetail : System.Web.UI.Page
     public decimal GetPackagePrice(Package package)
     {
         return sv.GetPackageDeliverPrice(package);
+    }
+
+    public string FormatPackageItems(Package package)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (PackageItem item in package.PackageItems)
+        {
+            string line = string.Format("{0} &times; {1}， 总价：{2}<br/>", item.Description, item.Count, item.Value);
+            sb.Append(line);
+        }
+        return sb.ToString();
     }
 }

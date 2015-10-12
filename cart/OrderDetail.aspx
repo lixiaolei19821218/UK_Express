@@ -8,7 +8,9 @@
     <script src="../static/bootstrap3/js/jquery-1.11.1.min.js"></script>
     <script src="../static/bootstrap3/js/bootstrap.min.js"></script>
     <script>$(function () {
-    $("[data-toggle='popover']").popover();
+    $("[data-toggle='popover']").popover({
+        html: true
+    });
 });
     </script>
 </asp:Content>
@@ -70,7 +72,7 @@
                                             <td class="tac"><%#Item.Status %></td>
                                             <td class="tac"><%#Item.TrackNumber %></td>
                                             <td class="tac"><%#GetPackagePrice(Item) %></td>
-                                            <td class="tac"><a title="明细" class="btn-link" data-container="body" data-toggle="popover" data-placement="right" data-content="幼儿奶粉    $10">包裹明细</a></td>
+                                            <td class="tac"><a title="明细" class="btn-link" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<%#FormatPackageItems(Item) %>">包裹明细</a></td>
                                             <td class="tac" colspan="2">
                                                 <%#(Item.Status == "SUCCESS") ? "<a href=\"/" + Item.Pdf +"\">点击下载</a>" : "<a title=\"错误信息\" class=\"btn-link\" data-container=\"body\" data-toggle=\"popover\" data-placement=\"right\" data-content=\"" + Item.Response + "\">错误详情</a>"%>
                                             </td>
