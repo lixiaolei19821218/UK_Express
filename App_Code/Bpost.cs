@@ -9,12 +9,12 @@ using System.Web;
 /// </summary>
 public class Bpost
 {	
-    public static void GenerateLciFile(string contact, Order o)
+    public static void GenerateLciFile(string contact, Order o, string sequenceId)
     {
         string senderId, contactNumber, subContactNumber;
         ParseContact(contact, out senderId, out contactNumber, out subContactNumber);
-        string sequenceId = GenerateSequenceId();
-        string file = AppDomain.CurrentDomain.BaseDirectory + senderId + "_" + GenerateSequenceId() + ".txt";
+        
+        string file = AppDomain.CurrentDomain.BaseDirectory + "bpost_files/" + senderId + "_" + sequenceId + ".txt";
         StreamWriter sw = new StreamWriter(file);
         string header = string.Format("*BPI_IN*            {0}*V 3.1 *{1}", senderId, sequenceId);
         sw.WriteLine(header);
@@ -98,6 +98,9 @@ public class Bpost
         string footer = string.Format("*END*{0}", lineCount.ToString().PadLeft(8, '0'));
         sw.Write(footer);
         sw.Close();
+
+        FtpWeb ftp = new FtpWeb("ftp://transfert.post.be", "999_parcels", "dkfoec36");
+        ftp.Upload(file);
     }
 
     public static void ParseContact(string contact, out string senderId, out string contactNumber, out string subContactNumber)
@@ -121,7 +124,7 @@ public class Bpost
     }
 
     public static string GenerateSequenceId()
-    {
+    {        
         return "00001";
     }
 

@@ -445,9 +445,18 @@ public partial class cart_Cart : System.Web.UI.Page
         }
     }
 
+    protected int GetCounter()
+    {
+        Application.Lock();
+        int result = (int)(Application["counter"] ?? 0);
+        Application["counter"] = ++result;
+        Application.UnLock();
+        return result;
+    }
+
     private void SendBpostLciFile(Order o)
     {
-        Bpost.GenerateLciFile("BPI/2015/9320", o);
+        Bpost.GenerateLciFile("BPI/2015/9320", o, GetCounter().ToString().PadLeft(5, '0'));
     }
 
     private List<List<string>> SendTo51Parcel(Order order, UKShipmentType shipType, ServiceProvider provider, List<string> attachedFiles)
