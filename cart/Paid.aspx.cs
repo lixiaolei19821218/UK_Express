@@ -96,4 +96,37 @@ public partial class cart_Paid : System.Web.UI.Page
             };
         }
     }
+
+    protected string GetIcon(Order o)
+    {
+        if (o.Service.Name.Contains("Parcelforce Economy"))
+        {
+            if (o.SuccessPaid ?? false)
+            {
+                return "<img src=\"../static/images/icon/onCorrect.gif\" title=\"发送成功\">";
+            }
+            else
+            {
+                return "<img src=\"../static/images/icon/onFocus.gif\" title=\"有发送失败的包裹\">";
+            }
+        }
+        else//bpost
+        {
+            if (o.SuccessPaid.HasValue)
+            {
+                if (o.SuccessPaid.Value)
+                {
+                    return "<img src=\"../static/images/icon/onCorrect.gif\" title=\"发送成功\">";
+                }
+                else
+                {
+                    return "<img src=\"../static/images/icon/onFocus.gif\" title=\"有发送失败的包裹\">";
+                }
+            }
+            else
+            {
+                return "<img height=18 width=18 src=\"../static/images/icon/t17.ico\" title=\"已发送到Bpost，请等待比利时邮政确认\">";
+            }
+        }
+    }
 }

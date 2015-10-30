@@ -1,6 +1,7 @@
 ﻿using SevenSeasAPIClient.YCShipmentService;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Globalization;
 using System.IO;
@@ -25,6 +26,7 @@ public partial class cart_Cart : System.Web.UI.Page
     private decimal totalPrice;
     private string username;
     private aspnet_User apUser;
+    private string lciFile;
 
     [Ninject.Inject]
     public IRepository repo
@@ -373,7 +375,7 @@ public partial class cart_Cart : System.Web.UI.Page
                 }
         */
                 #endregion
-                o.HasPaid = true;
+                //o.HasPaid = true;
             }
 
             apUser.Balance -= totalPrice;            
@@ -382,7 +384,7 @@ public partial class cart_Cart : System.Web.UI.Page
             Thread sendThread = new Thread(SendThreadMethod);
             object[] mail = new object[] { Membership.GetUser().Email, "您在999Parcel的订单", "请查收您在999Parcel的订单。", attachmentPaths.ToArray() };
             sendThread.Start(mail);
-
+            
             Response.Redirect("Paid.aspx");            
         }
         else
@@ -448,7 +450,8 @@ public partial class cart_Cart : System.Web.UI.Page
     protected int GetCounter()
     {
         Application.Lock();
-        int result = (int)(Application["counter"] ?? 0);
+        int count = int.Parse(ConfigurationManager.AppSettings["bpostCount"]);
+        int result = (int)(Application["counter"] ?? count);
         Application["counter"] = ++result;
         Application.UnLock();
         return result;
@@ -456,7 +459,24 @@ public partial class cart_Cart : System.Web.UI.Page
 
     private void SendBpostLciFile(Order o)
     {
-        Bpost.GenerateLciFile("BPI/2015/9320", o, GetCounter().ToString().PadLeft(5, '0'));
+        lciFile = Bpost.GenerateLciFile("BPI/2015/9320", o, GetCounter().ToString().PadLeft(5, '0'));
+        lciFile = Path.GetFileName(lciFile);
+        System.Timers.Timer timer = new System.Timers.Timer(60000 * 30);
+        timer.Elapsed += timer_Elapsed;
+        timer.AutoReset = false;
+        timer.Enabled = true;
+        //Application["t"] = timer;
+    }
+
+    void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+    {
+        FtpWeb ftp = new FtpWeb("ftp://transfert.post.be/out", "999_parcels", "dkfoec36");
+        string path = HttpRuntime.AppDomainAppPath + username;
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
+        ftp.Download(path, "m2m_result_cn09320000_" + lciFile);
     }
 
     private List<List<string>> SendTo51Parcel(Order order, UKShipmentType shipType, ServiceProvider provider, List<string> attachedFiles)

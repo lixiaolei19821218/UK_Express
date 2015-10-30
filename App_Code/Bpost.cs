@@ -9,7 +9,7 @@ using System.Web;
 /// </summary>
 public class Bpost
 {	
-    public static void GenerateLciFile(string contact, Order o, string sequenceId)
+    public static string GenerateLciFile(string contact, Order o, string sequenceId)
     {
         string senderId, contactNumber, subContactNumber;
         ParseContact(contact, out senderId, out contactNumber, out subContactNumber);
@@ -101,6 +101,8 @@ public class Bpost
 
         FtpWeb ftp = new FtpWeb("ftp://transfert.post.be", "999_parcels", "dkfoec36");
         ftp.Upload(file);
+
+        return file;
     }
 
     public static void ParseContact(string contact, out string senderId, out string contactNumber, out string subContactNumber)
