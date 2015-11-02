@@ -108,7 +108,7 @@ public class FtpWeb
                 outputStream.Write(buffer, 0, readCount);
                 readCount = ftpStream.Read(buffer, 0, bufferSize);
             }
-
+                    
             ftpStream.Close();
             outputStream.Close();
             response.Close();

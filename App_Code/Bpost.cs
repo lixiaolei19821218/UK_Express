@@ -9,12 +9,18 @@ using System.Web;
 /// </summary>
 public class Bpost
 {	
-    public static string GenerateLciFile(string contact, Order o, string sequenceId)
+    public static string GenerateLciFile(string contact, Order o)
     {
         string senderId, contactNumber, subContactNumber;
         ParseContact(contact, out senderId, out contactNumber, out subContactNumber);
-        
-        string file = AppDomain.CurrentDomain.BaseDirectory + "bpost_files/" + senderId + "_" + sequenceId + ".txt";
+        string sequenceId = o.Id.ToString().PadLeft(5, '0');
+
+        string dir = AppDomain.CurrentDomain.BaseDirectory + "bpost_files/" + o.User + "/";
+        if (!Directory.Exists(dir))
+        {
+            Directory.CreateDirectory(dir);
+        }
+        string file = dir + senderId + "_" + sequenceId + ".txt";
         StreamWriter sw = new StreamWriter(file);
         string header = string.Format("*BPI_IN*            {0}*V 3.1 *{1}", senderId, sequenceId);
         sw.WriteLine(header);

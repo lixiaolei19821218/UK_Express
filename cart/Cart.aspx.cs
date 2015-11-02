@@ -459,8 +459,7 @@ public partial class cart_Cart : System.Web.UI.Page
 
     private void SendBpostLciFile(Order o)
     {
-        lciFile = Bpost.GenerateLciFile("BPI/2015/9320", o, GetCounter().ToString().PadLeft(5, '0'));
-        lciFile = Path.GetFileName(lciFile);
+        lciFile = Bpost.GenerateLciFile("BPI/2015/9320", o);       
         System.Timers.Timer timer = new System.Timers.Timer(60000 * 30);
         timer.Elapsed += timer_Elapsed;
         timer.AutoReset = false;
@@ -471,12 +470,12 @@ public partial class cart_Cart : System.Web.UI.Page
     void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
     {
         FtpWeb ftp = new FtpWeb("ftp://transfert.post.be/out", "999_parcels", "dkfoec36");
-        string path = HttpRuntime.AppDomainAppPath + username;
+        string path = HttpRuntime.AppDomainAppPath + "bpost_files/" + username;
         if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);
         }
-        ftp.Download(path, "m2m_result_cn09320000_" + lciFile);
+        ftp.Download(path, "m2m_result_cn09320000_" + Path.GetFileName(lciFile));
     }
 
     private List<List<string>> SendTo51Parcel(Order order, UKShipmentType shipType, ServiceProvider provider, List<string> attachedFiles)
