@@ -1,0 +1,35 @@
+*BPI_IN*            09320000*V 3.1 *00089
+A0101412015932000000000000000058376          09320000139                              Charlie Li                                                                      Charlie Li                                                                    Tower Bridge       .          S9 2Hr                                  London GB        445566778899                                                                                                 Xie Bing Bing                                                                   Xie Bing Bing                                                    Zhong He Da Dao 3Duan 189Hao                  610000                                Cheng Du CN         18010631890                                                           18010631890   1000010
+D01461EA953400375BE
+D01900GOODS
+D01901RTS
+D02960001000001
+D02961001000000010,00
+D02962001GBP
+D02963001Baby Milk Powder
+D029640011000
+D02965001999999
+D02966001GB
+A0101412015932000000000000000058477          09320000139                              Charlie Li                                                                      Charlie Li                                                                    Tower Bridge       .          S9 2Hr                                  London GB        445566778899                                                                                                 Xie Bing Bing                                                                   Xie Bing Bing                                                    Zhong He Da Dao 3Duan 189Hao                  610000                                Cheng Du CN         18010631890                                                           18010631890   2000010
+D01461EA953400375BE
+D01900GOODS
+D01901RTS
+D02960001000002
+D02961001000000020,00
+D02962001GBP
+D02963001Strollers
+D029640012000
+D02965001999999
+D02966001GB
+A0101412015932000000000000000058578          09320000139                              Charlie Li                                                                      Charlie Li                                                                    Tower Bridge       .          S9 2Hr                                  London GB        445566778899                                                                                                  Xie Tian Bin                                                                    Xie Tian Bin                                                       Zhong He Zhi Ye Zhong Xue                  610041                                Cheng Du CN         15348180393                                                           15348180393   3000010
+D01461EA953400375BE
+D01900GOODS
+D01901RTS
+D02960001000003
+D02961001000000030,00
+D02962001GBP
+D02963001Kitchen Cleaning Supplies
+D029640013000
+D02965001999999
+D02966001GB
+*END*00000033

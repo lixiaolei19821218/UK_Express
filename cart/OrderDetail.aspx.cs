@@ -76,4 +76,56 @@ public partial class cart_OrderDetail : System.Web.UI.Page
         }
         return sb.ToString();
     }
+
+    public string GetStatus(Recipient r)
+    {
+        if (r.Order.Service.Name.Contains("Parcelforce"))
+        {
+            return (r.SuccessPaid ?? false) ? "<div style=\"float:right;font-size:medium;color:green;\">发送成功</div>" : "<div style=\"float:right;font-size:medium;color:red;\">发送失败</div>";
+        }
+        else//bpost
+        {
+            if (r.SuccessPaid.HasValue)
+            {
+                if (r.SuccessPaid.Value)
+                {
+                    return "<div style=\"float:right;font-size:medium;color:green;\">发送成功</div>";
+                }
+                else
+                {
+                    return "<div style=\"float:right;font-size:medium;color:red;\">发送失败</div>";
+                }
+            }
+            else
+            {
+                return "<div style=\"float:right;font-size:medium;color:lightblue;\">已发送到Bpost，等待返回信息</div>";
+            }            
+        }
+    }
+
+    public string GetPacakgeDetail(Package p)
+    {
+        if (p.Recipient.Order.Service.Name.Contains("Parcelforce"))
+        {
+            return (p.Status == "SUCCESS") ? "<a href=\"/" + p.Pdf + "\">点击下载</a>" : "<a title=\"错误信息\" class=\"btn-link\" data-container=\"body\" data-toggle=\"popover\" data-placement=\"right\" data-content=\"" + p.Response + "\">错误详情</a>";
+        }
+        else//bpost
+        {
+            if (!string.IsNullOrEmpty(p.Status))
+            {
+                if (p.Status == "SUCCESS")
+                {
+                    return "<a href=\"/" + p.Pdf + "\">点击下载</a>";
+                }
+                else
+                {
+                    return "<a title=\"错误信息\" class=\"btn-link\" data-container=\"body\" data-toggle=\"popover\" data-placement=\"right\" data-content=\"" + p.Response + "\">错误详情</a>";
+                }
+            }
+            else
+            {
+                return "<a title=\"已发送Bpost\" class=\"btn-link\" data-container=\"body\" data-toggle=\"popover\" data-placement=\"right\" data-content=\"" + "等待Bpost返回结果" + "\">已发送Bpost</a>";
+            }    
+        }
+    }
 }

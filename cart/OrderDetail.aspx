@@ -35,18 +35,18 @@
         </fieldset>
     </div>
 
-    <div style="margin-top: 15px; background-color: #fff; padding: 15px; min-height: 600px;">
-        <form runat="server" method="post" id="placeOrder" style="padding-top: 0px">
+    <div style="margin-top: 15px; margin-bottom:15px; background-color: #fff; padding: 15px; min-height: 600px;">
+        <form runat="server" method="post" id="placeOrder" style="padding-top: 0px;">
             <asp:Repeater runat="server" ItemType="Recipient" SelectMethod="GetRecipients">
                 <ItemTemplate>
                     <fieldset>
-                        <legend>收件人：<%#Item.Name %><%#(Item.SuccessPaid ?? false) ? "<div style=\"float:right;font-size:medium;color:green;\">发送成功</div>" : "<div style=\"float:right;font-size:medium;color:red;\">发送失败</div>"%></legend>
+                        <legend>收件人：<%#Item.Name %><%# GetStatus(Item)%></legend>
                         <ul>
                             <li>城市：<%#Item.City %></li>
                             <li>地址：<%#Item.Address %></li>
                             <li>手机：<%#Item.PhoneNumber %></li>
                             <li>邮编：<%#Item.ZipCode %></li>
-                            <table class="table table-orders" style="margin-top: 10px">
+                            <table class="table table-orders" style="margin-top: 10px;">
                                 <asp:Repeater runat="server" ItemType="Package" DataSource="<%#Item.Packages %>">
                                     <HeaderTemplate>
                                         <tr>
@@ -74,7 +74,7 @@
                                             <td class="tac"><%#GetPackagePrice(Item) %></td>
                                             <td class="tac"><a title="明细" class="btn-link" data-container="body" data-toggle="popover" data-placement="bottom" data-content="<%#FormatPackageItems(Item) %>">包裹明细</a></td>
                                             <td class="tac" colspan="2">
-                                                <%#(Item.Status == "SUCCESS") ? "<a href=\"/" + Item.Pdf +"\">点击下载</a>" : "<a title=\"错误信息\" class=\"btn-link\" data-container=\"body\" data-toggle=\"popover\" data-placement=\"right\" data-content=\"" + Item.Response + "\">错误详情</a>"%>
+                                                <%#GetPacakgeDetail(Item)%>
                                             </td>
                                         </tr>
                                     </ItemTemplate>

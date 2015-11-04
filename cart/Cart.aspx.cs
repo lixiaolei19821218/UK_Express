@@ -1,4 +1,6 @@
-﻿using SevenSeasAPIClient.YCShipmentService;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using SevenSeasAPIClient.YCShipmentService;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,6 +12,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading;
+using System.Timers;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -375,7 +378,7 @@ public partial class cart_Cart : System.Web.UI.Page
                 }
         */
                 #endregion
-                //o.HasPaid = true;
+                o.HasPaid = true;
             }
 
             apUser.Balance -= totalPrice;            
@@ -460,14 +463,15 @@ public partial class cart_Cart : System.Web.UI.Page
     private void SendBpostLciFile(Order o)
     {
         lciFile = Bpost.GenerateLciFile("BPI/2015/9320", o);       
-        System.Timers.Timer timer = new System.Timers.Timer(60000 * 30);
-        timer.Elapsed += timer_Elapsed;
+        System.Timers.Timer timer = new System.Timers.Timer(60000 * 45);
+
+        timer.Elapsed += new ElapsedEventHandler((s, e) => OnTimedEvent(s, e, o));
         timer.AutoReset = false;
         timer.Enabled = true;
         //Application["t"] = timer;
     }
 
-    void timer_Elapsed(object sender, System.Timers.ElapsedEventArgs e)
+    private void OnTimedEvent(object source, ElapsedEventArgs e, Order o)
     {
         FtpWeb ftp = new FtpWeb("ftp://transfert.post.be/out", "999_parcels", "dkfoec36");
         string path = HttpRuntime.AppDomainAppPath + "bpost_files/" + username;
@@ -475,8 +479,58 @@ public partial class cart_Cart : System.Web.UI.Page
         {
             Directory.CreateDirectory(path);
         }
-        ftp.Download(path, "m2m_result_cn09320000_" + Path.GetFileName(lciFile));
-    }
+        string resultFile = "m2m_result_cn09320000_" + Path.GetFileName(lciFile);
+        ftp.Download(path, resultFile);
+        string file = Path.Combine(path, resultFile);
+        StreamReader sr = new StreamReader(file);
+        string header = sr.ReadLine();
+        string status = header.Split('|')[5];
+        if (status == "SUCCES")
+        {
+            foreach (Recipient r in o.Recipients)
+            {
+                foreach (Package p in r.Packages)
+                {
+                    string line = sr.ReadLine();
+                    if (line.Contains("BB001"))
+                    {
+                        string s = line.Split('|')[2];
+                        if (s == "OK")
+                        {
+                            p.Status = "SUCCESS";
+
+                            Document document = new Document();
+                            string fileName = HttpRuntime.AppDomainAppPath + "bpost_files/" + username + "/" + Path.GetFileNameWithoutExtension(lciFile) + ".pdf";
+                            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(fileName, FileMode.Create));
+                            document.Open();
+                            PdfPTable table = new PdfPTable(3);
+                            PdfPCell cell;
+                            cell = new PdfPCell(new Phrase("Cell with colspan 3"));
+                            cell.Colspan = 3;
+                            table.AddCell(cell);
+                            cell = new PdfPCell(new Phrase("Cell with rowspan 2"));
+                            cell.Rowspan = 2;
+                            table.AddCell(cell);
+                            table.AddCell("row 1; cell 1");
+                            table.AddCell("row 1; cell 2");
+                            table.AddCell("row 2; cell 1");
+                            table.AddCell("row 2; cell 2");
+                            document.Add(table);
+                            document.Close();
+                        }
+                        else
+                        {
+                            p.Status = "FAIL";
+                        }
+                    }
+                }
+                r.SuccessPaid = r.Packages.All(p => p.Status == "SUCCESS");
+            }
+            o.SuccessPaid = o.Recipients.All(r => r.SuccessPaid.Value);
+        }
+        repo.Context.SaveChanges();
+        sr.Close();
+    }    
 
     private List<List<string>> SendTo51Parcel(Order order, UKShipmentType shipType, ServiceProvider provider, List<string> attachedFiles)
     {
