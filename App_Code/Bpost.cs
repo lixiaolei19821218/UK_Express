@@ -1,8 +1,13 @@
-﻿using System;
+﻿using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
+using ZXing;
+using ZXing.Common;
 
 /// <summary>
 /// Bpost 的摘要说明
@@ -31,6 +36,7 @@ public class Bpost
             foreach (Package p in r.Packages)
             {
                 string barcode = GenerateBarcode(contactNumber, subContactNumber, p.Id.ToString());
+                
                 string a01 = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}{13}{14}{15}{16}{17}{18}{19}{20}{21}{22}{23}{24}{25}{26}{27}{28}{29}{30}{31}{32}",
                     "A01",
                     "01",
@@ -101,6 +107,7 @@ public class Bpost
             }
         }        
         
+        
         string footer = string.Format("*END*{0}", lineCount.ToString().PadLeft(8, '0'));
         sw.Write(footer);
         sw.Close();
@@ -146,5 +153,72 @@ public class Bpost
             xx = 97;
         }
         return (temp + xx.ToString()).PadRight(40);
+    }
+
+    public static void GenerateLabel(Package p, string barcode)
+    {
+        Document document = new Document();
+        string fileName = HttpRuntime.AppDomainAppPath + "bpost_files/" + p.Recipient.Order.User + "/CollectionReceiptParcel" + p.Id.ToString().PadLeft(7, '0') + ".pdf";
+        PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(fileName, FileMode.Create));
+        document.Open();
+
+        PdfPCell cell;
+
+        PdfPTable from = new PdfPTable(3);
+        cell = new PdfPCell(new Phrase("From"));
+
+        from.AddCell(cell);
+        cell = new PdfPCell(new Phrase(string.Format("Name:999 PARCEL LTD\nBussiness:PO BOX 9320\nStreet:EMC BRU Cargo\nZip Code:1934\nCountry:BE\nPhonenr:")));
+        cell.Colspan = 2;
+        from.AddCell(cell);
+
+        iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(HttpRuntime.AppDomainAppPath + "static/img/bpost_logo.png");
+        PdfPTable image = new PdfPTable(1);
+        image.AddCell(img);
+
+        PdfPTable to = new PdfPTable(3);
+        cell = new PdfPCell(new Phrase("To"));
+        to.AddCell(cell);
+        cell = new PdfPCell(new Phrase(string.Format("Name:\t{0}\nStreet:\t{1}\n{2}\n{3}", p.Recipient.PyName, p.Recipient.PyAddress, "CHINA", p.Recipient.PyCity)));
+        cell.Colspan = 2;
+        to.AddCell(cell);
+
+        PdfPTable details = new PdfPTable(1);
+        cell = new PdfPCell(new Phrase("Service Level PRIO"));
+        details.AddCell(cell);
+        cell = new PdfPCell(new Phrase("Importer's reference"));
+        details.AddCell(cell);
+        cell = new PdfPCell(new Phrase("Importer's contact"));
+        details.AddCell(cell);
+        cell = new PdfPCell(new Phrase("Seneder's instruction in case of non-delivery"));
+        details.AddCell(cell);
+        cell = new PdfPCell(new Phrase("RETURN TO SENDER"));
+        details.AddCell(cell);
+        cell = new PdfPCell(new Phrase("Creation Date"));
+        details.AddCell(cell);
+
+        BarcodeWriter barcodeWriter = new BarcodeWriter//312010605000100000000000000447
+        {
+            Format = BarcodeFormat.CODE_128,
+            Options = new EncodingOptions
+            {
+                Height = 100,
+                Width = 600
+            }
+        };
+
+        Bitmap bitmap = barcodeWriter.Write(barcode);
+        string pngFile = HttpRuntime.AppDomainAppPath + "bpost_files/" + p.Recipient.Order.User + "/Parcel" + p.Id.ToString().PadLeft(7, '0') + ".png";
+        bitmap.Save(pngFile, System.Drawing.Imaging.ImageFormat.Png);
+        iTextSharp.text.Image barceode = iTextSharp.text.Image.GetInstance(pngFile);
+        barceode.SetAbsolutePosition(0, 350);
+
+        document.Add(from);
+        document.Add(image);
+        document.Add(to);
+        document.Add(details);
+        document.Add(barceode);
+
+        document.Close();
     }
 }

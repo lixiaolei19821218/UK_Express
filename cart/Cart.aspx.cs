@@ -462,8 +462,8 @@ public partial class cart_Cart : System.Web.UI.Page
 
     private void SendBpostLciFile(Order o)
     {
-        lciFile = Bpost.GenerateLciFile("BPI/2015/9320", o);       
-        System.Timers.Timer timer = new System.Timers.Timer(60000 * 45);
+        lciFile = Bpost.GenerateLciFile("BPI/2015/9320", o);
+        System.Timers.Timer timer = new System.Timers.Timer(1);//60000 * 45
 
         timer.Elapsed += new ElapsedEventHandler((s, e) => OnTimedEvent(s, e, o));
         timer.AutoReset = false;
@@ -498,25 +498,7 @@ public partial class cart_Cart : System.Web.UI.Page
                         if (s == "OK")
                         {
                             p.Status = "SUCCESS";
-
-                            Document document = new Document();
-                            string fileName = HttpRuntime.AppDomainAppPath + "bpost_files/" + username + "/" + Path.GetFileNameWithoutExtension(lciFile) + ".pdf";
-                            PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(fileName, FileMode.Create));
-                            document.Open();
-                            PdfPTable table = new PdfPTable(3);
-                            PdfPCell cell;
-                            cell = new PdfPCell(new Phrase("Cell with colspan 3"));
-                            cell.Colspan = 3;
-                            table.AddCell(cell);
-                            cell = new PdfPCell(new Phrase("Cell with rowspan 2"));
-                            cell.Rowspan = 2;
-                            table.AddCell(cell);
-                            table.AddCell("row 1; cell 1");
-                            table.AddCell("row 1; cell 2");
-                            table.AddCell("row 2; cell 1");
-                            table.AddCell("row 2; cell 2");
-                            document.Add(table);
-                            document.Close();
+                            Bpost.GenerateLabel(p, line.Split('|')[1]);                            
                         }
                         else
                         {
