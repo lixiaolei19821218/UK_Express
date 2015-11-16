@@ -462,7 +462,7 @@ public partial class cart_Cart : System.Web.UI.Page
 
     private void SendBpostLciFile(Order o)
     {
-        lciFile = Bpost.GenerateLciFile("BPI/2015/9320", o);
+        lciFile = Bpost.GenerateLciFile("BPI/2015/9320", o, Application, repo);
         System.Timers.Timer timer = new System.Timers.Timer(1);//60000 * 45
 
         timer.Elapsed += new ElapsedEventHandler((s, e) => OnTimedEvent(s, e, o));
@@ -497,8 +497,8 @@ public partial class cart_Cart : System.Web.UI.Page
                         string s = line.Split('|')[2];
                         if (s == "OK")
                         {
-                            p.Status = "SUCCESS";
-                            Bpost.GenerateLabel(p, line.Split('|')[1]);                            
+                            p.Status = "SUCCESS";                           
+                            p.Pdf = Bpost.GeneratePdf(p, line.Split('|')[1]);
                         }
                         else
                         {
@@ -512,7 +512,7 @@ public partial class cart_Cart : System.Web.UI.Page
         }
         repo.Context.SaveChanges();
         sr.Close();
-    }    
+    }   
 
     private List<List<string>> SendTo51Parcel(Order order, UKShipmentType shipType, ServiceProvider provider, List<string> attachedFiles)
     {
