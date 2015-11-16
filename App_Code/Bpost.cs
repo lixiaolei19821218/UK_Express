@@ -256,14 +256,19 @@ public class Bpost
         Bitmap bitmap = barcodeWriter.Write(barcode);
         string pngFile = HttpRuntime.AppDomainAppPath + "bpost_files/" + p.Recipient.Order.User + "/Parcel" + p.Id.ToString().PadLeft(7, '0') + ".png";
         bitmap.Save(pngFile, System.Drawing.Imaging.ImageFormat.Png);
+        PdfPTable imageTable = new PdfPTable(1);
+
         iTextSharp.text.Image barceode = iTextSharp.text.Image.GetInstance(pngFile);
-        barceode.SetAbsolutePosition(0, 350);
+        cell = new PdfPCell(barceode);
+        cell.Border = 0;
+        cell.PaddingTop = 20;
+        imageTable.AddCell(cell);
 
         document.Add(from);
         document.Add(image);
         document.Add(to);
         document.Add(details);
-        document.Add(barceode);
+        document.Add(imageTable);
 
         document.NewPage();
         iTextSharp.text.Font font = new iTextSharp.text.Font(iTextSharp.text.Font.FontFamily.HELVETICA, 9, 1);
