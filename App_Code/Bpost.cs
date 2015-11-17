@@ -42,7 +42,7 @@ public class Bpost
                 if (p.Recipient.PyAddress.Length <= 40)
                 {
                     addresseePlace = string.Empty.PadLeft(40);
-                    addresseeStreet = p.Recipient.PyAddress;
+                    addresseeStreet = p.Recipient.PyAddress.PadLeft(40);
                 }
                 else if (p.Recipient.PyAddress.Length <= 80)
                 {
@@ -55,6 +55,24 @@ public class Bpost
                     addresseeStreet = p.Recipient.PyAddress.Substring(40, 40);
                 }
 
+                string senderPlace, senderStreet;
+                string tempAddress = p.Recipient.Order.SenderAddress1 + p.Recipient.Order.SenderAddress2 + p.Recipient.Order.SenderAddress3;
+                if (tempAddress.Length <= 40)
+                {
+                    senderPlace = string.Empty.PadLeft(40);
+                    senderStreet = tempAddress.PadLeft(40);
+                }
+                else if (tempAddress.Length <= 80)
+                {
+                    senderPlace = tempAddress.Substring(0, 40);
+                    senderStreet = tempAddress.Substring(40).PadLeft(40);
+                }
+                else
+                {
+                    senderPlace = tempAddress.Substring(0, 40);
+                    senderStreet = tempAddress.Substring(40, 40);
+                }
+
                 string a01 = string.Format("{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12}{13}{14}{15}{16}{17}{18}{19}{20}{21}{22}{23}{24}{25}{26}{27}{28}{29}{30}{31}{32}",
                     "A01",
                     "01",
@@ -63,10 +81,10 @@ public class Bpost
                     "139",
                     p.Recipient.Order.SenderName.PadLeft(40),//
                     string.Empty.PadLeft(40),//Sender – Department
-                    p.Recipient.Order.SenderName.PadLeft(40),
-                    string.Empty.PadLeft(40),//Sender – Place
-                    (p.Recipient.Order.SenderAddress1 + p.Recipient.Order.SenderAddress2 + p.Recipient.Order.SenderAddress3).PadLeft(40),
-                    ".".PadLeft(8),//Sender – House number
+                    p.Recipient.Order.SenderName.PadLeft(40),//Sender – Contact name
+                    senderPlace,//Sender – Place
+                    senderStreet,
+                    string.Empty.PadLeft(8),//Sender – House number
                     string.Empty.PadLeft(8),//Sender – Box number
                     p.Recipient.Order.SenderZipCode.PadLeft(8),//Sender – Zip code
                     p.Recipient.Order.SenderCity.PadLeft(40),
@@ -86,8 +104,8 @@ public class Bpost
                     " CN",
                     p.Recipient.PhoneNumber.PadLeft(20),
                     string.Empty.PadLeft(50),//Addressee – E-mail
-                    p.Recipient.PhoneNumber.PadLeft(20),
-                    ((int)(p.Weight * 1000)).ToString().PadLeft(7),
+                    p.Recipient.PhoneNumber.PadLeft(20),//Addressee – Mobile
+                    ((int)(p.Weight * 1000)).ToString().PadLeft(7, '0'),//Weight
                     (3 + 7 * p.PackageItems.Count).ToString().PadLeft(3, '0')
                     );
 
@@ -134,7 +152,7 @@ public class Bpost
                     string number = (i + 1).ToString().PadLeft(3, '0');
                     PackageItem item = p.PackageItems.ElementAt(i);
                     string d02_0 = string.Format("D02960{0}{1}", number, item.Count.Value.ToString().PadLeft(6, '0'));
-                    string d02_1 = string.Format("D02961{0}{1}", number, item.Value.Value.ToString().PadLeft(12, '0')).Replace('.', ',');
+                    string d02_1 = string.Format("D02961{0}{1}", number, item.Value.Value.ToString("F2").PadLeft(12, '0').Replace('.', ','));
                     string d02_2 = string.Format("D02962{0}GBP", number);
                     string d02_3 = string.Format("D02963{0}{1}", number, item.Description);
                     string d02_4 = string.Format("D02964{0}{1}", number, ((int)(item.NettoWeight * 1000)).ToString().PadLeft(4, '0'));
@@ -197,7 +215,7 @@ public class Bpost
         {
             xx = 97;
         }
-        return (temp + xx.ToString()).PadRight(40);
+        return (temp + xx.ToString().PadLeft(2, '0')).PadRight(40);
     }
 
     public static string GeneratePdf(Package p, string barcode)
@@ -515,9 +533,19 @@ public class Bpost
         comCell = new PdfPCell(new Phrase("Origin of goods", font71));
         comCell.HorizontalAlignment = 1;
         comTable.AddCell(comCell);
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 10; i++)
         {
             comCell = new PdfPCell(new Phrase(" ", font71));
+            comTable.AddCell(comCell);
+            if (i < p.PackageItems.Count)
+            {
+                comCell = new PdfPCell(new Phrase("UK", font70));
+            }
+            else
+            {
+                comCell = new PdfPCell();
+            }
+            comCell.HorizontalAlignment = 1;
             comTable.AddCell(comCell);
         }
 
@@ -544,20 +572,34 @@ public class Bpost
         {
             if (i < p.PackageItems.Count)
             {
-                cell = new PdfPCell(new Phrase(p.PackageItems.ElementAt(i).Description, font70));
+                PackageItem item = p.PackageItems.ElementAt(i);
+                cell = new PdfPCell(new Phrase(item.Description, font70));
+                cell.Colspan = 2;
+                detail.AddCell(cell);
+
+                cell = new PdfPCell(new Phrase(item.Count.ToString(), font70));
+                cell.HorizontalAlignment = 1;
+                detail.AddCell(cell);
+                cell = new PdfPCell(new Phrase(item.NettoWeight.Value.ToString(), font70));
+                cell.HorizontalAlignment = 1;
+                detail.AddCell(cell);
+                cell = new PdfPCell(new Phrase(item.Value.Value.ToString() + " GBP", font70));
+                cell.HorizontalAlignment = 1;
+                detail.AddCell(cell);
             }
             else
             {
                 cell = new PdfPCell(new Phrase(" ", font70));
-            }
-            cell.Colspan = 2;
-            detail.AddCell(cell);
-            cell = new PdfPCell();
-            detail.AddCell(cell);
-            cell = new PdfPCell();
-            detail.AddCell(cell);
-            cell = new PdfPCell();
-            detail.AddCell(cell);
+                cell.Colspan = 2;
+                detail.AddCell(cell);
+
+                cell = new PdfPCell();
+                detail.AddCell(cell);
+                cell = new PdfPCell();
+                detail.AddCell(cell);
+                cell = new PdfPCell();
+                detail.AddCell(cell);
+            }            
         }
 
         cell = new PdfPCell(new Phrase("Total gross weight:", font71));

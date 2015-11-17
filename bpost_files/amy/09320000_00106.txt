@@ -1,0 +1,13 @@
+*BPI_IN*            09320000*V 3.1 *00106
+A0101412015932000000000000000060703          09320000139                               Leon Gong                                                                       Leon Gong                                                                         Big Ben                  S9 2Hr                                  London GB          3344556677                                                                                                  Xie Tian Bin                                                                    Xie Tian BinZhong He Da Dao San Duan Ni 189Hao Yu Ti        ng Shang Jun 4Dong 2Dan Yuan 504                  610041                                Cheng Du CN         18010631890                                                           180106318900010000010
+D01461EA954500211BE
+D01900GOODS
+D01901RTS
+D02960001000001
+D02961001000000050,00
+D02962001GBP
+D02963001Cosmetic
+D0296400110000
+D02965001999999
+D02966001GB
+*END*00000011
