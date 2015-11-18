@@ -378,15 +378,11 @@ public partial class cart_Cart : System.Web.UI.Page
                 }
         */
                 #endregion
-                o.HasPaid = true;
+                o.HasPaid = true;                
             }
 
             apUser.Balance -= totalPrice;            
-            repo.Context.SaveChanges();
-
-            Thread sendThread = new Thread(SendThreadMethod);
-            object[] mail = new object[] { Membership.GetUser().Email, "您在999Parcel的订单", "请查收您在999Parcel的订单。", attachmentPaths.ToArray() };
-            sendThread.Start(mail);
+            repo.Context.SaveChanges();      
             
             Response.Redirect("Paid.aspx");            
         }
@@ -463,7 +459,7 @@ public partial class cart_Cart : System.Web.UI.Page
     private void SendBpostLciFile(Order o)
     {
         lciFile = Bpost.GenerateLciFile("BPI/2015/9320", o, Application, repo);
-        System.Timers.Timer timer = new System.Timers.Timer(60000 * 45);//60000 * 45
+        System.Timers.Timer timer = new System.Timers.Timer(60000 * 60);//60000 * 45
 
         timer.Elapsed += new ElapsedEventHandler((s, e) => OnTimedEvent(s, e, o));
         timer.AutoReset = false;
@@ -485,6 +481,8 @@ public partial class cart_Cart : System.Web.UI.Page
         StreamReader sr = new StreamReader(file);
         string header = sr.ReadLine();
         string status = header.Split('|')[5];
+        List<string> attachedFiles = new List<string>();
+       
         if (status == "SUCCES")
         {
             foreach (Recipient r in o.Recipients)
@@ -499,6 +497,7 @@ public partial class cart_Cart : System.Web.UI.Page
                         {
                             p.Status = "SUCCESS";                           
                             p.Pdf = Bpost.GeneratePdf(p, line.Split('|')[1]);
+                            attachedFiles.Add(HttpRuntime.AppDomainAppPath + p.Pdf);
                         }
                         else
                         {
@@ -512,6 +511,10 @@ public partial class cart_Cart : System.Web.UI.Page
         }
         repo.Context.SaveChanges();
         sr.Close();
+
+        Thread sendThread = new Thread(SendThreadMethod);
+        object[] mail = new object[] { Membership.GetUser().Email, "您在999Parcel的订单", "请查收您在999Parcel的订单。", attachedFiles.ToArray() };
+        sendThread.Start(mail);
     }   
 
     private List<List<string>> SendTo51Parcel(Order order, UKShipmentType shipType, ServiceProvider provider, List<string> attachedFiles)
@@ -673,6 +676,11 @@ public partial class cart_Cart : System.Web.UI.Page
             package.Status = "EXCEPTION";
         }
         package.Response = response;
+
+        Thread sendThread = new Thread(SendThreadMethod);
+        object[] mail = new object[] { Membership.GetUser().Email, "您在999Parcel的订单", "请查收您在999Parcel的订单。", attachedFiles.ToArray() };
+        sendThread.Start(mail);
+
         return response;
     }
 

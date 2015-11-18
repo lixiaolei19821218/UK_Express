@@ -219,9 +219,10 @@ public partial class products_Product : System.Web.UI.Page
                 PackageItem item = new PackageItem();
                 item.Description = Request.Form.Get(string.Format("parcel-{0}-content-{1}-type", i, j)).Trim();
                 item.TariffCode = "999999";
-                item.Value = Math.Round(decimal.Parse(Request.Form.Get(string.Format("parcel-{0}-content-{1}-cost", i, j))), 2);
-                item.NettoWeight = Math.Round(weight, 3);
                 item.Count = int.Parse(Request.Form.Get(string.Format("parcel-{0}-content-{1}-quantity", i, j)));
+                decimal unitPrice = decimal.Parse(Request.Form.Get(string.Format("parcel-{0}-content-{1}-cost", i, j)));
+                item.Value = Math.Round(unitPrice * (decimal)item.Count, 2);
+                item.NettoWeight = Math.Round(weight, 3);                
                 packages[i].PackageItems.Add(item);
             }
             packages[i].Value = packages[i].PackageItems.Sum(pi => pi.Value);
