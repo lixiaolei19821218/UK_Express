@@ -248,7 +248,7 @@
 
                                 </div>
 
-                                <div style="float: left; margin: 5px" class="control-group ">
+                                <div style="float: left; margin: 5px" class="control-group " hidden="hidden">
                                     <label for="id_additional_instructions">备注</label>
                                     <input class="input-xxlarge" id="id_additional_instructions" maxlength="50" name="additional_instructions" style="width: 270px" type="text" />
 

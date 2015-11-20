@@ -225,7 +225,7 @@
                     <div class="row">
                         <div class="col-md-3 col-sm-4 col-xs-6"><a href="/our-services/" class="clrw1">速递服务</a></div>
                         <div class="col-md-3 col-sm-4 col-xs-6"><a href="/news/" class="clrw1">新闻资询</a></div>
-                        <div class="col-md-3 col-sm-4 col-xs-6"><a href="/account/orders/" class="clrw1">我的帐户</a></div>
+                        <div class="col-md-3 col-sm-4 col-xs-6"><a href="/accounts/UserCentre/" class="clrw1">我的帐户</a></div>
                     </div>
                     <div class="row">
                         <div class="col-md-3 col-sm-4 col-xs-6"><a href="/our-services/zy/" class="clrb1">国际快递</a></div>

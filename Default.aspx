@@ -225,10 +225,10 @@
                             跟踪包裹
                         </div>
                         <div class="rds2" style="background-color: #fff; padding-left: 20px; padding-right: 20px">
-                            <form style="margin: 0" action="/track">
-                                <input type="text" style="margin: 5px 0; width: 100%; height: 30px" placeholder="追踪号" id="tracking">
+                            <form style="margin: 0" method="post">
+                                <input type="text" style="margin: 5px 0; width: 100%; height: 30px" placeholder="追踪号" name="tracking" id="tracking">
                                 <div class="tar">
-                                    <input type="submit" class="bg2 clrw1" style="width: 83px; height: 23px; background-position: -3px -63px; border: none; background-color: #fff" value="查询 &gt;" />
+                                    <input type="submit" name="track" id="track" class="bg2 clrw1" style="width: 83px; height: 23px; background-position: -3px -63px; border: none; background-color: #fff" value="查询 &gt;" />
                                 </div>
                             </form>
                         </div>

@@ -108,14 +108,14 @@ public class Bpost
                     ((int)(p.Weight * 1000)).ToString().PadLeft(7, '0'),//Weight
                     (3 + 7 * p.PackageItems.Count).ToString().PadLeft(3, '0')
                     );
-
+                
                 application.Lock();                
                 int sequenceNumber = application["SequenceNumber"] != null ? (int)application["SequenceNumber"] : int.Parse(ConfigurationManager.AppSettings["EAStartNum"]);
                 application["SequenceNumber"] = sequenceNumber + 1;
-                application.UnLock();
+                application.UnLock();              
 
                 int sum = 0;
-                int[] weightFactors = new int[]{8,6,4,2,3,5,9,7};
+                int[] weightFactors = new int[] { 8, 6, 4, 2, 3, 5, 9, 7 };
                 string digits = sequenceNumber.ToString();
                 for (int i = 0; i < 8; i++)
                 {

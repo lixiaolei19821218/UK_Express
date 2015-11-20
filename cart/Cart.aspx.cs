@@ -459,7 +459,7 @@ public partial class cart_Cart : System.Web.UI.Page
     private void SendBpostLciFile(Order o)
     {
         lciFile = Bpost.GenerateLciFile("BPI/2015/9320", o, Application, repo);
-        System.Timers.Timer timer = new System.Timers.Timer(60000 * 60);//60000 * 45
+        System.Timers.Timer timer = new System.Timers.Timer(60000 * 60);//60000 * 60
 
         timer.Elapsed += new ElapsedEventHandler((s, e) => OnTimedEvent(s, e, o));
         timer.AutoReset = false;

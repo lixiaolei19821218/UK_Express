@@ -37,6 +37,12 @@ public partial class Default2 : System.Web.UI.Page
                     loginDiv.Visible = true;
                     logoutDiv.Visible = false;
                 }
+
+                string track = Request["track"];
+                if (!string.IsNullOrEmpty(track))
+                {
+                    Response.Redirect("http://www.trackmyorder.eu/track/default/" + Request["tracking"]);
+                }
             }
             else//点击登录
             {

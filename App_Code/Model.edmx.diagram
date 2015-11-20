@@ -30,6 +30,7 @@
         <EntityTypeShape EntityType="UK_ExpressModel.aspnet_User" Width="1.5" PointX="0.75" PointY="10.75" />
         <EntityTypeShape EntityType="UK_ExpressModel.PackageItem" Width="1.5" PointX="9.75" PointY="2" />
         <AssociationConnector Association="UK_ExpressModel.FK_PackageID" />
+        <EntityTypeShape EntityType="UK_ExpressModel.EASequenceNum" Width="1.5" PointX="10.375" PointY="9.75" />
         </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
