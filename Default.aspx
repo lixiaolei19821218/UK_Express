@@ -163,52 +163,13 @@
 
                         <div style="background-color: #fff; padding: 15px 20px">
                             <div style="min-height: 275px">
-
-                                <a href="/news/collect-%E4%BE%BF%E5%88%A9%E5%BA%97%E6%8A%95%E9%80%92%E6%9C%8D%E5%8A%A1%E4%B8%8A%E7%BA%BF/" class="mg2 bg2" style="background-position: -356px 1px; background-repeat: no-repeat">
-                                    <span class="clrb5 bold">2015/1/15 00:54:00</span>&nbsp;
-                <span class="clrb4">Collect+ 便利店投递服务上线</span>
-
-                                    <div>
-                                    </div>
-
-                                </a>
-
-                                <a href="/news/bpost-%E6%96%B0%E5%B9%B4%E7%89%B9%E4%BB%B7%E5%92%8C%E6%9C%8D%E5%8A%A1%E6%9B%B4%E5%8F%98/" class="mg2 bg2" style="background-position: -356px 1px; background-repeat: no-repeat">
-                                    <span class="clrb5 bold">2014/12/29 17:27:38</span>&nbsp;
-                <span class="clrb4">Bpost 新年特价和服务变更</span>
-
-                                </a>
-
-                                <a href="/www.send2china.co.uk/20141229-01/" class="mg2 bg2" style="background-position: -356px 1px; background-repeat: no-repeat">
-                                    <span class="clrb5 bold">2014/12/29 09:51:12</span>&nbsp;
-                <span class="clrb4">12月30日启用营销QQ：800080639</span>
-
-                                </a>
-
-                                <a href="/news/%E5%85%B3%E4%BA%8E%E9%80%9F%E9%80%92%E4%B8%AD%E5%9B%BD%E7%AE%B1%E5%AD%90%E8%B4%AD%E4%B9%B0%E7%9A%84%E6%9C%8D%E5%8A%A1%E6%9B%B4%E6%96%B0/" class="mg2 bg2" style="background-position: -356px 1px; background-repeat: no-repeat">
-                                    <span class="clrb5 bold">2014/12/19 15:26:00</span>&nbsp;
-                <span class="clrb4">关于诚信物流箱子购买的服务更新</span>
-
-                                </a>
-
-                                <a href="/news/141219-01/" class="mg2 bg2" style="background-position: -356px 1px; background-repeat: no-repeat">
-                                    <span class="clrb5 bold">2014/12/19 13:02:21</span>&nbsp;
-                <span class="clrb4">ParcelForce经济包裹自送邮局如果邮局不接受怎么办？</span>
-
-                                </a>
-
-                                <a href="/news/parcelforce-%E7%BB%8F%E6%B5%8E%E5%8C%85%E8%87%AA%E9%80%81%E9%82%AE%E5%B1%80%E6%9C%8D%E5%8A%A1%E4%B8%8A%E7%BA%BF/" class="mg2 bg2" style="background-position: -356px 1px; background-repeat: no-repeat">
-                                    <span class="clrb5 bold">2014/12/10 22:10:20</span>&nbsp;
-                <span class="clrb4">Parcelforce 经济包自送邮局服务上线 </span>
-
-                                </a>
-
-                                <a href="/news/parcelforce%E4%BD%93%E7%A7%AF%E8%AF%AF%E5%B7%AE%E7%AC%AC%E4%BA%8C%E6%89%B9%E9%80%80%E6%AC%BE/" class="mg2 bg2" style="background-position: -356px 1px; background-repeat: no-repeat">
-                                    <span class="clrb5 bold">2014/12/7 22:54:43</span>&nbsp;
-                <span class="clrb4">ParcelForce体积误差第二批退款</span>
-
-                                </a>
-
+                                <asp:Repeater runat="server" ItemType="News" SelectMethod="GetNews" >
+                                    <ItemTemplate>
+                                        <a href="/news/newsdetail.aspx?id=<%#Item.Id %>" class="mg2 bg2" style="background-position: -356px -4px; background-repeat: no-repeat">
+                                            <span class="clrb5 bold"><%#Item.PulishTime %></span>&nbsp;<span class="clrb4"><%#Item.Title %></span>
+                                        </a>
+                                    </ItemTemplate>
+                                </asp:Repeater>
                             </div>
                             <div class="mg2 tar">
                                 <a href="/news/" class="clrb4 udl">更多</a>
@@ -340,9 +301,9 @@
                             </div>
                             <div style="margin-left: 20px">
 
-                                <div class="fl bg2" style="display: block; width: 119px; height: 110px; background-position: 1px -102px; margin-left: 20px"></div>
-                                <div class="fl bg2" style="display: block; width: 119px; height: 110px; background-position: -121px -102px; margin-left: 20px"></div>
-                                <div class="fl bg2" style="display: block; width: 119px; height: 110px; background-position: -250px -102px; margin-left: 20px"></div>
+                                <div class="fl bg2" style="display: block; width: 119px; height: 110px; background-position: 1px -110px; margin-left: 20px"></div>
+                                <div class="fl bg2" style="display: block; width: 119px; height: 110px; background-position: -121px -110px; margin-left: 20px"></div>
+                                <div class="fl bg2" style="display: block; width: 119px; height: 110px; background-position: -250px -110px; margin-left: 20px"></div>
 
                                 <div class="cb"></div>
                             </div>

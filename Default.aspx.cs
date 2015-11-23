@@ -9,6 +9,10 @@ using System.Web.Security;
 
 public partial class Default2 : System.Web.UI.Page
 {
+
+    [Ninject.Inject]
+    public IRepository repo { get; set; }
+
     private Order order = new Order();
 
     public Order Order
@@ -17,6 +21,11 @@ public partial class Default2 : System.Web.UI.Page
         {
             return order;
         }
+    }
+
+    public IEnumerable<News> GetNews()
+    {
+        return repo.Context.News.Take(10);
     }
 
     protected void Page_Load(object sender, EventArgs e)

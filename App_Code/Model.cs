@@ -30,6 +30,14 @@ public partial class EASequenceNum
     public int Id { get; set; }
 }
 
+public partial class News
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Content { get; set; }
+    public System.DateTime PulishTime { get; set; }
+}
+
 public partial class Order
 {
     public Order()

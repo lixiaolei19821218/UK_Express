@@ -13,7 +13,7 @@
     <asp:ContentPlaceHolder id="head" runat="server">
     </asp:ContentPlaceHolder>
 
-    <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon-gf.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/999parcel_title.png">
 
 
     <link href="/static/bootstrap3/css/bootstrap.min.css" rel="stylesheet">
