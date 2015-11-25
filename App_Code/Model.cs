@@ -25,11 +25,6 @@ public partial class aspnet_User
     public string CellPhone { get; set; }
 }
 
-public partial class EASequenceNum
-{
-    public int Id { get; set; }
-}
-
 public partial class News
 {
     public int Id { get; set; }

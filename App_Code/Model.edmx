@@ -21,12 +21,6 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="256" />
           <Property Name="CellPhone" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="EASequenceNum">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
         <EntityType Name="News">
           <Key>
             <PropertyRef Name="Id" />
@@ -661,7 +655,6 @@
         </Function>
         <EntityContainer Name="UK_ExpressModelStoreContainer">
           <EntitySet Name="aspnet_Users" EntityType="Self.aspnet_Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EASequenceNum" EntityType="Self.EASequenceNum" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="News" EntityType="Self.News" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PackageItems" EntityType="Self.PackageItems" Schema="dbo" store:Type="Tables" />
@@ -1113,7 +1106,6 @@
             <End Role="Package" EntitySet="Packages" />
             <End Role="PackageItem" EntitySet="PackageItems" />
           </AssociationSet>
-          <EntitySet Name="EASequenceNums" EntityType="UK_ExpressModel.EASequenceNum" />
           <EntitySet Name="News" EntityType="UK_ExpressModel.News" />
         </EntityContainer>
         <ComplexType Name="aspnet_Membership_GetPassword_Result">
@@ -1495,12 +1487,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="EASequenceNum">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-        </EntityType>
         <EntityType Name="News">
           <Key>
             <PropertyRef Name="Id" />
@@ -1823,13 +1809,6 @@
                 <ScalarProperty Name="NettoWeight" ColumnName="NettoWeight" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="EASequenceNums">
-            <EntityTypeMapping TypeName="UK_ExpressModel.EASequenceNum">
-              <MappingFragment StoreEntitySet="EASequenceNum">
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

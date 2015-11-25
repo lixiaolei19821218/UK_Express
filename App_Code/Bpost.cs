@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.Profile;
 using ZXing;
 using ZXing.Common;
 
@@ -108,11 +109,20 @@ public class Bpost
                     ((int)(p.Weight * 1000)).ToString().PadLeft(7, '0'),//Weight
                     (3 + 7 * p.PackageItems.Count).ToString().PadLeft(3, '0')
                     );
-                
+
+                application.Lock();   
+                ProfileBase profile = ProfileBase.Create("EASequenceNumber");
+                int sequenceNumber = (int)(profile["counter"]);
+                profile["counter"] = ++sequenceNumber;
+                profile.Save();
+                application.UnLock();
+
+                /*
                 application.Lock();                
                 int sequenceNumber = application["SequenceNumber"] != null ? (int)application["SequenceNumber"] : int.Parse(ConfigurationManager.AppSettings["EAStartNum"]);
                 application["SequenceNumber"] = sequenceNumber + 1;
                 application.UnLock();              
+                */
 
                 int sum = 0;
                 int[] weightFactors = new int[] { 8, 6, 4, 2, 3, 5, 9, 7 };

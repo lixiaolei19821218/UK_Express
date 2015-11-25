@@ -8,7 +8,8 @@
             
     <div style="background-color:#fff;padding:30px;margin-top:15px; margin-bottom:15px; min-height:800px;">
        <h2><%:GetTitle() %></h2>
-    <p><span style="font-size: large;"><%:GetContent() %></span></p>
+    <p><span style="font-size: large;"><%:GetContent() %></span></p>
+
     </div>   
 
 </asp:Content>

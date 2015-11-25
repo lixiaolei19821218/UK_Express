@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
 using System.Web.Security;
+using System.Web.Profile;
 
 public partial class Default2 : System.Web.UI.Page
 {
