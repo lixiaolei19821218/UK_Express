@@ -948,4 +948,59 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="HTOrderStatusCode" nillable="true" type="tns:HTOrderStatusCode" />
+  <xs:complexType name="ProductRegisterRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AuthenticationDetails" nillable="true" type="tns:AuthenticationDetails" />
+      <xs:element minOccurs="0" name="ProductDetails" nillable="true" type="tns:ArrayOfProductRegisterData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductRegisterRequest" nillable="true" type="tns:ProductRegisterRequest" />
+  <xs:complexType name="ArrayOfProductRegisterData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ProductRegisterData" nillable="true" type="tns:ProductRegisterData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfProductRegisterData" nillable="true" type="tns:ArrayOfProductRegisterData" />
+  <xs:complexType name="ProductRegisterData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ProductBarcode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ProductEnglishName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegisterCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SalePrice" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Unit" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UnitWeight" type="xs:decimal" />
+      <xs:element minOccurs="0" name="VendorSKU" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WrapUnit" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductRegisterData" nillable="true" type="tns:ProductRegisterData" />
+  <xs:complexType name="ProductRegisterResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Status" nillable="true" type="tns:ResponseStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductRegisterResponse" nillable="true" type="tns:ProductRegisterResponse" />
+  <xs:complexType name="ProductRegisterStatusCheckRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AuthenticationDetails" nillable="true" type="tns:AuthenticationDetails" />
+      <xs:element minOccurs="0" name="ProductRegisterCode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductRegisterStatusCheckRequest" nillable="true" type="tns:ProductRegisterStatusCheckRequest" />
+  <xs:complexType name="ProductRegisterStatusCheckResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ProductRegisterStatus" type="tns:ProductRegisterStatus" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="tns:ResponseStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ProductRegisterStatusCheckResponse" nillable="true" type="tns:ProductRegisterStatusCheckResponse" />
+  <xs:simpleType name="ProductRegisterStatus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RequestReceived" />
+      <xs:enumeration value="Transalted" />
+      <xs:enumeration value="WaitingForApproval" />
+      <xs:enumeration value="Approved" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="ProductRegisterStatus" nillable="true" type="tns:ProductRegisterStatus" />
 </xs:schema>

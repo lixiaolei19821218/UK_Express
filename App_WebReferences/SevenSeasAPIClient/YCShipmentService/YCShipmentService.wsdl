@@ -115,6 +115,18 @@
   <wsdl:message name="IYCShipmentService_RetrieveHTOrderInfomation_OutputMessage">
     <wsdl:part name="parameters" element="tns:RetrieveHTOrderInfomationResponse" />
   </wsdl:message>
+  <wsdl:message name="IYCShipmentService_RegisterProduct_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterProduct" />
+  </wsdl:message>
+  <wsdl:message name="IYCShipmentService_RegisterProduct_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterProductResponse" />
+  </wsdl:message>
+  <wsdl:message name="IYCShipmentService_CheckProductRegisterStatus_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckProductRegisterStatus" />
+  </wsdl:message>
+  <wsdl:message name="IYCShipmentService_CheckProductRegisterStatus_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckProductRegisterStatusResponse" />
+  </wsdl:message>
   <wsdl:portType name="IYCShipmentService">
     <wsdl:operation name="DeleteShipment">
       <wsdl:input wsaw:Action="http://tempuri.org/IYCShipmentService/DeleteShipment" message="tns:IYCShipmentService_DeleteShipment_InputMessage" />
@@ -187,6 +199,14 @@
     <wsdl:operation name="RetrieveHTOrderInfomation">
       <wsdl:input wsaw:Action="http://tempuri.org/IYCShipmentService/RetrieveHTOrderInfomation" message="tns:IYCShipmentService_RetrieveHTOrderInfomation_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IYCShipmentService/RetrieveHTOrderInfomationResponse" message="tns:IYCShipmentService_RetrieveHTOrderInfomation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterProduct">
+      <wsdl:input wsaw:Action="http://tempuri.org/IYCShipmentService/RegisterProduct" message="tns:IYCShipmentService_RegisterProduct_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IYCShipmentService/RegisterProductResponse" message="tns:IYCShipmentService_RegisterProduct_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckProductRegisterStatus">
+      <wsdl:input wsaw:Action="http://tempuri.org/IYCShipmentService/CheckProductRegisterStatus" message="tns:IYCShipmentService_CheckProductRegisterStatus_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IYCShipmentService/CheckProductRegisterStatusResponse" message="tns:IYCShipmentService_CheckProductRegisterStatus_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IYCShipmentService" type="tns:IYCShipmentService">
@@ -346,6 +366,24 @@
     </wsdl:operation>
     <wsdl:operation name="RetrieveHTOrderInfomation">
       <soap:operation soapAction="http://tempuri.org/IYCShipmentService/RetrieveHTOrderInfomation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterProduct">
+      <soap:operation soapAction="http://tempuri.org/IYCShipmentService/RegisterProduct" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CheckProductRegisterStatus">
+      <soap:operation soapAction="http://tempuri.org/IYCShipmentService/CheckProductRegisterStatus" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>

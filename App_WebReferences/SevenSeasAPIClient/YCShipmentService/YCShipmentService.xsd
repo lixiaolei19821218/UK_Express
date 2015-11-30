@@ -253,4 +253,32 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="RegisterProduct">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q37="http://schemas.datacontract.org/2004/07/YCShipmentService" minOccurs="0" name="request" nillable="true" type="q37:ProductRegisterRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RegisterProductResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q38="http://schemas.datacontract.org/2004/07/YCShipmentService" minOccurs="0" name="RegisterProductResult" nillable="true" type="q38:ProductRegisterResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckProductRegisterStatus">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q39="http://schemas.datacontract.org/2004/07/YCShipmentService" minOccurs="0" name="request" nillable="true" type="q39:ProductRegisterStatusCheckRequest" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CheckProductRegisterStatusResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q40="http://schemas.datacontract.org/2004/07/YCShipmentService" minOccurs="0" name="CheckProductRegisterStatusResult" nillable="true" type="q40:ProductRegisterStatusCheckResponse" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>
