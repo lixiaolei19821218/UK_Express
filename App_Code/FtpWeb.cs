@@ -87,16 +87,18 @@ public class FtpWeb
     public void Download(string filePath, string fileName)
     {
         FtpWebRequest reqFTP;
+        FileStream outputStream = new FileStream(filePath + "\\" + fileName, FileMode.Create);
+
+        reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI + fileName));
+        reqFTP.Method = WebRequestMethods.Ftp.DownloadFile;
+        reqFTP.UseBinary = true;
+        reqFTP.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
+        FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
+        Stream ftpStream = response.GetResponseStream();
+
         try
         {
-            FileStream outputStream = new FileStream(filePath + "\\" + fileName, FileMode.Create);
-
-            reqFTP = (FtpWebRequest)FtpWebRequest.Create(new Uri(ftpURI + fileName));
-            reqFTP.Method = WebRequestMethods.Ftp.DownloadFile;
-            reqFTP.UseBinary = true;
-            reqFTP.Credentials = new NetworkCredential(ftpUserID, ftpPassword);
-            FtpWebResponse response = (FtpWebResponse)reqFTP.GetResponse();
-            Stream ftpStream = response.GetResponseStream();
+            
             long cl = response.ContentLength;
             int bufferSize = 2048;
             int readCount;
@@ -109,13 +111,17 @@ public class FtpWeb
                 readCount = ftpStream.Read(buffer, 0, bufferSize);
             }
                     
-            ftpStream.Close();
-            outputStream.Close();
-            response.Close();
+            
         }
         catch (Exception ex)
         {
             Insert_Standard_ErrorLog.Insert("FtpWeb", "Download Error --> " + ex.Message);
+        }
+        finally
+        {
+            ftpStream.Close();
+            outputStream.Close();
+            response.Close();
         }
     }
 

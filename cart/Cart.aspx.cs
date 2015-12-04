@@ -459,7 +459,7 @@ public partial class cart_Cart : System.Web.UI.Page
     private void SendBpostLciFile(Order o)
     {
         lciFile = Bpost.GenerateLciFile("BPI/2015/9320", o, Application, repo);
-        System.Timers.Timer timer = new System.Timers.Timer(60000 * 60);//60000 * 60
+        System.Timers.Timer timer = new System.Timers.Timer(1);//60000 * 60
 
         timer.Elapsed += new ElapsedEventHandler((s, e) => OnTimedEvent(s, e, o));
         timer.AutoReset = false;
@@ -469,6 +469,8 @@ public partial class cart_Cart : System.Web.UI.Page
 
     private void OnTimedEvent(object source, ElapsedEventArgs e, Order o)
     {
+        string path0 = HttpRuntime.AppDomainAppPath + "bpost_files/" + username;
+        File.Create(path0 + "/bpost_ftp_log_" + DateTime.Now.Ticks.ToString() + ".txt");
         FtpWeb ftp = new FtpWeb("ftp://transfert.post.be/out", "999_parcels", "dkfoec36");
         string path = HttpRuntime.AppDomainAppPath + "bpost_files/" + username;
         if (!Directory.Exists(path))
