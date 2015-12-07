@@ -29,19 +29,22 @@ public partial class cart_Paid : System.Web.UI.Page
    
     protected void Page_Load(object sender, EventArgs e)
     {
-        username = Membership.GetUser().UserName;
-        apUser = repo.Context.aspnet_User.First(u => u.UserName == username);
+        if (!IsPostBack)
+        {
+            username = Membership.GetUser().UserName;
+            apUser = repo.Context.aspnet_User.First(u => u.UserName == username);
 
-        //normalOrders = from o in repo.Orders where o.User == username && !(o.IsSheffieldOrder ?? false) && (o.HasPaid ?? false) select o;
-        normalOrders = GetNormalOrders();
-        sheffieldOrders = from o in repo.Context.SheffieldOrders where o.User == username select o;
+            //normalOrders = from o in repo.Orders where o.User == username && !(o.IsSheffieldOrder ?? false) && (o.HasPaid ?? false) select o;
+            normalOrders = GetNormalOrders();
+            sheffieldOrders = from o in repo.Context.SheffieldOrders where o.User == username select o;
 
-        balance = apUser.Balance;
-        totalPrice = normalOrders.Sum(o => o.Cost.Value);
-        //totalPrice = normalOrders.Sum(o => o.Cost.Value) + sheffieldOrders.Sum(so => so.Orders.Sum(o => o.Cost.Value));
+            balance = apUser.Balance;
+            totalPrice = normalOrders.Sum(o => o.Cost.Value);
+            //totalPrice = normalOrders.Sum(o => o.Cost.Value) + sheffieldOrders.Sum(so => so.Orders.Sum(o => o.Cost.Value));
 
-        normalField.Visible = normalOrders.Count() != 0 ? true : false;
-        sheffieldField.Visible = sheffieldOrders.Count() != 0 ? true : false;
+            normalField.Visible = normalOrders.Count() != 0 ? true : false;
+            sheffieldField.Visible = sheffieldOrders.Count() != 0 ? true : false;
+        }
     }
 
     public IEnumerable<Order> GetNormalOrders()
@@ -58,64 +61,67 @@ public partial class cart_Paid : System.Web.UI.Page
             }
 
             string[] allFiles = ftp.GetFileList("*.*");
-            foreach (Order order in orders.Where(o => o.Service.Name.Contains("Bpost") && !o.SuccessPaid.HasValue))
+            if (allFiles != null)
             {
-                string resultFile = string.Format("m2m_result_cn09320000_09320000_{0}.txt", order.Id.ToString().PadLeft(5, '0'));
-                if (allFiles.Contains(resultFile))
+                foreach (Order order in orders.Where(o => o.Service.Name.Contains("Bpost") && !o.SuccessPaid.HasValue))
                 {
-                    ftp.Download(path, resultFile);
-                    string file = Path.Combine(path, resultFile);
-                    if (!File.Exists(file))
+                    string resultFile = string.Format("m2m_result_cn09320000_09320000_{0}.txt", order.Id.ToString().PadLeft(5, '0'));
+                    if (allFiles.Contains(resultFile))
                     {
-                        throw new Exception("从Bpost下载结果文件失败，请联系管理员。");
-                    }
-                    StreamReader sr = new StreamReader(file);
-                    string header = sr.ReadLine();
-                    string status = header.Split('|')[5];
-                    List<string> attachedFiles = new List<string>();
-
-                    if (status == "SUCCES")
-                    {
-                        foreach (Recipient r in order.Recipients)
+                        ftp.Download(path, resultFile);
+                        string file = Path.Combine(path, resultFile);
+                        if (!File.Exists(file))
                         {
-                            foreach (Package p in r.Packages)
+                            throw new Exception("从Bpost下载结果文件失败，请联系管理员。");
+                        }
+                        StreamReader sr = new StreamReader(file);
+                        string header = sr.ReadLine();
+                        string status = header.Split('|')[5];
+                        List<string> attachedFiles = new List<string>();
+
+                        if (status == "SUCCES")
+                        {
+                            foreach (Recipient r in order.Recipients)
                             {
-                                string line = sr.ReadLine();
-                                if (line.Contains("BB001"))
+                                foreach (Package p in r.Packages)
                                 {
-                                    string s = line.Split('|')[2];
-                                    if (s == "OK")
+                                    string line = sr.ReadLine();
+                                    if (line.Contains("BB001"))
                                     {
-                                        p.Status = "SUCCESS";
-                                        p.Pdf = Bpost.GeneratePdf(p, line.Split('|')[1]);
-                                        attachedFiles.Add(HttpRuntime.AppDomainAppPath + p.Pdf);
-                                    }
-                                    else
-                                    {
-                                        p.Status = "FAIL";
+                                        string s = line.Split('|')[2];
+                                        if (s == "OK")
+                                        {
+                                            p.Status = "SUCCESS";
+                                            p.Pdf = Bpost.GeneratePdf(p, line.Split('|')[1]);
+                                            attachedFiles.Add(HttpRuntime.AppDomainAppPath + p.Pdf);
+                                        }
+                                        else
+                                        {
+                                            p.Status = "FAIL";
+                                        }
                                     }
                                 }
+                                r.SuccessPaid = r.Packages.All(p => p.Status == "SUCCESS");
                             }
-                            r.SuccessPaid = r.Packages.All(p => p.Status == "SUCCESS");
+                            order.SuccessPaid = order.Recipients.All(r => r.SuccessPaid.Value);
                         }
-                        order.SuccessPaid = order.Recipients.All(r => r.SuccessPaid.Value);
-                    }
-                    else
-                    {
-                        order.SuccessPaid = false;
-                        foreach (Recipient r in order.Recipients)
+                        else
                         {
-                            r.SuccessPaid = false;
-                            foreach (Package p in r.Packages)
+                            order.SuccessPaid = false;
+                            foreach (Recipient r in order.Recipients)
                             {
-                                p.Status = "FAIL";
+                                r.SuccessPaid = false;
+                                foreach (Package p in r.Packages)
+                                {
+                                    p.Status = "FAIL";
+                                }
                             }
                         }
+                        sr.Close();
                     }
-                    sr.Close();
                 }
-            }
-            repo.Context.SaveChanges();
+                repo.Context.SaveChanges();
+            }            
         }        
         return orders;
     }
