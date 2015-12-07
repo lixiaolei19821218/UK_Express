@@ -48,54 +48,58 @@ public partial class cart_Paid : System.Web.UI.Page
     {
         var orders = from o in repo.Orders where o.User == username && !(o.IsSheffieldOrder ?? false) && (o.HasPaid ?? false) select o;
 
-        foreach (Order order in orders.Where(o => o.Service.Name.Contains("Bpost") && !(o.SuccessPaid ?? false)))
+        FtpWeb ftp = new FtpWeb("ftp://transfert.post.be/out", "999_parcels", "dkfoec36");
+        string path = HttpRuntime.AppDomainAppPath + "bpost_files/" + username;
+        if (!Directory.Exists(path))
         {
-            FtpWeb ftp = new FtpWeb("ftp://transfert.post.be/out", "999_parcels", "dkfoec36");
-            string path = HttpRuntime.AppDomainAppPath + "bpost_files/" + username;
-            if (!Directory.Exists(path))
-            {
-                Directory.CreateDirectory(path);
-            }
+            Directory.CreateDirectory(path);
+        }
+        foreach (Order order in orders.Where(o => o.Service.Name.Contains("Bpost") && !(o.SuccessPaid ?? false)))
+        {          
             string resultFile = string.Format("m2m_result_cn09320000_09320000_{0}.txt", order.Id.ToString().PadLeft(5, '0'));
-            ftp.Download(path, resultFile);
-            string file = Path.Combine(path, resultFile);
-            if (!File.Exists(file))
-            {
-                throw new Exception("从Bpost下载结果文件失败，请联系管理员。");
-            }
-            StreamReader sr = new StreamReader(file);
-            string header = sr.ReadLine();
-            string status = header.Split('|')[5];
-            List<string> attachedFiles = new List<string>();
 
-            if (status == "SUCCES")
+            if (ftp.FileExist(resultFile))
             {
-                foreach (Recipient r in order.Recipients)
+                ftp.Download(path, resultFile);
+                string file = Path.Combine(path, resultFile);
+                if (!File.Exists(file))
                 {
-                    foreach (Package p in r.Packages)
+                    throw new Exception("从Bpost下载结果文件失败，请联系管理员。");
+                }
+                StreamReader sr = new StreamReader(file);
+                string header = sr.ReadLine();
+                string status = header.Split('|')[5];
+                List<string> attachedFiles = new List<string>();
+
+                if (status == "SUCCES")
+                {
+                    foreach (Recipient r in order.Recipients)
                     {
-                        string line = sr.ReadLine();
-                        if (line.Contains("BB001"))
+                        foreach (Package p in r.Packages)
                         {
-                            string s = line.Split('|')[2];
-                            if (s == "OK")
+                            string line = sr.ReadLine();
+                            if (line.Contains("BB001"))
                             {
-                                p.Status = "SUCCESS";
-                                p.Pdf = Bpost.GeneratePdf(p, line.Split('|')[1]);
-                                attachedFiles.Add(HttpRuntime.AppDomainAppPath + p.Pdf);
-                            }
-                            else
-                            {
-                                p.Status = "FAIL";
+                                string s = line.Split('|')[2];
+                                if (s == "OK")
+                                {
+                                    p.Status = "SUCCESS";
+                                    p.Pdf = Bpost.GeneratePdf(p, line.Split('|')[1]);
+                                    attachedFiles.Add(HttpRuntime.AppDomainAppPath + p.Pdf);
+                                }
+                                else
+                                {
+                                    p.Status = "FAIL";
+                                }
                             }
                         }
+                        r.SuccessPaid = r.Packages.All(p => p.Status == "SUCCESS");
                     }
-                    r.SuccessPaid = r.Packages.All(p => p.Status == "SUCCESS");
+                    order.SuccessPaid = order.Recipients.All(r => r.SuccessPaid.Value);
                 }
-                order.SuccessPaid = order.Recipients.All(r => r.SuccessPaid.Value);
-            }
-            repo.Context.SaveChanges();
-            sr.Close();
+                repo.Context.SaveChanges();
+                sr.Close();
+            }            
         }
 
         repo.Context.SaveChanges();
